@@ -1,8 +1,6 @@
-"use client";
-
-import { useEffect } from "react";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 // import ThemeProvider from "@/theme/theme-provider";
 
 // 메타데이터는 별도의 파일이나 레이아웃 외부에 정의해야 합니다
@@ -17,29 +15,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    // 컴포넌트가 마운트(최초 렌더링)될 때 한 번만 실행되는 훅
-    // 로컬 스토리지에서 저장된 테마 확인
-    // 로컬 스토리지(localStorage)는 웹 브라우저에서 제공하는 클라이언트 측 저장소입니다. 다음과 같은 특징이 있습니다: 브라우저에 키-값 쌍을 저장할 수 있는 간단한 저장소입니다.
-    const savedTheme = localStorage.getItem("theme"); // 로컬 스토리지에서 'theme' 키로 저장된 값을 가져옴
-    const prefersDark = window.matchMedia(
-      // 사용자 시스템이 다크 모드를 선호하는지 확인
-      "(prefers-color-scheme: dark)" // CSS 미디어 쿼리로 시스템의 색상 테마 설정 확인
-    ).matches; // 일치하면 true 반환
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      // 다크 모드 적용 조건 검사
-      // 1. 저장된 테마가 'dark'인 경우 또는
-      // 2. 저장된 테마가 없고 시스템이 다크 모드를 선호하는 경우
-      document.documentElement.classList.add("dark"); // HTML 루트 요소에 'dark' 클래스 추가
-    } else {
-      // 라이트 모드 적용 조건
-      document.documentElement.classList.remove("dark"); // HTML 루트 요소에서 'dark' 클래스 제거
-    }
-  }, []); // 빈 배열은 이 효과가 컴포넌트 마운트(최초 렌더링) 시에만 실행되고 업데이트 시에는 실행되지 않음을 의미
-
   return (
     <html lang="en" className="dark:bg-black">
       <head>
@@ -47,7 +22,8 @@ export default function RootLayout({
         <meta name="description" content={metadata.description} />
       </head>
       <body>
-        <div className="max-w-[700px] mx-auto">
+        <div className="max-w-[620px] mx-auto">
+          {/* mx-auto : 좌우 여백 동일 */}
           {/* <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -56,6 +32,7 @@ export default function RootLayout({
           > */}
           <Navbar />
           {children}
+          <Footer />
           {/* </ThemeProvider> */}
         </div>
       </body>
