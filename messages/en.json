@@ -1,0 +1,29 @@
+{
+    "home": {
+        "featured": "Featured",
+        "timeToRead1": "",
+        "timeToRead2": " min read"
+    },
+    "menu": {
+        "items": {
+            "about": "About",
+            "blog": "Blog",
+            "stat": "Stat"
+        }
+    },
+    "footer": {
+        "total": "Total visitors",
+        "today": "Today visitors",
+        "source": "Source"
+    },
+    "blog": {
+        "title": "Title",
+        "tags": "Tags",
+        "timeToRead1": "Read in about ",
+        "timeToRead2": " min read",
+        "lastModifiedAt": "Last modified",
+        "publishedAt": "Published",
+        "viewCount": "View count",
+        "description": "Summary"
+    }
+}

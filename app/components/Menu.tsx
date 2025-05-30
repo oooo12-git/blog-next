@@ -1,13 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "../../i18n/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
-type MenuProps = {
-  interClass: string;
-};
+export default function Menu({ interClass }: { interClass: string }) {
+  const t = useTranslations("menu");
 
-export default function Menu({ interClass }: MenuProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -52,30 +51,30 @@ export default function Menu({ interClass }: MenuProps) {
   return (
     <div className="flex items-center">
       <div className="hidden sm:flex sm:items-center">
-        <div className={`font-light ${interClass}`}>
-          <ul className="flex items-center space-x-1">
+        <div className={`font-normal ${interClass}`}>
+          <ul className="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
             <li>
               <Link
                 href="/about"
-                className="px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800 "
               >
-                About
+                {t("items.about")}
               </Link>
             </li>
             <li>
               <Link
-                href="/learning"
-                className="px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                href="/blog"
+                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800"
               >
-                Learning
+                {t("items.blog")}
               </Link>
             </li>
             <li>
               <Link
-                href="/opinion"
-                className="px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                href="/stat"
+                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800"
               >
-                Opinion
+                {t("items.stat")}
               </Link>
             </li>
             <li>
@@ -102,7 +101,7 @@ export default function Menu({ interClass }: MenuProps) {
             <li>
               <button
                 onClick={toggleDarkMode}
-                className="px-3 py-2 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800"
                 aria-label="다크모드 토글"
               >
                 {isDarkMode ? (

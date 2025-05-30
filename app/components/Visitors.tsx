@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function Visitors() {
+  const tFooter = useTranslations("footer");
   const [visitors, setVisitors] = useState({ today: 0, total: 0 });
 
   useEffect(() => {
@@ -28,8 +30,12 @@ export default function Visitors() {
 
   return (
     <>
-      <div>Total Visitors: {visitors.total}</div>
-      <div>Today Visitors: {visitors.today}</div>
+      <div>
+        {tFooter("total")}: {visitors.total}
+      </div>
+      <div>
+        {tFooter("today")}: {visitors.today}
+      </div>
     </>
   );
 }

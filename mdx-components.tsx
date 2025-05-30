@@ -6,6 +6,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ children }) => (
       <h2 className="text-2xl font-bold mt-6 mb-4">{children}</h2>
     ),
+    h3: ({ children }) => (
+      <h3 className="text-xl font-bold mt-6 mb-4">{children}</h3>
+    ),
     strong: ({ children }) => <strong className="font-bold">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
     a: ({ href, children }) => (

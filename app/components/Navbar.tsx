@@ -7,7 +7,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export default function Navbar() {
+export default async function Navbar() {
   return (
     <nav className="bg-white dark:bg-black h-16 flex justify-between">
       <Logo interClass={inter.className} />

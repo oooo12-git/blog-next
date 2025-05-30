@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 // 중괄호 {}가 있으면: "이 모듈에서 특정 이름의 export를 가져와줘"
 import createMDX from "@next/mdx";
 // 중괄호가 없으면: "이 모듈의 기본(default) export를 가져와줘"
+import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -9,6 +10,8 @@ const nextConfig: NextConfig = {
   pageExtensions: ["md", "mdx", "ts", "tsx"],
   // Optionally, add any other Next.js config below
 };
+
+const withNextIntl = createNextIntlPlugin();
 
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
@@ -19,7 +22,7 @@ const withMDX = createMDX({
 // Turbopack does not currently support the extension option and therefore does not support .md files.
 
 // Merge MDX config with Next.js config
-export default withMDX(nextConfig);
+export default withNextIntl(withMDX(nextConfig));
 // // 내부적으로 이런 식으로 동작합니다
 // function withMDX(nextConfig) {
 //   return {
