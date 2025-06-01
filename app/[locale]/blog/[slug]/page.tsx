@@ -4,10 +4,11 @@ import { Metadata } from "next";
 
 import { getTranslations } from "next-intl/server";
 
-import { getPost, getPostSlugs } from "@/lib/utils";
+import { getPost, getPostSlugs, getPostViewCount } from "@/lib/utils";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import Tags from "@/app/components/Tags";
+import ViewCounter from "@/app/components/ViewCounter";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -18,6 +19,7 @@ export default async function Page({ params }: PageProps) {
   const { locale, slug } = await params;
 
   const { metadata } = await getPost(slug, locale);
+  const currentViewCount = await getPostViewCount(slug);
 
   const { default: Post } = await import(`@/contents/${slug}/${locale}.mdx`); // default: Post는 객체 구조 분해 할당(destructuring assignment) 문법. 아래 두 코드를 한 줄로 축약한 것.
   // // const mod = await import(`@/contents/${slug}.mdx`)
@@ -44,7 +46,12 @@ export default async function Page({ params }: PageProps) {
         <div>
           {t("publishedAt")}: {metadata.publishedAt}
         </div>
-        <div>{t("viewCount")}: 1000</div>
+        <ViewCounter
+          slug={slug}
+          locale={locale}
+          initialCount={currentViewCount}
+          viewCountLabel={t("viewCount")}
+        />
       </div>
 
       {/* <header> 태그를 사용한 이유:
