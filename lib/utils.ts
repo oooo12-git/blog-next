@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { supabase } from "./supabase";
 
 interface PostMetadata {
   title: string;
@@ -19,6 +20,13 @@ export interface Post {
 interface Posts {
   posts: Post[];
   totalPages: number;
+}
+
+// 조회수 관리를 위한 인터페이스 추가
+export interface PostView {
+  slug: string;
+  view_count: number;
+  last_viewed_at: string;
 }
 
 // MDX 파일의 읽기 시간을 자동으로 계산하는 함수
@@ -147,4 +155,85 @@ export async function getPosts(
       .slice(offset, limit === -1 ? posts.length : offset + limit),
     totalPages: Math.ceil(posts.length / (limit === -1 ? 1 : limit)),
   };
+}
+
+// 조회수 가져오기 함수
+export async function getPostViewCount(slug: string): Promise<number> {
+  try {
+    const { data, error } = await supabase
+      .from("post_views")
+      .select("view_count")
+      .eq("slug", slug)
+      .single();
+
+    if (error && error.code !== "PGRST116") {
+      // PGRST116은 "No rows found" 에러
+      console.error("Error fetching view count:", error);
+      return 0;
+    }
+
+    return data?.view_count || 0;
+  } catch (error) {
+    console.error("Error in getPostViewCount:", error);
+    return 0;
+  }
+}
+
+// 조회수 증가 함수
+export async function incrementPostViewCount(slug: string): Promise<number> {
+  try {
+    // 먼저 현재 조회수를 확인
+    const { data: existingData, error: selectError } = await supabase
+      .from("post_views")
+      .select("view_count")
+      .eq("slug", slug)
+      .single();
+
+    if (selectError && selectError.code !== "PGRST116") {
+      console.error("Error checking existing view count:", selectError);
+      return 0;
+    }
+
+    if (existingData) {
+      // 기존 레코드가 있으면 업데이트
+      const newCount = existingData.view_count + 1;
+      const { data, error } = await supabase
+        .from("post_views")
+        .update({
+          view_count: newCount,
+          last_viewed_at: new Date().toISOString(),
+        })
+        .eq("slug", slug)
+        .select("view_count")
+        .single();
+
+      if (error) {
+        console.error("Error updating view count:", error);
+        return existingData.view_count;
+      }
+
+      return data.view_count;
+    } else {
+      // 새 레코드 생성
+      const { data, error } = await supabase
+        .from("post_views")
+        .insert({
+          slug,
+          view_count: 1,
+          last_viewed_at: new Date().toISOString(),
+        })
+        .select("view_count")
+        .single();
+
+      if (error) {
+        console.error("Error creating view count record:", error);
+        return 0;
+      }
+
+      return data.view_count;
+    }
+  } catch (error) {
+    console.error("Error in incrementPostViewCount:", error);
+    return 0;
+  }
 }
