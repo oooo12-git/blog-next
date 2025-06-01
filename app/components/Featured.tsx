@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "../../i18n/navigation";
 import { getPost } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 
@@ -27,7 +27,7 @@ export async function FeaturedPost({
             priority
           />
         </div>
-        <div className="w-[350px] h-[250px] flex flex-col gap-2">
+        <div className="w-[430px] h-[250px] flex flex-col gap-2">
           <h2 className="text-base font-semibold">{t("featured")}</h2>
           <p className="text-base font-light">
             {featuredMetadata.metadata.title}

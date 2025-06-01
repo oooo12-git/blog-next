@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "../../i18n/navigation";
 import { getPosts } from "@/lib/utils";
 // import { getBlogPosts, formatDate } from "@/app/[locale]/blog/utils";
 
