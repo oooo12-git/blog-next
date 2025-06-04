@@ -1,5 +1,9 @@
 import { Link } from "../../i18n/navigation";
-import { getPosts } from "@/lib/utils";
+import { Inter } from "next/font/google";
+import { getPosts, getPopularPosts, PostWithViewCount } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export async function BlogPosts({
   params,
@@ -9,14 +13,16 @@ export async function BlogPosts({
   const { locale } = await params;
   const upperPosts = await getPosts(locale, 3);
 
+  const t = await getTranslations("blog");
+
   return (
-    <div className="border-b-1 pb-2">
+    <div className={`border-b-1 pb-2 ${inter.className}`}>
       <div className="flex font-light mb-2 text-sm justify-between">
         <div className="flex items-center justify-center w-[100px] border-b-1 h-8">
-          Date
+          {t("date")}
         </div>
         <div className="flex items-center justify-center w-[550px] border-b-1 h-8">
-          Title
+          {t("title")}
         </div>
       </div>
       <div className="flex flex-col space-y-1">
@@ -36,6 +42,53 @@ export async function BlogPosts({
               {/* truncate: 제목이 컨테이너의 너비를 초과할 경우 자동으로 말줄임표(...) 표시 */}
               <p className="w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
                 {post.metadata.title}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export async function PopularPosts({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const popularPosts = await getPopularPosts(locale, 10);
+  const t = await getTranslations("blog");
+
+  return (
+    <div className={`border-b-1 pb-2 ${inter.className}`}>
+      <div className="flex font-light mb-2 text-sm justify-between">
+        <div className="flex items-center justify-center w-[100px] border-b-1 h-8">
+          {t("date")}
+        </div>
+        <div className="flex items-center justify-center w-[450px] border-b-1 h-8">
+          {t("title")}
+        </div>
+        <div className="flex items-center justify-center w-[100px] border-b-1 h-8">
+          {t("views")}
+        </div>
+      </div>
+      <div className="flex flex-col space-y-1">
+        {popularPosts.posts.map((post: PostWithViewCount) => (
+          <Link
+            key={post.slug}
+            className="flex flex-col"
+            href={`/blog/${post.slug}`}
+          >
+            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2 items-center justify-between">
+              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums font-thin text-xs text-center">
+                {post.metadata.publishedAt}
+              </p>
+              <p className="w-[450px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
+                {post.metadata.title}
+              </p>
+              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums font-thin text-xs text-center">
+                {post.viewCount.toLocaleString()}
               </p>
             </div>
           </Link>

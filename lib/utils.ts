@@ -29,6 +29,16 @@ export interface PostView {
   last_viewed_at: string;
 }
 
+// 조회수 정보를 포함한 포스트 인터페이스
+export interface PostWithViewCount extends Post {
+  viewCount: number;
+}
+
+interface PostsWithViewCount {
+  posts: PostWithViewCount[];
+  totalPages: number;
+}
+
 // MDX 파일의 읽기 시간을 자동으로 계산하는 함수
 function calculateReadingTime(content: string): number {
   // MDX 메타데이터 제거 (export const metadata = {...} 부분)
@@ -324,4 +334,30 @@ export async function getRecentTags(
   }
 
   return recentTags;
+}
+
+// viewCount 기준으로 인기글을 가져오는 함수
+export async function getPopularPosts(
+  locale: string,
+  limit = 10
+): Promise<PostsWithViewCount> {
+  const { posts } = await getPosts(locale);
+
+  // 모든 포스트의 조회수를 가져오고 정렬하기
+  const postsWithViewCount = await Promise.all(
+    posts.map(async (post) => ({
+      ...post,
+      viewCount: await getPostViewCount(post.slug),
+    }))
+  );
+
+  // 조회수 기준으로 내림차순 정렬
+  const popularPosts = postsWithViewCount
+    .sort((a, b) => b.viewCount - a.viewCount)
+    .slice(0, limit);
+
+  return {
+    posts: popularPosts,
+    totalPages: 1, // 인기글은 페이지네이션 없이 단일 페이지로 제공
+  };
 }
