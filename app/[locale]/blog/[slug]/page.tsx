@@ -1,14 +1,19 @@
 import { Metadata } from "next";
 // import { notFound } from "next/navigation";
 // import Image from "next/image";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 import { getTranslations } from "next-intl/server";
 
-import { getPost, getPostSlugs, getPostViewCount } from "@/lib/utils";
+import { getPost, getPosts, getPostSlugs, getPostViewCount } from "@/lib/utils";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import Tags from "@/app/components/Tags";
 import ViewCounter from "@/app/components/ViewCounter";
+import RelatedTagPosts from "@/app/components/RelatedTagPosts";
+import NotRelatedPosts from "@/app/components/NotRelatedPosts";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -26,42 +31,51 @@ export default async function Page({ params }: PageProps) {
   // // const Post = mod.default
   const t = await getTranslations("blog");
 
-  return (
-    <article className="mt-4">
-      {/* 타이틀, 태그 */}
-      <div className="flex items-center gap-3">
-        <h1 className="text-3xl font-bold">{metadata.title}</h1>
-        <Tags tags={metadata.tags} />
-      </div>
-      {/* 읽는데 걸리는 시간, 마지막 수정일, 처음 쓰여진 날, 이 글을 보러온 횟수 */}
-      <div className="mt-2 flex items-center justify-between text-sm text-[#706E6E] font-light">
-        <div>
-          {t("timeToRead1")}
-          {metadata.timeToRead}
-          {t("timeToRead2")}
-        </div>
-        <div>
-          {t("lastModifiedAt")}: {metadata.lastModifiedAt}
-        </div>
-        <div>
-          {t("publishedAt")}: {metadata.publishedAt}
-        </div>
-        <ViewCounter
-          slug={slug}
-          locale={locale}
-          initialCount={currentViewCount}
-          viewCountLabel={t("viewCount")}
-        />
-      </div>
+  // 모든 글을 가져와서 동일한 태그를 가진 글들을 필터링
+  const { posts } = await getPosts(locale);
 
-      {/* <header> 태그를 사용한 이유:
+  return (
+    <div className={`${inter.className}`}>
+      <article className="mt-4">
+        {/* 타이틀, 태그 */}
+        <div className="flex items-center gap-3">
+          <h1 className="text-3xl font-bold">{metadata.title}</h1>
+          <Tags tags={metadata.tags} />
+        </div>
+        {/* 읽는데 걸리는 시간, 마지막 수정일, 처음 쓰여진 날, 이 글을 보러온 횟수 */}
+        <div className="mt-2 flex items-center justify-between text-sm text-[#706E6E] font-light">
+          <div>
+            {t("timeToRead1")}
+            {metadata.timeToRead}
+            {t("timeToRead2")}
+          </div>
+          <div>
+            {t("lastModifiedAt")}: {metadata.lastModifiedAt}
+          </div>
+          <div>
+            {t("publishedAt")}: {metadata.publishedAt}
+          </div>
+          <ViewCounter
+            slug={slug}
+            locale={locale}
+            initialCount={currentViewCount}
+            viewCountLabel={t("viewCount")}
+          />
+        </div>
+
+        {/* <header> 태그를 사용한 이유:
 시맨틱적으로 문서나 섹션의 소개나 요약 내용을 나타내는 데 가장 적합합니다. */}
-      <header className="mt-4 mb-4 text-[#706E6E]">
-        <h2 className="text-xl font-semibold">{t("description")}</h2>
-        <p className="font-light">{metadata.description}</p>
-      </header>
-      <Post />
-    </article>
+        <header className="mt-4 mb-4 text-[#706E6E]">
+          <h2 className="text-xl font-semibold">{t("description")}</h2>
+          <p className="font-light">{metadata.description}</p>
+        </header>
+        <Post />
+      </article>
+
+      {/* 관련 글 컴포넌트 */}
+      <RelatedTagPosts tags={metadata.tags} posts={posts} currentSlug={slug} />
+      <NotRelatedPosts tags={metadata.tags} posts={posts} currentSlug={slug} />
+    </div>
   );
 }
 
