@@ -20,7 +20,7 @@ export default function Footer() {
         <Link href="/stat">{tMenu("items.stat")}</Link>
       </div>
       {/* 푸터 정보 섹션 */}
-      <div className="flex justify-between mt-3 px-30">
+      <div className="flex justify-between mt-3 mb-10 px-30">
         <Link href="/">KIM JAE HYUN</Link>
         {/* 방문자 수 표시 */}
         <Visitors />

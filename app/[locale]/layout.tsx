@@ -11,8 +11,8 @@ import Footer from "@/app/components/Footer";
 // 메타데이터는 별도의 파일이나 레이아웃 외부에 정의해야 합니다
 // 클라이언트 컴포넌트에서는 직접 메타데이터를 내보낼 수 없습니다
 const metadata = {
-  title: "김재현",
-  description: "김재현의 블로그",
+  title: "개발자 김재현의 블로그 Dev Jaehyun's Blog",
+  description: "개발자 김재현의 블로그 Dev Jaehyun's Blog",
 };
 
 export default async function LocaleLayout({

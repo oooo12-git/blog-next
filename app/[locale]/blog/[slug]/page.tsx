@@ -103,7 +103,7 @@ export async function generateMetadata({
       type: "article",
       title: metadata.title,
       description: metadata.description,
-      siteName: "Next.js i18n Starter Blog",
+      siteName: "Dev Jaehyun's Blog 개발자 김재현의 블로그 ",
       locale,
       publishedTime: metadata.publishedAt,
       modifiedTime: metadata.lastModifiedAt || metadata.publishedAt,
