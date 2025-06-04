@@ -361,3 +361,71 @@ export async function getPopularPosts(
     totalPages: 1, // 인기글은 페이지네이션 없이 단일 페이지로 제공
   };
 }
+
+// 검색 기능을 위한 함수
+export async function searchPosts(
+  locale: string,
+  query: string,
+  limit = 10
+): Promise<Post[]> {
+  if (!query.trim()) {
+    return [];
+  }
+
+  const postSlugs = getPostSlugs();
+  const searchQuery = query.toLowerCase().trim();
+
+  const posts = await Promise.all(
+    postSlugs.map(async (slug) => {
+      try {
+        const postData = await getPost(slug, locale);
+        return { ...postData, slug };
+      } catch (error) {
+        console.error(`Error loading post ${slug}:`, error);
+        return null;
+      }
+    })
+  );
+
+  const validPosts = posts.filter((post): post is Post => post !== null);
+
+  // 제목, 설명, 태그에서 검색
+  const matchedPosts = validPosts.filter((post) => {
+    const titleMatch = post.metadata.title.toLowerCase().includes(searchQuery);
+    const descriptionMatch = post.metadata.description
+      .toLowerCase()
+      .includes(searchQuery);
+    const tagsMatch = post.metadata.tags.some((tag) =>
+      tag.toLowerCase().includes(searchQuery)
+    );
+
+    return titleMatch || descriptionMatch || tagsMatch;
+  });
+
+  // 관련성 점수 계산 (제목 > 설명 > 태그 순으로 우선순위)
+  const scoredPosts = matchedPosts.map((post) => {
+    let score = 0;
+    const title = post.metadata.title.toLowerCase();
+    const description = post.metadata.description.toLowerCase();
+
+    if (title.includes(searchQuery)) {
+      score += title.indexOf(searchQuery) === 0 ? 10 : 5; // 제목 시작일 때 더 높은 점수
+    }
+    if (description.includes(searchQuery)) {
+      score += 3;
+    }
+    if (
+      post.metadata.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
+    ) {
+      score += 1;
+    }
+
+    return { post, score };
+  });
+
+  // 점수순으로 정렬하고 제한된 개수만 반환
+  return scoredPosts
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.post);
+}

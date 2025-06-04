@@ -7,11 +7,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export default async function Navbar() {
+interface NavbarProps {
+  locale?: string;
+}
+
+export default async function Navbar({ locale = "ko" }: NavbarProps) {
   return (
     <nav className="bg-white dark:bg-black h-16 flex justify-between">
       <Logo interClass={inter.className} />
-      <Search interClass={inter.className} />
+      <Search interClass={inter.className} locale={locale} />
       <Menu interClass={inter.className} />
     </nav>
   );
