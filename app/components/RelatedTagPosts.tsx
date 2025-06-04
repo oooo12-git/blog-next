@@ -43,13 +43,15 @@ export default function RelatedTagPosts({
         if (tagPosts.length === 0) return null;
 
         return (
-          <div key={tag} className={`mt-8`}>
-            <div className="flex flex-col rounded-md border-[0.5px] p-4">
+          <div key={tag} className="mt-8 mx-2 sm:mx-0">
+            <div className="flex flex-col rounded-md border-[0.5px] p-3 sm:p-4">
               <div className="flex items-center gap-2 mb-4">
-                <span className="border-[0.5px] bg-[#ECEAEA] px-2 py-1 rounded-md text-sm text-[#706E6E]">
+                <span className="border-[0.5px] bg-[#ECEAEA] px-2 py-1 rounded-md text-xs sm:text-sm text-[#706E6E]">
                   {tag}
                 </span>
-                <h3 className="text-lg font-semibold text-[#333]">최신 글</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-[#333]">
+                  최신 글
+                </h3>
               </div>
 
               <div className="flex flex-col space-y-1">
@@ -59,11 +61,11 @@ export default function RelatedTagPosts({
                     href={`/blog/${post.slug}`}
                     className="flex flex-col"
                   >
-                    <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2 items-center justify-between">
+                    <div className="w-full flex flex-row space-x-2 items-center justify-between">
                       <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums font-thin text-xs text-center">
                         {post.metadata.publishedAt}
                       </p>
-                      <p className="w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
+                      <p className="w-[250px] sm:w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
                         {post.metadata.title}
                       </p>
                     </div>

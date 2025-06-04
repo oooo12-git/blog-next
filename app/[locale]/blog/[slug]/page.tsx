@@ -36,24 +36,24 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className={`${inter.className}`}>
-      <article className="mt-4">
+      <article className="mt-4 px-2 sm:px-0">
         {/* 타이틀, 태그 */}
-        <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold">{metadata.title}</h1>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <h1 className="text-2xl sm:text-3xl font-bold">{metadata.title}</h1>
           <Tags tags={metadata.tags} />
         </div>
         {/* 읽는데 걸리는 시간, 마지막 수정일, 처음 쓰여진 날, 이 글을 보러온 횟수 */}
-        <div className="mt-2 flex items-center justify-between text-sm text-[#706E6E] font-light">
+        <div className="mt-3 sm:mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-xs sm:text-sm text-[#706E6E] font-light">
           <div>
             {t("timeToRead1")}
             {metadata.timeToRead}
             {t("timeToRead2")}
           </div>
           <div>
-            {t("lastModifiedAt")}: {metadata.lastModifiedAt}
+            {t("publishedAt")}: {metadata.publishedAt}
           </div>
           <div>
-            {t("publishedAt")}: {metadata.publishedAt}
+            {t("lastModifiedAt")}: {metadata.lastModifiedAt}
           </div>
           <ViewCounter
             slug={slug}
@@ -65,11 +65,17 @@ export default async function Page({ params }: PageProps) {
 
         {/* <header> 태그를 사용한 이유:
 시맨틱적으로 문서나 섹션의 소개나 요약 내용을 나타내는 데 가장 적합합니다. */}
-        <header className="mt-4 mb-4 text-[#706E6E]">
-          <h2 className="text-xl font-semibold">{t("description")}</h2>
-          <p className="font-light">{metadata.description}</p>
+        <header className="mt-4 mb-4 text-[#706E6E] px-1 sm:px-0">
+          <h2 className="text-lg sm:text-xl font-semibold">
+            {t("description")}
+          </h2>
+          <p className="font-light text-sm sm:text-base">
+            {metadata.description}
+          </p>
         </header>
-        <Post />
+        <div className="px-1 sm:px-0">
+          <Post />
+        </div>
       </article>
 
       {/* 관련 글 컴포넌트 */}

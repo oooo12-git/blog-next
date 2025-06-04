@@ -29,13 +29,13 @@ export default function Visitors() {
   }, []); // 빈 의존성 배열: 컴포넌트 마운트 시 한 번만 실행
 
   return (
-    <>
+    <div className="flex flex-row space-x-3 sm:space-x-8">
       <div>
         {tFooter("total")}: {visitors.total}
       </div>
       <div>
         {tFooter("today")}: {visitors.today}
       </div>
-    </>
+    </div>
   );
 }

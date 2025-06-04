@@ -69,7 +69,7 @@ export default async function TagPage({ params }: PageProps) {
                 className="border-[0.5px] border-black bg-white rounded-md p-6 hover:bg-[#DDDCDC] transition-colors duration-200"
               >
                 <Link href={`/${locale}/blog/${post.slug}`} className="block">
-                  <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 transition-colors">
+                  <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 transition-colors truncate">
                     {post.metadata.title}
                   </h2>
 
@@ -77,14 +77,16 @@ export default async function TagPage({ params }: PageProps) {
                     {post.metadata.description}
                   </p>
 
-                  <div className="flex items-center justify-between text-sm text-[#706E6E]">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 text-sm text-[#706E6E]">
                     <div className="flex items-center gap-4">
                       <span>읽기시간: {post.metadata.timeToRead}분</span>
                       <span>발행일: {post.metadata.publishedAt}</span>
                     </div>
 
                     {/* 태그들 */}
-                    <Tags tags={post.metadata.tags} />
+                    <div className="flex justify-start sm:justify-end">
+                      <Tags tags={post.metadata.tags} />
+                    </div>
                   </div>
                 </Link>
               </article>

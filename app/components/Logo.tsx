@@ -17,12 +17,12 @@ export default function Logo({ interClass }: LogoProps) {
       <Link href="/" className="flex-shrink-0 flex items-center">
         <header className="flex flex-col items-center">
           <h1
-            className={`text-2xl ${rocknRollOne.className} text-gray-900 dark:text-white`}
+            className={`text-lg sm:text-2xl ${rocknRollOne.className} text-gray-900 dark:text-white`}
           >
             金宰賢
           </h1>
           <h2
-            className={`text-xs text-gray-700 dark:text-gray-300 ${interClass}`}
+            className={`text-xs sm:text-xs text-gray-700 dark:text-gray-300 ${interClass} leading-tight`}
           >
             KIM JAE HYUN
           </h2>

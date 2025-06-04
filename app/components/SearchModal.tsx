@@ -107,7 +107,7 @@ export default function SearchModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-16 px-2 sm:px-0">
       {/* 오버레이 */}
       <div
         className="fixed inset-0 bg-white/10 dark:bg-black/10 backdrop-blur-sm"
@@ -115,12 +115,12 @@ export default function SearchModal({
       />
 
       {/* 모달 */}
-      <div className="relative w-full max-w-2xl mx-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-black dark:border-gray-700">
+      <div className="relative w-full max-w-sm sm:max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-black dark:border-gray-700">
         {/* 검색 입력 */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center space-x-3">
+        <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <svg
-              className="w-5 h-5 text-gray-400"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -139,18 +139,18 @@ export default function SearchModal({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 text-lg bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500"
+              className="flex-1 text-base sm:text-lg bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500"
             />
             {isLoading && (
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 dark:border-gray-100"></div>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 dark:border-gray-100 flex-shrink-0"></div>
             )}
           </div>
         </div>
 
         {/* 검색 결과 */}
-        <div className="max-h-96 overflow-y-auto">
+        <div className="max-h-64 sm:max-h-96 overflow-y-auto">
           {query.trim() && !isLoading && results.length === 0 && (
-            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+            <div className="p-6 sm:p-8 text-center text-gray-500 dark:text-gray-400">
               검색 결과가 없습니다.
             </div>
           )}
@@ -158,7 +158,7 @@ export default function SearchModal({
           {results.map((post, index) => (
             <div
               key={post.slug}
-              className={`p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-colors ${
+              className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-colors ${
                 selectedIndex === index
                   ? "bg-gray-100 dark:bg-gray-700"
                   : "hover:bg-gray-50 dark:hover:bg-gray-750"
@@ -166,21 +166,23 @@ export default function SearchModal({
               onClick={() => handlePostClick(post.slug)}
             >
               <div className="flex flex-col space-y-1">
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
+                <h3 className="font-medium text-sm sm:text-base text-gray-900 dark:text-gray-100 line-clamp-2">
                   {highlightText(post.metadata.title, query)}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                   {highlightText(post.metadata.description, query)}
                 </p>
-                <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center flex-wrap gap-1 sm:gap-2 text-xs text-gray-500 dark:text-gray-400">
                   <span>{post.metadata.publishedAt}</span>
-                  <span>•</span>
-                  <span>{post.metadata.timeToRead}분 읽기</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="sm:inline hidden">
+                    {post.metadata.timeToRead}분 읽기
+                  </span>
                   {post.metadata.tags.length > 0 && (
                     <>
-                      <span>•</span>
-                      <div className="flex space-x-1">
-                        {post.metadata.tags.slice(0, 3).map((tag, idx) => (
+                      <span className="hidden sm:inline">•</span>
+                      <div className="flex flex-wrap gap-1">
+                        {post.metadata.tags.slice(0, 2).map((tag, idx) => (
                           <span
                             key={idx}
                             className="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-600 rounded text-xs"
@@ -198,9 +200,9 @@ export default function SearchModal({
         </div>
 
         {/* 도움말 */}
-        <div className="p-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
+        <div className="p-2 sm:p-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
           <div className="flex justify-between">
-            <div>
+            <div className="hidden sm:block">
               <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded">
                 ↑↓
               </kbd>{" "}
@@ -214,6 +216,7 @@ export default function SearchModal({
               </kbd>{" "}
               닫기
             </div>
+            <div className="sm:hidden text-center w-full">탭하여 선택</div>
           </div>
         </div>
       </div>

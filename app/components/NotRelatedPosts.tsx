@@ -106,10 +106,12 @@ export default function NotRelatedPosts({
   if (allNotRelatedPosts.length === 0) return null;
 
   return (
-    <div className="mt-8">
-      <div className="flex flex-col rounded-md border-[0.5px] p-4">
+    <div className="mt-8 mx-2 sm:mx-0">
+      <div className="flex flex-col rounded-md border-[0.5px] p-3 sm:p-4">
         <div className="flex items-center gap-2 mb-4">
-          <h3 className="text-lg font-semibold text-[#333]">다른 글</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-[#333]">
+            다른 글
+          </h3>
         </div>
 
         <div className="flex flex-col space-y-1">
@@ -119,11 +121,11 @@ export default function NotRelatedPosts({
               href={`/blog/${post.slug}`}
               className="flex flex-col"
             >
-              <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2 items-center justify-between">
+              <div className="w-full flex flex-row space-x-2 items-center justify-between">
                 <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums font-thin text-xs text-center">
                   {post.metadata.publishedAt}
                 </p>
-                <p className="w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
+                <p className="w-[250px] sm:w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
                   {post.metadata.title}
                 </p>
               </div>
@@ -143,7 +145,7 @@ export default function NotRelatedPosts({
 
         {/* 더 이상 로드할 글이 없을 때 */}
         {!hasMore && allNotRelatedPosts.length > 10 && (
-          <div className="text-center mt-4 text-sm text-gray-500">
+          <div className="text-center mt-4 text-xs sm:text-sm text-gray-500">
             모든 글을 불러왔습니다.
           </div>
         )}

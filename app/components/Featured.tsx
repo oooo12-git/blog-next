@@ -14,30 +14,32 @@ export async function FeaturedPost({
 
   return (
     <Link href={`/blog/${featuredMetadata.slug}`}>
-      <div className="flex justify-between py-7">
-        <div className="relative w-[250px] h-[250px]">
+      <div className="flex flex-col sm:flex-row sm:justify-between py-4 sm:py-7 space-y-4 sm:space-y-0 hover:bg-gray-50 dark:hover:bg-gray-800 p-3 sm:p-0 rounded-lg transition-colors">
+        <div className="relative w-full h-48 sm:w-[250px] sm:h-[250px] flex-shrink-0">
           <Image
             src={
               featuredMetadata.metadata.heroImage ||
               "/images/default-featured.jpg"
-            } // public 폴더는 Next.js에서 정적 파일을 제공하는 특별한 폴더입니다. 이 폴더 안의 파일들은 웹사이트의 루트 경로(/)에서 직접 접근할 수 있습니다.
+            }
             alt="Featured post image"
             fill
-            className="object-cover"
+            className="object-cover rounded-md"
             priority
           />
         </div>
-        <div className="w-[430px] h-[250px] flex flex-col gap-2">
-          <h2 className="text-base font-semibold">{t("featured")}</h2>
-          <p className="text-base font-light">
+        <div className="w-full sm:w-[430px] sm:h-[250px] flex flex-col gap-3 sm:gap-2">
+          <h2 className="text-lg sm:text-base font-semibold">
+            {t("featured")}
+          </h2>
+          <p className="text-base font-light line-clamp-2 sm:line-clamp-none">
             {featuredMetadata.metadata.title}
           </p>
-          <p className="text-xs font-light text-neutral-500">
+          <p className="text-sm sm:text-xs font-light text-neutral-500">
             {t("timeToRead1")}
             {featuredMetadata.metadata.timeToRead}
             {t("timeToRead2")}
           </p>
-          <p className="text-xs font-light">
+          <p className="text-sm sm:text-xs font-light text-neutral-600 dark:text-neutral-400 line-clamp-3 sm:line-clamp-none">
             {featuredMetadata.metadata.description}
           </p>
         </div>
