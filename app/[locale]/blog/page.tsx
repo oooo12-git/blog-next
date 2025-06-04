@@ -1,4 +1,5 @@
 import { getAllTags, getTagCounts, getRecentTags } from "@/lib/utils";
+import Link from "next/link";
 
 interface BlogPageProps {
   params: {
@@ -7,7 +8,7 @@ interface BlogPageProps {
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
-  const { locale } = params;
+  const { locale } = await params;
 
   // 모든 태그, 태그별 포스트 개수, 최근 태그 가져오기
   const [allTags, tagCounts, recentTags] = await Promise.all([
@@ -23,15 +24,16 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <h2 className="text-2xl font-semibold mb-6">최근 태그</h2>
         <div className="flex flex-wrap gap-3">
           {recentTags.map((tag) => (
-            <div
+            <Link
               key={tag}
+              href={`/${locale}/blog/tag/${encodeURIComponent(tag)}`}
               className="border-[0.5px] border-black bg-white px-3 py-2 rounded-md text-sm text-black hover:bg-[#DDDCDC] transition-colors duration-200"
             >
               <span className="mr-2">{tag}</span>
               <span className="bg-white bg-opacity-10 px-2 py-0.5 rounded-full text-xs border-[0.5px] border-black">
                 {tagCounts[tag]}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -45,8 +47,9 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <h2 className="text-2xl font-semibold mb-6">모든 태그</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {allTags.map((tag) => (
-            <div
+            <Link
               key={tag}
+              href={`/${locale}/blog/tag/${encodeURIComponent(tag)}`}
               className="border-[0.5px] border-black bg-white rounded-md p-4 hover:bg-[#DDDCDC] transition-colors duration-200"
             >
               <div className="flex justify-between items-center">
@@ -57,7 +60,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                   {tagCounts[tag]}개 포스트
                 </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
