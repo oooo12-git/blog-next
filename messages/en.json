@@ -2,7 +2,9 @@
     "home": {
         "featured": "Featured",
         "timeToRead1": "",
-        "timeToRead2": " min read"
+        "timeToRead2": " min read",
+        "date": "Date",
+        "title": "Title"
     },
     "menu": {
         "items": {
@@ -17,6 +19,18 @@
         "source": "Source"
     },
     "blog": {
+        "recentTags": "Recent Tags",
+        "popularPosts": "Popular Posts",
+        "allTags": "All Tags",
+        "tagStats": "Tag Stats",
+        "date": "Date",
+        "title": "Title",
+        "views": "Views",
+        "posts": "posts",
+        "totalTags1": "Total",
+        "totalTags2": " unique tags"
+    },
+    "content": {
         "title": "Title",
         "tags": "Tags",
         "timeToRead1": "Read in about ",

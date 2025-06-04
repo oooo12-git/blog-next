@@ -29,7 +29,7 @@ export default async function Page({ params }: PageProps) {
   const { default: Post } = await import(`@/contents/${slug}/${locale}.mdx`); // default: Post는 객체 구조 분해 할당(destructuring assignment) 문법. 아래 두 코드를 한 줄로 축약한 것.
   // // const mod = await import(`@/contents/${slug}.mdx`)
   // // const Post = mod.default
-  const t = await getTranslations("blog");
+  const t = await getTranslations("content");
 
   // 모든 글을 가져와서 동일한 태그를 가진 글들을 필터링
   const { posts } = await getPosts(locale);

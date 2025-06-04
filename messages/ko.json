@@ -2,7 +2,9 @@
     "home": {
         "featured": "추천 글",
         "timeToRead1": "읽는데 약 ",
-        "timeToRead2": "분 정도 소요"
+        "timeToRead2": "분 정도 소요",
+        "date": "날짜",
+        "title": "제목"
     },
     "menu": {
         "items": {
@@ -17,6 +19,18 @@
         "source": "소스코드"
     },
     "blog": {
+        "recentTags": "최근 태그",
+        "popularPosts": "인기글",
+        "allTags": "모든 태그",
+        "tagStats": "태그 통계",
+        "date": "날짜",
+        "title": "제목",
+        "views": "조회수",
+        "posts": "개 포스트",
+        "totalTags1": "총",
+        "totalTags2": "개의 고유한 태그가 있습니다."
+    },
+    "content": {
         "title": "제목",
         "tags": "태그",
         "timeToRead1": "읽는데 약 ",
