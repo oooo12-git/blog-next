@@ -237,3 +237,91 @@ export async function incrementPostViewCount(slug: string): Promise<number> {
     return 0;
   }
 }
+
+// 모든 태그를 가져오는 함수
+export async function getAllTags(locale: string): Promise<string[]> {
+  const { posts } = await getPosts(locale);
+
+  // 모든 포스트의 태그를 수집
+  const allTags = posts.reduce<string[]>((tags, post) => {
+    return [...tags, ...post.metadata.tags];
+  }, []);
+
+  // 중복 제거 후 알파벳 순으로 정렬
+  return [...new Set(allTags)].sort();
+}
+
+// 특정 태그를 가진 포스트들을 가져오는 함수
+export async function getPostsByTag(
+  locale: string,
+  tag: string,
+  limit = -1,
+  offset = 0
+): Promise<Posts> {
+  const { posts } = await getPosts(locale);
+
+  // 특정 태그를 가진 포스트들만 필터링
+  const filteredPosts = posts.filter((post) =>
+    post.metadata.tags.includes(tag)
+  );
+
+  return {
+    posts: filteredPosts.slice(
+      offset,
+      limit === -1 ? filteredPosts.length : offset + limit
+    ),
+    totalPages: Math.ceil(filteredPosts.length / (limit === -1 ? 1 : limit)),
+  };
+}
+
+// 태그별 포스트 개수를 가져오는 함수
+export async function getTagCounts(
+  locale: string
+): Promise<Record<string, number>> {
+  const { posts } = await getPosts(locale);
+
+  const tagCounts: Record<string, number> = {};
+
+  posts.forEach((post) => {
+    post.metadata.tags.forEach((tag) => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  return tagCounts;
+}
+
+// 최근 쓰여진 태그를 가져오는 함수 (최대 6개)
+export async function getRecentTags(
+  locale: string,
+  limit = 6
+): Promise<string[]> {
+  const { posts } = await getPosts(locale);
+
+  // 최신 포스트 순으로 정렬 (이미 getPosts에서 정렬되어 있지만 명시적으로)
+  const sortedPosts = posts.sort(
+    (a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime()
+  );
+
+  const recentTags: string[] = [];
+  const seenTags = new Set<string>();
+
+  // 최신 포스트부터 순회하면서 새로운 태그들을 수집
+  for (const post of sortedPosts) {
+    for (const tag of post.metadata.tags) {
+      if (!seenTags.has(tag)) {
+        recentTags.push(tag);
+        seenTags.add(tag);
+
+        // 원하는 개수에 도달하면 중단
+        if (recentTags.length >= limit) {
+          return recentTags;
+        }
+      }
+    }
+  }
+
+  return recentTags;
+}
