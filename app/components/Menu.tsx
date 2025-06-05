@@ -58,11 +58,11 @@ export default function Menu({ interClass }: { interClass: string }) {
       {/* 데스크탑 메뉴 */}
       <div className="hidden sm:flex sm:items-center">
         <div className={`font-normal ${interClass}`}>
-          <ul className="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+          <ul className="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300">
             <li>
               <Link
                 href="/about"
-                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800 "
+                className="px-3 py-2 rounded-md dark:hover:text-gray-400"
               >
                 {t("items.about")}
               </Link>
@@ -70,7 +70,7 @@ export default function Menu({ interClass }: { interClass: string }) {
             <li>
               <Link
                 href="/blog"
-                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="px-3 py-2 rounded-md dark:hover:text-gray-400"
               >
                 {t("items.blog")}
               </Link>
@@ -78,7 +78,7 @@ export default function Menu({ interClass }: { interClass: string }) {
             <li>
               <Link
                 href="/stat"
-                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="px-3 py-2 rounded-md dark:hover:text-gray-400"
               >
                 {t("items.stat")}
               </Link>
@@ -91,7 +91,7 @@ export default function Menu({ interClass }: { interClass: string }) {
                 rel="noopener noreferrer"
               >
                 <svg
-                  className="rounded-md px-3 py-2 w-13 h-11 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                  className="rounded-md px-3 py-2 w-13 h-11 text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -107,7 +107,7 @@ export default function Menu({ interClass }: { interClass: string }) {
             <li>
               <button
                 onClick={toggleDarkMode}
-                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="px-3 py-2 rounded-md  hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
                 aria-label="다크모드 토글"
               >
                 {isDarkMode ? (

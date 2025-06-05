@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div className="px-4 my-2 sm:px-4">
+    <div className="px-4 my-2 sm:px-4 dark:text-white">
       <h2 className="text-2xl font-bold">안녕하세요 개발자 김재현입니다</h2>
       <ul className="my-2 ml-4 list-disc list-inside">
         <li>

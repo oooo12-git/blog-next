@@ -33,7 +33,7 @@ export default function Search({ interClass, locale = "ko" }: SearchProps) {
     <>
       <div className="flex items-center w-[120px] sm:w-[160px]">
         <div
-          className="flex items-center justify-center rounded-[10px] bg-[#ECEAEA] dark:bg-gray-800 border border-black border-opacity-50 h-[20px] sm:h-[23px] w-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          className="flex items-center justify-center rounded-[10px] bg-[#ECEAEA] gradient-hongkong-night border border-black border-opacity-50 h-[20px] sm:h-[23px] w-full cursor-pointer hover:bg-gray-200 transition-colors"
           onClick={handleClick}
         >
           <button type="button" className="h-full flex items-center px-1">

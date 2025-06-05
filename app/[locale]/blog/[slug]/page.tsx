@@ -39,11 +39,13 @@ export default async function Page({ params }: PageProps) {
       <article className="mt-4 px-2 sm:px-0">
         {/* 타이틀, 태그 */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-          <h1 className="text-2xl sm:text-3xl font-bold">{metadata.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            {metadata.title}
+          </h1>
           <Tags tags={metadata.tags} />
         </div>
         {/* 읽는데 걸리는 시간, 마지막 수정일, 처음 쓰여진 날, 이 글을 보러온 횟수 */}
-        <div className="mt-3 sm:mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-xs sm:text-sm text-[#706E6E] font-light">
+        <div className="mt-3 sm:mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-xs sm:text-sm text-[#706E6E] font-light dark:text-white">
           <div>
             {t("timeToRead1")}
             {metadata.timeToRead}
@@ -65,7 +67,7 @@ export default async function Page({ params }: PageProps) {
 
         {/* <header> 태그를 사용한 이유:
 시맨틱적으로 문서나 섹션의 소개나 요약 내용을 나타내는 데 가장 적합합니다. */}
-        <header className="mt-4 mb-4 text-[#706E6E] px-1 sm:px-0">
+        <header className="mt-4 mb-4 text-[#706E6E] px-1 sm:px-0 dark:text-gray-400">
           <h2 className="text-lg sm:text-xl font-semibold">
             {t("description")}
           </h2>

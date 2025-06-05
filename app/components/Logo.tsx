@@ -14,15 +14,15 @@ type LogoProps = {
 export default function Logo({ interClass }: LogoProps) {
   return (
     <div className="flex items-center">
-      <Link href="/" className="flex-shrink-0 flex items-center">
+      <Link href="/" className="flex-shrink-0 flex items-center group">
         <header className="flex flex-col items-center">
           <h1
-            className={`text-lg sm:text-2xl ${rocknRollOne.className} text-gray-900 dark:text-white`}
+            className={`text-lg sm:text-2xl ${rocknRollOne.className} text-gray-900 dark:text-white dark:group-hover:text-gray-200 transition-colors duration-200`}
           >
             金宰賢
           </h1>
           <h2
-            className={`text-xs sm:text-xs text-gray-700 dark:text-gray-300 ${interClass} leading-tight`}
+            className={`text-xs sm:text-xs text-gray-700 dark:text-gray-300 dark:group-hover:text-gray-400 ${interClass} leading-tight transition-colors duration-200`}
           >
             KIM JAE HYUN
           </h2>

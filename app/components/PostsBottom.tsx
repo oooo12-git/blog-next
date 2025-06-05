@@ -23,11 +23,11 @@ export async function BlogPostsBottom({
           >
             <div className="w-full flex flex-row space-x-2 items-center justify-between">
               {/* tabular-nums :  모든 숫자가 동일한 너비를 가지도록 합니다.  */}
-              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums font-thin text-xs text-center">
+              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums font-thin text-xs text-center dark:hover:text-gray-400">
                 {post.metadata.publishedAt}
               </p>
               {/* truncate: 제목이 컨테이너의 너비를 초과할 경우 자동으로 말줄임표(...) 표시 */}
-              <p className="w-[250px] sm:w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm">
+              <p className="w-[250px] sm:w-[550px] text-neutral-900 dark:text-neutral-100 tracking-tight truncate font-extralight text-sm dark:hover:text-gray-400">
                 {post.metadata.title}
               </p>
             </div>

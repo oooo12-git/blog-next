@@ -22,7 +22,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const t = await getTranslations("blog");
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8">
+    <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8 dark:text-white">
       {/* 최근 태그 섹션 */}
       <section className="mb-8 sm:mb-12">
         <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
@@ -33,10 +33,10 @@ export default async function BlogPage({ params }: BlogPageProps) {
             <Link
               key={tag}
               href={`/${locale}/blog/tag/${encodeURIComponent(tag)}`}
-              className="border-[0.5px] border-black bg-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm text-black hover:bg-[#DDDCDC] transition-colors duration-200"
+              className="border-[0.5px] border-black bg-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm text-black hover:bg-[#DDDCDC] transition-colors duration-200 dark:bg-gray-800 dark:border-0 dark:hover:bg-gray-700 dark:text-neutral-200"
             >
               <span className="mr-1 sm:mr-2">{tag}</span>
-              <span className="bg-white bg-opacity-10 px-1.5 sm:px-2 py-0.5 rounded-full text-xs border-[0.5px] border-black">
+              <span className="bg-white bg-opacity-10 px-1.5 sm:px-2 py-0.5 rounded-full text-xs border-[0.5px] border-black dark:bg-gray-600 dark:border-0">
                 {tagCounts[tag]}
               </span>
             </Link>
@@ -68,13 +68,13 @@ export default async function BlogPage({ params }: BlogPageProps) {
             <Link
               key={tag}
               href={`/${locale}/blog/tag/${encodeURIComponent(tag)}`}
-              className="border-[0.5px] border-black bg-white rounded-md p-3 sm:p-4 hover:bg-[#DDDCDC] transition-colors duration-200"
+              className="border-[0.5px] border-black bg-white rounded-md p-3 sm:p-4 hover:bg-[#DDDCDC] transition-colors duration-200 dark:bg-gray-800 dark:border-0 dark:hover:bg-gray-700 dark:text-neutral-200"
             >
               <div className="flex justify-between items-center">
-                <span className="text-base sm:text-lg font-medium text-[#706E6E] truncate w-[80px] sm:w-[90px]">
+                <span className="text-base sm:text-lg font-medium text-[#706E6E] truncate w-[80px] sm:w-[90px] dark:text-white">
                   {tag}
                 </span>
-                <span className="bg-white bg-opacity-10 text-[#706E6E] text-xs sm:text-sm font-medium px-2 sm:px-2.5 py-0.5 rounded-full border-[0.5px] border-black">
+                <span className="bg-white bg-opacity-10 text-[#706E6E] text-xs sm:text-sm font-medium px-2 sm:px-2.5 py-0.5 rounded-full border-[0.5px] border-black dark:text-white dark:bg-gray-600">
                   {tagCounts[tag]} {t("posts")}
                 </span>
               </div>
@@ -86,11 +86,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
           <p className="text-gray-500 italic text-sm">아직 태그가 없습니다.</p>
         )}
 
-        <div className="mt-6 sm:mt-8 p-3 sm:p-4 border-[0.5px] border-black bg-[#ECEAEA] rounded-md">
-          <h3 className="text-base sm:text-lg font-medium mb-2 text-[#706E6E]">
+        <div className="mt-6 sm:mt-8 p-3 sm:p-4 border-[0.5px] border-black bg-[#ECEAEA] rounded-md dark:border-neutral-400 dark:bg-black">
+          <h3 className="text-base sm:text-lg font-medium mb-2 text-[#706E6E] dark:text-neutral-200">
             {t("tagStats")}
           </h3>
-          <p className="text-sm sm:text-base text-[#706E6E]">
+          <p className="text-sm sm:text-base text-[#706E6E] dark:text-neutral-200">
             {t("totalTags1")} <strong>{allTags.length}</strong>
             {t("totalTags2")}
           </p>

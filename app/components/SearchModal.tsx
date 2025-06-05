@@ -115,12 +115,12 @@ export default function SearchModal({
       />
 
       {/* 모달 */}
-      <div className="relative w-full max-w-sm sm:max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-black dark:border-gray-700">
+      <div className="relative w-full max-w-sm sm:max-w-2xl bg-white gradient-hongkong-light rounded-lg shadow-xl border border-black dark:border-gray-700">
         {/* 검색 입력 */}
-        <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 ">
           <div className="flex items-center space-x-2 sm:space-x-3">
             <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 dark:text-gray-100 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -139,7 +139,7 @@ export default function SearchModal({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 text-base sm:text-lg bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500"
+              className="flex-1 text-base sm:text-lg bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-300"
             />
             {isLoading && (
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 dark:border-gray-100 flex-shrink-0"></div>
@@ -160,8 +160,8 @@ export default function SearchModal({
               key={post.slug}
               className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-colors ${
                 selectedIndex === index
-                  ? "bg-gray-100 dark:bg-gray-700"
-                  : "hover:bg-gray-50 dark:hover:bg-gray-750"
+                  ? "bg-gray-100 gradient-hongkong-light"
+                  : "hover:bg-gray-50 gradient-hongkong-subtle hover:gradient-hongkong-subtle"
               }`}
               onClick={() => handlePostClick(post.slug)}
             >
@@ -202,8 +202,8 @@ export default function SearchModal({
         {/* 도움말 */}
         <div className="p-2 sm:p-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
           <div className="flex justify-between">
-            <div className="hidden sm:block">
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded">
+            <div className="hidden sm:block dark:text-gray-300">
+              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded ">
                 ↑↓
               </kbd>{" "}
               탐색,{" "}
