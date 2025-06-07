@@ -13,6 +13,15 @@
             "stat": "통계"
         }
     },
+    "search": {
+        "placeholder": "블로그 포스트 검색...",
+        "explore": "탐색",
+        "select": "선택",
+        "close": "닫기",
+        "tab": "탭하여 선택",
+        "noResults": "검색 결과가 없습니다.",
+        "timeToRead": "분 읽기"
+    },
     "footer": {
         "total": "총 방문자",
         "today": "오늘 방문자",
@@ -39,5 +48,30 @@
         "publishedAt": "처음 쓰여진 날",
         "viewCount": "이 글을 보러온 횟수",
         "description": "요약"
+    },
+    "relatedPosts": {
+        "latestPosts": "최근 글"
+    },
+    "notRelatedPosts": {
+        "notRelatedPosts": "다른 글",
+        "allPostsLoaded": "모든 글을 불러왔습니다."
+    },
+    "about": {
+        "title": "안녕하세요 개발자 김재현입니다",
+        "education": "서강대학교 기계공학/ 경영학 졸업",
+        "experience": "디지털 마케팅 경력 3년",
+        "training": "서울대학교 빅데이터 핀테크 AI 전문가 과정 이수",
+        "skills": "Nextjs, React, Python, LangGraph, SQL",
+        "certificates": "재무위험관리사, SQLD, ADsP, AICE associate"
+    },
+    "tag": {
+        "title": "태그",
+        "tagPostsNumber": "개의 포스트",
+        "timeToRead1": "읽는데 약 ",
+        "timeToRead2": "분 정도 소요",
+        "publishedAt": "처음 쓰여진 날",
+        "tagInfo": "태그 정보",
+        "tagCount1": "태그가 포함된 포스트는 총 ",
+        "tagCount2": "개입니다."
     }
 }

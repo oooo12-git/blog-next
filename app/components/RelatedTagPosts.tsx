@@ -1,4 +1,9 @@
+// RelatedTagPosts 컴포넌트는 직접적으로 "use client" 지시어가 없지만, 실제로는 클라이언트 컴포넌트입니다. 이는 다음과 같은 이유 때문입니다:
+// @/i18n/navigation의 Link 컴포넌트를 사용하고 있는데, 이 컴포넌트는 클라이언트 전용 컴포넌트입니다
+// 클라이언트 컴포넌트에서 import된 컴포넌트는 자동으로 클라이언트 컴포넌트가 됩니다
+
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface Post {
   slug: string;
@@ -21,6 +26,7 @@ export default function RelatedTagPosts({
   posts,
   currentSlug,
 }: RelatedTagPostsProps) {
+  const t = useTranslations("relatedPosts");
   // 각 태그별로 관련글을 필터링하는 함수
   const getPostsByTag = (tag: string) => {
     return posts
@@ -50,7 +56,7 @@ export default function RelatedTagPosts({
                   {tag}
                 </span>
                 <h3 className="text-base sm:text-lg font-semibold text-[#333] dark:text-neutral-200">
-                  최신 글
+                  {t("latestPosts")}
                 </h3>
               </div>
 

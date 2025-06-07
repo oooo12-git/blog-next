@@ -6,6 +6,7 @@ import { getAllTags, getPostsByTag, getTagCounts } from "@/lib/utils";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import Tags from "@/app/components/Tags";
+import { getTranslations } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ interface PageProps {
 
 export default async function TagPage({ params }: PageProps) {
   const { locale, slug: tagSlug } = await params;
-
+  const t = await getTranslations("tag");
   // URL 디코딩 (한글 태그 처리)
   const decodedTag = decodeURIComponent(tagSlug);
 
@@ -45,10 +46,10 @@ export default async function TagPage({ params }: PageProps) {
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
             <h1 className="text-3xl font-bold dark:text-neutral-200">
-              태그: {decodedTag}
+              {t("title")}: {decodedTag}
             </h1>
             <span className="bg-black text-white px-3 py-1 rounded-full text-sm dark:bg-gray-800 dark:text-neutral-200">
-              {tagCount}개의 포스트
+              {tagCount} {t("tagPostsNumber")}
             </span>
           </div>
 
@@ -71,7 +72,7 @@ export default async function TagPage({ params }: PageProps) {
                 className="border-[0.5px] border-black bg-white rounded-md p-6 hover:bg-[#DDDCDC] transition-colors duration-200 dark:bg-black dark:border-neutral-200 dark:hover:bg-gray-900"
               >
                 <Link href={`/${locale}/blog/${post.slug}`} className="block">
-                  <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 transition-colors truncate dark:hover:text-gray-300 dark:text-neutral-200">
+                  <h2 className="text-xl font-semibold mb-2 hover:text-gray-600 transition-colors truncate dark:hover:text-gray-300 dark:text-neutral-200">
                     {post.metadata.title}
                   </h2>
 
@@ -79,10 +80,16 @@ export default async function TagPage({ params }: PageProps) {
                     {post.metadata.description}
                   </p>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 text-sm text-[#706E6E] dark:text-neutral-200">
-                    <div className="flex items-center gap-4">
-                      <span>읽기시간: {post.metadata.timeToRead}분</span>
-                      <span>발행일: {post.metadata.publishedAt}</span>
+                  <div className="flex flex-col sm:justify-between gap-2 sm:gap-4 text-sm text-[#706E6E] dark:text-neutral-200">
+                    <div className="flex flex-col">
+                      <span>
+                        {t("timeToRead1")}
+                        {post.metadata.timeToRead}
+                        {t("timeToRead2")}
+                      </span>
+                      <span>
+                        {t("publishedAt")}: {post.metadata.publishedAt}
+                      </span>
                     </div>
 
                     {/* 태그들 */}
@@ -118,11 +125,11 @@ export default async function TagPage({ params }: PageProps) {
         {/* 태그 관련 통계 */}
         <div className="mt-12 p-4 border-[0.5px] border-black bg-[#ECEAEA] rounded-md dark:bg-black dark:border-neutral-400">
           <h3 className="text-lg font-medium mb-2 text-[#706E6E] dark:text-neutral-200">
-            태그 정보
+            {t("tagInfo")}
           </h3>
           <p className="text-[#706E6E] dark:text-neutral-200">
-            <strong>&lsquo;{decodedTag}&rsquo;</strong> 태그가 포함된 포스트는
-            총 <strong>{tagCount}개</strong>입니다.
+            <strong>&lsquo;{decodedTag}&rsquo;</strong> {t("tagCount1")}
+            <strong>{tagCount}</strong> {t("tagCount2")}
           </p>
         </div>
       </div>

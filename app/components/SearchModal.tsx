@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Post } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -21,7 +22,7 @@ export default function SearchModal({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-
+  const t = useTranslations("search");
   // 검색 함수
   const performSearch = async (searchQuery: string) => {
     if (!searchQuery.trim()) {
@@ -135,7 +136,7 @@ export default function SearchModal({
             <input
               ref={inputRef}
               type="text"
-              placeholder="블로그 포스트 검색..."
+              placeholder={t("placeholder")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -151,7 +152,7 @@ export default function SearchModal({
         <div className="max-h-64 sm:max-h-96 overflow-y-auto">
           {query.trim() && !isLoading && results.length === 0 && (
             <div className="p-6 sm:p-8 text-center text-gray-500 dark:text-gray-400">
-              검색 결과가 없습니다.
+              {t("noResults")}
             </div>
           )}
 
@@ -176,7 +177,8 @@ export default function SearchModal({
                   <span>{post.metadata.publishedAt}</span>
                   <span className="hidden sm:inline">•</span>
                   <span className="sm:inline hidden">
-                    {post.metadata.timeToRead}분 읽기
+                    {post.metadata.timeToRead}
+                    {t("timeToRead")}
                   </span>
                   {post.metadata.tags.length > 0 && (
                     <>
@@ -206,17 +208,17 @@ export default function SearchModal({
               <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded ">
                 ↑↓
               </kbd>{" "}
-              탐색,{" "}
+              {t("explore")},{" "}
               <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded">
                 Enter
               </kbd>{" "}
-              선택,{" "}
+              {t("select")},{" "}
               <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded">
                 Esc
               </kbd>{" "}
-              닫기
+              {t("close")}
             </div>
-            <div className="sm:hidden text-center w-full">탭하여 선택</div>
+            <div className="sm:hidden text-center w-full">{t("tab")}</div>
           </div>
         </div>
       </div>

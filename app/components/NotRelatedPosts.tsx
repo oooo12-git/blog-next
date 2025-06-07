@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 interface Post {
@@ -27,7 +28,7 @@ export default function NotRelatedPosts({
   const [visibleCount, setVisibleCount] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const observerRef = useRef<HTMLDivElement>(null);
-
+  const t = useTranslations("notRelatedPosts");
   // 관련 글들을 제외한 나머지 글들 필터링 (전체 리스트)
   const getAllNotRelatedPosts = useCallback(() => {
     // RelatedTagPosts에서 보여주는 모든 관련 글들의 slug를 수집
@@ -110,7 +111,7 @@ export default function NotRelatedPosts({
       <div className="flex flex-col rounded-md border-[0.5px] p-3 sm:p-4 dark:border-neutral-400">
         <div className="flex items-center gap-2 mb-4">
           <h3 className="text-base sm:text-lg font-semibold text-[#333] dark:text-neutral-200">
-            다른 글
+            {t("notRelatedPosts")}
           </h3>
         </div>
 
@@ -146,7 +147,7 @@ export default function NotRelatedPosts({
         {/* 더 이상 로드할 글이 없을 때 */}
         {!hasMore && allNotRelatedPosts.length > 10 && (
           <div className="text-center mt-4 text-xs sm:text-sm text-gray-500">
-            모든 글을 불러왔습니다.
+            {t("allPostsLoaded")}
           </div>
         )}
       </div>

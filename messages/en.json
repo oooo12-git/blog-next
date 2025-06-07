@@ -13,6 +13,15 @@
             "stat": "Stat"
         }
     },
+    "search": {
+        "placeholder": "Search blog posts...",
+        "explore": "Explore",
+        "select": "Select",
+        "close": "Close",
+        "tab": "Tab to select",
+        "noResults": "No results found",
+        "timeToRead": " min read"
+    },
     "footer": {
         "total": "Total visitors",
         "today": "Today visitors",
@@ -39,5 +48,30 @@
         "publishedAt": "Published",
         "viewCount": "View count",
         "description": "Summary"
+    },
+    "relatedPosts": {
+        "latestPosts": "Latest Posts"
+    },
+    "notRelatedPosts": {
+        "notRelatedPosts": "Other Posts",
+        "allPostsLoaded": "All posts loaded"
+    },
+    "about": {
+        "title": "Hello, I'm Developer Jaehyun Kim",
+        "education": "Graduated from Sogang University (Mechanical Engineering / Business Administration)",
+        "experience": "3 years of digital marketing experience",
+        "training": "Completed Seoul National University Big Data Fintech AI Expert Course",
+        "skills": "Next.js, React, Python, LangGraph, SQL",
+        "certificates": "FRM, SQLD, ADsP, AICE Associate"
+    },
+    "tag": {
+        "title": "Tag",
+        "tagPostsNumber": " post(s)",
+        "timeToRead1": "Read in about ",
+        "timeToRead2": " min read",
+        "publishedAt": "Published",
+        "tagInfo": "Tag Info",
+        "tagCount1": "tag has ",
+        "tagCount2": " posts"
     }
 }
