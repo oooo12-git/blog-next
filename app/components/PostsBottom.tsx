@@ -8,7 +8,7 @@ export async function BlogPostsBottom({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const lowerPosts = await getPosts(locale, 5, 4);
+  const lowerPosts = await getPosts(locale, 5, 3);
 
   return (
     <div className="w-fullborder-b-1 border-t-1 pt-2 pb-2">

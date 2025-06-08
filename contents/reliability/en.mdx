@@ -1,0 +1,67 @@
+import Image from "next/image";
+
+export const metadata = {
+  title: "Reliability, Consistency, Parallel",
+  description:
+    "Definition of reliability, consistency, and parallel in statistics",
+  publishedAt: "2023-10-17",
+  lastModifiedAt: "2023-10-17",
+  timeToRead: 0,
+  heroImage: "/contents/reliability/1.png",
+  tags: ["statistics"],
+};
+
+## What is Reliability?
+
+Reliability is a concept developed from classical test theory in the field of education.  
+According to classical test theory, the measured value we obtain through measurement consists of the following:
+
+$Measured\ Value\ X = True\ Value\ T + Random\ Error\ \\epsilon$
+
+**The reason we perform measurements is ultimately to find out the true value.**
+
+Therefore, we hope that the measured value contains much more of the true value than random error.
+
+Reliability is used to **judge the usefulness of measurement** in this regard.
+
+Reliability $\\rho = \\frac{Var(T)}{Var(X)}$
+
+By measuring the ratio of true value variance to total measured value variance, it **tells us how much true value is contained in the measured value.**
+
+**High reliability is connected to consistency in measurement.**
+
+High reliability means that the ratio of true value in the measured value is high, which means **the ratio of random error is small**.
+
+If random error is small, the variation in measured values will not be large even if measurements are taken multiple times. In other words, we can say that consistency is high.
+
+---
+
+## **Measuring Reliability**
+
+To measure reliability according to the definition mentioned above, we need to know the variance of the true value.
+
+However, in most cases, the true value is unknown. Often, the purpose of the experiment itself is to estimate the true value.
+
+Therefore, **measuring reliability using the definition is nearly impossible.**
+
+For this reason, a different method is used to measure reliability.
+
+This method involves **finding the reliability of two parallel measurements.**
+
+---
+
+### **Parallel**
+
+Being parallel means that two measurements (X1, X2) satisfy the following conditions:
+
+1.  The true values are the same (T1 = T2)
+2.  The errors of the two measurements are independent ($Cov(\\epsilon1,\\epsilon2)=0$)
+3.  The variances of the errors of the two measurements are the same ($Var(\\epsilon1) = Var(\\epsilon2)$)
+
+---
+
+**In this case, the correlation coefficient of the two parallel measurements equals the reliability of both measurements.**
+
+$Corr(X1,X2) = \\rho(X1,X2) = \\rho$
+
+The assumption of being parallel is important in reliability testing because it allows us to calculate reliability simply through correlation coefficients.

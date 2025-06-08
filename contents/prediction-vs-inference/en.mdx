@@ -1,0 +1,91 @@
+export const metadata = {
+  title: "Prediction vs Inference",
+  description: "The Purpose of Statistical Learning",
+  publishedAt: "2023-09-06",
+  lastModifiedAt: "2023-09-06",
+  timeToRead: 0,
+  heroImage: "/contents/prediction-vs-inference/1.png",
+  tags: ["Statistics"],
+};
+
+### **Correlation**
+
+Do you think there's a correlation between late-night snacks and body weight?  
+(I strongly believe there is.)
+
+If so, you might want to know what kind of correlation exists.  
+For example, if we could find a clear correlation like 'eating late-night snacks X times increases body weight by Y(kg)', we might be able to reduce our late-night snacking.  
+How can we find this correlation?
+
+Let's set body weight as the output variable Y and the number of late-night snacks as the input variable X.  
+Then, we can express the relationship between Y and X as a function!
+
+### **Statistical Learning**
+
+$Y = f(X)$  
+The series of techniques for estimating the function f is called Statistical Learning.  
+(Statistical Learning has a similar name to Machine Learning.  
+Statistical Learning emerged under the influence of machine learning.)
+
+> However, no matter how accurately we estimate the function f, the estimated f (usually denoted as $\\hat{f}$. When there's a hat, it means it's estimated) will have some error compared to the actual f. (I'll explain this later.) This unavoidable error is denoted as $\\epsilon$. ($\\epsilon$ is also called the error term.)
+>
+> Therefore, it's more accurate to say that statistical learning is a series of techniques for estimating f in $Y = f(X) + \\epsilon$.
+
+### **The Purpose of Statistical Learning: Prediction vs Inference**
+
+Earlier, I wanted to know the correlation to understand the effect of late-night snacks on body weight. In other words, I wanted to explain the correlation between late-night snacks and body weight. This is conducting statistical learning for the purpose of Inference.
+
+Let's consider another case.  
+I want to know how much I'll weigh if I eat late-night snacks 5 times this week. This is conducting statistical learning for the purpose of Prediction.
+
+### **Prediction**
+
+Let's look at another example with prediction as the purpose.
+
+> A has been experiencing weight gain as the frequency of late-night snacking has recently increased.  
+> A sometimes eats late-night snacks once a week, sometimes twice, and even ate them 4 consecutive times!  
+> A wants to know their weight when eating late-night snacks every day for a week (7 days), but doesn't actually plan to eat them every day for health reasons.  
+> So A plans to use statistical learning to estimate the correlation between late-night snacks and weight to predict their weight when eating them every day for a week.
+
+A wants to predict through statistical learning. Prediction! This becomes the reason for statistical learning, i.e., the reason for estimating function f.  
+But it doesn't end here.
+
+### **Inference**
+
+> B is worried because their weight has been increasing recently. However, they can't pinpoint the exact reason. Their friend A advised it's because of late-night snacks, while another friend C advised it's because of pork belly. B has measured both the days they ate late-night snacks or pork belly and their weight on those days. B plans to understand the relationship between weight and late-night snacks/pork belly to explain to A and C which of the two has a greater impact on weight.
+
+B wants to infer through statistical learning. Inference has the purpose of explaining the relationship between Y and X. This also becomes a reason for estimating function f.
+
+There's a reason we need to know these two purposes exist. We determine the form of function f based on the purpose.
+
+### **Function Changes According to Purpose**
+
+If prediction is the purpose, f can be in the following form:  
+$Y=\\beta\_{1}X^{128902398}+\\beta\_{2}X^{8998}+\\beta\_{3}X^{139}+\\cdots$  
+Looking at the above equation, we cannot explain the relationship between Y and X, i.e., f.  
+To be precise, we don't need to explain it. If our only purpose is prediction, it's fine as long as the answer is accurate.
+
+However, if inference is the purpose, such an equation won't work. No one can interpret such an equation in human language. Therefore, when inference is the purpose, the form of f is forced to be explainable.
+
+For inference purposes, f must be simple to be explainable.  
+$Y = X + 80(kg)$  
+X = Number of late-night snacks per week  
+Y = Body weight  
+If this is the case, the relationship between late-night snacks and body weight is very easy to explain.
+
+> Body weight increases by the same number of kg as the number of late-night snacks eaten.
+
+### **The Trade-off Between Prediction and Inference**
+
+However, the predictive power of $Y = X + 80(kg)$, which has good explanatory power, would likely be severely poor.
+
+Conversely, based on empirical estimation,  
+$Y=\\beta\_{1}X^{128902398}+\\beta\_{2}X^{8998}+\\beta\_{3}X^{139}+\\cdots$  
+this equation would have much better predictive power (although explaining the relationship between Y and X is impossible).
+
+Thus, prediction and inference have a trade-off relationship.  
+When predictive power is high, inference/explanatory power decreases.
+
+In reality, both purposes are often required. Therefore, we study statistical learning to find the function f that excels in both prediction and inference.
+
+What's interesting is that current AI has focused entirely on predictive power and cannot explain its principles.

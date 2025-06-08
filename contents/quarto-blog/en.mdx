@@ -1,0 +1,485 @@
+import Image from "next/image";
+
+export const metadata = {
+  title: "Building a Multilingual Blog with Quarto - Guide",
+  description: "Building a Multilingual Blog with Quarto - Guide",
+  publishedAt: "2023-11-19",
+  lastModifiedAt: "2023-11-19",
+  timeToRead: 0,
+  heroImage: "/contents/quarto-blog/1.png",
+  tags: ["R", "Quarto", "Blog"],
+};
+
+# Building a Multilingual Blog with Quarto - Guide
+
+Quarto is a very useful tool.
+
+With Quarto, you can accomplish almost anything.
+
+Naturally, you can perform statistical analysis, which is Quarto's original purpose, but you can also create websites, apps, blogs, and documents.
+
+I became naturally interested in Quarto while studying R and statistics, but recently as I've been diving deeper into Quarto, I seem to have become interested in miscellaneous things other than the important statistics and R, so I'm somewhat reflecting on this. :)
+
+Anyway, the project I recently wanted to accomplish was implementing a multi-language blog (or bilingual blog) using Quarto.
+
+If it had been implemented as I initially imagined, it should have been implemented in a format where you could click the 'English' button while reading a Korean post and immediately switch to the English post.
+
+But sadly, it wasn't implemented to the extent I imagined, and I implemented it so that when you press the 'English' button, it moves to the English home where you can enjoy English content continuously.
+
+Nevertheless, the process of creating this was quite difficult for me, who had no understanding of Quarto, YAML, blog structure, and publishing.
+
+I'm writing this guide to provide some help to people who might go through a similar process as mine.
+
+> **📋 Important Note**
+>
+> This article largely references [Mario Angst's 'A multi-language (German/ English) Quarto website'](https://quarto-dev.marioangst.com/en/blog/posts/multi-language-quarto/) and follows the method he implemented.
+>
+> If this article is insufficient, following Mario Angst's method would be an effective solution.
+
+> **⚠️ Warning**
+>
+> This guide doesn't start from creating a blog from scratch.
+>
+> Those who haven't started creating a blog should follow the [guide on Quarto's official website](https://quarto.org/docs/websites/website-blog.html).
+>
+> However, reading up to the preparation section below and then following the Quarto official website guide would help reduce trial and error.
+
+## 0. Prerequisites
+
+### RStudio
+
+This guide uses RStudio. Quarto can also be used with other IDEs like Jupyter Notebook and VS Code. I'm using RStudio version 2023.06.
+
+### Quarto
+
+Obviously, Quarto is needed. However, it seems necessary to match versions before following the guide. Since Quarto has many fixes and updates, operation may vary depending on the version.
+
+> **💡 Tip**
+>
+> If you need to install, please check the [official Quarto documentation](https://quarto.org/docs/get-started/hello/rstudio.html).
+
+Enter `quarto check` in the terminal to check Quarto's version as shown below.
+
+```
+(...)
+
+[✓] Checking versions of quarto dependencies......OK
+[✓] Checking Quarto installation......OK
+      Version: 1.3.353
+
+(...)
+```
+
+### Netlify
+
+The reasons I chose Netlify are:
+
+1. Many users are using it and
+2. It has good integration with GitHub.
+
+Especially, the service where building and deployment are automatically done on Netlify as soon as you commit to GitHub was exactly the killer product I wanted.
+
+However, due to Quarto's incompleteness(?), to deploy to Netlify in the desired way using project profiles, you need to use the command line.
+
+Surprisingly, the command line method is intuitive, so I'm currently very satisfied using it.
+
+Anyway, since this guide uses Netlify, I recommend beginners to use Netlify as well.
+
+Also, when deploying to Netlify, we'll use the method of entering command lines, so please don't set up other plugins or GitHub actions.
+
+> **⚠️ Warning**
+>
+> If you use Netlify plugins or GitHub actions, your blog may not work as intended every time you commit.
+
+## 1. Overall Picture
+
+Before starting the explanation, let me briefly go over the overall picture of how the Korean-English switching was implemented.
+
+Once you understand the flow, the following explanations will feel easier.
+
+I'll explain in a reverse flow starting from the result (deployment).
+
+### 1.1 Netlify Deployment
+
+We send the results in the \_site folder to Netlify.
+
+Netlify receives the results, uploads them to the server, and deploys them.
+
+So, how do we create results in the \_site folder?
+
+### 1.2 Creating Results in the \_site Folder
+
+When Quarto renders qmd files (cmd+shift+k), it applies predetermined options to create results in the \_site folder.
+
+For example, if we render the index.qmd file in our workspace root folder, it considers the \_site folder as the new root folder and creates an index.html file.
+
+This index.html file is deployed on Netlify and becomes the main page when you enter https://oooo12.ooo, the blog you're currently viewing.
+
+<Image
+  src="/contents/quarto-blog/1.png"
+  alt="Quarto blog structure explanation image"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+Let me give another example.
+
+I created a blog folder in the root folder, and the blog folder contains posts (e.g., hypothesis testing(1), which is another unique post currently on my blog, is in the blog folder).
+
+Then I create a hypothesis-testing-1 folder inside the blog folder and create an index.qmd inside it. (This has different content from the index.qmd mentioned earlier. Only the name is the same.)
+
+When I write content in this index.qmd and render it, it creates a hypothesis-testing-1 folder inside the blog folder in the \_site folder and creates an index.html file inside it.
+
+<Image
+  src="/contents/quarto-blog/2.png"
+  alt="Blog folder structure explanation"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+This index.html file will be visible at https://oooo12.ooo/blog/hypothesis-testing-1/ when deployed.
+
+### 1.3 Creating Two Versions: English and Korean
+
+If you want to run a multilingual blog like me, you need to create two HTML files for each post: English and Korean versions.
+
+Using this blog as an example, https://oooo12.ooo/blog/hypothesis-testing-1/ is in English, but https://oooo12.ooo/**ko**/blog/hypothesis-testing-1/ appears in Korean.
+
+This is possible because the English version of the hypothesis testing(1) post exists in root/blog/hypothesis-testing-1/index.html (meaning index.html in the hypothesis-testing-1 folder in the blog folder in the root folder),
+
+and the Korean version of the hypothesis testing(1) post exists in the root/**ko**/blog/hypothesis-testing-1/index.html folder.
+
+Like this, you originally need to write two HTML files to introduce posts in two languages, but using Quarto's project profile feature, you only need to write one qmd file.
+
+### 1.4 Project Profile
+
+<Image
+  src="/contents/quarto-blog/3.png"
+  alt="Project profile explanation diagram"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+Project profiles have the function to make content visible or invisible depending on the situation.
+
+This ultimately means that Quarto can render differently depending on the situation.
+
+To do this, you need to set up profiles with YAML and mark content in qmd files to distinguish what content is visible and invisible depending on the situation (i.e., by profile). (We'll look at this in detail later.)
+
+### 1.5 content-visible when-profile
+
+To configure content that appears by profile, you need to use `::: {.content-visible when-profile="ko"}`.
+
+The code readability is so good that there's probably no need for further explanation, but to briefly explain, it means to show content when the profile is ko.
+
+It's used as follows:
+
+```
+::: {.content-visible when-profile="ko"}
+Statistical hypothesis testing, when explained plainly, means to "test a statistical hypothesis."
+
+To understand hypothesis testing, it's necessary to know exactly what a 'statistical hypothesis' is.
+:::
+
+::: {.content-visible when-profile="en"}
+Statistical hypothesis testing, when explained plainly, means to "test a statistical hypothesis."
+
+To understand hypothesis testing, it's necessary to know exactly what a 'statistical hypothesis' is.
+:::
+```
+
+### 1.6 Korean-English Switch Button
+
+Naturally, we need to configure a Korean-English switch button to make it the multilingual blog we want.
+
+There were also some difficulties in configuring the Korean-English switch button.
+
+In a way, it's also a part where I used a workaround.
+
+## 2. YAML Configuration
+
+Let's get into it properly.
+
+YAML adjusts overall options in Quarto.
+
+> **📝 Reference**
+>
+> Of course, you can set different levels to decide whether to adjust overall options or adjust options for only specific directories.
+>
+> However, this content is background knowledge not needed for this project configuration, so it's omitted.
+>
+> For detailed information, refer to the [quarto - Project Profile](https://quarto.org/docs/projects/profiles.html) documentation.
+
+When you first create a blog, you use two YAML files in the root folder.
+
+You use \_quarto.yml and \_publish.yml files, but the key is \_quarto.yml.
+
+\_quarto.yml contains website settings, navbar, format, etc.
+
+We'll move all these settings to profile YAML.
+
+To do that, we need to create profile YAML.
+
+<Image
+  src="/contents/quarto-blog/3.png"
+  alt="YAML file structure"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+If we name the profile YAML profile 'en' (we'll do English blog-related settings in the en profile from now on), we need to create \_quarto-en.yml in the root folder where \_quarto.yml is located.
+
+> **⚠️ Warning**
+>
+> The file name must be \_quarto-en.yml.
+>
+> If you use \_quarto.en.yml, it won't be recognized as a profile.
+>
+> This is because the rules for determining file names have changed due to updates.
+
+There should also be a Korean profile.
+
+Similarly, create \_quarto-ko.yml in the root folder where \_quarto.yml is located.
+
+If you want both blogs to show the same blog format, you can copy the settings from \_quarto.yml and paste them into both yml files.
+
+However, let's first write important YAML at the top of each yml file.
+
+> **📋 \_quarto-en.yml Settings**
+>
+> Put the following code in \_quarto-en.yml.
+
+```
+project:
+  output-dir: ./_site
+```
+
+> **📋 \_quarto-ko.yml Settings**
+>
+> Put the following code in \_quarto-ko.yml.
+
+```
+project:
+  output-dir: ./_site/ko
+```
+
+Those with keen eyes will have noticed, but `output-dir` sets the directory address where results are output.
+
+This way, results corresponding to the en profile will be created in the \_site folder, and results corresponding to the ko profile will be created in the \_site/ko folder.
+
+So how should we configure \_quarto.yml?
+
+```
+project:
+  type: website
+
+profile:
+  default: en
+  group:
+    - [en, ko]
+
+execute:
+  freeze: auto
+```
+
+\_quarto.yml, which can be seen as the big brother, should set options commonly used by all profiles and profile groups.
+
+Actually, if you've configured and understood the yml files well, it's almost finished.
+
+Now let's work on the qmd files.
+
+## 3. Creating Results for Each Profile from One qmd
+
+As an example, I'll use root/blog/hypothesis-testing-1/index.qmd, which created my first post https://oooo12.ooo/blog/hypothesis-testing-1/.
+
+First, let's look at the index.qmd file.
+
+```
+---
+title: "Hypothesis Testing (1)"
+
+(...YAML...)
+
+---
+
+::: {.content-visible when-profile="en"}
+
+Statistical hypothesis testing, when explained plainly, means to "test a statistical hypothesis."
+
+To understand hypothesis testing, it's necessary to know exactly what a 'statistical hypothesis' is.
+
+:::
+
+::: {.content-visible when-profile="ko"}
+
+통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
+
+가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
+
+:::
+```
+
+As mentioned earlier, using "`::: {.content-visible when-profile="ko"}`" makes content visible only when the profile is ko.
+
+That is, this part "`::: {.content-visible when-profile="ko"} ~~ this part ~~ :::`" applies the options set in the previously configured \_quarto-ko.yml.
+
+Therefore,
+
+```
+통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
+
+가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
+```
+
+The above part is rendered only in index.html in subdirectories of the \_site/ko directory.
+
+Precisely, it will be saved in 'root/\_site/ko/blog/hypothesis-testing-1/index.html'.
+
+Now you've probably figured out how to use it.
+
+Parts that should appear in the English blog should be put between:
+
+```
+::: {.content-visible when-profile="en"}
+
+
+:::
+```
+
+Parts that should appear in the Korean blog should be put between:
+
+```
+::: {.content-visible when-profile="ko"}
+
+
+:::
+```
+
+## 4. Adding Korean-English Switch to Navbar
+
+Based on PC screen, you'll see an 'English' button in the upper right corner.
+
+This is because you're viewing the Korean version.
+
+To set up an English button to appear in the navbar for users viewing the Korean version, you need to configure the navbar option in \_quarto-ko.yml.
+
+Part of the \_quarto-ko.yml settings are as follows:
+
+```
+project:
+  output-dir: ./_site/ko
+
+website:
+  title: "oooo12"
+
+(...)
+  navbar:
+    right:
+      - text: "English"
+        href: ..
+```
+
+The important point here is that href is `..`.
+
+That is, it goes to the parent folder \_site/ from \_site/ko/.
+
+This way, it goes to the main page of \_site/, which is also the main page of the English blog, \_site/index.html.
+
+However, there's a point to be careful about when doing this.
+
+> **🚨 Other Menu Settings**
+>
+> This blog has only one navbar menu: Blog.
+>
+> This Blog menu is generated as HTML by the blog.qmd file...
+
+The English version blog has navbar Blog menu settings configured as follows in \_quarto-en.yml:
+
+```
+website:
+  navbar:
+    title: "oooo12"
+    left:
+      - text: "Blog"
+        href: ./blog.qmd
+```
+
+However, the Korean version blog needs to set href differently.
+
+Below are the \_quarto-ko.yml settings:
+
+```
+website:
+  navbar:
+    title: "oooo12"
+    left:
+      - text: "Blog"
+        href: ../ko/blog.html
+```
+
+If you set the Blog menu href in the Korean version blog the same as the English version, it will return to the English version every time you click blog.
+
+You need to be careful.
+
+> **🚨 Korean Version Blog Blog Menu href Setting**
+>
+> href: ../ko/blog.html
+
+## 5. Netlify Deployment
+
+There are roughly 4 ways to deploy Netlify using Quarto.
+
+Among these, only the Publish Command method, using command line, seems to be able to check the profile function. (This might be due to my lack of skills. If there's a better method, please leave a comment anytime.)
+
+### 5.1 Rendering
+
+Rendering is done for each profile separately, with the en profile that outputs to the parent folder (root) rendered first, and the ko profile that outputs to the subfolder (/ko) done next.
+
+The command to render the en profile is as follows:
+
+> **⚠️ Warning**
+>
+> Must be entered in terminal.
+
+```
+quarto render --profile en
+```
+
+Next, let's enter the command to render the ko profile:
+
+```
+quarto render --profile ko
+```
+
+Now if you look at the root/\_site folder, you'll see files rendered by the en profile and the ko folder rendered by the ko profile.
+
+### 5.2 Deployment
+
+The rendered folder must be sent to the Netlify server for Netlify to deploy.
+
+```
+quarto publish netlify
+```
+
+The result is as follows:
+
+```
+kimjaahyun-m1-mac:R-Quarto_Blog jaahyun$ quarto publish netlify
+? Publish update to:
+❯ https://oooo12.ooo (Netlify - jhdmbwy12@gmail.com)
+  Add a new destination...
+```
+
+Press enter and it will automatically deploy.
+
+<Image
+  src="/contents/quarto-blog/1.gif"
+  alt="Netlify deployment process GIF"
+  width={800}
+  height={400}
+  className="my-4"
+/>

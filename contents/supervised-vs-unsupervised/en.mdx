@@ -1,0 +1,74 @@
+export const metadata = {
+  title: "Supervised vs Unsupervised Learning",
+  description: "Supervised vs Unsupervised Learning",
+  publishedAt: "2023-09-12",
+  lastModifiedAt: "2023-09-12",
+  timeToRead: 0,
+  heroImage: "/contents/supervised-vs-unsupervised/1.png",
+  tags: ["Statistics"],
+};
+
+Statistical learning, which can be classified into supervised learning and unsupervised learning, refers to a series of techniques for estimating the function f.
+The function f refers to the function f in $Y=f(X)$.
+
+### **Input Variables, Output Variables**
+
+In $Y=f(X)$,  
+$X$ is the input variable (Input), and $Y$ is the output variable (Output).  
+Refer to the diagram below. The box with the question mark is the function f box.
+
+X goes into the function box (in). Therefore, it's input.  
+Y comes out of the function box (out). Therefore, it's output.  
+Let's understand it this way.
+
+## **Supervised vs Unsupervised Learning**
+
+Unsupervised Learning has only input variables (Input).  
+Supervised Learning has both input variables (Input) and output variables (Output).
+
+Let's think simply.  
+A teacher assigned homework to find the function $f$.  
+In the case of supervised learning, the teacher will provide both X values and Y values. (In this case, you can infer f.)  
+However, in the case of unsupervised learning, the teacher will only provide X values. (In this case, you obviously cannot infer f.)
+
+### **Supervised Learning**
+
+Supervised learning with output has a clear purpose.  
+The goal is to infer f for inference or prediction.
+
+Regression and classification problems, which you've probably heard of often, belong to supervised learning.  
+Both regression and classification problems aim to predict output variables or explain (infer) the correlation between input and output variables.
+
+> Regression problems aim to predict and infer quantitative, continuous output variables.  
+> In contrast, classification problems aim to predict and infer qualitative, categorical output variables.
+
+### **Unsupervised Learning**
+
+What about unsupervised learning without output?  
+What would happen?  
+Obviously, it's confusing.
+
+Imagine Go stones spread out in front of you.  
+White Go stones and black Go stones are mixed and spread across the Go board.
+
+Here, we need to figure something out.  
+All we're given are the Go stones.  
+This is what we look like when doing unsupervised learning.  
+Even in this situation, we find our own things to do.
+
+If white Go stones and black Go stones are spread out, what can we do?  
+Perhaps we would blankly try to group white stones with white stones and black stones with black stones?  
+This corresponds to clustering problems in unsupervised learning.
+
+### **Unsupervised Learning Market Segmentation Example**
+
+Market segmentation is a representative example of clustering problems.  
+Due to privacy protection, sellers cannot match individual customers' gender/interests/age (X) with their spending amount (Y).  
+This means we have no idea which people purchase our products frequently.  
+However, we can somewhat infer and group what kind of people visit our smart store.
+
+People visiting the smart store can be grouped into numerous characteristics: 'female' group, BTS-loving group, 20s group, 'Shake Shack' frequent visitors group, iPhone users group, and so on.
+
+If the seller perfectly understood the characteristics of people who buy our products frequently and brought that group to the smart store (highly efficient),  
+they could achieve tremendous profits (highly effective).  
+For this purpose, clustering problems and unsupervised learning, which group people's characteristics more precisely and diversely, are also considered important.

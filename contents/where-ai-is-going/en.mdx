@@ -1,0 +1,169 @@
+import Image from "next/image";
+
+export const metadata = {
+  title: "AI Will Be Optimized in This Direction",
+  description:
+    "Diving deep into foundation models, parameters, and pre-training terminology",
+  publishedAt: "2023-09-04",
+  lastModifiedAt: "2023-09-04",
+  timeToRead: 0,
+  heroImage: "/contents/where-ai-is-going/1.png",
+  tags: ["AI"],
+};
+
+## **The Birth of Foundation Models**
+
+Foundation models (commonly known as Generative AI), which serve as the basis for solving various problems, have emerged.
+
+### **Model? Parameters?**
+
+> Model = Function = Program: A form that produces output when given input.
+
+AI models are trained to become functions (y=ax+b) that probabilistically approach numerous correct answers (data).
+
+To get close to abundant and diverse data, much more complex functions than linear functions are needed.
+
+<Image
+  src="/contents/where-ai-is-going/modeling-안될과학.png"
+  alt="Modeling, Source: 안될과학"
+  width={1440}
+  height={835}
+  style={{ width: "100%", height: "auto" }}
+/>
+
+A linear function has the form:
+
+$y = ax + b$
+
+In this form, a and b are called parameters.
+
+A quadratic function has the following form:
+
+$y= ax^2+ bx + c$
+
+Here, a, b, and c are parameters.
+
+Linear functions have 2 parameters, quadratic functions have 3 parameters...
+
+As functions become more complex, parameters gradually increase.
+
+(ChatGPT has 175 billion parameters.
+
+That means it's essentially a (175 billion-1) degree function.
+
++When an AI model is called 'large' or 'giant', it usually refers to having many parameters.)
+
+Since AI models consist of functions that humans cannot create,
+
+they can show surprisingly close answers to complex data (correct answers) compared to models logically created by humans (at most 3rd-degree functions).
+
+However, how AI can find parameters with better correct answers has not been revealed.
+
+This is not a mathematically proven or clearly established principle.
+
+## **How Does Pre-training Work?**
+
+In the past, there were only AI models for solving individual problems.
+
+(e.g., AI models like DeepMind's AlphaGo that specialize in solving Go problems.)
+
+To create Foundation models that are general-purpose models capable of solving various problems, pre-training is necessary.
+
+After creating Foundation models through pre-training,
+
+to solve specific problems more appropriately using these models
+
+(more accurately, more creatively, more logically, depending on the problem)
+
+Adaptation (= Fine Tuning) is required.
+
+Unlike the past, AI learning stages are now divided into two stages,
+
+and super-large AI is a Foundation model focused on pretraining (with an enormous amount of pre-training).
+
+As shown in the figure below, AI learns by masking and predicting words.
+
+<Image
+  src="/contents/where-ai-is-going/pretraining-하정우.png"
+  alt="Pre-training, Source: Ha Jung-woo NAVER AI Research Director Lecture PPT"
+  width={1440}
+  height={835}
+  style={{ width: "100%", height: "auto" }}
+/>
+
+This learning is repeated with large amounts of data.
+
+This is pre-training.
+
+## **Why Has AI Become Smarter Than Before?**
+
+1.  Much more training data was used than before.
+    1.  Previously, it was difficult to train on large amounts of data because learning data had to be shown and tested one by one by humans.
+    2.  However, now AI can perform this learning by itself using Reward Models (RM), making it possible to train on much more data than before.
+2.  Much larger models (models with more parameters) were used than before.
+
+Therefore, these giant AI models that have learned from massive amounts of data are called "Super-large AI."
+
+Super-large AI, thanks to the aforementioned
+
+1. Enormous amount of data learning and
+
+2. Model size
+
+can show us answers that match the context of examples (prompts) even after seeing few examples (Few-shot).
+
+However, the better the contextually appropriate examples provided, the better answers AI can provide - the answers people want.
+
+This is why the job category of Prompt Engineer has emerged.
+
+AI can also provide answers in situations without examples, which is called "Zero-Shot."
+
+ChatGPT has never learned about law, business, or medicine, but it's smart enough to pass bar exams, CPA, MBA, and medical license exams.
+
+### **Must AI Be Giant to Be Smart?**
+
+Super-large AI with enormously large models and massive pre-training data.
+
+In 2021, DeepMind questioned whether enormously large models with many parameters are fully utilizing their capabilities.
+
+They decided to reduce the model size to one-fourth and increase training data four times to conduct pre-training and compare performance.
+
+<Image
+  src="/contents/where-ai-is-going/ChinchillaScalingLaw.png"
+  alt="Chinchilla Scaling Law, Source: Google"
+  width={1440}
+  height={835}
+  style={{ width: "100%", height: "auto" }}
+/>
+
+This way, they could train with the same computing power (= money, cost) investment as before.
+
+As a result, smaller models with more training data showed superior capabilities.
+
+The smaller the model size, the lower the service operation costs.
+
+This will enable more people to use AI more affordably in various fields.
+
+Through DeepMind's attempt, we learned that there's room for further optimization of AI models.
+
+### **Small Models, Abundant Training Data**
+
+<Image
+  src="/contents/where-ai-is-going/trainingLossOverTrainingTokens.png"
+  alt="Source: LLaMA: Open and Efficient Foundation Language Models"
+  width={1440}
+  height={835}
+  style={{ width: "100%", height: "auto" }}
+/>
+
+The largest AI model among Facebook's released LLAMA has about 65 billion parameters.
+
+(ChatGPT has 175 billion parameters.)
+
+LLAMA AI costs less to operate because it's smaller than ChatGPT.
+
+However, LLAMA AI doesn't necessarily show lower performance than ChatGPT.
+
+If LLAMA AI were trained with sufficient amounts of data, it could perform better than ChatGPT.
+
+Artificial intelligence technology is being optimized toward creating efficient AI models using small models and abundant training data.

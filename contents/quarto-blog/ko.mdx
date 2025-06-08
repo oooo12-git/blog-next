@@ -1,0 +1,496 @@
+import Image from "next/image";
+
+export const metadata = {
+  title: "Quarto를 활용한 다국어 블로그 만들기 - 가이드",
+  description: "Quarto를 활용한 다국어 블로그 만들기 - 가이드",
+  publishedAt: "2023-11-19",
+  lastModifiedAt: "2023-11-19",
+  timeToRead: 0,
+  heroImage: "/contents/quarto-blog/1.png",
+  tags: ["R", "Quarto", "블로그"],
+};
+
+# Quarto를 활용한 다국어 블로그 만들기 - 가이드
+
+Quarto는 매우 유용한 툴이다.
+
+Quarto를 이용하면 거의 모든 것을 해낼 수 있다.
+
+당연하게도 Quarto의 원래 목적인 통계 분석은 물론이고, 웹사이트, 앱, 블로그, 문서작업도 해낼 수 있다.
+
+Quarto는 R과 통계학을 공부하면서 자연스럽게 관심을 갖게 되었는데, 최근 Quarto를 파고 들면서 중요한 통계학, R을 제외한 잡다한 것에 관심을 갖게 된거 같아 약간 반성하고 있다. :)
+
+아무튼 최근 해내고자 했던 프로젝트는 Quarto를 활용하여 multi-language Blog(혹은 bilingual blog)를 구현하는 것이었다.
+
+처음 상상했던 대로 라면, 한글 포스팅을 보고 있다가 '영어'버튼을 클릭하면 바로 영어 포스팅으로 바뀌는 형식으로 구현되었어야 했다.
+
+하지만 슬프게도 상상한 바까지 구현되지는 못했고, '영어'버튼을 누르면 영어 홈으로 이동하여 영어 컨텐츠를 쭉 즐길 수 있도록 구현했다.
+
+그럼에도 이렇게 만드는 과정은 Quarto, YAML, 블로그 구조 및 퍼블리싱에 관한 이해가 전무했던 나에게는 상당히 어려웠다.
+
+이런 나와 비슷한 과정을 거칠 수 있는 사람들에게 조금이나마 도움이 될만한 가이드를 제공하고자 이렇게 글을 남긴다.
+
+> **📋 중요사항**
+>
+> 이 글은 [Mario Angst의 'A multi-language (German/ English) Quarto website'](https://quarto-dev.marioangst.com/en/blog/posts/multi-language-quarto/)글을 많은 부분에서 참고하여 그가 구현한 방식을 따르고 있다.
+>
+> 이 글로 부족한 부분이 있다면, Mario Angst의 방식을 따라보는 것이 효과적인 해결책이 될 것이다.
+
+> **⚠️ 주의사항**
+>
+> 가이드는 처음 블로그를 만드는 것 부터 시작하진 않는다.
+>
+> 블로그 만들기를 시작 못한 분들은 [Quarto 공식홈페이지의 가이드](https://quarto.org/docs/websites/website-blog.html)를 따르기 바란다.
+>
+> 다만 아래 준비물까지는 읽고 Quarto 공식 홈페이지 가이드를 따르는 것이 시행착오를 줄일 수 있을 것이다.
+
+## 0. 준비물
+
+### Rstudio
+
+이 가이드에서는 Rstudio를 사용하여 진행한다. Quarto는 주피터 노트북, VS code와 같은 다른 IDE를 사용할 수도 있다. Rstudio는 2023.06 버전을 사용중이다.
+
+### Quarto
+
+당연히 Quarto가 필요하다. 다만 가이드를 따르기 전에 버전을 맞추는 것은 필요해보인다. Quarto는 픽스와 업데이트가 많기 때문에 버전에 따라 구동이 달라질 수 있다.
+
+> **💡 팁**
+>
+> 설치가 필요하다면 [Quarto 공식 문서](https://quarto.org/docs/get-started/hello/rstudio.html)를 확인하길 바란다.
+
+terminal에 `quarto check`를 입력하면 아래와 같이 Quarto의 버전을 확인할 수 있다.
+
+```
+(...)
+
+[✓] Checking versions of quarto dependencies......OK
+[✓] Checking Quarto installation......OK
+      Version: 1.3.353
+
+(...)
+```
+
+### Netlify
+
+netlify를 선택한 이유는
+
+1. 많은 유저가 사용하고 있으며
+2. github와 연동성이 좋기 때문이다.
+
+특히 github에 커밋함과 동시에 netlify에서 building과 deploy가 자동적으로 이뤄지는 서비스는 딱 내가 원하는 킬링 프로덕트였다.
+
+그러나 Quarto의 불완전성(?) 으로 인해 project profile을 활용하여 netlify에 원하는 방식으로 deploy를 하려면 command line을 사용해야 한다.
+
+의외로 command line 방식이 직관적이라 현재는 매우 만족하고 사용하고 있다.
+
+아무튼 본 가이드에서는 netlify를 사용하고 있으므로 초심자라면 똑같이 netlify를 사용하는 것을 추천한다.
+
+또한 netlify에 배포할 때, command line을 입력하는 방식을 사용할 것이므로, 다른 플러그인이나 github action은 설정하지 않길 바란다.
+
+> **⚠️ 주의사항**
+>
+> 만약 netlify 플러그인이나 github action을 사용하면 커밋할때마다 블로그가 원하는대로 작동하지 않을 수 있다.
+
+## 1. 전체적인 그림
+
+설명을 시작하기에 앞서 어떻게 한영전환을 구현했는지 전체적인 그림을 간략하게 짚고 넘어간다.
+
+흐름을 알고나면 이후 설명들이 더 쉽게 느껴질 것이다.
+
+결과물(배포)부터 역으로 돌아가는 흐름으로 설명하겠다.
+
+### 1.1 netlify 배포
+
+우리는 \_site 폴더내의 결과물을 netlify로 보낸다.
+
+netlify는 결과물을 받아 서버에 올리고 배포한다.
+
+그렇다면, \_site 폴더내에 결과물을 만들어내는 방식은 어떻게 할 것인가?
+
+### 1.2 \_site 폴더에 결과물 만들기
+
+Quarto는 qmd파일을 렌더링(cmd+shift+k) 하면, 미리 정해놓은 옵션을 적용하여 \_site 폴더에 결과물을 만들어 낸다.
+
+예를 들어, 우리의 작업공간인 root 폴더에 index.qmd 파일을 렌더링 하면 \_site 폴더를 새로운 root폴더로 생각하고 index.html 파일을 생성한다.
+
+이 index.html 파일은 netlify에서 배포되어 현재 여러분이 보고 있는 블로그인 https://oooo12.ooo 에 들어왔을 때 메인페이지가 된다.
+
+<Image
+  src="/contents/quarto-blog/1.png"
+  alt="Quarto 블로그 구조 설명 이미지"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+한가지 예를 더 들어보자.
+
+나는 root 폴더에 blog 폴더를 생성하고, blog 폴더에는 포스팅(ex. 지금 내 블로그에 올라가 있는 또 다른 유일한 포스팅인 hypothesis testing(1)은 blog 폴더에 있다.)을 담고 있다.
+
+그러면 blog 폴더내에 hypothesis-testing-1 폴더를 생성하고 내부에 index.qmd를 생성한다. (이는 앞서 이야기한 index.qmd와는 다른 내용을 갖고 있다. 이름만 같을 뿐이다.)
+
+이 index.qmd에 내용을 적고 렌더링을 하면, \_site 폴더 내 blog 폴더 내 hypothesis-testing-1 폴더가 생성되고 이 안에 index.html 파일을 생성한다.
+
+<Image
+  src="/contents/quarto-blog/2.png"
+  alt="블로그 폴더 구조 설명"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+이 index.html 파일은 배포되면 https://oooo12.ooo/blog/hypothesis-testing-1/ 에 보이게 된다.
+
+### 1.3 영어와 한국어 2개 생성
+
+나와 같이 다국어 블로그를 운영하고자 한다면, 각 포스팅에 영어와 한국어 버전 html 파일 2개를 생성해야 한다.
+
+이 블로그를 예시로 들면, https://oooo12.ooo/blog/hypothesis-testing-1/ 는 영어지만, https://oooo12.ooo/**ko**/blog/hypothesis-testing-1/ 는 한국어로 보인다.
+
+이것은 영어버전의 hypothesis testing(1) 포스팅이 root/blog/hypothesis-testing-1/index.html(root 폴더 내 blog 폴더 내 hypothesis-testing-1 폴더 내 index.html을 의미한다.)에 존재하고,
+
+한국어 버전의 hypothesis testing(1) 포스팅은 root/**ko**/blog/hypothesis-testing-1/index.html 폴더에 존재하기 때문에 가능하다.
+
+이처럼 원래는 2개의 html을 작성해야 두 언어로 포스팅을 소개할 수 있지만, Quarto의 project profile 기능을 사용하면 1개의 qmd를 작성하는 것으로 끝난다.
+
+### 1.4 project profile
+
+<Image
+  src="/contents/quarto-blog/3.png"
+  alt="Project profile 설명 다이어그램"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+project profile은 상황별로 컨텐츠가 보이게 하거나 보이지 않도록 하는 기능이 있다.
+
+이는 결국 Quarto가 상황별로 다르게 렌더링해줄 수 있다는 것이다.
+
+이를 위해서는 YAML로 프로파일을 설정해주고, qmd파일 내부에 상황에 따라(즉, 프로파일별로) 보이는 컨텐츠와 보이지 않는 컨텐츠를 구분할 수 있도록 표시해주면 된다. (이따가 자세히 알아보자.)
+
+### 1.5 content-visible when-profile
+
+프로파일별로 보이는 컨텐츠를 구성하려면 `::: {.content-visible when-profile="ko"}
+` 를 사용해야 한다.
+
+너무 코드 가독성이 좋아서 더 설명할 필요는 없을 것 같지만, 간단하게 풀어보자면, profile이 ko일때, 컨텐츠를 보여준다는 의미이다.
+
+아래와 같이 사용한다.
+
+```
+::: {.content-visible when-profile="ko"}
+통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
+
+가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
+:::
+
+::: {.content-visible when-profile="en"}
+
+Statistical hypothesis testing, when explained plainly, means to "test a statistical hypothesis."
+
+To understand hypothesis testing, it's necessary to know exactly what a 'statistical hypothesis' is.
+:::
+
+```
+
+### 1.6 한영 전환 버튼
+
+당연히 한영 전환 버튼을 구성해야 우리가 원하는 다국어 블로그가 될 것이다.
+
+한영 전환 버튼을 구성함에 있어서도 약간의 어려움이 있었다.
+
+어떻게 보면 꼼수를 써서 넘어간 부분이기도 하다.
+
+## 2. YAML 구성
+
+본격적으로 들어가보자.
+
+YAML은 Quarto에서 전체적인 옵션을 조정해준다.
+
+> **📝 참고사항**
+>
+> 물론 레벨을 다르게하여 전체적인 옵션을 조정해줄지, 특정 directory 만 옵션을 조정해줄지 정할 수 있다.
+>
+> 다만 해당 내용은 이번 프로젝트 구성에는 필요없는 배경지식으로 생략한다.
+>
+> 자세한 내용은 [quarto - Project Profile](https://quarto.org/docs/projects/profiles.html) 문서 참고
+
+처음 블로그를 만들면 root 폴더엔 YAML 파일 두 개를 사용한다.
+
+\_quarto.yml 파일과 \_publish.yml 파일을 사용하게 되는데, 일단 핵심은 \_quarto.yml 이다.
+
+\_quarto.yml 에는 website 설정, navbar, format 등등이 들어가 있다.
+
+우리는 이러한 설정은 모두 profile YAML로 옮겨줄 것이다.
+
+그럴려면 profile YAML을 만들어야 한다.
+
+<Image
+  src="/contents/quarto-blog/3.png"
+  alt="YAML 파일 구조"
+  width={800}
+  height={400}
+  className="my-4"
+/>
+
+profile YAML의 프로파일 이름을 'en' 이라고 한다면(앞으로 영어 블로그 관련 설정은 en 프로파일에서 할 것이다. ), \_quarto.yml이 있는 root 폴더에 \_quarto-en.yml 을 만들어 줘야 한다.
+
+> **⚠️ 주의사항**
+>
+> 반드시, 파일명을 \_quarto-en.yml로 해야한다.
+>
+> \_quarto.en.yml로 할 경우 프로파일로 인식하지 못한다.
+>
+> 업데이트로 파일명을 정하는 규칙이 변경되었기 때문이다.
+
+한국어 프로파일도 있어야 할 것이다.
+
+동일하게, \_quarto.yml이 있는 root 폴더에 \_quarto-ko.yml을 만든다.
+
+두 블로그 모두 동일한 블로그 형태를 보이고자 한다면, 두 yml에 \_quarto.yml에 있는 설정을 복사하여 붙여 넣으면 된다.
+
+다만, 중요한 YAML을 먼저 각 yml의 맨 위에 적어두자.
+
+> **📋 \_quarto-en.yml 설정**
+>
+> \_quarto-en.yml은 아래 코드를 넣자.
+
+```
+project:
+  output-dir: ./_site
+```
+
+> **📋 \_quarto-ko.yml 설정**
+>
+> \_quarto-ko.yml은 아래 코드를 넣자.
+
+```
+project:
+  output-dir: ./_site/ko
+```
+
+눈치 빠른 분들은 알았겠지만, `output-dir`은 결과물이 나오는 디렉토리 주소를 설정하는 것이다.
+
+이렇게 하면, en 프로파일에 해당하는 결과물은 \_site 폴더에 생성될 것이고, ko 프로파일에 해당하는 결과물은 \_site/ko 폴더에 생성된다.
+
+그렇다면 \_quarto.yml은 어떻게 구성해놓으면 될까?
+
+```
+project:
+  type: website
+
+profile:
+  default: en
+  group:
+    - [en, ko]
+
+execute:
+  freeze: auto
+```
+
+가장 큰 형님이라 볼 수 있는 \_quarto.yml은 모든 프로파일에 공통으로 사용하는 옵션과, profile 그룹을 설정하면 될 것이다.
+
+사실 yml파일만 잘 구성하고 이해했다면 거의 끝난 것과 다름없다.
+
+이제 qmd 파일을 만져보자.
+
+## 3. 한 개 qmd에서 각 프로파일 별 결과물 만들어 내기
+
+예시로는 나의 첫 포스팅인 https://oooo12.ooo/blog/hypothesis-testing-1/ 를 만든 root/blog/hypothesis-testing-1/index.qmd를 사용할 것이다.
+
+먼저 쭉 index.qmd 파일을 보자.
+
+```
+---
+title: "Hypothesis Testing (1)"
+
+(...YAML...)
+
+---
+
+::: {.content-visible when-profile="en"}
+
+Statistical hypothesis testing, when explained plainly, means to "test a statistical hypothesis."
+
+To understand hypothesis testing, it's necessary to know exactly what a 'statistical hypothesis' is.
+
+:::
+
+::: {.content-visible when-profile="ko"}
+
+통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
+
+가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
+
+:::
+
+
+```
+
+앞서 밝혔듯, "`::: {.content-visible when-profile="ko"}`" 를 사용하면 프로파일 ko일 때에만 컨텐츠를 보이게 한다.
+
+즉, 해당 부분은 "`::: {.content-visible when-profile="ko"} ~~ 이 부분 ~~ :::`"앞서 설정한 \_quarto-ko.yml 에서 설정한 옵션을 적용 받는다.
+
+그러므로,
+
+```
+통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
+
+가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
+```
+
+위 부분은 \_site/ko 디렉토리의 하위 디렉토리에 있는 index.html에만 렌더링 된다.
+
+정확하게는 'root/\_site/ko/blog/hypothesis-testing-1/index.html' 에 저장될 것이다.
+
+이제 활용 방법은 충분히 눈치챘을 것이다.
+
+영어 블로그에 나와야 하는 부분은
+
+```
+::: {.content-visible when-profile="en"}
+
+
+:::
+```
+
+이 사이에 넣고,
+
+한글 블로그에 나와야 하는 부분은
+
+```
+::: {.content-visible when-profile="ko"}
+
+
+:::
+```
+
+이 사이에 넣으면 된다!
+
+## 4. navbar에 한영 전환 넣기
+
+PC화면 기준 오른쪽 상단에 'English'버튼이 보일 것이다.
+
+이는 당신이 한국어 버전을 보고 있기 때문이다.
+
+한국어 버전을 보고 있는 유저의 navbar에 English 버튼이 보이도록 설정하려면, \_quarto-ko.yml에 있는 navbar 옵션을 설정해주면 될 것이다.
+
+\_quarto-ko.yml의 설정 일부는 아래와 같다.
+
+```
+
+project:
+  output-dir: ./_site/ko
+
+website:
+  title: "oooo12"
+
+(...)
+  navbar:
+    right:
+      - text: "English"
+        href: ..
+
+```
+
+여기서 중요한 점은 href가 `..`이라는 점이다.
+
+즉, \_site/ko/의 상위폴더 \_site/ 로 넘어간다.
+
+이렇게 하면, \_site/의 메인페이지, 또한 영어 블로그의 메인페이지인 \_site/index.html 로 넘어가게 된다.
+
+그런데 이렇게 했을 경우 주의해야 할 점이 있다.
+
+> **🚨 다른 메뉴 설정**
+>
+> 본 블로그에는 navbar의 메뉴라고는 Blog 하나 뿐이다.
+>
+> 이 Blog 메뉴는 blog.qmd 파일에 의해 html로 생성되는데...
+
+영어버전 블로그는 \_quarto-en.yml에 navbar의 Blog 메뉴에 대한 설정이 아래와 같이 설정되어 있다.
+
+```
+website:
+  navbar:
+    title: "oooo12"
+    left:
+      - text: "Blog"
+        href: ./blog.qmd
+```
+
+그러나 한글버전 블로그는 href를 다르게 설정해줘야 한다.
+
+아래는 \_quarto-ko.yml의 설정이다.
+
+```
+website:
+  navbar:
+    title: "oooo12"
+    left:
+      - text: "Blog"
+        href: ../ko/blog.html
+```
+
+만약 한글버전 블로그에서 Blog 메뉴의 href를 영어버전과 동일하게 설정하면 blog를 클릭할 때 마다, 영어버전으로 돌아간다.
+
+주의해야 한다.
+
+> **🚨 한글버전 블로그 Blog 메뉴 href 설정**
+>
+> href: ../ko/blog.html
+
+## 5. netlify 배포
+
+Quarto를 이용하여 netlify를 배포하는 방법은 크게 4가지로 나눈다.
+
+이 중 Publish Command, 즉 커맨드 라인을 이용한 방법만 profile 기능을 확인할 수 있는 것으로 보인다. (내 실력이 부족해서일 수 있다. 더 좋은 방법이 있다면 언제든 코멘트를 달아줬으면 한다.)
+
+### 5.1 렌더링
+
+렌더링은 각각 프로파일 별로 진행하며, 상위폴더(root)에 출력하는 en 프로파일을 먼저 렌더링하고 하위 폴더(/ko)에 출력하는 ko 프로파일은 다음으로 진행한다.
+
+en 프로파일을 렌더링 하기 위한 커맨드는 아래와 같다.
+
+> **⚠️ 주의사항**
+>
+> terminal에 입력해야 한다.
+
+```
+quarto render --profile en
+```
+
+다음으로 ko 프로파일을 렌더링 하기 위한 커맨드를 입력하자.
+
+```
+quarto render --profile ko
+```
+
+이제 root/\_site 폴더를 보면 en 프로파일에 의해 렌더링된 파일들과 ko 프로파일에 의해 렌더링된 ko 폴더가 보일 것이다.
+
+### 5.2 배포
+
+렌더링된 폴더를 netlify 서버로 보내야 netlify에서 배포를 할 수 있다.
+
+```
+quarto publish netlify
+```
+
+결과는 아래와 같다.
+
+```
+kimjaahyun-m1-mac:R-Quarto_Blog jaahyun$ quarto publish netlify
+? Publish update to:
+❯ https://oooo12.ooo (Netlify - jhdmbwy12@gmail.com)
+  Add a new destination...
+```
+
+엔터를 누르면 자동으로 배포된다.
+
+<Image
+  src="/contents/quarto-blog/1.gif"
+  alt="Netlify 배포 과정 GIF"
+  width={800}
+  height={400}
+  className="my-4"
+/>

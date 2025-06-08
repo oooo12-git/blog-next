@@ -9,7 +9,7 @@ export async function FeaturedPost({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const featuredMetadata = await getPost("featured", locale);
+  const featuredMetadata = await getPost("quarto-blog", locale);
   const t = await getTranslations("home");
 
   return (
