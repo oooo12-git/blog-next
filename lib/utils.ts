@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { supabase } from "./supabase";
+import { Comment, CommentFormData } from "./types";
 
 interface PostMetadata {
   title: string;
@@ -586,4 +587,252 @@ export async function searchPosts(
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map((item) => item.post);
+}
+
+// ==================== 댓글 관련 함수들 ====================
+
+// 특정 포스트의 모든 댓글 가져오기 (중첩 구조로 변환)
+export async function getCommentsBySlug(slug: string): Promise<Comment[]> {
+  try {
+    const { data, error } = await supabase
+      .from("comments")
+      .select("*")
+      .eq("slug", slug)
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching comments:", error);
+      return [];
+    }
+
+    if (!data) return [];
+
+    // 데이터베이스 형식을 Comment 인터페이스 형식으로 변환
+    const comments: Comment[] = data.map((comment) => ({
+      id: comment.id,
+      author: comment.author,
+      email: comment.email,
+      content: comment.content,
+      createdAt: comment.created_at,
+      lastModifiedAt:
+        comment.updated_at !== comment.created_at
+          ? comment.updated_at
+          : undefined,
+      parentId: comment.parent_id,
+      replies: [],
+      isDeleted: !comment.author || !comment.content, // author나 content가 null인 경우 삭제된 댓글
+    }));
+
+    // 중첩 구조로 변환 (부모-자식 관계 설정)
+    const commentMap = new Map<string, Comment>();
+    const rootComments: Comment[] = [];
+
+    // 먼저 모든 댓글을 Map에 저장
+    comments.forEach((comment) => {
+      commentMap.set(comment.id, comment);
+    });
+
+    // 부모-자식 관계 설정
+    comments.forEach((comment) => {
+      if (comment.parentId) {
+        // 답글인 경우
+        const parent = commentMap.get(comment.parentId);
+        if (parent) {
+          if (!parent.replies) {
+            parent.replies = [];
+          }
+          parent.replies.push(comment);
+        }
+      } else {
+        // 최상위 댓글인 경우
+        rootComments.push(comment);
+      }
+    });
+
+    return rootComments;
+  } catch (error) {
+    console.error("Error in getCommentsBySlug:", error);
+    return [];
+  }
+}
+
+// 새 댓글 추가
+export async function addComment(
+  slug: string,
+  data: CommentFormData,
+  parentId?: string
+): Promise<{ success: boolean; comment?: Comment; error?: string }> {
+  try {
+    const { data: insertedComment, error } = await supabase
+      .from("comments")
+      .insert({
+        slug,
+        author: data.author,
+        email: data.email,
+        content: data.content,
+        parent_id: parentId || null,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Error adding comment:", error);
+      return { success: false, error: "댓글 추가에 실패했습니다." };
+    }
+
+    // 데이터베이스 형식을 Comment 인터페이스 형식으로 변환
+    const comment: Comment = {
+      id: insertedComment.id,
+      author: insertedComment.author,
+      email: insertedComment.email,
+      content: insertedComment.content,
+      createdAt: insertedComment.created_at,
+      parentId: insertedComment.parent_id,
+      replies: [],
+      isDeleted: false, // 새로 생성된 댓글은 삭제되지 않음
+    };
+
+    return { success: true, comment };
+  } catch (error) {
+    console.error("Error in addComment:", error);
+    return { success: false, error: "댓글 추가에 실패했습니다." };
+  }
+}
+
+// 댓글 수정 (이메일 인증 포함)
+export async function updateComment(
+  commentId: string,
+  email: string,
+  data: CommentFormData
+): Promise<{ success: boolean; comment?: Comment; error?: string }> {
+  try {
+    // 먼저 댓글 존재 여부와 이메일 일치 확인
+    const { data: existingComment, error: selectError } = await supabase
+      .from("comments")
+      .select("*")
+      .eq("id", commentId)
+      .eq("email", email)
+      .single();
+
+    if (selectError || !existingComment) {
+      return {
+        success: false,
+        error: "댓글을 찾을 수 없거나 이메일이 일치하지 않습니다.",
+      };
+    }
+
+    // 이미 삭제된 댓글인지 확인
+    if (!existingComment.author || !existingComment.content) {
+      return {
+        success: false,
+        error: "삭제된 댓글은 수정할 수 없습니다.",
+      };
+    }
+
+    // 댓글 업데이트
+    const { data: updatedComment, error: updateError } = await supabase
+      .from("comments")
+      .update({
+        author: data.author,
+        content: data.content,
+      })
+      .eq("id", commentId)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error("Error updating comment:", updateError);
+      return { success: false, error: "댓글 수정에 실패했습니다." };
+    }
+
+    // 데이터베이스 형식을 Comment 인터페이스 형식으로 변환
+    const comment: Comment = {
+      id: updatedComment.id,
+      author: updatedComment.author,
+      email: updatedComment.email,
+      content: updatedComment.content,
+      createdAt: updatedComment.created_at,
+      lastModifiedAt: updatedComment.updated_at,
+      parentId: updatedComment.parent_id,
+      replies: [],
+      isDeleted: false, // 수정된 댓글은 삭제되지 않음
+    };
+
+    return { success: true, comment };
+  } catch (error) {
+    console.error("Error in updateComment:", error);
+    return { success: false, error: "댓글 수정에 실패했습니다." };
+  }
+}
+
+// 댓글 소프트 삭제 (이메일 인증 포함)
+export async function deleteComment(
+  commentId: string,
+  email: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    // 먼저 댓글 존재 여부와 이메일 일치 확인 (이미 삭제된 댓글은 제외)
+    const { data: existingComment, error: selectError } = await supabase
+      .from("comments")
+      .select("email, author, content")
+      .eq("id", commentId)
+      .eq("email", email)
+      .single();
+
+    if (selectError || !existingComment) {
+      return {
+        success: false,
+        error: "댓글을 찾을 수 없거나 이메일이 일치하지 않습니다.",
+      };
+    }
+
+    // 이미 삭제된 댓글인지 확인
+    if (!existingComment.author || !existingComment.content) {
+      return {
+        success: false,
+        error: "이미 삭제된 댓글입니다.",
+      };
+    }
+
+    // 소프트 삭제: author와 content를 NULL로 설정
+    const { error: updateError } = await supabase
+      .from("comments")
+      .update({
+        author: null,
+        content: null,
+      })
+      .eq("id", commentId);
+
+    if (updateError) {
+      console.error("Error soft deleting comment:", updateError);
+      return { success: false, error: "댓글 삭제에 실패했습니다." };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error in deleteComment:", error);
+    return { success: false, error: "댓글 삭제에 실패했습니다." };
+  }
+}
+
+// 특정 포스트의 댓글 수 가져오기 (삭제되지 않은 댓글만)
+export async function getCommentCount(slug: string): Promise<number> {
+  try {
+    const { count, error } = await supabase
+      .from("comments")
+      .select("*", { count: "exact", head: true })
+      .eq("slug", slug)
+      .not("author", "is", null)
+      .not("content", "is", null);
+
+    if (error) {
+      console.error("Error fetching comment count:", error);
+      return 0;
+    }
+
+    return count || 0;
+  } catch (error) {
+    console.error("Error in getCommentCount:", error);
+    return 0;
+  }
 }

@@ -15,6 +15,7 @@ import Tags from "@/app/components/Tags";
 import ViewCounter from "@/app/components/ViewCounter";
 import RelatedTagPosts from "@/app/components/RelatedTagPosts";
 import NotRelatedPosts from "@/app/components/NotRelatedPosts";
+import CommentSection from "@/app/components/CommentSection";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -81,6 +82,9 @@ export default async function Page({ params }: PageProps) {
         </div>
       </article>
       <LikeButtonSupabase slug={slug} locale={locale} size="lg" />
+
+      {/* 댓글 섹션 */}
+      <CommentSection slug={slug} locale={locale} />
 
       {/* 관련 글 컴포넌트 */}
       <RelatedTagPosts tags={metadata.tags} posts={posts} currentSlug={slug} />
