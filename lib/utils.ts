@@ -94,6 +94,33 @@ async function readMdxContent(slug: string, locale: string): Promise<string> {
   }
 }
 
+// 검색을 위한 본문 텍스트 추출 함수
+function extractSearchableContent(mdxContent: string): string {
+  // MDX 메타데이터 제거 (export const metadata = {...} 부분)
+  const contentWithoutMetadata = mdxContent.replace(
+    /export\s+const\s+metadata\s*=\s*{[\s\S]*?};\s*/,
+    ""
+  );
+
+  // 마크다운 문법 제거하여 순수 텍스트만 추출
+  const plainText = contentWithoutMetadata
+    .replace(/#{1,6}\s+/g, "") // 제목 (# ## ###)
+    .replace(/\*\*(.*?)\*\*/g, "$1") // 굵게
+    .replace(/\*(.*?)\*/g, "$1") // 기울임
+    .replace(/`(.*?)`/g, "$1") // 인라인 코드
+    .replace(/```[\s\S]*?```/g, "") // 코드 블록
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // 링크
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, "") // 이미지
+    .replace(/^\s*[-*+]\s+/gm, "") // 리스트
+    .replace(/^\s*\d+\.\s+/gm, "") // 번호 목록
+    .replace(/import\s+.*?from\s+.*?;/g, "") // import 문
+    .replace(/<[^>]*>/g, "") // HTML 태그
+    .replace(/\n+/g, " ") // 개행을 공백으로
+    .trim();
+
+  return plainText;
+}
+
 export async function getPost(slug: string, locale: string): Promise<Post> {
   const file = await import(`../contents/${slug}/${locale}.mdx`);
 
@@ -521,12 +548,46 @@ export async function getPopularPosts(
   };
 }
 
+// 검색어가 매칭된 본문 스니펫 추출 함수
+function extractMatchingSnippet(
+  content: string,
+  searchQuery: string,
+  maxLength = 150
+): string {
+  const lowerContent = content.toLowerCase();
+  const lowerQuery = searchQuery.toLowerCase();
+
+  const matchIndex = lowerContent.indexOf(lowerQuery);
+  if (matchIndex === -1) return "";
+
+  // 매칭된 부분 앞뒤로 컨텍스트 추가
+  const contextLength = Math.floor((maxLength - searchQuery.length) / 2);
+  const start = Math.max(0, matchIndex - contextLength);
+  const end = Math.min(
+    content.length,
+    matchIndex + searchQuery.length + contextLength
+  );
+
+  let snippet = content.substring(start, end);
+
+  // 앞뒤가 잘렸으면 ... 추가
+  if (start > 0) snippet = "..." + snippet;
+  if (end < content.length) snippet = snippet + "...";
+
+  return snippet;
+}
+
+// Post 인터페이스 확장
+export interface PostWithSnippet extends Post {
+  contentSnippet?: string;
+}
+
 // 검색 기능을 위한 함수
 export async function searchPosts(
   locale: string,
   query: string,
   limit = 10
-): Promise<Post[]> {
+): Promise<PostWithSnippet[]> {
   if (!query.trim()) {
     return [];
   }
@@ -538,7 +599,17 @@ export async function searchPosts(
     postSlugs.map(async (slug) => {
       try {
         const postData = await getPost(slug, locale);
-        return { ...postData, slug };
+
+        // 본문 내용도 검색하기 위해 MDX 파일 읽기
+        const mdxContent = await readMdxContent(slug, locale);
+        const searchableContent = extractSearchableContent(mdxContent);
+
+        return {
+          ...postData,
+          slug,
+          searchableContent: searchableContent.toLowerCase(),
+          originalContent: searchableContent, // 원본 텍스트 (대소문자 유지)
+        };
       } catch (error) {
         console.error(`Error loading post ${slug}:`, error);
         return null;
@@ -546,9 +617,14 @@ export async function searchPosts(
     })
   );
 
-  const validPosts = posts.filter((post): post is Post => post !== null);
+  const validPosts = posts.filter(
+    (
+      post
+    ): post is Post & { searchableContent: string; originalContent: string } =>
+      post !== null
+  );
 
-  // 제목, 설명, 태그에서 검색
+  // 제목, 설명, 태그, 본문에서 검색
   const matchedPosts = validPosts.filter((post) => {
     const titleMatch = post.metadata.title.toLowerCase().includes(searchQuery);
     const descriptionMatch = post.metadata.description
@@ -557,29 +633,52 @@ export async function searchPosts(
     const tagsMatch = post.metadata.tags.some((tag) =>
       tag.toLowerCase().includes(searchQuery)
     );
+    const contentMatch = post.searchableContent.includes(searchQuery);
 
-    return titleMatch || descriptionMatch || tagsMatch;
+    return titleMatch || descriptionMatch || tagsMatch || contentMatch;
   });
 
-  // 관련성 점수 계산 (제목 > 설명 > 태그 순으로 우선순위)
+  // 관련성 점수 계산 및 스니펫 추출
   const scoredPosts = matchedPosts.map((post) => {
     let score = 0;
     const title = post.metadata.title.toLowerCase();
     const description = post.metadata.description.toLowerCase();
 
+    // 제목 매칭 (가장 높은 가중치)
     if (title.includes(searchQuery)) {
-      score += title.indexOf(searchQuery) === 0 ? 10 : 5; // 제목 시작일 때 더 높은 점수
+      score += title.indexOf(searchQuery) === 0 ? 10 : 5;
     }
+
+    // 설명 매칭
     if (description.includes(searchQuery)) {
       score += 3;
     }
+
+    // 태그 매칭
     if (
       post.metadata.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
     ) {
-      score += 1;
+      score += 2;
     }
 
-    return { post, score };
+    // 본문 매칭 및 스니펫 추출
+    let contentSnippet = "";
+    if (post.searchableContent.includes(searchQuery)) {
+      score += 1;
+      contentSnippet = extractMatchingSnippet(
+        post.originalContent,
+        searchQuery
+      );
+    }
+
+    return {
+      post: {
+        slug: post.slug,
+        metadata: post.metadata,
+        contentSnippet: contentSnippet || undefined,
+      },
+      score,
+    };
   });
 
   // 점수순으로 정렬하고 제한된 개수만 반환

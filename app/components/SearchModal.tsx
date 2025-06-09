@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Post } from "@/lib/utils";
+import { PostWithSnippet } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 interface SearchModalProps {
@@ -17,7 +17,7 @@ export default function SearchModal({
   locale,
 }: SearchModalProps) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Post[]>([]);
+  const [results, setResults] = useState<PostWithSnippet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -173,6 +173,17 @@ export default function SearchModal({
                 <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                   {highlightText(post.metadata.description, query)}
                 </p>
+
+                {/* 본문 스니펫 표시 */}
+                {post.contentSnippet && (
+                  <div className="mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded text-xs sm:text-sm text-gray-700 dark:text-gray-300 italic border-l-2 border-gray-300 dark:border-gray-600">
+                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                      본문:{" "}
+                    </span>
+                    {highlightText(post.contentSnippet, query)}
+                  </div>
+                )}
+
                 <div className="flex items-center flex-wrap gap-1 sm:gap-2 text-xs text-gray-500 dark:text-gray-400">
                   <span>{post.metadata.publishedAt}</span>
                   <span className="hidden sm:inline">•</span>

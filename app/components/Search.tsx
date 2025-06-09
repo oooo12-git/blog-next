@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "next-intl";
 import SearchModal from "./SearchModal";
 
 type SearchProps = {
   interClass: string;
-  locale?: string;
 };
 
-export default function Search({ interClass, locale = "ko" }: SearchProps) {
+export default function Search({ interClass }: SearchProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const locale = useLocale();
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
