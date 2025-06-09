@@ -336,6 +336,164 @@ export async function getRecentTags(
   return recentTags;
 }
 
+// 좋아요 관리 인터페이스
+export interface PostLike {
+  slug: string;
+  like_count: number;
+  last_liked_at: string;
+}
+
+export interface UserLike {
+  slug: string;
+  user_session: string;
+  liked: boolean;
+}
+
+// 통합 테이블에서 좋아요 수 가져오기 함수
+export async function getPostLikeCount(slug: string): Promise<number> {
+  try {
+    const { data, error } = await supabase
+      .from("post_views")
+      .select("like_count")
+      .eq("slug", slug)
+      .single();
+
+    if (error && error.code !== "PGRST116") {
+      console.error("Error fetching like count:", error);
+      return 0;
+    }
+
+    return data?.like_count || 0;
+  } catch (error) {
+    console.error("Error in getPostLikeCount:", error);
+    return 0;
+  }
+}
+
+// 통합 테이블에서 조회수와 좋아요 수 함께 가져오기
+export async function getPostStats(slug: string): Promise<{
+  viewCount: number;
+  likeCount: number;
+  engagementRate: number;
+}> {
+  try {
+    const { data, error } = await supabase
+      .from("post_views")
+      .select("view_count, like_count")
+      .eq("slug", slug)
+      .single();
+
+    if (error && error.code !== "PGRST116") {
+      console.error("Error fetching post stats:", error);
+      return { viewCount: 0, likeCount: 0, engagementRate: 0 };
+    }
+
+    const viewCount = data?.view_count || 0;
+    const likeCount = data?.like_count || 0;
+    const engagementRate = viewCount > 0 ? (likeCount / viewCount) * 100 : 0;
+
+    return {
+      viewCount,
+      likeCount,
+      engagementRate: Math.round(engagementRate * 100) / 100,
+    };
+  } catch (error) {
+    console.error("Error in getPostStats:", error);
+    return { viewCount: 0, likeCount: 0, engagementRate: 0 };
+  }
+}
+
+// 사용자 좋아요 상태 확인 함수
+export async function getUserLikeStatus(
+  slug: string,
+  userSession: string
+): Promise<boolean> {
+  try {
+    const { data, error } = await supabase
+      .from("user_likes")
+      .select("liked")
+      .eq("slug", slug)
+      .eq("user_session", userSession)
+      .single();
+
+    if (error && error.code !== "PGRST116") {
+      console.error("Error fetching user like status:", error);
+      return false;
+    }
+
+    return data?.liked || false;
+  } catch (error) {
+    console.error("Error in getUserLikeStatus:", error);
+    return false;
+  }
+}
+
+// 좋아요 토글 함수
+export async function togglePostLike(
+  slug: string,
+  userSession: string
+): Promise<{
+  success: boolean;
+  liked: boolean;
+  likeCount: number;
+}> {
+  try {
+    // 현재 사용자의 좋아요 상태 확인
+    const { data: existingLike, error: selectError } = await supabase
+      .from("user_likes")
+      .select("liked")
+      .eq("slug", slug)
+      .eq("user_session", userSession)
+      .single();
+
+    let newLikedStatus: boolean;
+
+    if (selectError && selectError.code !== "PGRST116") {
+      console.error("Error checking existing like:", selectError);
+      return { success: false, liked: false, likeCount: 0 };
+    }
+
+    if (existingLike) {
+      // 기존 레코드가 있으면 상태 토글
+      newLikedStatus = !existingLike.liked;
+      const { error: updateError } = await supabase
+        .from("user_likes")
+        .update({
+          liked: newLikedStatus,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("slug", slug)
+        .eq("user_session", userSession);
+
+      if (updateError) {
+        console.error("Error updating like status:", updateError);
+        return { success: false, liked: existingLike.liked, likeCount: 0 };
+      }
+    } else {
+      // 새 레코드 생성 (기본적으로 liked = true)
+      newLikedStatus = true;
+      const { error: insertError } = await supabase.from("user_likes").insert({
+        slug,
+        user_session: userSession,
+        liked: newLikedStatus,
+      });
+
+      if (insertError) {
+        console.error("Error creating like record:", insertError);
+        return { success: false, liked: false, likeCount: 0 };
+      }
+    }
+
+    // 업데이트된 좋아요 수 가져오기
+    const likeCount = await getPostLikeCount(slug);
+
+    return { success: true, liked: newLikedStatus, likeCount };
+  } catch (error) {
+    console.error("Error in togglePostLike:", error);
+    return { success: false, liked: false, likeCount: 0 };
+  }
+}
+
 // viewCount 기준으로 인기글을 가져오는 함수
 export async function getPopularPosts(
   locale: string,

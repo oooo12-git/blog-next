@@ -61,3 +61,80 @@ body {
   -webkit-line-clamp: 2;
   line-clamp: 2;
 }
+
+/* 좋아요 버튼 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-heart-beat {
+  animation: heartBeat 0.4s ease-in-out;
+}
+
+/* 하트 자동 채우기 애니메이션 */
+@keyframes heartFillCycle {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.6;
+  }
+  50% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.6;
+  }
+}
+
+.animate-heart-fill-cycle {
+  animation: heartFillCycle 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* 감사합니다 아치형 애니메이션 */
+@keyframes thankYouArch {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-25px) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-30px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.8);
+  }
+}
+
+.animate-thank-you-arch {
+  animation: thankYouArch 2s ease-out forwards;
+}

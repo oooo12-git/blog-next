@@ -2,6 +2,7 @@ import { Metadata } from "next";
 // import { notFound } from "next/navigation";
 // import Image from "next/image";
 import { Inter } from "next/font/google";
+import { LikeButtonSupabase } from "@/app/components/LikeButtonSupabase";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -79,6 +80,7 @@ export default async function Page({ params }: PageProps) {
           <Post />
         </div>
       </article>
+      <LikeButtonSupabase slug={slug} locale={locale} size="lg" />
 
       {/* 관련 글 컴포넌트 */}
       <RelatedTagPosts tags={metadata.tags} posts={posts} currentSlug={slug} />
