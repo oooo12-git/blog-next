@@ -117,7 +117,7 @@ export async function generateMetadata({
       type: "article",
       title: metadata.title,
       description: metadata.description,
-      siteName: "Dev Jaehyun's Blog 개발자 김재현의 블로그 ",
+      siteName: "Jaehyun's Blog 김재현의 블로그 ",
       locale,
       publishedTime: metadata.publishedAt,
       modifiedTime: metadata.lastModifiedAt || metadata.publishedAt,

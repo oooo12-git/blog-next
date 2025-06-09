@@ -174,7 +174,7 @@ export async function generateMetadata({
       type: "website",
       title: `${decodedTag} 태그 - Dev Jaehyun's Blog`,
       description: `${decodedTag} 태그가 포함된 ${postCount}개의 포스트를 확인해보세요.`,
-      siteName: "Dev Jaehyun's Blog 개발자 김재현의 블로그",
+      siteName: "Jaehyun's Blog 김재현의 블로그",
       locale,
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/tag/${tagSlug}`,
     },
