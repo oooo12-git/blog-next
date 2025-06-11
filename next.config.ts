@@ -15,6 +15,12 @@ const withNextIntl = createNextIntlPlugin();
 
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
+  options: {
+    // @ts-expect-error - 플러그인 타입 오류 무시
+    remarkPlugins: [["remark-math", { strict: true, throwOnError: true }]],
+    // @ts-expect-error - 플러그인 타입 오류 무시
+    rehypePlugins: [["rehype-katex", { strict: true, throwOnError: true }]],
+  },
 });
 // createMDX는 함수를 반환하는 함수입니다. 이는 다음과 같은 특징으로 알 수 있습니다:
 // createMDX({})와 같이 객체를 인자로 받고
