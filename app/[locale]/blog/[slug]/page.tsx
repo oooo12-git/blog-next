@@ -40,7 +40,7 @@ export default async function Page({ params }: PageProps) {
     <div className={`${inter.className}`}>
       <article className="mt-4 px-2 sm:px-0">
         {/* 타이틀, 태그 */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        <div className="flex flex-col gap-2 sm:gap-3">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
             {metadata.title}
           </h1>

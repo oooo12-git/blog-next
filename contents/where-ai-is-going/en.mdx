@@ -1,14 +1,22 @@
-import Image from "next/image";
+import ImageWithCaption from "../../app/components/ImageWithCaption";
 
 export const metadata = {
   title: "AI Will Be Optimized in This Direction",
   description:
-    "Diving deep into foundation models, parameters, and pre-training terminology",
+    "Explores the concept of Foundation models, parameters, and pre-training processes, and examines new directions in AI model optimization. Covers efficient AI development strategies using smaller models with abundant training data rather than larger models.",
   publishedAt: "2023-09-04",
   lastModifiedAt: "2023-09-04",
   timeToRead: 0,
-  heroImage: "/contents/where-ai-is-going/1.png",
-  tags: ["AI"],
+  heroImage: "/contents/where-ai-is-going/modeling-안될과학.png",
+  tags: [
+    "AI",
+    "Foundation Model",
+    "Machine Learning",
+    "Pre-training",
+    "Deep Learning",
+    "Model Optimization",
+    "LLM",
+  ],
 };
 
 ## **The Birth of Foundation Models**
@@ -23,12 +31,9 @@ AI models are trained to become functions (y=ax+b) that probabilistically approa
 
 To get close to abundant and diverse data, much more complex functions than linear functions are needed.
 
-<Image
+<ImageWithCaption
   src="/contents/where-ai-is-going/modeling-안될과학.png"
   alt="Modeling, Source: 안될과학"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 A linear function has the form:
@@ -83,12 +88,9 @@ and super-large AI is a Foundation model focused on pretraining (with an enormou
 
 As shown in the figure below, AI learns by masking and predicting words.
 
-<Image
+<ImageWithCaption
   src="/contents/where-ai-is-going/pretraining-하정우.png"
   alt="Pre-training, Source: Ha Jung-woo NAVER AI Research Director Lecture PPT"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 This learning is repeated with large amounts of data.
@@ -128,12 +130,9 @@ In 2021, DeepMind questioned whether enormously large models with many parameter
 
 They decided to reduce the model size to one-fourth and increase training data four times to conduct pre-training and compare performance.
 
-<Image
+<ImageWithCaption
   src="/contents/where-ai-is-going/ChinchillaScalingLaw.png"
   alt="Chinchilla Scaling Law, Source: Google"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 This way, they could train with the same computing power (= money, cost) investment as before.
@@ -148,12 +147,9 @@ Through DeepMind's attempt, we learned that there's room for further optimizatio
 
 ### **Small Models, Abundant Training Data**
 
-<Image
+<ImageWithCaption
   src="/contents/where-ai-is-going/trainingLossOverTrainingTokens.png"
   alt="Source: LLaMA: Open and Efficient Foundation Language Models"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 The largest AI model among Facebook's released LLAMA has about 65 billion parameters.

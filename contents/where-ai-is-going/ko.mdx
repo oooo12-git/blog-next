@@ -1,13 +1,22 @@
-import Image from "next/image";
+import ImageWithCaption from "../../app/components/ImageWithCaption";
 
 export const metadata = {
   title: "AI는 이 방향으로 최적화 될 것이다.",
-  description: "foundation 모델, 파라미터, 사전 학습 용어 파헤치기",
+  description:
+    "Foundation 모델의 개념과 파라미터, 사전학습 과정을 살펴보고, AI 모델 최적화의 새로운 방향을 탐구합니다. 큰 모델보다 작은 모델과 많은 학습 데이터를 활용하는 효율적인 AI 개발 전략을 다룹니다.",
   publishedAt: "2023-09-04",
   lastModifiedAt: "2023-09-04",
   timeToRead: 0,
-  heroImage: "/contents/where-ai-is-going/1.png",
-  tags: ["AI"],
+  heroImage: "/contents/where-ai-is-going/modeling-안될과학.png",
+  tags: [
+    "AI",
+    "파운데이션 모델",
+    "머신러닝",
+    "사전학습",
+    "딥러닝",
+    "모델 최적화",
+    "LLM",
+  ],
 };
 
 ## **Foundation 모델의 탄생**
@@ -22,12 +31,9 @@ AI 모델은 수많은 정답(데이터)에 가장 확률적으로 가까운 함
 
 데이터가 많고 각각의 데이터에 가까우려면 1차 함수보다 훨씬 복잡한 함수가 필요할 것이다.
 
-<Image
-  src="/contents/where-ai-is-going/modeling-안될과학.png"
+<ImageWithCaption
+  src="/contents/where-ai-is-going/modeling-안될과학.png"
   alt="모델링, 출처: 안될과학"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 1차 함수는
@@ -50,7 +56,7 @@ $y= ax^2+ bx + c$
 
 즉, (1750억-1)차 함수라는 것이다.
 
-+어떤 AI모델이 ‘크다’, ‘거대하다’고 하면, 보통 파라미터의 개수가 많은 것.)
++어떤 AI모델이 '크다', '거대하다'고 하면, 보통 파라미터의 개수가 많은 것.)
 
 AI 모델은 사람이 만들어낼 수 없는 함수로 이뤄져 있기 때문에,
 
@@ -82,12 +88,9 @@ Pre-training을 거쳐 Foundation 모델을 만든 후,
 
 아래 그림과 같이 AI는 단어를 가리고 맞추는 학습을 한다.
 
-<Image
-  src="/contents/where-ai-is-going/pretraining-하정우.png"
+<ImageWithCaption
+  src="/contents/where-ai-is-going/pretraining-하정우.png"
   alt="사전학습, 출처: 하정우 네이버 AI 연구소장 강의 PPT"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 이러한 학습을 많은 양의 데이터로 반복한다.
@@ -115,7 +118,7 @@ Pre-training을 거쳐 Foundation 모델을 만든 후,
 
 이 때문에 Prompt Engineer라는 직군도 생겨났다.
 
-또한 예시가 없는 상황에서도 AI는 답을 제공할 수 있는데, 이를 "Zero-Shot"이라고 한다.
+또한 예시가 없는 상황에서도 AI는 답를 제공할 수 있는데, 이를 "Zero-Shot"이라고 한다.
 
 chatGPT는 법, 경영, 의료에 대해서는 배운 적이 없지만, 변호사 시험, CPA, MBA, 의사 면허 시험에도 통과할 만큼 똑똑하기도 하다.
 
@@ -127,12 +130,9 @@ chatGPT는 법, 경영, 의료에 대해서는 배운 적이 없지만, 변호�
 
 모델 크기를 4분의 1로 줄이고 학습 데이터를 4배로 늘려 pre-training을 실시하여 성능을 비교해 보기로 한다.
 
-<Image
+<ImageWithCaption
   src="/contents/where-ai-is-going/ChinchillaScalingLaw.png"
   alt="ChinchillaScaling Law, 출처: 구글"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 이렇게 하면 이전과 동일한 컴퓨팅 파워(= 돈, 비용)를 투자하여 학습할 수 있다.
@@ -147,12 +147,9 @@ chatGPT는 법, 경영, 의료에 대해서는 배운 적이 없지만, 변호�
 
 ### **작은 모델, 많은 학습 데이터**
 
-<Image
+<ImageWithCaption
   src="/contents/where-ai-is-going/trainingLossOverTrainingTokens.png"
   alt="출처: LLaMA: Open and Efficient Foundation Language Models"
-  width={1440}
-  height={835}
-  style={{ width: "100%", height: "auto" }}
 />
 
 페이스북이 발표한 라마(LLAMA) 중 가장 큰 AI모델의 파라미터는 650억 정도다.
@@ -163,6 +160,6 @@ chatGPT는 법, 경영, 의료에 대해서는 배운 적이 없지만, 변호�
 
 하지만, 라마 AI가 chatGPT보다 더 낮은 성능을 보이는 것은 아니다.
 
-만약 라마 AI가 충분한 양의 데이터로 학습되었다면, chatGPT보다 더 뛰어난 성능을 발휘할 수 있다.
+만약 라마 AI가 충분한 양의 데이터로 학습되었다면, chatGPT보다 더 뛰어한 성능을 발휘할 수 있다.
 
 작은 모델과 많은 학습 데이터를 이용하여 효율적인 AI 모델을 만드는 방향으로 인공지능 기술이 최적화되고 있다.

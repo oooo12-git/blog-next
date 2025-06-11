@@ -1,0 +1,148 @@
+---
+description: 
+globs: contents/**/ko.mdx
+alwaysApply: false
+---
+# Korean MDX Auto-Update Rule
+
+## 목적
+contents 폴더 내의 ko.mdx 파일을 수정할 때, metadata 객체의 description과 tags 필드를 본문 내용에 맞게 자동 업데이트합니다.
+
+## 규칙
+
+### 1. Description 자동 업데이트
+- 본문 내용이 변경되면 metadata 객체의 description 필드를 전체 내용을 간결하게 요약한 설명으로 자동 업데이트
+
+### 2. Tags 자동 업데이트
+- 본문 내용을 분석하여 관련된 태그들을 자동으로 생성하고 업데이트
+- 본문에 등장하는 주요 기술, 개념, 도구, 언어 등을 기반으로 태그 선정
+- 기존 태그와 새로운 태그를 비교하여 적절히 업데이트
+
+### 3. HeroImage 자동 업데이트 (ImageWithCaption 컴포넌트 기반)
+- ko.mdx 파일에 ImageWithCaption 컴포넌트가 존재하는 경우, 썸네일로 가장 적합한 이미지를 자동으로 선택
+- ImageWithCaption 컴포넌트들 중에서 다음 우선순위로 선택:
+  1. 문서 맨 위에 위치한 이미지 (첫 번째 등장 이미지)
+  2. 가장 대표적이고 시각적으로 임팩트가 있는 이미지
+  3. 제목이나 핵심 내용과 관련성이 높은 이미지
+- 선택된 이미지의 src 경로를 metadata 객체의 heroImage 필드에 자동 설정
+- ko.mdx 파일에 ImageWithCaption 컴포넌트가 존재하지 않는 경우에는 heroImage 필드를 '/contents/default.jpg'로 설정
+- heroImage 필드가 비어있거나 ImageWithCaption 컴포넌트가 변경된 경우에만 업데이트
+
+### 4. 업데이트 가이드라인
+
+#### Description 가이드라인
+- 본문의 핵심 주제와 내용을 2-3문장으로 요약
+- 기술적 용어나 중요한 개념을 포함
+- 독자가 글의 내용을 미리 파악할 수 있도록 작성
+- 한국어로 자연스럽고 읽기 쉽게 작성
+
+#### Tags 가이드라인
+- 본문에서 다루는 주요 기술, 프로그래밍 언어, 프레임워크, 도구 등을 태그로 포함
+- 개념적 태그: 머신러닝, 알고리즘, 데이터구조, 웹개발, 백엔드, 프론트엔드 등
+- 기술적 태그: Python, JavaScript, React, Node.js, Docker, AWS 등  
+- 분야별 태그: 통계학, 수학, 컴퓨터과학, AI, 데이터사이언스 등
+- 3-7개의 태그로 제한하여 핵심만 포함
+- 한국어와 영어 모두 사용 가능하지만 일관성 유지
+- 너무 일반적이거나 모호한 태그는 피하고 구체적인 태그 선호
+
+#### HeroImage 선택 가이드라인
+- ImageWithCaption 컴포넌트의 src 속성에서 이미지 경로 추출
+- 썸네일로 적합한 이미지 선택 기준:
+  - 문서의 주제를 잘 나타내는 이미지
+  - 시각적으로 매력적이고 명확한 이미지
+  - 문서 앞부분에 위치한 이미지 우선 고려
+  - 다이어그램, 차트, 핵심 개념 설명 이미지 우선 선택
+- 이미지 경로는 절대 경로 형태로 설정 (예: "/contents/folder-name/image.png")
+
+### 5. 다국어 동기화
+- ko.mdx 파일의 description, tags, heroImage 필드가 수정되면, 같은 폴더 내의 en.mdx 파일도 함께 업데이트
+- en.mdx 파일의 description은 ko.mdx의 description을 영어로 번역하여 업데이트
+- en.mdx 파일의 tags는 ko.mdx의 tags와 동일하게 업데이트 (기술명/영어 태그는 그대로, 한국어 태그는 영어로 번역)
+- en.mdx 파일의 heroImage는 ko.mdx의 heroImage와 동일하게 업데이트
+- 영어 번역 시 기술적 정확성과 자연스러운 표현 모두 고려
+
+### 6. 적용 대상
+- contents 폴더 내의 모든 하위 디렉토리의 ko.mdx 파일
+- 메타데이터 export const metadata 객체가 포함된 파일
+- ImageWithCaption 컴포넌트가 포함된 파일
+- 동일 폴더 내의 en.mdx 파일 (존재하는 경우)
+
+### 7. 로깅
+- 업데이트된 파일명과 변경된 메타데이터 값을 로그로 기록
+- description, tags, heroImage 필드의 변경사항을 각각 로그로 기록
+- ImageWithCaption 컴포넌트에서 추출된 이미지 경로와 선택 이유 기록
+- ko.mdx 파일 수정 시 en.mdx 파일의 동기화 작업도 로그로 기록
+- 번역 과정에서의 변경사항과 동기화 성공/실패 상태 기록
+- 오류 발생 시 상세한 오류 메시지 제공
+
+## 프롬프트 가이드
+MDX 파일을 수정할 때 다음 사항을 자동으로 확인하고 업데이트하세요:
+
+**"metadata 객체의 description은 전체 내용의 요약이고, tags는 본문에서 다루는 주요 기술과 개념들입니다. ImageWithCaption 컴포넌트가 있다면 가장 적합한 이미지를 선택하여 heroImage에 설정하세요. 본문 내용에 변경이 있으면 description, tags, heroImage를 모두 업데이트하세요. ko.mdx 파일의 메타데이터가 수정되면 같은 폴더의 en.mdx 파일도 영어로 번역하여 동기화하세요."**
+
+## 태그 카테고리 예시
+
+### 프로그래밍 언어
+- Python, JavaScript, TypeScript, Java, C++, Go, Rust 등
+
+### 웹 기술
+- React, Vue.js, Angular, Node.js, Express, Next.js, HTML, CSS 등
+
+### 데이터베이스
+- MySQL, PostgreSQL, MongoDB, Redis, SQLite 등
+
+### 클라우드/인프라
+- AWS, Azure, GCP, Docker, Kubernetes, CI/CD 등
+
+### AI/ML
+- 머신러닝, 딥러닝, 자연어처리, 컴퓨터비전, TensorFlow, PyTorch 등
+
+### 학문 분야
+- 통계학, 수학, 컴퓨터과학, 데이터사이언스, 알고리즘 등
+
+## 예시
+
+### ko.mdx 파일
+```javascript
+import ImageWithCaption from "../../app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "지도학습 vs 비지도학습",
+  description: "지도학습과 비지도학습의 차이점을 설명하고, 각각의 특징과 활용 사례를 다룹니다. 회귀와 분류 문제, 클러스터링 등의 개념을 포함합니다.", // 자동 업데이트
+  publishedAt: "2023-09-12",
+  lastModifiedAt: "2023-09-12",
+  timeToRead: 0,
+  heroImage: "/contents/supervised-vs-unsupervised/diagram.png", // ImageWithCaption에서 자동 선택
+  tags: ["머신러닝", "지도학습", "비지도학습", "통계학", "데이터사이언스"], // 자동 업데이트
+};
+
+본문 내용...
+
+<ImageWithCaption
+  src="/contents/supervised-vs-unsupervised/diagram.png"
+  alt="지도학습과 비지도학습 비교 다이어그램"
+  caption="지도학습과 비지도학습의 차이점을 보여주는 다이어그램"
+/>
+
+더 많은 내용...
+
+<ImageWithCaption
+  src="/contents/supervised-vs-unsupervised/example.png"
+  alt="실제 예시"
+/>
+```
+
+### en.mdx 파일 (자동 동기화)
+```javascript
+import ImageWithCaption from "../../app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "Supervised vs Unsupervised Learning",
+  description: "Explains the differences between supervised and unsupervised learning, covering their characteristics and use cases. Includes concepts of regression, classification problems, and clustering.", // 자동 번역 및 업데이트
+  publishedAt: "2023-09-12",
+  lastModifiedAt: "2023-09-12",
+  timeToRead: 0,
+  heroImage: "/contents/supervised-vs-unsupervised/diagram.png", // ko.mdx와 동기화
+  tags: ["Machine Learning", "Supervised Learning", "Unsupervised Learning", "Statistics", "Data Science"], // 자동 번역 및 업데이트
+};
+```

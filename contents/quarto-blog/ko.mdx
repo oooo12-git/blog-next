@@ -1,36 +1,17 @@
-import Image from "next/image";
+import ImageWithCaption from "../../app/components/ImageWithCaption";
 
 export const metadata = {
   title: "Quarto를 활용한 다국어 블로그 만들기 - 가이드",
-  description: "Quarto를 활용한 다국어 블로그 만들기 - 가이드",
+  description:
+    "Quarto의 project profile 기능을 활용하여 한국어와 영어를 동시에 지원하는 다국어 블로그를 구현하는 방법을 설명합니다. YAML 구성, content-visible 태그 사용법, netlify 배포 과정까지 단계별로 다룹니다.",
   publishedAt: "2023-11-19",
   lastModifiedAt: "2023-11-19",
   timeToRead: 0,
   heroImage: "/contents/quarto-blog/1.png",
-  tags: ["R", "Quarto", "블로그"],
+  tags: ["Quarto", "다국어 블로그", "Netlify", "웹개발", "YAML", "RStudio"],
 };
 
-# Quarto를 활용한 다국어 블로그 만들기 - 가이드
-
-Quarto는 매우 유용한 툴이다.
-
-Quarto를 이용하면 거의 모든 것을 해낼 수 있다.
-
-당연하게도 Quarto의 원래 목적인 통계 분석은 물론이고, 웹사이트, 앱, 블로그, 문서작업도 해낼 수 있다.
-
-Quarto는 R과 통계학을 공부하면서 자연스럽게 관심을 갖게 되었는데, 최근 Quarto를 파고 들면서 중요한 통계학, R을 제외한 잡다한 것에 관심을 갖게 된거 같아 약간 반성하고 있다. :)
-
-아무튼 최근 해내고자 했던 프로젝트는 Quarto를 활용하여 multi-language Blog(혹은 bilingual blog)를 구현하는 것이었다.
-
-처음 상상했던 대로 라면, 한글 포스팅을 보고 있다가 '영어'버튼을 클릭하면 바로 영어 포스팅으로 바뀌는 형식으로 구현되었어야 했다.
-
-하지만 슬프게도 상상한 바까지 구현되지는 못했고, '영어'버튼을 누르면 영어 홈으로 이동하여 영어 컨텐츠를 쭉 즐길 수 있도록 구현했다.
-
-그럼에도 이렇게 만드는 과정은 Quarto, YAML, 블로그 구조 및 퍼블리싱에 관한 이해가 전무했던 나에게는 상당히 어려웠다.
-
-이런 나와 비슷한 과정을 거칠 수 있는 사람들에게 조금이나마 도움이 될만한 가이드를 제공하고자 이렇게 글을 남긴다.
-
-{" "}
+이 가이드는 Quarto를 활용하여 다국어 블로그를 구현하는 방법을 다룬다. 한국어와 영어 버전을 동시에 지원하는 블로그를 만들어보자.
 
 > **📋 중요사항**
 >
@@ -42,7 +23,7 @@ Quarto는 R과 통계학을 공부하면서 자연스럽게 관심을 갖게 되
 >
 > 가이드는 처음 블로그를 만드는 것 부터 시작하진 않는다.
 >
-> 블로그 만들기를 시작 못한 분들은 [Quarto 공식홈페이지의 가이드](https://quarto.org/docs/websites/website-blog.html)를 따르기 바란다.
+> 블로그 만들기를 시작 못한 분들은 [Quarto 공식홈페이지의 가이드](https://quarto.org/docs/websites/website-blog.html)를 따르면 된다.
 >
 > 다만 아래 준비물까지는 읽고 Quarto 공식 홈페이지 가이드를 따르는 것이 시행착오를 줄일 수 있을 것이다.
 
@@ -58,11 +39,11 @@ Quarto는 R과 통계학을 공부하면서 자연스럽게 관심을 갖게 되
 
 > **💡 팁**
 >
-> 설치가 필요하다면 [Quarto 공식 문서](https://quarto.org/docs/get-started/hello/rstudio.html)를 확인하길 바란다.
+> 설치가 필요하다면 [Quarto 공식 문서](https://quarto.org/docs/get-started/hello/rstudio.html)를 확인하면 된다.
 
 terminal에 `quarto check`를 입력하면 아래와 같이 Quarto의 버전을 확인할 수 있다.
 
-```
+```zsh
 (...)
 
 [✓] Checking versions of quarto dependencies......OK
@@ -87,7 +68,7 @@ netlify를 선택한 이유는
 
 아무튼 본 가이드에서는 netlify를 사용하고 있으므로 초심자라면 똑같이 netlify를 사용하는 것을 추천한다.
 
-또한 netlify에 배포할 때, command line을 입력하는 방식을 사용할 것이므로, 다른 플러그인이나 github action은 설정하지 않길 바란다.
+또한 netlify에 배포할 때, command line을 입력하는 방식을 사용할 것이므로, 다른 플러그인이나 github action은 설정하지 않는 것이 좋다.
 
 > **⚠️ 주의사항**
 >
@@ -117,12 +98,15 @@ Quarto는 qmd파일을 렌더링(cmd+shift+k) 하면, 미리 정해놓은 옵션
 
 이 index.html 파일은 netlify에서 배포되어 현재 여러분이 보고 있는 블로그인 https://oooo12.ooo 에 들어왔을 때 메인페이지가 된다.
 
-<Image
+> **💡 안내 사항**
+>
+> 현재는 https://oooo12.ooo 를 운영하고 있지 않고 있다. 여러분이 보고 있는 블로그는 Next.js로 만들어진 블로그이다.
+>
+> 이후에도 블로그 링크가 있으나 전부 작동하지 않는다. 양해 부탁드린다.
+
+<ImageWithCaption
   src="/contents/quarto-blog/1.png"
   alt="Quarto 블로그 구조 설명 이미지"
-  width={800}
-  height={400}
-  className="my-4"
 />
 
 한가지 예를 더 들어보자.
@@ -133,12 +117,9 @@ Quarto는 qmd파일을 렌더링(cmd+shift+k) 하면, 미리 정해놓은 옵션
 
 이 index.qmd에 내용을 적고 렌더링을 하면, \_site 폴더 내 blog 폴더 내 hypothesis-testing-1 폴더가 생성되고 이 안에 index.html 파일을 생성한다.
 
-<Image
+<ImageWithCaption
   src="/contents/quarto-blog/2.png"
   alt="블로그 폴더 구조 설명"
-  width={800}
-  height={400}
-  className="my-4"
 />
 
 이 index.html 파일은 배포되면 https://oooo12.ooo/blog/hypothesis-testing-1/ 에 보이게 된다.
@@ -157,12 +138,9 @@ Quarto는 qmd파일을 렌더링(cmd+shift+k) 하면, 미리 정해놓은 옵션
 
 ### 1.4 project profile
 
-<Image
+<ImageWithCaption
   src="/contents/quarto-blog/3.png"
   alt="Project profile 설명 다이어그램"
-  width={800}
-  height={400}
-  className="my-4"
 />
 
 project profile은 상황별로 컨텐츠가 보이게 하거나 보이지 않도록 하는 기능이 있다.
@@ -179,7 +157,7 @@ project profile은 상황별로 컨텐츠가 보이게 하거나 보이지 않�
 
 아래와 같이 사용한다.
 
-```
+```qmd
 ::: {.content-visible when-profile="ko"}
 통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
 
@@ -227,13 +205,7 @@ YAML은 Quarto에서 전체적인 옵션을 조정해준다.
 
 그럴려면 profile YAML을 만들어야 한다.
 
-<Image
-  src="/contents/quarto-blog/3.png"
-  alt="YAML 파일 구조"
-  width={800}
-  height={400}
-  className="my-4"
-/>
+<ImageWithCaption src="/contents/quarto-blog/3.png" alt="YAML 파일 구조" />
 
 profile YAML의 프로파일 이름을 'en' 이라고 한다면(앞으로 영어 블로그 관련 설정은 en 프로파일에서 할 것이다. ), \_quarto.yml이 있는 root 폴더에 \_quarto-en.yml 을 만들어 줘야 한다.
 
@@ -257,7 +229,7 @@ profile YAML의 프로파일 이름을 'en' 이라고 한다면(앞으로 영어
 >
 > \_quarto-en.yml은 아래 코드를 넣자.
 
-```
+```YAML
 project:
   output-dir: ./_site
 ```
@@ -266,7 +238,7 @@ project:
 >
 > \_quarto-ko.yml은 아래 코드를 넣자.
 
-```
+```YAML
 project:
   output-dir: ./_site/ko
 ```
@@ -277,7 +249,7 @@ project:
 
 그렇다면 \_quarto.yml은 어떻게 구성해놓으면 될까?
 
-```
+```YAML
 project:
   type: website
 
@@ -302,7 +274,7 @@ execute:
 
 먼저 쭉 index.qmd 파일을 보자.
 
-```
+```qmd
 ---
 title: "Hypothesis Testing (1)"
 
@@ -335,7 +307,7 @@ To understand hypothesis testing, it's necessary to know exactly what a 'statist
 
 그러므로,
 
-```
+```qmd
 통계적 가설 검정을 그대로 풀어보면, "'통계적 가설(statistical hypothesis)'을 '검정(test)'한다"이다.
 
 가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
@@ -349,7 +321,7 @@ To understand hypothesis testing, it's necessary to know exactly what a 'statist
 
 영어 블로그에 나와야 하는 부분은
 
-```
+```qmd
 ::: {.content-visible when-profile="en"}
 
 
@@ -360,7 +332,7 @@ To understand hypothesis testing, it's necessary to know exactly what a 'statist
 
 한글 블로그에 나와야 하는 부분은
 
-```
+```qmd
 ::: {.content-visible when-profile="ko"}
 
 
@@ -379,7 +351,7 @@ PC화면 기준 오른쪽 상단에 'English'버튼이 보일 것이다.
 
 \_quarto-ko.yml의 설정 일부는 아래와 같다.
 
-```
+```YAML
 
 project:
   output-dir: ./_site/ko
@@ -411,7 +383,7 @@ website:
 
 영어버전 블로그는 \_quarto-en.yml에 navbar의 Blog 메뉴에 대한 설정이 아래와 같이 설정되어 있다.
 
-```
+```YAML
 website:
   navbar:
     title: "oooo12"
@@ -424,7 +396,7 @@ website:
 
 아래는 \_quarto-ko.yml의 설정이다.
 
-```
+```YAML
 website:
   navbar:
     title: "oooo12"
@@ -457,13 +429,13 @@ en 프로파일을 렌더링 하기 위한 커맨드는 아래와 같다.
 >
 > terminal에 입력해야 한다.
 
-```
+```zsh
 quarto render --profile en
 ```
 
 다음으로 ko 프로파일을 렌더링 하기 위한 커맨드를 입력하자.
 
-```
+```zsh
 quarto render --profile ko
 ```
 
@@ -473,13 +445,13 @@ quarto render --profile ko
 
 렌더링된 폴더를 netlify 서버로 보내야 netlify에서 배포를 할 수 있다.
 
-```
+```zsh
 quarto publish netlify
 ```
 
 결과는 아래와 같다.
 
-```
+```zsh
 kimjaahyun-m1-mac:R-Quarto_Blog jaahyun$ quarto publish netlify
 ? Publish update to:
 ❯ https://oooo12.ooo (Netlify - jhdmbwy12@gmail.com)
@@ -488,10 +460,7 @@ kimjaahyun-m1-mac:R-Quarto_Blog jaahyun$ quarto publish netlify
 
 엔터를 누르면 자동으로 배포된다.
 
-<Image
+<ImageWithCaption
   src="/contents/quarto-blog/1.gif"
   alt="Netlify 배포 과정 GIF"
-  width={800}
-  height={400}
-  className="my-4"
 />
