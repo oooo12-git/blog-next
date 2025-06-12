@@ -75,14 +75,14 @@ export default function Menu({ interClass }: { interClass: string }) {
                 {t("items.blog")}
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 href="/stat"
                 className="px-3 py-2 rounded-md dark:hover:text-gray-400"
               >
                 {t("items.stat")}
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 href="https://github.com/oooo12-git"
@@ -250,13 +250,13 @@ export default function Menu({ interClass }: { interClass: string }) {
             >
               {t("items.blog")}
             </Link>
-            <Link
+            {/* <Link
               href="/stat"
               className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {t("items.stat")}
-            </Link>
+            </Link> */}
           </div>
         </div>
       )}
