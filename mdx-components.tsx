@@ -5,12 +5,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     h2: ({ children }) => (
-      <h2 className="text-2xl font-bold mt-6 mb-4">{children}</h2>
+      <h2 className="text-2xl font-bold mt-6 mb-4 dark:text-white">
+        {children}
+      </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl font-bold mt-6 mb-4">{children}</h3>
+      <h3 className="text-xl font-bold mt-6 mb-4 dark:text-white">
+        {children}
+      </h3>
     ),
-    p: ({ children }) => <p className="mb-4">{children}</p>,
+    p: ({ children }) => <p className="mb-4 dark:text-white">{children}</p>,
     blockquote: ({ children }) => (
       <blockquote className="border border-gray-400 bg-neutral-100 px-4 pt-4 my-4 rounded-r-md text-black dark:bg-gray-800 dark:border-gray-600 dark:text-neutral-200 rounded-lg">
         {children}
@@ -24,7 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: ({ children }) => (
       <ul className="list-disc list-inside mb-4 pl-4 space-y-2">{children}</ul>
     ),
-    li: ({ children }) => <li className="mb-1">{children}</li>,
+    li: ({ children }) => <li className="mb-1 dark:text-white">{children}</li>,
     pre: ({ children, ...props }) => (
       <CodeBlock {...props}>{children}</CodeBlock>
     ),

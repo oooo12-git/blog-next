@@ -178,7 +178,7 @@ export default function Menu({ interClass }: { interClass: string }) {
         >
           {isDarkMode ? (
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -193,7 +193,7 @@ export default function Menu({ interClass }: { interClass: string }) {
             </svg>
           ) : (
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -216,7 +216,7 @@ export default function Menu({ interClass }: { interClass: string }) {
           aria-label="메뉴 토글"
         >
           <svg
-            className="w-5 h-5"
+            className="w-5 h-5 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

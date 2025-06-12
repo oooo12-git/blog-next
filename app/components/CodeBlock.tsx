@@ -55,7 +55,7 @@ export default function CodeBlock({ children, ...props }: CodeBlockProps) {
         </button>
       </div>
       {/* 코드 영역 */}
-      <pre className="p-4 overflow-x-auto text-sm" {...props}>
+      <pre className="p-4 overflow-x-auto text-sm dark:text-white" {...props}>
         {children}
       </pre>
     </div>

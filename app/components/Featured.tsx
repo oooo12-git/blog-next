@@ -39,7 +39,7 @@ export async function FeaturedPost({
             {featuredMetadata.metadata.timeToRead}
             {t("timeToRead2")}
           </p>
-          <p className="text-sm sm:text-xs font-light text-neutral-600 dark:text-neutral-400 line-clamp-3 sm:line-clamp-none dark:hover:text-gray-400">
+          <p className="text-sm sm:text-sm font-light text-neutral-600 dark:text-neutral-400 line-clamp-3 sm:line-clamp-none dark:hover:text-gray-400">
             {featuredMetadata.metadata.description}
           </p>
         </div>
