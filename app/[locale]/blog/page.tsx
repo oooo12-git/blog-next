@@ -4,9 +4,9 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 interface BlogPageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
