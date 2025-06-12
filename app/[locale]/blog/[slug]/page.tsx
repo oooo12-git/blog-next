@@ -36,9 +36,51 @@ export default async function Page({ params }: PageProps) {
   // 모든 글을 가져와서 동일한 태그를 가진 글들을 필터링
   const { posts } = await getPosts(locale);
 
+  // JSON-LD 구조화된 데이터 생성
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: metadata.title,
+    description: metadata.description,
+    image: metadata.heroImage
+      ? `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}${metadata.heroImage}`
+      : `${process.env.NEXT_PUBLIC_BASE_URL}/default-blog-image.png`,
+    author: {
+      "@type": "Person",
+      name: "김재현",
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/about`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Jaehyun's Blog",
+      logo: {
+        "@type": "ImageObject",
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`,
+      },
+    },
+    datePublished: metadata.publishedAt,
+    dateModified: metadata.lastModifiedAt || metadata.publishedAt,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/${slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/${slug}`,
+    },
+    keywords: metadata.tags?.join(", "),
+    articleSection: "Technology",
+    inLanguage: locale === "ko" ? "ko-KR" : "en-US",
+    timeRequired: `PT${metadata.timeToRead}M`,
+  };
+
   return (
     <div className={`${inter.className}`}>
       <article className="mt-4 px-2 sm:px-0">
+        {/* JSON-LD 구조화된 데이터 */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         {/* 타이틀, 태그 */}
         <div className="flex flex-col gap-2 sm:gap-3">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
@@ -108,7 +150,7 @@ export async function generateMetadata({
   const pathname = getPathname({ locale, href: `/blog/${slug}` });
 
   return {
-    title: metadata.title,
+    title: `${metadata.title} | 김재현의 블로그`,
     description: metadata.description,
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`,
