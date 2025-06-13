@@ -30,6 +30,10 @@ export default async function LocaleLayout({
       <head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
+        <meta
+          name="naver-site-verification"
+          content="29a7617c3d120210148a81b685f20212482b8996"
+        />
       </head>
       <body>
         <div className="max-w-[700px] mx-auto">

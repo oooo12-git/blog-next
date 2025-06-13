@@ -144,16 +144,16 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const { metadata } = await getPost(slug, locale);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
 
   const ogImage = metadata.heroImage
     ? {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/${metadata.heroImage}`,
+        url: `${baseUrl}/${metadata.heroImage}`,
       }
     : null;
 
   const pathname = getPathname({ locale, href: `/blog/${slug}` });
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
 
   return {
     title: `${metadata.title} | 김재현의 블로그`,
