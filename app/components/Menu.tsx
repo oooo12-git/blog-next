@@ -89,6 +89,7 @@ export default function Menu({ interClass }: { interClass: string }) {
                 className="text-sm flex items-center justify-center"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="kimjaahyun's GitHub"
               >
                 <svg
                   className="rounded-md px-3 py-2 w-13 h-11 text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
