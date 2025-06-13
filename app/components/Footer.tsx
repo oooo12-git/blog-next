@@ -37,13 +37,13 @@ export default function Footer() {
 
       {/* 푸터 정보 섹션 */}
       <div className="flex flex-row justify-between items-center mt-3 mb-3 sm:mb-10 px-3 sm:px-6 text-center sm:text-left">
-        {/* KIM JAE HYUN - 첫 번째 */}
+        {/* KIM JAA HYUN - 첫 번째 */}
         <div className="flex justify-start items-center">
           <Link
             href="/"
             className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           >
-            KIM JAE HYUN
+            KIM JAA HYUN
           </Link>
         </div>
 

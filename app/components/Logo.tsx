@@ -24,7 +24,7 @@ export default function Logo({ interClass }: LogoProps) {
           <h2
             className={`text-xs sm:text-xs text-gray-700 dark:text-gray-300 dark:group-hover:text-gray-400 ${interClass} leading-tight transition-colors duration-200`}
           >
-            KIM JAE HYUN
+            KIM JAA HYUN
           </h2>
         </header>
       </Link>
