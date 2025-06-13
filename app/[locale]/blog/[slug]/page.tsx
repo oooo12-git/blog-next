@@ -64,10 +64,10 @@ export default async function Page({ params }: PageProps) {
     },
     datePublished: metadata.publishedAt,
     dateModified: metadata.lastModifiedAt || metadata.publishedAt,
-    url: `/${slug}`,
+    url: `${locale}/blog/${slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `/${slug}`,
+      "@id": `${locale}/blog/${slug}`,
     },
     keywords: metadata.tags?.join(", "),
     articleSection: "Technology",
