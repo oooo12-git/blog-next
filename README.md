@@ -148,13 +148,13 @@ yarn lint     # ESLint 검사
 
 ## 📄 라이선스
 
-이 프로젝트는 개인 블로그용으로 제작되었습니다.
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
 
 ## 📞 연락처
 
 - **블로그**: [kimjaahyun.com](https://kimjaahyun.com)
-- **이메일**: [jhdmbwy12@gmail.com]
-- **GitHub**: [github.com/oooo12-git]
+- **이메일**: [jhdmbwy12@gmail.com](mailto:jhdmbwy12@gmail.com)
+- **GitHub**: [oooo12-git](https://github.com/oooo12-git)
 
 ---
 
