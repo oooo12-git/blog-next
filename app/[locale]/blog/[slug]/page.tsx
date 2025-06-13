@@ -37,33 +37,37 @@ export default async function Page({ params }: PageProps) {
   const { posts } = await getPosts(locale);
 
   // JSON-LD 구조화된 데이터 생성
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: metadata.title,
     description: metadata.description,
     image: metadata.heroImage
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}${metadata.heroImage}`
-      : `${process.env.NEXT_PUBLIC_BASE_URL}/default-blog-image.png`,
+      ? `${baseUrl}/_next/image?url=${encodeURIComponent(
+          metadata.heroImage
+        )}&w=3840&q=75`
+      : `${baseUrl}/default-blog-image.png`,
     author: {
       "@type": "Person",
       name: "김재현",
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/about`,
+      url: `${baseUrl}/${locale}/about`,
     },
     publisher: {
       "@type": "Organization",
       name: "Jaehyun's Blog",
-      logo: {
-        "@type": "ImageObject",
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`,
-      },
+      // logo: {
+      //   "@type": "ImageObject",
+      //   url: `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`,
+      // },
     },
     datePublished: metadata.publishedAt,
     dateModified: metadata.lastModifiedAt || metadata.publishedAt,
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/${slug}`,
+    url: `/${slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/${slug}`,
+      "@id": `/${slug}`,
     },
     keywords: metadata.tags?.join(", "),
     articleSection: "Technology",

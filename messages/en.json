@@ -11,6 +11,9 @@
             "about": "About",
             "blog": "Blog",
             "stat": "Stat"
+        },
+        "search": {
+            "placeholder": "Search"
         }
     },
     "search": {

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+
 import SearchModal from "./SearchModal";
 
 type SearchProps = {
@@ -11,7 +13,7 @@ type SearchProps = {
 export default function Search({ interClass }: SearchProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const locale = useLocale();
-
+  const t = useTranslations("menu");
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsModalOpen(true);
@@ -37,7 +39,11 @@ export default function Search({ interClass }: SearchProps) {
           className="flex items-center justify-center rounded-[10px] bg-[#ECEAEA] gradient-hongkong-night border border-black border-opacity-50 h-[20px] sm:h-[23px] w-full cursor-pointer hover:bg-gray-200 transition-colors"
           onClick={handleClick}
         >
-          <button type="button" className="h-full flex items-center px-1">
+          <button
+            type="button"
+            className="h-full flex items-center px-1"
+            aria-label="search"
+          >
             <svg
               className="w-3 h-3 text-gray-500 dark:text-gray-400"
               fill="none"
@@ -56,7 +62,7 @@ export default function Search({ interClass }: SearchProps) {
           <div
             className={`h-full w-auto bg-transparent text-xs text-center font-light dark:text-gray-300 flex items-center justify-center flex-1 ${interClass}`}
           >
-            Search
+            {t("search.placeholder")}
           </div>
           <div className="text-xs text-gray-400 pr-2 hidden sm:block">⌘K</div>
         </div>
