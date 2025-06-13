@@ -64,10 +64,10 @@ export default async function Page({ params }: PageProps) {
     },
     datePublished: metadata.publishedAt,
     dateModified: metadata.lastModifiedAt || metadata.publishedAt,
-    url: `${locale}/blog/${slug}`,
+    url: `${baseUrl}/${locale}/blog/${slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${locale}/blog/${slug}`,
+      "@id": `${baseUrl}/${locale}/blog/${slug}`,
     },
     keywords: metadata.tags?.join(", "),
     articleSection: "Technology",
@@ -152,12 +152,14 @@ export async function generateMetadata({
     : null;
 
   const pathname = getPathname({ locale, href: `/blog/${slug}` });
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
 
   return {
     title: `${metadata.title} | 김재현의 블로그`,
     description: metadata.description,
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`,
+      canonical: `${baseUrl}/${locale}${pathname}`,
     },
     openGraph: {
       type: "article",
@@ -167,7 +169,7 @@ export async function generateMetadata({
       locale,
       publishedTime: metadata.publishedAt,
       modifiedTime: metadata.lastModifiedAt || metadata.publishedAt,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/${slug}`,
+      url: `${baseUrl}/${locale}/blog/${slug}`,
       ...(ogImage && { images: [ogImage] }),
     },
     twitter: {
