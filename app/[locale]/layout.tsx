@@ -2,6 +2,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/app/globals.css";
 import Navbar from "@/app/components/Navbar";
@@ -54,6 +55,7 @@ export default async function LocaleLayout({
           </NextIntlClientProvider>
           {/* </ThemeProvider> */}
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
