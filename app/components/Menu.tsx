@@ -14,16 +14,14 @@ export default function Menu({ interClass }: { interClass: string }) {
     // 컴포넌트가 마운트(최초 렌더링)될 때 한 번만 실행되는 훅
     // 로컬 스토리지에서 저장된 테마 확인
     // 로컬 스토리지(localStorage)는 웹 브라우저에서 제공하는 클라이언트 측 저장소입니다. 다음과 같은 특징이 있습니다: 브라우저에 키-값 쌍을 저장할 수 있는 간단한 저장소입니다.
-    const savedTheme = localStorage.getItem("theme"); // 로컬 스토리지에서 'theme' 키로 저장된 값을 가져옴
+    // const savedTheme = localStorage.getItem("theme"); // 로컬 스토리지에서 'theme' 키로 저장된 값을 가져옴 -> theme 키를 활용하여 다크모드 유무 저장시킬 수 있음.
     const prefersDark = window.matchMedia(
       // 사용자 시스템이 다크 모드를 선호하는지 확인
       "(prefers-color-scheme: dark)" // CSS 미디어 쿼리로 시스템의 색상 테마 설정 확인
     ).matches; // 일치하면 true 반환
 
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      // 다크 모드 적용 조건 검사
-      // 1. 저장된 테마가 'dark'인 경우 또는
-      // 2. 저장된 테마가 없고 시스템이 다크 모드를 선호하는 경우
+    if (prefersDark) {
+      // 시스템이 다크 모드를 선호하는 경우
       document.documentElement.classList.add("dark"); // HTML 루트 요소에 'dark' 클래스 추가
       setIsDarkMode(true);
     } else {
@@ -40,10 +38,10 @@ export default function Menu({ interClass }: { interClass: string }) {
 
     if (newDarkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      // localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      // localStorage.setItem("theme", "light");
     }
 
     console.log("Dark mode toggled to:", newDarkMode);
