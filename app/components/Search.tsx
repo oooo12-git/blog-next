@@ -65,6 +65,7 @@ export default function Search({ interClass }: SearchProps) {
             {t("search.placeholder")}
           </div>
           <div className="text-xs text-gray-400 pr-2 hidden sm:block">⌘K</div>
+          <div className="text-xs text-gray-400 pr-2 block sm:hidden"> </div>
         </div>
       </div>
 
