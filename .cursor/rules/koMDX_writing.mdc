@@ -1,0 +1,6 @@
+---
+description: 블로그 글을 쓸 때 이 rule을 적용해
+globs: 
+alwaysApply: false
+---
+- 존댓말이 아닌 평어체를 사용해.
