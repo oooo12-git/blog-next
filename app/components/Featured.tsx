@@ -9,7 +9,7 @@ export async function FeaturedPost({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const featuredMetadata = await getPost("quarto-blog", locale);
+  const featuredMetadata = await getPost("photo-studio-reservation", locale);
   const t = await getTranslations("home");
 
   return (
@@ -31,7 +31,7 @@ export async function FeaturedPost({
           <h2 className="text-lg sm:text-base font-semibold">
             {t("featured")}
           </h2>
-          <p className="text-base font-light line-clamp-2 sm:line-clamp-none dark:hover:text-gray-400">
+          <p className="text-base font-light line-clamp-2 sm:line-clamp-1 dark:hover:text-gray-400">
             {featuredMetadata.metadata.title}
           </p>
           <p className="text-sm sm:text-xs font-light text-neutral-500 dark:text-neutral-300 dark:hover:text-gray-400">
@@ -39,7 +39,7 @@ export async function FeaturedPost({
             {featuredMetadata.metadata.timeToRead}
             {t("timeToRead2")}
           </p>
-          <p className="text-sm sm:text-sm font-light text-neutral-600 dark:text-neutral-400 line-clamp-3 sm:line-clamp-none dark:hover:text-gray-400">
+          <p className="text-sm sm:text-sm font-light text-neutral-600 dark:text-neutral-400 line-clamp-3 sm:line-clamp-7 dark:hover:text-gray-400">
             {featuredMetadata.metadata.description}
           </p>
         </div>
