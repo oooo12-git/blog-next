@@ -19,16 +19,22 @@ export default function AboutPage() {
               경력
             </h3>
             <ul className="font-normal list-disc list-outside pl-4 space-y-1">
-              <li>스튜디오 예약 시스템 개발 (2024.09 ~ 진행중)</li>
+              <li>
+                <Link
+                  href={`/${locale}/blog/photo-studio-reservation`}
+                  className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
+                >
+                  스튜디오 예약 시스템 개발 (2024.09 ~ 진행중)
+                </Link>
+              </li>
               <li>
                 <Link
                   href="https://blog.naver.com/PostView.naver?blogId=n_cloudplatform&logNo=223790788385"
                   target="_blank"
                   className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
                 >
-                  RAG 활용 재무 보고서 챗봇 개발
+                  RAG 활용 재무 보고서 챗봇 개발 (2024.10 ~ 2025.01)
                 </Link>
-                (2024.10 ~ 2025.01)
               </li>
               <li>광고 데이터 분석 (2019.09 ~ 2022.09)</li>
             </ul>
@@ -41,16 +47,23 @@ export default function AboutPage() {
               Experience
             </h3>
             <ul className="font-normal list-disc list-outside pl-4 space-y-1">
-              <li>Studio Reservation System Development (2024.09 ~ Ongoing)</li>
+              <li>
+                <Link
+                  href={`/${locale}/blog/photo-studio-reservation`}
+                  className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
+                >
+                  Studio Reservation System Development (2024.09 ~ Ongoing)
+                </Link>
+              </li>
               <li>
                 <Link
                   href="https://blog.naver.com/PostView.naver?blogId=n_cloudplatform&logNo=223790788385"
                   target="_blank"
                   className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
                 >
-                  RAG-based Financial Report Chatbot Development
+                  RAG-based Financial Report Chatbot Development (2024.10 ~
+                  2025.01)
                 </Link>
-                (2024.10 ~ 2025.01)
               </li>
               <li>Advertising Data Analysis (2019.09 ~ 2022.09)</li>
             </ul>
