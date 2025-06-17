@@ -4,7 +4,7 @@ import profileLight from "./김재현_about_light.jpeg";
 import profileDark from "./김재현_about_dark.jpeg";
 import Link from "next/link";
 import { HiOutlineMail } from "react-icons/hi";
-import { FaInstagram, FaWhatsapp, FaLine, FaWeixin } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaLine } from "react-icons/fa";
 import { SiKakaotalk } from "react-icons/si";
 
 export default function AboutPage() {

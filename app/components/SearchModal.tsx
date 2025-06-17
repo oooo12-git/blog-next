@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { PostWithSnippet } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
@@ -19,9 +19,12 @@ export default function SearchModal({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<PostWithSnippet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [previousPathname, setPreviousPathname] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const t = useTranslations("search");
   // 검색 함수
   const performSearch = async (searchQuery: string) => {
@@ -63,6 +66,25 @@ export default function SearchModal({
     }
   }, [isOpen]);
 
+  // 모달이 닫힐 때 상태 초기화
+  useEffect(() => {
+    if (!isOpen) {
+      setQuery("");
+      setResults([]);
+      setSelectedIndex(-1);
+      setIsNavigating(false);
+      setPreviousPathname("");
+    }
+  }, [isOpen]);
+
+  // 경로 변경 감지하여 네비게이션 중일 때 모달 닫기
+  useEffect(() => {
+    // 네비게이션 중이고 경로가 실제로 변경되었을 때만 모달 닫기
+    if (isNavigating && previousPathname && pathname !== previousPathname) {
+      onClose();
+    }
+  }, [pathname, isNavigating, previousPathname, onClose]);
+
   // 키보드 네비게이션
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -76,15 +98,17 @@ export default function SearchModal({
     } else if (e.key === "Enter" && selectedIndex >= 0) {
       e.preventDefault();
       const selectedPost = results[selectedIndex];
+      setPreviousPathname(pathname); // 현재 경로를 이전 경로로 저장
+      setIsNavigating(true);
       router.push(`/${locale}/blog/${selectedPost.slug}`);
-      onClose();
     }
   };
 
   // 포스트 클릭 핸들러
   const handlePostClick = (slug: string) => {
+    setPreviousPathname(pathname); // 현재 경로를 이전 경로로 저장
+    setIsNavigating(true);
     router.push(`/${locale}/blog/${slug}`);
-    onClose();
   };
 
   // 검색어 하이라이트
@@ -117,6 +141,17 @@ export default function SearchModal({
 
       {/* 모달 */}
       <div className="relative w-full max-w-sm sm:max-w-2xl bg-white gradient-hongkong-light rounded-lg shadow-xl border border-black dark:border-gray-700">
+        
+        {/* 네비게이션 로딩 오버레이 */}
+        {isNavigating && (
+          <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg flex items-center justify-center z-10">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100"></div>
+              <p className="text-sm text-gray-700 dark:text-gray-300">페이지 이동 중...</p>
+            </div>
+          </div>
+        )}
+
         {/* 검색 입력 */}
         <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 ">
           <div className="flex items-center space-x-2 sm:space-x-3">
