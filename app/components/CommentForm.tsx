@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Inter } from "next/font/google";
 import { CommentFormData } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +13,6 @@ interface CommentFormProps {
   initialData?: Partial<CommentFormData>;
   isReply?: boolean;
   isEdit?: boolean;
-  submitLabel?: string;
 }
 
 /**
@@ -25,8 +25,8 @@ export default function CommentForm({
   initialData = {},
   isReply = false,
   isEdit = false,
-  submitLabel = "등록",
 }: CommentFormProps) {
+  const t = useTranslations("comment");
   const [formData, setFormData] = useState<CommentFormData>({
     author: initialData.author || "",
     email: initialData.email || "",
@@ -51,7 +51,7 @@ export default function CommentForm({
       !formData.email.trim() ||
       !formData.content.trim()
     ) {
-      alert("모든 필드를 입력해주세요.");
+      alert(t("allFieldsRequired"));
       return;
     }
     onSubmit(formData);
@@ -67,7 +67,7 @@ export default function CommentForm({
       {isReply && (
         <div className="pl-1">
           <h4 className="text-sm font-medium text-[#333] dark:text-neutral-300 mb-2">
-            답글 작성
+            {t("reply")}
           </h4>
         </div>
       )}
@@ -80,7 +80,7 @@ export default function CommentForm({
             name="author"
             value={formData.author}
             onChange={handleChange}
-            placeholder="글쓴이"
+            placeholder={t("author")}
             className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] dark:bg-gray-700 dark:text-white text-sm"
             required
           />
@@ -94,7 +94,7 @@ export default function CommentForm({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="이메일"
+              placeholder={t("email")}
               className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] dark:bg-gray-700 dark:text-white text-sm"
               required
             />
@@ -109,7 +109,7 @@ export default function CommentForm({
               </div>
               {showTooltip && (
                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded whitespace-nowrap z-10">
-                  이메일은 답글 알림 및 수정,삭제를 위해 사용됩니다.
+                  {t("emailInfo")}
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
                 </div>
               )}
@@ -124,7 +124,7 @@ export default function CommentForm({
           name="content"
           value={formData.content}
           onChange={handleChange}
-          placeholder="여기에 댓글을 작성해주세요"
+          placeholder={t("placeholder")}
           rows={4}
           className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] resize-none dark:bg-gray-700 dark:text-white text-sm"
           required
@@ -139,14 +139,14 @@ export default function CommentForm({
             onClick={onCancel}
             className="px-4 py-2 text-[#706E6E] border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md hover:bg-gray-50 dark:text-neutral-300 dark:hover:bg-gray-700 text-sm font-light"
           >
-            취소
+            {t("cancel")}
           </button>
         )}
         <button
           type="submit"
           className="px-6 py-2 bg-[#706E6E] text-white rounded-md hover:bg-[#5A5858] transition-colors text-sm font-medium"
         >
-          {submitLabel}
+          {t("submit")}
         </button>
       </div>
     </form>

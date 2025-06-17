@@ -11,6 +11,7 @@ import {
   editComment,
   removeComment,
 } from "@/lib/actions";
+import { useTranslations } from "next-intl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ interface CommentSectionProps {
  * 댓글 목록 관리, 새 댓글 작성, 답글/수정/삭제 기능 통합
  */
 export default function CommentSection({ slug, locale }: CommentSectionProps) {
+  const t = useTranslations("comment");
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -143,7 +145,7 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
       {/* 댓글 섹션 헤더 */}
       <div className="rounded-md border-[0.5px] dark:border-neutral-400 pt-8 p-3 sm:p-4">
         <h2 className="border-b-[0.5px] border-gray-200 dark:border-neutral-400 pb-2 text-xl sm:text-2xl font-semibold text-[#333] dark:text-neutral-200 mb-2">
-          댓글
+          {t("comment")}
         </h2>
 
         {/* 댓글 목록 */}
@@ -160,7 +162,7 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
             ))
           ) : (
             <div className="text-center py-8 text-[#706E6E] dark:text-gray-400 font-light">
-              아직 댓글이 없습니다. 첫 번째 댓글을 작성해보세요!
+              {t("noComments")}
             </div>
           )}
         </div>
@@ -168,7 +170,7 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
         {/* 새 댓글 작성 폼 */}
         <div className="mb-8 p-3 sm:p-4 mt-2 border-[0.5px] border-gray-200 dark:border-neutral-400 bg-[#FAFAFA] dark:bg-gray-800 rounded-md">
           <h3 className="text-base sm:text-lg font-semibold text-[#333] dark:text-neutral-200 mb-4">
-            댓글 작성
+            {t("writeComment")}
           </h3>
           <CommentForm onSubmit={handleAddComment} />
         </div>

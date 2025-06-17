@@ -23,7 +23,9 @@
         "close": "닫기",
         "tab": "탭하여 선택",
         "noResults": "검색 결과가 없습니다.",
-        "timeToRead": "분 읽기"
+        "timeToRead": "분 읽기",
+        "content": "본문",
+        "navigating": "페이지 이동 중..."
     },
     "footer": {
         "total": "총 방문자",
@@ -77,5 +79,27 @@
         "tagInfo": "태그 정보",
         "tagCount1": "태그가 포함된 포스트는 총 ",
         "tagCount2": "개입니다."
+    },
+    "comment": {
+        "allFieldsRequired": "모든 필드를 입력해주세요.",
+        "reply": "답글 작성",
+        "author": "글쓴이",
+        "email": "이메일",
+        "placeholder": "여기에 댓글을 작성해주세요",
+        "submit": "등록",
+        "cancel": "취소",
+        "confirm": "확인",
+        "editComment": "댓글 수정",
+        "deleteComment": "댓글 삭제",
+        "deletedComment": "삭제된 댓글입니다.",
+        "edit": "수정",
+        "delete": "삭제",
+        "comment": "댓글",
+        "noComments": "아직 댓글이 없습니다. 첫 번째 댓글을 작성해보세요!",
+        "writeComment": "댓글 작성",
+        "deletedUser": "삭제된 사용자",
+        "firstWritten": "처음 쓰여진 날",
+        "lastModified": "마지막으로 고쳐진 날",
+        "emailInfo": "이메일은 답글 알림 및 수정,삭제를 위해 사용됩니다."
     }
 }

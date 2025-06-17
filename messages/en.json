@@ -23,7 +23,9 @@
         "close": "Close",
         "tab": "Tab to select",
         "noResults": "No results found",
-        "timeToRead": " min read"
+        "timeToRead": " min read",
+        "content": "Content",
+        "navigating": "Navigating..."
     },
     "footer": {
         "total": "Total visitors",
@@ -77,5 +79,27 @@
         "tagInfo": "Tag Info",
         "tagCount1": "tag has ",
         "tagCount2": " posts"
+    },
+    "comment": {
+        "allFieldsRequired": "Please fill in all fields.",
+        "reply": "Reply",
+        "author": "Author",
+        "email": "Email",
+        "placeholder": "Write your comment here",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "editComment": "Edit Comment",
+        "deleteComment": "Delete Comment",
+        "deletedComment": "Deleted comment.",
+        "edit": "Edit",
+        "delete": "Delete",
+        "comment": "Comment",
+        "noComments": "No comments yet. Write the first comment!",
+        "writeComment": "Write Comment",
+        "deletedUser": "Deleted User",
+        "firstWritten": "First Written",
+        "lastModified": "Last Modified",
+        "emailInfo": "Email is used for reply notifications, edits, and deletions."
     }
 }
