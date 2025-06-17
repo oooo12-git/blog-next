@@ -65,7 +65,8 @@
         "experience": "디지털 마케팅 경력 3년",
         "training": "서울대학교 빅데이터 핀테크 AI 전문가 과정 이수",
         "skills": "Nextjs, React, Python, LangGraph, SQL",
-        "certificates": "재무위험관리사, SQLD, ADsP, AICE associate"
+        "certificates": "재무위험관리사, SQLD, ADsP, AICE associate",
+        "contact": "문의하기"
     },
     "tag": {
         "title": "태그",
