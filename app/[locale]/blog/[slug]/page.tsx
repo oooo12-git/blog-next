@@ -159,7 +159,7 @@ export async function generateMetadata({
     title: `${metadata.title} | 김재현의 블로그`,
     description: metadata.description,
     alternates: {
-      canonical: `${baseUrl}/${locale}${pathname}`,
+      canonical: `${baseUrl}${pathname}`,
     },
     openGraph: {
       type: "article",

@@ -1,0 +1,159 @@
+import ImageWithCaption from "../../app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "Solving Google API '400 Precondition check failed' Error",
+  description:
+    "Analyzes the causes and solutions for the '400 Precondition check failed' error that occurs when using Gmail API with service accounts configured for domain-wide delegation. Covers the necessity of JWT authentication methods and detailed implementation.",
+  publishedAt: "2025-06-25",
+  lastModifiedAt: "2025-06-25",
+  timeToRead: 0,
+  heroImage:
+    "/contents/google-api-precondition-problem/Gemini_Generated_Image_400-bad_request.jpeg",
+  tags: [
+    "Google API",
+    "Gmail API",
+    "Authentication",
+    "JWT",
+    "OAuth2",
+    "Service Account",
+    "Google Cloud",
+  ],
+};
+
+# Solving Google API '400 Precondition check failed' Error
+
+<ImageWithCaption
+  src="/contents/google-api-precondition-problem/Gemini_Generated_Image_400-bad_request.jpeg"
+  alt="Gemini generated, 400 bad request"
+/>
+
+## Problem Description
+
+When using Gmail API, Google Calendar API, Google Contacts API, etc., through service accounts configured with domain-wide delegation, you may encounter the following error:
+
+```
+400 - Bad Request, Precondition check failed.
+```
+
+This error is particularly difficult to troubleshoot because **service account authentication itself appears to complete successfully in the logs**. Developers assume authentication is working correctly and look for other causes, but in most cases, the issue lies with the authentication method itself.
+
+## Root Cause Analysis
+
+The core cause of this error is **using insufficient authentication methods**. While the GoogleAuth class itself is still supported, it's insufficient when accessing sensitive APIs like Gmail API, Google Calendar API, and Google Contacts API. These APIs require enhanced authentication methods, and basic GoogleAuth class alone cannot provide sufficient permissions for such APIs.
+
+### Authentication Methods Insufficient for Sensitive APIs
+
+#### 1. Using Basic GoogleAuth
+
+```javascript
+const { google } = require("googleapis");
+
+async function getAuthClient() {
+  try {
+    console.log("🔑 Starting service account authentication...");
+
+    // ❌ This method doesn't provide sufficient permissions for sensitive APIs
+    const auth = new google.auth.GoogleAuth({
+      scopes: [
+        "https://www.googleapis.com/auth/gmail.readonly",
+        "https://www.googleapis.com/auth/gmail.modify",
+        "https://www.googleapis.com/auth/gmail.send",
+      ],
+    });
+
+    const authClient = await auth.getClient();
+    // Authentication succeeds but API calls fail with Precondition error
+  }
+}
+```
+
+#### 2. Using GoogleAuth Class from google-auth-library
+
+```javascript
+const { GoogleAuth } = require("google-auth-library");
+
+// ❌ This method is also insufficient for sensitive APIs
+const auth = new GoogleAuth({
+  scopes: [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/gmail.send",
+  ],
+});
+```
+
+## Solution: JWT + OAuth2 Authentication
+
+The correct authentication method required by Google APIs is the **JWT (JSON Web Token) + OAuth2** combination. This is a mandatory requirement due to Google's enhanced security policies.
+
+### Correct Implementation
+
+```javascript
+const { JWT } = require("google-auth-library");
+const fs = require("fs");
+const path = require("path");
+
+async function getAuthClient() {
+  try {
+    console.log("🔑 Starting service account key file authentication...");
+
+    // Set key file path
+    const keyFilePath = path.join(__dirname, "service-account-key.json");
+
+    // Read key file
+    const keyFileContent = fs.readFileSync(keyFilePath, "utf8");
+    const credentials = JSON.parse(keyFileContent);
+
+    console.log("✅ Service account key file loaded successfully");
+
+    // Create JWT client
+    const jwtClient = new JWT({
+      email: credentials.client_email,
+      key: credentials.private_key,
+      scopes: [
+        "https://www.googleapis.com/auth/gmail.readonly",
+        "https://www.googleapis.com/auth/gmail.modify",
+        "https://www.googleapis.com/auth/gmail.send",
+      ],
+    });
+
+    console.log("✅ JWT client created successfully");
+    console.log("🔍 Service account used:", credentials.client_email);
+    console.log("🔗 Authentication type: JWT (using key file)");
+
+    // ⭐ Critical: JWT token authentication (obtain access_token per OAuth2 specification)
+    await jwtClient.authorize();
+    console.log("✅ JWT token authentication completed");
+
+    return jwtClient;
+  } catch (error) {
+    console.error("❌ Authentication failed:", error.message);
+    throw error;
+  }
+}
+```
+
+### Key Points
+
+1. **Use JWT Class**: Use the `JWT` class directly instead of `google.auth.GoogleAuth`.
+2. **Explicit authorize Call**: Always call `jwtClient.authorize()` to obtain OAuth2 access token.
+3. **Service Account Key File**: Recommend explicit key file usage over environment variables or default authentication.
+
+## Technical Background
+
+This change is related to Google's adoption of the **Zero Trust security model**. The JWT + OAuth2 approach provides the following security benefits:
+
+- **Token-based Authentication**: Superior scalability and security compared to session-based authentication
+- **Explicit Authorization**: Clear permission verification for each request
+- **Time Limitation**: Tokens have expiration times to minimize security risks
+
+## Conclusion
+
+The Google API '400 Precondition check failed' error is mostly caused by authentication method issues. Using JWT + OAuth2 instead of the traditional GoogleAuth class resolves the problem. This is a mandatory requirement due to Google's security policy enhancements, so we recommend adopting this authentication method as the standard for all Google API projects.
+
+## References
+
+- [Google Auth Library for Node.js](https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest)
+- [Service Account Authorization](https://developers.google.com/identity/protocols/oauth2/service-account?hl=ko#delegatingauthority)
+- [GitHub Issue #2322](https://github.com/googleapis/google-api-nodejs-client/issues/2322)
+- [Google Workspace Admin Help](https://support.google.com/a/answer/14114704?sjid=1342509444799458782-NC)

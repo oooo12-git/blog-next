@@ -1,0 +1,159 @@
+import ImageWithCaption from "../../app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "Google API '400 Precondition check failed' 오류 해결법",
+  description:
+    "도메인 전체 위임을 설정한 서비스 계정으로 Gmail API 사용 시 발생하는 '400 Precondition check failed' 오류의 원인과 해결 방법을 분석한다. JWT 인증 방식의 필요성과 구현 방법을 상세히 다룬다.",
+  publishedAt: "2025-06-25",
+  lastModifiedAt: "2025-06-25",
+  timeToRead: 0,
+  heroImage:
+    "/contents/google-api-precondition-problem/Gemini_Generated_Image_400-bad_request.jpeg",
+  tags: [
+    "Google API",
+    "Gmail API",
+    "인증",
+    "JWT",
+    "OAuth2",
+    "서비스계정",
+    "구글클라우드",
+  ],
+};
+
+# Google API '400 Precondition check failed' 오류 해결법
+
+<ImageWithCaption
+  src="/contents/google-api-precondition-problem/Gemini_Generated_Image_400-bad_request.jpeg"
+  alt="gemini 생성, 400 bad request"
+/>
+
+## 문제 상황
+
+도메인 전체 위임(Domain-wide Delegation)을 설정한 서비스 계정을 통해 Gmail API, Google Calendar API, Google Contacts API 등을 사용할 때 다음과 같은 오류가 발생할 수 있다:
+
+```
+400 - Bad Request, Precondition check failed.
+```
+
+이 오류는 특히 문제 해결을 어렵게 만드는 특징이 있다. **서비스 계정 인증 자체는 성공적으로 완료된 것처럼 로그에 기록되기 때문**이다. 개발자는 인증에는 문제가 없다고 판단하고 다른 원인을 찾게 되지만, 실제로는 인증 방식 자체에 문제가 있는 경우가 대부분이다.
+
+## 원인 분석
+
+이 오류의 핵심 원인은 **부적절한 인증 방식 사용**에 있다. GoogleAuth 클래스 자체는 여전히 지원되지만, Gmail API, Google Calendar API, Google Contacts API 등 민감한 데이터에 접근하는 API들을 사용할 때는 더 강화된 인증 방식이 필요하다. 기본적인 GoogleAuth 클래스만으로는 이러한 API들에 대한 충분한 권한을 얻을 수 없다.
+
+### 민감한 API에서 부족한 인증 방식
+
+#### 1. 기본 GoogleAuth 사용
+
+```javascript
+const { google } = require("googleapis");
+
+async function getAuthClient() {
+  try {
+    console.log("🔑 서비스 계정 인증 시작...");
+
+    // ❌ 민감한 API에서는 이 방식으로 충분한 권한을 얻을 수 없음
+    const auth = new google.auth.GoogleAuth({
+      scopes: [
+        "https://www.googleapis.com/auth/gmail.readonly",
+        "https://www.googleapis.com/auth/gmail.modify",
+        "https://www.googleapis.com/auth/gmail.send",
+      ],
+    });
+
+    const authClient = await auth.getClient();
+    // 인증은 성공하지만 API 호출 시 Precondition 오류 발생
+  }
+}
+```
+
+#### 2. google-auth-library의 GoogleAuth 클래스 사용
+
+```javascript
+const { GoogleAuth } = require("google-auth-library");
+
+// ❌ 민감한 API에서는 이 방식도 부족함
+const auth = new GoogleAuth({
+  scopes: [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/gmail.send",
+  ],
+});
+```
+
+## 해결 방법: JWT + OAuth2 인증
+
+Google API에서 요구하는 올바른 인증 방식은 **JWT(JSON Web Token) + OAuth2** 조합이다. 이는 Google의 보안 정책 강화에 따른 필수 요구사항이다.
+
+### 올바른 구현 방법
+
+```javascript
+const { JWT } = require("google-auth-library");
+const fs = require("fs");
+const path = require("path");
+
+async function getAuthClient() {
+  try {
+    console.log("🔑 서비스 계정 키 파일 인증 시작...");
+
+    // 키 파일 경로 설정
+    const keyFilePath = path.join(__dirname, "service-account-key.json");
+
+    // 키 파일 읽기
+    const keyFileContent = fs.readFileSync(keyFilePath, "utf8");
+    const credentials = JSON.parse(keyFileContent);
+
+    console.log("✅ 서비스 계정 키 파일 로드 성공");
+
+    // JWT 클라이언트 생성
+    const jwtClient = new JWT({
+      email: credentials.client_email,
+      key: credentials.private_key,
+      scopes: [
+        "https://www.googleapis.com/auth/gmail.readonly",
+        "https://www.googleapis.com/auth/gmail.modify",
+        "https://www.googleapis.com/auth/gmail.send",
+      ],
+    });
+
+    console.log("✅ JWT 클라이언트 생성 완료");
+    console.log("🔍 사용된 서비스 계정:", credentials.client_email);
+    console.log("🔗 인증 유형: JWT (키 파일 사용)");
+
+    // ⭐ 핵심: JWT 토큰 인증 (OAuth2 규격에 따른 access_token 획득)
+    await jwtClient.authorize();
+    console.log("✅ JWT 토큰 인증 완료");
+
+    return jwtClient;
+  } catch (error) {
+    console.error("❌ 인증 실패:", error.message);
+    throw error;
+  }
+}
+```
+
+### 핵심 포인트
+
+1. **JWT 클래스 사용**: `google.auth.GoogleAuth` 대신 `JWT` 클래스를 직접 사용한다.
+2. **명시적 authorize 호출**: `jwtClient.authorize()`를 반드시 호출하여 OAuth2 access token을 획득한다.
+3. **서비스 계정 키 파일**: 환경 변수나 기본 인증보다는 명시적인 키 파일 사용을 권장한다.
+
+## 기술적 배경
+
+이러한 변화는 Google의 **Zero Trust 보안 모델** 도입과 관련이 있다. JWT + OAuth2 방식은 다음과 같은 보안 이점을 제공한다:
+
+- **토큰 기반 인증**: 세션 기반 인증보다 확장성과 보안성이 우수하다
+- **명시적 권한 부여**: 각 요청마다 명확한 권한 검증이 이루어진다
+- **시간 제한**: 토큰에 만료 시간이 설정되어 보안 위험을 최소화한다
+
+## 마무리
+
+Google API의 '400 Precondition check failed' 오류는 대부분 인증 방식 문제로 발생한다. 기존의 GoogleAuth 클래스 대신 JWT + OAuth2 방식을 사용하면 문제를 해결할 수 있다. 이는 Google의 보안 정책 강화에 따른 필수 요구사항이므로, 모든 Google API 프로젝트에서 이 인증 방식을 표준으로 채택하는 것을 권장한다.
+
+## 참고 자료
+
+- [Google Auth Library for Node.js](https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest)
+- [Service Account Authorization](https://developers.google.com/identity/protocols/oauth2/service-account?hl=ko#delegatingauthority)
+- [GitHub Issue #2322](https://github.com/googleapis/google-api-nodejs-client/issues/2322)
+- [Google Workspace Admin Help](https://support.google.com/a/answer/14114704?sjid=1342509444799458782-NC)
