@@ -31,9 +31,7 @@ export const metadata = {
 
 When using Gmail API, Google Calendar API, Google Contacts API, etc., through service accounts configured with domain-wide delegation, you may encounter the following error:
 
-```
-400 - Bad Request, Precondition check failed.
-```
+`400 - Bad Request, Precondition check failed.`
 
 This error is particularly difficult to troubleshoot because **service account authentication itself appears to complete successfully in the logs**. Developers assume authentication is working correctly and look for other causes, but in most cases, the issue lies with the authentication method itself.
 

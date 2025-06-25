@@ -31,9 +31,7 @@ export const metadata = {
 
 도메인 전체 위임(Domain-wide Delegation)을 설정한 서비스 계정을 통해 Gmail API, Google Calendar API, Google Contacts API 등을 사용할 때 다음과 같은 오류가 발생할 수 있다:
 
-```
-400 - Bad Request, Precondition check failed.
-```
+`400 - Bad Request, Precondition check failed.`
 
 이 오류는 특히 문제 해결을 어렵게 만드는 특징이 있다. **서비스 계정 인증 자체는 성공적으로 완료된 것처럼 로그에 기록되기 때문**이다. 개발자는 인증에는 문제가 없다고 판단하고 다른 원인을 찾게 되지만, 실제로는 인증 방식 자체에 문제가 있는 경우가 대부분이다.
 
