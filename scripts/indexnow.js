@@ -52,9 +52,9 @@ async function submitToIndexNow() {
       },
       body: JSON.stringify({
         host: "www.kimjaahyun.com",
-        key: "6d3dbbf1d8c943db80232680a04088c8",
+        key: "5f6934c83f654c05bcaeeb7b32822e0c",
         keyLocation:
-          "https://www.kimjaahyun.com/6d3dbbf1d8c943db80232680a04088c8.txt",
+          "https://www.kimjaahyun.com/5f6934c83f654c05bcaeeb7b32822e0c.txt",
         urlList: urls,
       }),
     });
