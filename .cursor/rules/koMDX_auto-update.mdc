@@ -62,7 +62,7 @@ contents 폴더 내의 ko.mdx 파일을 수정할 때, metadata 객체의 descri
 
 ### 5. 다국어 동기화
 - ko.mdx 파일의 description, tags, heroImage 필드가 수정되면, 같은 폴더 내의 en.mdx 파일도 함께 업데이트
-- en.mdx 파일의 description은 ko.mdx의 description을 영어로 번역하여 업데이트
+- en.mdx 파일의 description은 ko.mdx의 description을 영어로 번역하여 업데이트(영어가 160자를 넘어갈 경우 간결하게 줄이기)
 - en.mdx 파일의 tags는 ko.mdx의 tags와 동일하게 업데이트 (기술명/영어 태그는 그대로, 한국어 태그는 영어로 번역)
 - en.mdx 파일의 heroImage는 ko.mdx의 heroImage와 동일하게 업데이트
 - 영어 번역 시 기술적 정확성과 자연스러운 표현 모두 고려
@@ -155,8 +155,8 @@ export const metadata = {
 import ImageWithCaption from "../../app/components/ImageWithCaption";
 
 export const metadata = {
-  title: "Supervised vs Unsupervised Learning",
-  description: "Explains the differences between supervised and unsupervised learning, covering their characteristics and use cases. Includes concepts of regression, classification problems, and clustering.", // 자동 번역 및 업데이트
+  title: "Supervised vs Unsupervised Learning",//(제목은 70자 넘지 않게)
+  description: "Explains the differences between supervised and unsupervised learning, covering their characteristics and use cases. Includes concepts of regression, classification problems, and clustering.", // 자동 번역 및 업데이트(160자 넘지 않게)
   publishedAt: "2023-09-12",
   lastModifiedAt: "2023-09-12",
   timeToRead: 0,

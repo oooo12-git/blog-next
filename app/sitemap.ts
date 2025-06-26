@@ -35,10 +35,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 블로그 포스트들을 가져와서 sitemap에 추가
   const koPostsData = await getPosts("ko");
+  const enPostsData = await getPosts("en");
 
   const blogPosts: MetadataRoute.Sitemap = [];
 
-  // 포스트들 처리 (한국어 기본 URL로 sitemap 생성)
+  // 한국어 포스트들 처리
   for (const post of koPostsData.posts) {
     blogPosts.push({
       url: `https://kimjaahyun.com/ko/blog/${post.slug}`,
@@ -46,6 +47,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       alternates: {
         languages: {
           en: `https://kimjaahyun.com/en/blog/${post.slug}`,
+        },
+      },
+    });
+  }
+
+  // 영어 포스트들 처리
+  for (const post of enPostsData.posts) {
+    blogPosts.push({
+      url: `https://kimjaahyun.com/en/blog/${post.slug}`,
+      lastModified: new Date(post.metadata.lastModifiedAt),
+      alternates: {
+        languages: {
+          ko: `https://kimjaahyun.com/ko/blog/${post.slug}`,
         },
       },
     });
