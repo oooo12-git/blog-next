@@ -82,10 +82,12 @@ async function submitToIndexNow() {
 }
 
 // 프로덕션 환경에서만 실행
-if (
+const isProduction =
   process.env.VERCEL_ENV === "production" ||
-  process.env.NODE_ENV === "production"
-) {
+  process.env.NODE_ENV === "production";
+
+if (isProduction) {
+  console.log("🚀 프로덕션 환경에서 실행됩니다.");
   submitToIndexNow();
 } else {
   console.log("🚫 프로덕션 환경이 아니므로 IndexNow API 호출을 건너뜁니다.");
