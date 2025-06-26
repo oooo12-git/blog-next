@@ -81,11 +81,11 @@ async function submitToIndexNow() {
       url: "https://api.indexnow.org/IndexNow",
       icon: "🔍",
     },
-    {
-      name: "Naver SearchAdvisor",
-      url: "https://searchadvisor.naver.com/indexnow",
-      icon: "🟢",
-    },
+    // {
+    //   name: "Naver SearchAdvisor",
+    //   url: "https://searchadvisor.naver.com/indexnow",
+    //   icon: "🟢",
+    // },
   ];
 
   const payload = {
