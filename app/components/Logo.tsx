@@ -16,16 +16,16 @@ export default function Logo({ interClass }: LogoProps) {
     <div className="flex items-center">
       <Link href="/" className="flex-shrink-0 flex items-center group">
         <header className="flex flex-col items-center">
-          <h1
+          <p
             className={`text-lg sm:text-2xl ${rocknRollOne.className} text-gray-900 dark:text-white dark:group-hover:text-gray-200 transition-colors duration-200`}
           >
             金宰賢
-          </h1>
-          <h2
+          </p>
+          <p
             className={`text-xs sm:text-xs text-gray-700 dark:text-gray-300 dark:group-hover:text-gray-400 ${interClass} leading-tight transition-colors duration-200`}
           >
             KIM JAA HYUN
-          </h2>
+          </p>
         </header>
       </Link>
     </div>
