@@ -73,11 +73,13 @@ async function submitToIndexNow() {
       process.exit(0);
     } else {
       console.log(`❌ 오류: HTTP ${response.status}`);
-      process.exit(1);
+      console.log("⚠️  IndexNow API 오류가 발생했지만 빌드를 계속 진행합니다.");
+      process.exit(0);
     }
   } catch (error) {
     console.log("❌ 네트워크 오류:", error.message);
-    process.exit(1);
+    console.log("⚠️  IndexNow API 오류가 발생했지만 빌드를 계속 진행합니다.");
+    process.exit(0);
   }
 }
 
