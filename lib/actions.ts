@@ -225,6 +225,45 @@ export async function createComment(
     const result = await addComment(slug, sanitizedData, parentId);
 
     if (result.success) {
+      // 이메일 알림 발송 (비동기로 처리하여 댓글 등록 속도에 영향 주지 않음)
+      try {
+        // 현재 환경에 따라 기본 URL 설정
+        const baseUrl =
+          process.env.NODE_ENV === "development"
+            ? `http://localhost:${process.env.PORT || 3000}`
+            : "https://www.kimjaahyun.com";
+
+        const pageUrl = `${baseUrl}/${locale}/blog/${slug}`;
+        const apiUrl = `${baseUrl}/api/email/comment-notification`;
+
+        console.log("이메일 알림 발송 시도:", { apiUrl, pageUrl });
+
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            commentContent: sanitizedData.content,
+            commentAuthor: sanitizedData.author,
+            postSlug: slug,
+            pageUrl: pageUrl,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `이메일 API 호출 실패: ${response.status} ${response.statusText}`
+          );
+        }
+
+        const emailResult = await response.json();
+        console.log("이메일 알림 결과:", emailResult);
+      } catch (emailError) {
+        console.error("이메일 알림 발송 실패:", emailError);
+        // 이메일 발송 실패해도 댓글 등록은 성공으로 처리
+      }
+
       // 해당 페이지의 캐시를 무효화
       revalidatePath(`/${locale}/blog/${slug}`);
       return { success: true, comment: result.comment };
