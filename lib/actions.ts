@@ -16,6 +16,7 @@ import {
   addComment,
   updateComment,
   deleteComment,
+  getCommentById,
 } from "./utils";
 import { CommentFormData } from "./types";
 import { revalidatePath } from "next/cache";
@@ -225,43 +226,88 @@ export async function createComment(
     const result = await addComment(slug, sanitizedData, parentId);
 
     if (result.success) {
-      // 이메일 알림 발송 (비동기로 처리하여 댓글 등록 속도에 영향 주지 않음)
-      try {
-        // 현재 환경에 따라 기본 URL 설정
-        const baseUrl =
-          process.env.NODE_ENV === "development"
-            ? `http://localhost:${process.env.PORT || 3000}`
-            : "https://www.kimjaahyun.com";
+      // 현재 환경에 따라 기본 URL 설정
+      const baseUrl =
+        process.env.NODE_ENV === "development"
+          ? `http://localhost:${process.env.PORT || 3000}`
+          : "https://www.kimjaahyun.com";
 
-        const pageUrl = `${baseUrl}/${locale}/blog/${slug}`;
-        const apiUrl = `${baseUrl}/api/email/comment-notification`;
+      const pageUrl = `${baseUrl}/${locale}/blog/${slug}`;
 
-        console.log("이메일 알림 발송 시도:", { apiUrl, pageUrl });
+      // 답글인 경우와 새 댓글인 경우를 구분하여 이메일 발송
+      if (parentId && result.comment) {
+        // 답글인 경우: 원 댓글 작성자에게 알림 발송
+        try {
+          // 원 댓글 정보 조회
+          const parentComment = await getCommentById(parentId);
+          
+          if (parentComment && parentComment.email !== sanitizedData.email) {
+            // 자신에게 답글을 다는 경우가 아닐 때만 알림 발송
+            const replyApiUrl = `${baseUrl}/api/email/reply-notification`;
 
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            commentContent: sanitizedData.content,
-            commentAuthor: sanitizedData.author,
-            postSlug: slug,
-            pageUrl: pageUrl,
-          }),
-        });
+            console.log("답글 알림 발송 시도:", { replyApiUrl, pageUrl });
 
-        if (!response.ok) {
-          throw new Error(
-            `이메일 API 호출 실패: ${response.status} ${response.statusText}`
-          );
+            const replyResponse = await fetch(replyApiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                replyContent: sanitizedData.content,
+                replyAuthor: sanitizedData.author,
+                originalCommentContent: parentComment.content,
+                originalCommentAuthor: parentComment.author,
+                originalCommentEmail: parentComment.email,
+                postSlug: slug,
+                pageUrl: pageUrl,
+              }),
+            });
+
+            if (!replyResponse.ok) {
+              throw new Error(
+                `답글 알림 API 호출 실패: ${replyResponse.status} ${replyResponse.statusText}`
+              );
+            }
+
+            const replyEmailResult = await replyResponse.json();
+            console.log("답글 알림 결과:", replyEmailResult);
+          }
+        } catch (replyEmailError) {
+          console.error("답글 알림 발송 실패:", replyEmailError);
+          // 답글 알림 발송 실패해도 댓글 등록은 성공으로 처리
         }
+      } else {
+        // 새 댓글인 경우: 관리자에게 알림 발송
+        try {
+          const apiUrl = `${baseUrl}/api/email/comment-notification`;
 
-        const emailResult = await response.json();
-        console.log("이메일 알림 결과:", emailResult);
-      } catch (emailError) {
-        console.error("이메일 알림 발송 실패:", emailError);
-        // 이메일 발송 실패해도 댓글 등록은 성공으로 처리
+          console.log("이메일 알림 발송 시도:", { apiUrl, pageUrl });
+
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              commentContent: sanitizedData.content,
+              commentAuthor: sanitizedData.author,
+              postSlug: slug,
+              pageUrl: pageUrl,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(
+              `이메일 API 호출 실패: ${response.status} ${response.statusText}`
+            );
+          }
+
+          const emailResult = await response.json();
+          console.log("이메일 알림 결과:", emailResult);
+        } catch (emailError) {
+          console.error("이메일 알림 발송 실패:", emailError);
+          // 이메일 발송 실패해도 댓글 등록은 성공으로 처리
+        }
       }
 
       // 해당 페이지의 캐시를 무효화

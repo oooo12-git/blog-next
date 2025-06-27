@@ -9,6 +9,17 @@ interface EmailNotificationData {
   pageUrl: string;
 }
 
+interface ReplyNotificationData {
+  replyContent: string;
+  replyAuthor: string;
+  originalCommentContent: string;
+  originalCommentAuthor: string;
+  originalCommentEmail: string;
+  postSlug: string;
+  postTitle?: string;
+  pageUrl: string;
+}
+
 // JWT 인증을 위한 서비스 계정 클라이언트 생성
 const createServiceAccountAuth = () => {
   try {
@@ -69,7 +80,7 @@ const encodeSubject = (subject: string): string => {
   return `=?UTF-8?B?${encoded}?=`;
 };
 
-// 이메일 메시지 생성 (RFC 2822 형식)
+// 이메일 메시지 생성 (RFC 2822 형식) - 새 댓글 알림
 const createEmailMessage = (
   data: EmailNotificationData,
   serviceAccountEmail: string
@@ -131,6 +142,75 @@ const createEmailMessage = (
   return Buffer.from(message).toString("base64url");
 };
 
+// 답글 알림 이메일 메시지 생성 (RFC 2822 형식)
+const createReplyEmailMessage = (
+  data: ReplyNotificationData,
+  serviceAccountEmail: string
+): string => {
+  const subject = `[블로그 답글] ${
+    data.postTitle || data.postSlug
+  }에 작성하신 댓글에 답글이 달렸습니다`;
+
+  // Subject를 MIME 인코딩
+  const encodedSubject = encodeSubject(subject);
+
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+      <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h2 style="color: #333; margin-bottom: 20px; border-bottom: 2px solid #706E6E; padding-bottom: 10px;">
+          작성하신 댓글에 답글이 달렸습니다
+        </h2>
+        
+        <div style="margin-bottom: 20px;">
+          <p style="margin: 10px 0; color: #555;">
+            <strong>페이지:</strong> ${data.postTitle || data.postSlug}
+          </p>
+          <p style="margin: 10px 0; color: #555;">
+            <strong>답글 작성자:</strong> ${data.replyAuthor}
+          </p>
+        </div>
+        
+        <div style="background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #2196F3;">
+          <h4 style="color: #333; margin-top: 0; margin-bottom: 10px;">원 댓글:</h4>
+          <p style="color: #666; line-height: 1.6; white-space: pre-wrap; margin: 0;">${
+            data.originalCommentContent
+          }</p>
+        </div>
+        
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="color: #333; margin-top: 0;">답글 내용:</h3>
+          <p style="color: #666; line-height: 1.6; white-space: pre-wrap;">${
+            data.replyContent
+          }</p>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+          <a href="${data.pageUrl}" 
+             style="display: inline-block; background-color: #706E6E; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            답글 확인하기
+          </a>
+        </div>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; color: #888; font-size: 12px; text-align: center;">
+          이 메일은 kimjaahyun.com 블로그에서 자동으로 발송되었습니다.
+        </div>
+      </div>
+    </div>
+  `;
+
+  // RFC 2822 형식의 이메일 메시지 구성 - 인코딩된 Subject 사용
+  const message = [
+    `From: "Blog Admin" <admin@kimjaahyun.com>`,
+    `To: ${data.originalCommentEmail}`,
+    `Subject: ${encodedSubject}`,
+    `Content-Type: text/html; charset=utf-8`,
+    ``,
+    htmlContent,
+  ].join("\r\n");
+
+  return Buffer.from(message).toString("base64url");
+};
+
 // Gmail API를 사용한 이메일 발송
 export async function sendCommentNotification(
   data: EmailNotificationData
@@ -162,6 +242,51 @@ export async function sendCommentNotification(
     return { success: true };
   } catch (error) {
     console.error("Gmail API 이메일 발송 실패:", error);
+
+    let errorMessage = "알 수 없는 오류가 발생했습니다.";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+}
+
+// Gmail API를 사용한 답글 알림 이메일 발송
+export async function sendReplyNotification(
+  data: ReplyNotificationData
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    // 서비스 계정 인증
+    const auth = createServiceAccountAuth();
+    await auth.authorize();
+
+    // 서비스 계정 이메일 가져오기
+    const serviceAccountEmail = auth.email || "";
+    console.log("발신 이메일:", serviceAccountEmail);
+    console.log("수신 이메일:", data.originalCommentEmail);
+
+    // Gmail API 클라이언트 생성
+    const gmail = google.gmail({ version: "v1", auth });
+
+    // 답글 알림 이메일 메시지 생성
+    const rawMessage = createReplyEmailMessage(data, serviceAccountEmail);
+
+    // 이메일 전송
+    const response = await gmail.users.messages.send({
+      userId: "me",
+      requestBody: {
+        raw: rawMessage,
+      },
+    });
+
+    console.log("답글 알림 이메일 발송 성공:", response.data.id);
+    return { success: true };
+  } catch (error) {
+    console.error("Gmail API 답글 알림 이메일 발송 실패:", error);
 
     let errorMessage = "알 수 없는 오류가 발생했습니다.";
     if (error instanceof Error) {

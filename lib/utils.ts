@@ -935,3 +935,38 @@ export async function getCommentCount(slug: string): Promise<number> {
     return 0;
   }
 }
+
+// 특정 댓글을 ID로 조회
+export async function getCommentById(
+  commentId: string
+): Promise<Comment | null> {
+  try {
+    const { data: comment, error } = await supabase
+      .from("comments")
+      .select("*")
+      .eq("id", commentId)
+      .single();
+
+    if (error || !comment) {
+      console.error("Error fetching comment by ID:", error);
+      return null;
+    }
+
+    // 데이터베이스 형식을 Comment 인터페이스 형식으로 변환
+    const formattedComment: Comment = {
+      id: comment.id,
+      author: comment.author,
+      email: comment.email,
+      content: comment.content,
+      createdAt: comment.created_at,
+      parentId: comment.parent_id,
+      replies: [],
+      isDeleted: !comment.author || !comment.content,
+    };
+
+    return formattedComment;
+  } catch (error) {
+    console.error("Error in getCommentById:", error);
+    return null;
+  }
+}
