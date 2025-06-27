@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-const { JWT } = require("google-auth-library");
+import { JWT } from "google-auth-library";
 
 interface EmailNotificationData {
   commentContent: string;
@@ -81,10 +81,7 @@ const encodeSubject = (subject: string): string => {
 };
 
 // 이메일 메시지 생성 (RFC 2822 형식) - 새 댓글 알림
-const createEmailMessage = (
-  data: EmailNotificationData,
-  serviceAccountEmail: string
-): string => {
+const createEmailMessage = (data: EmailNotificationData): string => {
   const subject = `[블로그 댓글] ${
     data.postTitle || data.postSlug
   }에 새 댓글이 등록되었습니다`;
@@ -143,10 +140,7 @@ const createEmailMessage = (
 };
 
 // 답글 알림 이메일 메시지 생성 (RFC 2822 형식)
-const createReplyEmailMessage = (
-  data: ReplyNotificationData,
-  serviceAccountEmail: string
-): string => {
+const createReplyEmailMessage = (data: ReplyNotificationData): string => {
   const subject = `[블로그 답글] ${
     data.postTitle || data.postSlug
   }에 작성하신 댓글에 답글이 달렸습니다`;
@@ -228,7 +222,7 @@ export async function sendCommentNotification(
     const gmail = google.gmail({ version: "v1", auth });
 
     // 이메일 메시지 생성
-    const rawMessage = createEmailMessage(data, serviceAccountEmail);
+    const rawMessage = createEmailMessage(data);
 
     // 이메일 전송
     const response = await gmail.users.messages.send({
@@ -273,7 +267,7 @@ export async function sendReplyNotification(
     const gmail = google.gmail({ version: "v1", auth });
 
     // 답글 알림 이메일 메시지 생성
-    const rawMessage = createReplyEmailMessage(data, serviceAccountEmail);
+    const rawMessage = createReplyEmailMessage(data);
 
     // 이메일 전송
     const response = await gmail.users.messages.send({
