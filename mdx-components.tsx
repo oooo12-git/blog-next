@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import CodeBlock from "@/app/components/CodeBlock";
+import MermaidDiagram from "@/app/components/MermaidDiagram";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -29,13 +30,19 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <ul className="list-disc list-inside mb-4 pl-4 space-y-2">{children}</ul>
     ),
     li: ({ children }) => <li className="mb-1 dark:text-white">{children}</li>,
-    pre: ({ children, ...props }) => (
-      <CodeBlock {...props}>{children}</CodeBlock>
-    ),
+    pre: ({ children, ...props }) => {
+      // mermaid 코드 블록 감지
+      const child = children as any;
+      if (child?.props?.className?.includes("language-mermaid")) {
+        const code = child.props.children;
+        return <MermaidDiagram chart={code} />;
+      }
+      return <CodeBlock {...props}>{children}</CodeBlock>;
+    },
     code: ({ children, className, ...props }) => {
       // 인라인 코드와 블록 코드 구분
       if (className?.startsWith("language-")) {
-        // 블록 코드는 pre에서 처리하므로 기본 스타일만
+        // mermaid 처리는 pre에서 하므로 기본 코드 블록 처리
         return (
           <code className={className} {...props}>
             {children}
