@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import CodeBlock from "@/app/components/CodeBlock";
+import MermaidDiagram from "@/app/components/MermaidDiagram";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -29,13 +30,47 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <ul className="list-disc list-inside mb-4 pl-4 space-y-2">{children}</ul>
     ),
     li: ({ children }) => <li className="mb-1 dark:text-white">{children}</li>,
-    pre: ({ children, ...props }) => (
-      <CodeBlock {...props}>{children}</CodeBlock>
+    table: ({ children }) => (
+      <div className="overflow-x-auto my-6">
+        <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600">
+          {children}
+        </table>
+      </div>
     ),
+    thead: ({ children }) => (
+      <thead className="bg-gray-50 dark:bg-gray-800">{children}</thead>
+    ),
+    tbody: ({ children }) => (
+      <tbody className="bg-white dark:bg-gray-900">{children}</tbody>
+    ),
+    tr: ({ children }) => (
+      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+        {children}
+      </tr>
+    ),
+    th: ({ children }) => (
+      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white border-r border-gray-300 dark:border-gray-600 last:border-r-0">
+        {children}
+      </th>
+    ),
+    td: ({ children }) => (
+      <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 border-r border-gray-300 dark:border-gray-600 last:border-r-0">
+        {children}
+      </td>
+    ),
+    pre: ({ children, ...props }) => {
+      // mermaid 코드 블록 감지
+      const child = children as any;
+      if (child?.props?.className?.includes("language-mermaid")) {
+        const code = child.props.children;
+        return <MermaidDiagram chart={code} />;
+      }
+      return <CodeBlock {...props}>{children}</CodeBlock>;
+    },
     code: ({ children, className, ...props }) => {
       // 인라인 코드와 블록 코드 구분
       if (className?.startsWith("language-")) {
-        // 블록 코드는 pre에서 처리하므로 기본 스타일만
+        // mermaid 처리는 pre에서 하므로 기본 코드 블록 처리
         return (
           <code className={className} {...props}>
             {children}

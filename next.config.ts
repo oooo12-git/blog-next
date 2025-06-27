@@ -16,8 +16,12 @@ const withNextIntl = createNextIntlPlugin();
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
-    // @ts-expect-error - 플러그인 타입 오류 무시
-    remarkPlugins: [["remark-math", { strict: true, throwOnError: true }]],
+    remarkPlugins: [
+      // @ts-expect-error
+      ["remark-math", { strict: true, throwOnError: true }],
+      // @ts-expect-error
+      ["remark-gfm", { strict: true, throwOnError: true }],
+    ],
     // @ts-expect-error - 플러그인 타입 오류 무시
     rehypePlugins: [["rehype-katex", { strict: true, throwOnError: true }]],
   },
