@@ -1,3 +1,5 @@
+import Details from "../../app/components/Details";
+
 export const metadata = {
   title: "네트워크 라우팅 프로토콜 완전 정리: IGP와 EGP의 모든 것",
   description:
@@ -76,8 +78,7 @@ graph TD
 - 내부 라우팅 프로토콜(IGP) - 같은 네트워크 내에서 사용되는 라우팅 프로토콜이다.
 - 외부 라우팅 프로토콜(EGP) - 다른 네트워크 간에 사용되는 라우팅 프로토콜이다.
 
-<details>
-<summary><strong>같은 네트워크와 다른 네트워크의 구분 기준</strong></summary>
+<Details summary="같은 네트워크와 다른 네트워크의 구분 기준">
 
 ## 자율 시스템(AS, Autonomous System)
 
@@ -111,7 +112,7 @@ graph TD
 - AS 1 ~ AS 65535: 공인 AS 번호
 - 예: KT(AS 4766), SKT(AS 9318), 구글(AS 15169)
 
-</details>
+</Details>
 
 ### 내부 라우팅 프로토콜(IGP)
 
