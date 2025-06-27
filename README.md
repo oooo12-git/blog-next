@@ -58,6 +58,7 @@
 - **remark-math + rehype-katex** - 수학 공식 렌더링
 - **remark-gfm** - GitHub Flavored Markdown (표, 체크박스 등)
 - **Mermaid** - 다이어그램 렌더링
+- **@shikijs/rehype** - Javascript 코드 하이라이팅
 
 ### 백엔드 & 데이터베이스
 
@@ -181,7 +182,7 @@ graph TD
 - ✅ LaTeX 수식
 - ✅ Mermaid 다이어그램
 - ✅ 마크다운 표 (GFM)
-- ✅ 코드 하이라이팅
+- ✅ Shiki 코드 하이라이팅
 - ✅ 이미지 최적화
 - ✅ Summary/Details 접기 섹션
 

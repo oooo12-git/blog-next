@@ -22,8 +22,23 @@ const withMDX = createMDX({
       // @ts-expect-error
       ["remark-gfm", { strict: true, throwOnError: true }],
     ],
-    // @ts-expect-error - 플러그인 타입 오류 무시
-    rehypePlugins: [["rehype-katex", { strict: true, throwOnError: true }]],
+
+    rehypePlugins: [
+      // @ts-expect-error - 플러그인 타입 오류 무시
+      ["rehype-katex", { strict: true, throwOnError: true }],
+      [
+        // @ts-expect-error - Shiki 플러그인 타입 오류 무시
+        "@shikijs/rehype",
+        {
+          themes: {
+            light: "github-light",
+            dark: "github-dark",
+          },
+          // 언어 정보를 data-language 속성으로 추가
+          addLanguageClass: true,
+        },
+      ],
+    ],
   },
 });
 // createMDX는 함수를 반환하는 함수입니다. 이는 다음과 같은 특징으로 알 수 있습니다:

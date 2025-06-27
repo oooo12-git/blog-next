@@ -65,7 +65,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         const code = child.props.children;
         return <MermaidDiagram chart={code} />;
       }
-      return <CodeBlock {...props}>{children}</CodeBlock>;
+      
+      // 언어 정보를 children의 code 요소에서 추출하여 props에 추가
+      let language = "text";
+      if (child?.props?.className) {
+        const langMatch = child.props.className.match(/language-(\w+)/);
+        if (langMatch) {
+          language = langMatch[1];
+        }
+      }
+      
+      return <CodeBlock {...props} data-language={language}>{children}</CodeBlock>;
     },
     code: ({ children, className, ...props }) => {
       // 인라인 코드와 블록 코드 구분

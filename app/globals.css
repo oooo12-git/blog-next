@@ -79,6 +79,16 @@ body {
   animation: fadeIn 0.3s ease-out;
 }
 
+/* Shiki 코드 블록 스타일 조정 */
+.shiki {
+  background: transparent !important;
+}
+
+.shiki code {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
 @keyframes heartBeat {
   0% {
     transform: scale(1);
