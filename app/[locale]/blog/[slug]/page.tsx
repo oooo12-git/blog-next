@@ -96,10 +96,23 @@ export default async function Page({ params }: PageProps) {
   const post: Post = { slug, metadata };
   const jsonLd = generateJsonLd(post, locale, slug);
 
+  const defaultJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: locale === "ko" ? "김재현의 개발맛집" : "Jaehyun's Blog",
+    url: "https://www.kimjaahyun.com",
+  };
+
   return (
     <div className={`${inter.className}`}>
       <article className="mt-4 px-2 sm:px-0">
         {/* JSON-LD 구조화된 데이터 */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(defaultJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -212,4 +225,4 @@ export function generateStaticParams() {
 //generateStaticParams는 제공된 라우트들을 미리 렌더링하는 데 사용될 수 있습니다. dynamicParams를 false로 설정함으로써, generateStaticParams에 정의되지 않은 라우트에 접근하면 404 에러가 발생하게 됩니다. https://nextjs.org/docs/app/api-reference/functions/generate-static-params
 
 export const dynamicParams = false;
-//dynamicParams = false로 설정되어 있기 때문에, 정의된 페이지 외에 다른 URL로 접근하면 404 페이지를 보게 됩니다. 이는 보안과 성능 최적화를 위한 설정입니다.
+//dynamicParams = false로 설정되어 있기 때문에, 정의된 페이지 외에 다른 URL로 접근하면 404 페이지를 보게 됩니다. 이는 보안과 성능 최적화를 위한 설정입니다
