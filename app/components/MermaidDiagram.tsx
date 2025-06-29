@@ -9,12 +9,21 @@ interface MermaidDiagramProps {
 }
 
 // React 요소에서 텍스트를 추출하는 함수
-function extractTextFromNode(node: any): string {
+function extractTextFromNode(node: React.ReactNode): string {
   if (typeof node === "string") return node;
   if (typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(extractTextFromNode).join("");
-  if (node && typeof node === "object" && node.props && node.props.children) {
-    return extractTextFromNode(node.props.children);
+  if (
+    node &&
+    typeof node === "object" &&
+    node !== null &&
+    "props" in node &&
+    node.props &&
+    typeof node.props === "object" &&
+    node.props !== null &&
+    "children" in node.props
+  ) {
+    return extractTextFromNode(node.props.children as React.ReactNode);
   }
   return "";
 }
