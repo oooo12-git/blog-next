@@ -17,9 +17,66 @@ import RelatedTagPosts from "@/app/components/RelatedTagPosts";
 import NotRelatedPosts from "@/app/components/NotRelatedPosts";
 import CommentSection from "@/app/components/CommentSection";
 
+import { Post } from "@/lib/utils";
+
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
 }
+
+const generateJsonLd = (post: Post, locale: string, slug: string) => {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
+  const isReview = post.metadata.tags?.some((tag: string) =>
+    ["맛집", "Restaurant"].includes(tag)
+  );
+
+  const baseSchema = {
+    "@context": "https://schema.org",
+    author: {
+      "@type": "Person",
+      name: "김재현",
+      url: `${baseUrl}/${locale}/about`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Jaehyun's Blog",
+    },
+    datePublished: post.metadata.publishedAt,
+    dateModified: post.metadata.lastModifiedAt || post.metadata.publishedAt,
+    inLanguage: locale === "ko" ? "ko-KR" : "en-US",
+  };
+
+  if (isReview && post.metadata.itemReviewed && post.metadata.reviewRating) {
+    return {
+      ...baseSchema,
+      "@type": "Review",
+      name: post.metadata.title,
+      itemReviewed: post.metadata.itemReviewed,
+      reviewRating: post.metadata.reviewRating,
+      url: `${baseUrl}/${locale}/blog/${slug}`,
+    };
+  }
+
+  return {
+    ...baseSchema,
+    "@type": "BlogPosting",
+    headline: post.metadata.title,
+    description: post.metadata.description,
+    image: post.metadata.heroImage
+      ? `${baseUrl}/_next/image?url=${encodeURIComponent(
+          post.metadata.heroImage
+        )}&w=3840&q=75`
+      : `${baseUrl}/default-blog-image.png`,
+    url: `${baseUrl}/${locale}/blog/${slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${baseUrl}/${locale}/blog/${slug}`,
+    },
+    keywords: post.metadata.tags?.join(", "),
+    articleSection: "Technology",
+    timeRequired: `PT${post.metadata.timeToRead}M`,
+  };
+};
 // TypeScript의 interface는 객체의 구조를 정의하는 타입 시스템입니다. 객체가 어떤 속성들을 가져야 하는지, 그 속성들의 타입은 무엇인지를 명시
 
 export default async function Page({ params }: PageProps) {
@@ -36,44 +93,8 @@ export default async function Page({ params }: PageProps) {
   // 모든 글을 가져와서 동일한 태그를 가진 글들을 필터링
   const { posts } = await getPosts(locale);
 
-  // JSON-LD 구조화된 데이터 생성
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: metadata.title,
-    description: metadata.description,
-    image: metadata.heroImage
-      ? `${baseUrl}/_next/image?url=${encodeURIComponent(
-          metadata.heroImage
-        )}&w=3840&q=75`
-      : `${baseUrl}/default-blog-image.png`,
-    author: {
-      "@type": "Person",
-      name: "김재현",
-      url: `${baseUrl}/${locale}/about`,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Jaehyun's Blog",
-      // logo: {
-      //   "@type": "ImageObject",
-      //   url: `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`,
-      // },
-    },
-    datePublished: metadata.publishedAt,
-    dateModified: metadata.lastModifiedAt || metadata.publishedAt,
-    url: `${baseUrl}/${locale}/blog/${slug}`,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${baseUrl}/${locale}/blog/${slug}`,
-    },
-    keywords: metadata.tags?.join(", "),
-    articleSection: "Technology",
-    inLanguage: locale === "ko" ? "ko-KR" : "en-US",
-    timeRequired: `PT${metadata.timeToRead}M`,
-  };
+  const post: Post = { slug, metadata };
+  const jsonLd = generateJsonLd(post, locale, slug);
 
   return (
     <div className={`${inter.className}`}>

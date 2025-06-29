@@ -235,8 +235,13 @@ async function runIndexingAPI() {
   }
 }
 
-// 스크립트가 직접 실행될 때만 동작
-if (require.main === module) {
+// 프로덕션 환경에서만 실행
+const isProduction =
+  process.env.VERCEL_ENV === "production" ||
+  process.env.NODE_ENV === "production";
+
+if (isProduction) {
+  console.log("🚀 프로덕션 환경에서 Google Indexing API를 실행합니다.");
   runIndexingAPI()
     .then(() => {
       console.log("✅ Google Indexing API 스크립트 종료");
@@ -247,4 +252,8 @@ if (require.main === module) {
       console.log("⚠️  오류가 발생했지만 빌드 프로세스는 계속 진행됩니다.");
       process.exit(0); // 에러가 있어도 성공으로 종료
     });
+} else {
+  console.log(
+    "🚫 프로덕션 환경이 아니므로 Google Indexing API 호출을 건너뜁니다."
+  );
 }

@@ -1,6 +1,24 @@
 import type { MDXComponents } from "mdx/types";
 import CodeBlock from "@/app/components/CodeBlock";
 import MermaidDiagram from "@/app/components/MermaidDiagram";
+import { isValidElement } from "react";
+
+// React 요소에서 텍스트를 추출하는 함수
+function extractText(node: React.ReactNode): string {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (
+    isValidElement(node) &&
+    node.props &&
+    typeof node.props === "object" &&
+    node.props !== null &&
+    "children" in node.props
+  ) {
+    return extractText(node.props.children as React.ReactNode);
+  }
+  return "";
+}
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -62,10 +80,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       // mermaid 코드 블록 감지
       const child = children as any;
       if (child?.props?.className?.includes("language-mermaid")) {
-        const code = child.props.children;
+        // React 요소에서 텍스트 추출
+        const code = extractText(child.props.children);
         return <MermaidDiagram chart={code} />;
       }
-      
+
       // 언어 정보를 children의 code 요소에서 추출하여 props에 추가
       let language = "text";
       if (child?.props?.className) {
@@ -74,8 +93,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           language = langMatch[1];
         }
       }
-      
-      return <CodeBlock {...props} data-language={language}>{children}</CodeBlock>;
+
+      return (
+        <CodeBlock {...props} data-language={language}>
+          {children}
+        </CodeBlock>
+      );
     },
     code: ({ children, className, ...props }) => {
       // 인라인 코드와 블록 코드 구분

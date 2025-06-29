@@ -8,6 +8,26 @@ interface MermaidDiagramProps {
   id?: string;
 }
 
+// React 요소에서 텍스트를 추출하는 함수
+function extractTextFromNode(node: React.ReactNode): string {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractTextFromNode).join("");
+  if (
+    node &&
+    typeof node === "object" &&
+    node !== null &&
+    "props" in node &&
+    node.props &&
+    typeof node.props === "object" &&
+    node.props !== null &&
+    "children" in node.props
+  ) {
+    return extractTextFromNode(node.props.children as React.ReactNode);
+  }
+  return "";
+}
+
 export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
   const elementRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -19,6 +39,31 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
       if (mermaidLoaded) return;
 
       try {
+        // chart가 문자열이 아닌 경우 텍스트 추출
+        let chartText: string;
+        if (typeof chart === "string") {
+          chartText = chart;
+        } else {
+          chartText = extractTextFromNode(chart);
+        }
+
+        // 빈 문자열이나 유효하지 않은 chart인 경우 처리
+        if (
+          !chartText ||
+          typeof chartText !== "string" ||
+          chartText.trim() === ""
+        ) {
+          if (elementRef.current) {
+            elementRef.current.innerHTML = `
+              <div class="p-4 border border-yellow-300 bg-yellow-50 rounded-lg dark:bg-yellow-900 dark:border-yellow-700">
+                <p class="text-yellow-700 dark:text-yellow-300 font-semibold">Mermaid 다이어그램 오류</p>
+                <p class="text-sm mt-2 text-yellow-600 dark:text-yellow-400">차트 데이터가 유효하지 않습니다.</p>
+              </div>
+            `;
+          }
+          return;
+        }
+
         // 동적으로 mermaid를 import
         const mermaid = (await import("mermaid")).default;
 
@@ -51,7 +96,7 @@ export default function MermaidDiagram({ chart, id }: MermaidDiagramProps) {
           elementRef.current.innerHTML = "";
 
           try {
-            const { svg } = await mermaid.render(uniqueId, chart);
+            const { svg } = await mermaid.render(uniqueId, chartText);
             elementRef.current.innerHTML = svg;
           } catch (error) {
             console.error("Mermaid rendering error:", error);

@@ -3,6 +3,27 @@ import path from "path";
 import { supabase } from "./supabase";
 import { Comment, CommentFormData } from "./types";
 
+interface ReviewRating {
+  "@type": "Rating";
+  ratingValue: number;
+}
+
+interface ItemReviewed {
+  "@type": "Restaurant";
+  image: string;
+  name: string;
+  servesCuisine: string;
+  priceRange: string;
+  address: {
+    "@type": "PostalAddress";
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+}
+
 interface PostMetadata {
   title: string;
   description: string;
@@ -11,6 +32,8 @@ interface PostMetadata {
   timeToRead: string;
   heroImage: string;
   tags: string[];
+  itemReviewed?: ItemReviewed;
+  reviewRating?: ReviewRating;
 }
 
 export interface Post {
