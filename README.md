@@ -33,7 +33,9 @@
 - **Sitemap**: 자동 생성 및 최적화
 - **Meta Tags**: 최적화된 메타 설명 (25-160자)
 - **Canonical URL**: 중복 콘텐츠 방지
-- **JSON-LD**: 구조화된 데이터 마크업
+- **조건부 JSON-LD**: 포스트 타입에 따른 동적 구조화된 데이터 생성
+  - **Review 스키마**: 맛집/레스토랑 리뷰 포스트 (별점, 평가 대상 포함)
+  - **BlogPosting 스키마**: 일반 블로그 포스트 (기본값)
 
 ### 📊 성능 및 분석
 
@@ -75,6 +77,7 @@
 - **Google Indexing API** - 자동 색인 요청
 - **IndexNow API** - 실시간 검색엔진 업데이트
 - **Vercel Speed Insights** - 성능 모니터링
+- **Schema.org JSON-LD** - 조건부 구조화된 데이터 (Review/BlogPosting)
 
 ## 🚀 로컬 개발 환경 설정
 
@@ -146,6 +149,8 @@ yarn dev
 
 ### MDX 파일 구조
 
+#### 일반 블로그 포스트
+
 ````markdown
 ---
 title: "포스트 제목"
@@ -168,11 +173,33 @@ graph TD
 ```
 ````
 
+````
+
 | 표     | 헤더 |
 | ------ | ---- |
 | 데이터 | 값   |
 
 <CustomComponent />
+```
+
+#### 맛집 리뷰 포스트
+
+```markdown
+---
+title: "광화문 미진 - 냉메밀국수 맛집"
+description: "광화문에 위치한 미진의 냉메밀국수 리뷰"
+date: "2024-01-01"
+tags: ["맛집", "메밀국수"]
+itemReviewed:
+  "@type": "Restaurant"
+  name: "광화문 미진"
+  address: "서울특별시 종로구 광화문..."
+reviewRating:
+  "@type": "Rating"
+  ratingValue: 4.5
+---
+
+# 맛집 리뷰 내용
 ```
 
 ### 지원 기능
@@ -185,6 +212,20 @@ graph TD
 - ✅ Shiki 코드 하이라이팅
 - ✅ 이미지 최적화
 - ✅ Summary/Details 접기 섹션
+- ✅ 조건부 JSON-LD 스키마 (Review/BlogPosting)
+
+### 리뷰 포스트 메타데이터
+
+리뷰 포스트 작성 시 다음 메타데이터를 추가하면 Review 스키마가 자동 적용됩니다:
+
+- **태그**: `맛집` 또는 `Restaurant` 포함 필수
+- **itemReviewed**: 리뷰 대상 정보 (Restaurant, Product, Service 등)
+- **reviewRating**: 평점 정보 (1-5점 또는 사용자 정의)
+
+#### 현재 Review 스키마 적용 포스트
+
+- `gwanghwamun-mijin` - 광화문 미진 냉메밀국수 리뷰
+- `zebra-restaurant` - 제브라 레스토랑 이탈리안 리뷰
 
 ## 💬 댓글 시스템
 
@@ -217,6 +258,13 @@ yarn lint     # ESLint 검사
 - **Google**: Indexing API를 통한 자동 등록
 - **Bing/Yandex/Naver**: IndexNow API를 통한 실시간 업데이트
 
+### 구조화된 데이터
+
+- **동적 JSON-LD**: 포스트 타입에 따른 자동 스키마 선택
+- **Review 스키마**: 맛집 리뷰 포스트의 별점, 평가 대상 정보 제공
+- **BlogPosting 스키마**: 일반 블로그 포스트의 기본 정보 제공
+- **Rich Results**: Google 검색 결과에서 별점, 리뷰 정보 표시 가능
+
 ### 검색 엔진 등록
 
 - Google Search Console
@@ -237,3 +285,4 @@ yarn lint     # ESLint 검사
 ---
 
 **Built with ❤️ using Next.js and modern web technologies**
+````
