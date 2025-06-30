@@ -42,3 +42,6 @@ next-env.d.ts
 
 # service account
 indexing-api-kimjaahyun-blog-7ac7e0285a7c.json
+
+# cursor
+/.cursor/

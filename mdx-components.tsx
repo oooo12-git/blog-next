@@ -40,12 +40,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </blockquote>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal list-inside mb-4 pl-4 space-y-2">
+      <ol className="list-decimal list-inside mb-4 pl-4 space-y-2 [&>li>p:first-child]:inline [&>li>p:first-child]:mr-2">
         {children}
       </ol>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc list-inside mb-4 pl-4 space-y-2">{children}</ul>
+      <ul className="list-disc list-inside mb-4 pl-4 space-y-2 [&>li>p:first-child]:inline [&>li>p:first-child]:mr-2">
+        {children}
+      </ul>
     ),
     li: ({ children }) => <li className="mb-1 dark:text-white">{children}</li>,
     table: ({ children }) => (
