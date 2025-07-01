@@ -39,10 +39,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h4>
     ),
     p: ({ children }) => (
-      <p className="mb-6 text-gray-500 dark:text-white">{children}</p>
+      <p className="mb-6 text-gray-500 dark:text-white leading-loose">
+        {children}
+      </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border border-gray-400 bg-neutral-100 px-4 pt-4 my-4 rounded-r-md text-black dark:bg-gray-800 dark:border-gray-600 dark:text-neutral-200 rounded-lg">
+      <blockquote className="border border-gray-400 bg-neutral-100 px-4 pt-4 my-4 rounded-r-md text-black leading-loose dark:bg-gray-800 dark:border-gray-600 dark:text-neutral-200 rounded-lg">
         {children}
       </blockquote>
     ),
@@ -56,7 +58,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </ul>
     ),
-    li: ({ children }) => <li className="mb-1 dark:text-white">{children}</li>,
+    li: ({ children }) => (
+      <li className="mb-1 dark:text-white leading-loose">{children}</li>
+    ),
     table: ({ children }) => (
       <div className="overflow-x-auto my-6">
         <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600">

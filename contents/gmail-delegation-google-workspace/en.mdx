@@ -330,4 +330,27 @@ Below is how to set up auto-forwarding in Gmail.
 
 <Details summary="📮 How to Set Up Gmail Auto-Forwarding">1. blah</Details>
 
-### 🔔 Email Delegation Notification Solution 2: (More content needed)
+### 🔔 Email Delegation Notification Solution 2: Mail Echo for Gmail
+
+#### 🎯 Method Summary:
+
+`Mail Echo for Gmail` is an open-source solution that utilizes the Gmail API to send real-time notifications when a new email arrives in a delegated account. The delegate (`A_mail@company.com`) does not receive the email body itself, but rather a notification email such as, "A new email has arrived at sales@company.com."
+
+#### ✅ Advantages:
+
+*   **Separation of Duties**: It encourages handling actual work within the delegated `sales@company.com` mailbox, preventing work confusion.
+*   **Real-time Notifications**: Using Google Cloud infrastructure (Pub/Sub, Cloud Functions), notifications are received almost in real-time upon new email arrival.
+*   **Security**: Since the email body is not forwarded, the risk of exposing sensitive information is reduced.
+*   **Automation**: The entire infrastructure is managed by Terraform code, simplifying installation and setup.
+
+#### ❌ Disadvantages:
+
+*   **Initial Setup Complexity**: Requires an understanding of the Google Cloud Platform (GCP), and you must deploy the infrastructure yourself using Terraform.
+*   **GCP Costs**: A small GCP usage fee may be incurred if the Free Tier is exceeded.
+
+`Mail Echo for Gmail` is an open-source project I developed to complement the shortcomings of email delegation and enhance work efficiency. You can find more details and install it yourself from the GitHub repository below.
+
+<Details summary="📂 Mail Echo for Gmail GitHub Repository">
+[https://github.com/kimjaahyun/mailecho-gmail](https://github.com/kimjaahyun/mailecho-gmail)
+</Details>
+

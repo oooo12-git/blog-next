@@ -45,3 +45,7 @@ indexing-api-kimjaahyun-blog-7ac7e0285a7c.json
 
 # cursor
 /.cursor/
+
+#gemini
+/gemini/
+GEMINI.md
