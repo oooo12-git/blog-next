@@ -1,9 +1,10 @@
 import ImageWithCaption from "../../app/components/ImageWithCaption";
+import Details from "../../app/components/Details";
 
 export const metadata = {
   title: "How to Set Up Gmail Email Delegation in Google Workspace 2025",
   description:
-    "A step-by-step guide to activate Gmail email delegation feature in Google Workspace environment through admin console settings.",
+    "A step-by-step guide to activating the Gmail email delegation feature in a Google Workspace environment through the admin console. It provides a detailed guide from administrator permission settings to the actual email delegation process.",
   publishedAt: "2025-06-30",
   lastModifiedAt: "2025-06-30",
   timeToRead: 0,
@@ -15,6 +16,7 @@ export const metadata = {
     "Email Delegation",
     "Admin Console",
     "Work Efficiency",
+    "Email Management",
   ],
 };
 
@@ -22,169 +24,198 @@ If you are using Google Workspace instead of a personal account, you need to con
 
 ## 1. Google Workspace Settings
 
-1. Access Google Admin Console
+#### 1. Access Google Admin Console
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-google-workspace-admin-console-access.png"
-     alt="Access Google Admin Console"
-     caption="Access Google Admin Console"
-     width={1780}
-     height={1086}
-   />
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-google-workspace-admin-console-access.png"
+  alt="Access Google Admin Console"
+  caption="Access Google Admin Console"
+  width={1780}
+  height={1086}
+/>
 
-2. Navigate to Gmail settings  
-   Sidebar > Apps > Google Workspace > Gmail
+#### 2. Navigate to Gmail settings
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/google-workspace-admin-gmail-settings-navigation.png"
-     alt="Navigate to Gmail settings in Google Admin Console"
-     caption="Navigate to Gmail settings in Google Admin Console"
-     width={1624}
-     height={1338}
-   />
+Sidebar > Apps > Google Workspace > Gmail
 
-3. Expand User settings  
-   Click the down arrow in User settings
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/google-workspace-admin-gmail-settings-navigation.png"
+  alt="Navigate to Gmail settings in Google Admin Console"
+  caption="Navigate to Gmail settings in Google Admin Console"
+  width={1624}
+  height={1338}
+/>
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-user-settings-google-workspace-admin.png"
-     alt="Click down arrow in User settings"
-     caption="Click down arrow in User settings"
-     width={2830}
-     height={1212}
-   />
+#### 3. Expand User settings
 
-4. Edit Mail delegation settings  
-   Click the pencil icon in Mail delegation settings
+Click the down arrow in User settings
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-settings-enable-google-workspace-admin.png"
-     alt="Click pencil icon in Mail delegation settings"
-     caption="Click pencil icon in Mail delegation settings"
-     width={2860}
-     height={1186}
-   />
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-user-settings-google-workspace-admin.png"
+  alt="Click down arrow in User settings"
+  caption="Click down arrow in User settings"
+  width={2830}
+  height={1212}
+/>
 
-5. Enable required settings  
-   In Mail delegation settings, only the items marked with red boxes are required, check others according to your situation and save
+#### 4. Edit Mail delegation settings
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/enable-gmail-mail-delegation-save-settings-google-workspace.png"
-     alt="Save Mail delegation settings"
-     caption="Save Mail delegation settings"
-     width={2868}
-     height={1406}
-   />
+Click the pencil icon in Mail delegation settings
 
-6. Verify setting activation  
-   Main delegation setting - Users can delegate mailbox access to other users in the domain: **Enable** check
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-settings-enable-google-workspace-admin.png"
+  alt="Click pencil icon in Mail delegation settings"
+  caption="Click pencil icon in Mail delegation settings"
+  width={2860}
+  height={1186}
+/>
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-mail-delegation-enabled-status-google-workspace-admin.png"
-     alt="Verify delegation setting is enabled"
-     caption="Verify delegation setting is enabled"
-     width={2850}
-     height={1228}
-   />
+#### 5. Enable required settings
+
+In Mail delegation settings, only the items marked with red boxes are required, check others according to your situation and save
+
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/enable-gmail-mail-delegation-save-settings-google-workspace.png"
+  alt="Save Mail delegation settings"
+  caption="Save Mail delegation settings"
+  width={2868}
+  height={1406}
+/>
+
+#### 6. Verify setting activation
+
+Main delegation setting - Users can delegate mailbox access to other users in the domain: **Enable** check
+
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-mail-delegation-enabled-status-google-workspace-admin.png"
+  alt="Verify delegation setting is enabled"
+  caption="Verify delegation setting is enabled"
+  width={2850}
+  height={1228}
+/>
 
 Now you can set up email delegation in Gmail.
 
 ## 2. Gmail Settings
 
-1. Access Gmail settings  
-   Click Settings (gear icon) at the top of Gmail
+#### 1. Access Gmail settings
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step01-settings-icon-google-workspace.png"
-     alt="Gmail delegation settings"
-     caption="Gmail Settings"
-     width={2862}
-     height={678}
-   />
+Click Settings (gear icon) at the top of Gmail
 
-2. Navigate to detailed settings  
-   Click See all settings
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step01-settings-icon-google-workspace.png"
+  alt="Gmail delegation settings"
+  caption="Gmail Settings"
+  width={2862}
+  height={678}
+/>
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step02-view-all-settings-google-workspace.png"
-     alt="Click See all settings in Gmail delegation"
-     caption="Gmail Settings > Click See all settings"
-     width={840}
-     height={730}
-   />
+#### 2. Navigate to detailed settings
 
-3. Select Accounts tab  
-   Click Accounts tab among the settings tabs
+Click See all settings
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step03-account-tab-delegate-access-settings.png"
-     alt="Click Accounts tab in Gmail delegation settings"
-     caption="Gmail Settings > Click Accounts tab"
-     width={2740}
-     height={1502}
-   />
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step02-view-all-settings-google-workspace.png"
+  alt="Click See all settings in Gmail delegation"
+  caption="Gmail Settings > Click See all settings"
+  width={840}
+  height={730}
+/>
 
-4. Add delegation account  
-   Click Add another account in Grant access to your account section
+#### 3. Select Accounts tab
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step04-add-delegate-account-google-workspace.png"
-     alt="Click Add another account in Grant access to your account section"
-     caption="Gmail Settings > Accounts tab > Click Add another account in Grant access to your account section"
-     width={2852}
-     height={1384}
-   />
+Click Accounts tab among the settings tabs
 
-5. Identity verification  
-   Proceed with identity verification
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step03-account-tab-delegate-access-settings.png"
+  alt="Click Accounts tab in Gmail delegation settings"
+  caption="Gmail Settings > Click Accounts tab"
+  width={2740}
+  height={1502}
+/>
 
-6. Enter delegatee email address  
-   Enter the email address you want to grant access to your email > Click Next step
+#### 4. Add delegation account
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step06-enter-email-address-google-workspace.png"
-     alt="Email address input screen"
-     caption="Enter the email address you want to grant access to your email"
-     width={1212}
-     height={374}
-   />
+Click Add another account in Grant access to your account section
 
-7. Send permission email  
-   Click Send email to grant access
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step04-add-delegate-account-google-workspace.png"
+  alt="Click Add another account in Grant access to your account section"
+  caption="Gmail Settings > Accounts tab > Click Add another account in Grant access to your account section"
+  width={2852}
+  height={1384}
+/>
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step07-send-access-permission-email-google-workspace.png"
-     alt="Click Send email to grant access"
-     caption="Click Send email to grant access"
-     width={1218}
-     height={396}
-   />
+#### 5. Identity verification
 
-8. Check pending status  
-   'Pending' status appears next to the email address you granted access to (should change to 'Accepted' later)
+Proceed with identity verification
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step08-pending-status-delegate-access-google-workspace.png"
-     alt="'Pending' status next to email address granted access"
-     caption="'Pending' status next to email address granted access"
-     width={1928}
-     height={312}
-   />
+#### 6. Enter delegatee email address
+
+Enter the email address you want to grant access to your email > Click Next step
+
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step06-enter-email-address-google-workspace.png"
+  alt="Email address input screen"
+  caption="Enter the email address you want to grant access to your email"
+  width={1212}
+  height={374}
+/>
+
+#### 7. Send permission email
+
+Click Send email to grant access
+
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step07-send-access-permission-email-google-workspace.png"
+  alt="Click Send email to grant access"
+  caption="Click Send email to grant access"
+  width={1218}
+  height={396}
+/>
+
+#### 8. Check pending status
+
+'Pending' status appears next to the email address you granted access to (should change to 'Accepted' later)
+
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step08-pending-status-delegate-access-google-workspace.png"
+  alt="'Pending' status next to email address granted access"
+  caption="'Pending' status next to email address granted access"
+  width={1928}
+  height={312}
+/>
 
 ### 👤 Acceptance Process for Delegatee
 
-9. Receive delegation request email  
-   The recipient receives an email like this
+#### 9. Receive delegation request email
 
-   <ImageWithCaption
-     src="/contents/gmail-delegation-google-workspace/gmail-delegation-step09-delegation-request-email-received-google-workspace.png"
-     alt="Delegation request email received by recipient"
-     caption="Delegation request email received by recipient"
-     width={2876}
-     height={862}
-   />
+The recipient receives an email like this
 
-10. Accept request  
+{" "}
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step09-delegation-request-email-received-google-workspace.png"
+  alt="Delegation request email received by recipient"
+  caption="Delegation request email received by recipient"
+  width={2876}
+  height={862}
+/>
+
+#### 10. Accept request
+
     Click the Accept request link in the email
 
     <ImageWithCaption
@@ -195,7 +226,8 @@ Now you can set up email delegation in Gmail.
       height={1136}
     />
 
-11. Final confirmation  
+#### 11. Final confirmation
+
     Click Confirm button
 
     <ImageWithCaption
@@ -206,7 +238,8 @@ Now you can set up email delegation in Gmail.
       height={752}
     />
 
-12. Completion confirmation  
+#### 12. Completion confirmation
+
     A confirmation completion window appears
 
     <ImageWithCaption
@@ -221,8 +254,9 @@ Now you can set up email delegation in Gmail.
 
 ### ✅ Verify Delegation Setup Complete
 
-**Delegatee verification method:**  
-14. To check if email delegation is working, the recipient should click the profile photo button in the upper right
+**Delegatee verification method:**
+
+#### 13. To check if email delegation is working, the recipient should click the profile photo button in the upper right
 
     <ImageWithCaption
       src="/contents/gmail-delegation-google-workspace/gmail-delegation-step14-check-profile-button-delegate-verification-google-workspace.png"
@@ -232,7 +266,7 @@ Now you can set up email delegation in Gmail.
       height={1442}
     />
 
-15. Check if there are any delegated accounts.
+#### 14. Check if there are any delegated accounts.
 
     <ImageWithCaption
       src="/contents/gmail-delegation-google-workspace/gmail-delegation-step15-verify-delegated-account-list-google-workspace.png"
@@ -242,8 +276,9 @@ Now you can set up email delegation in Gmail.
       height={1258}
     />
 
-**Delegator verification method:**  
-16. To check if email delegation is working from the delegating account, go to Settings > Accounts > Grant access to your account > Check if 'Accepted' status appears next to the recipient's email.
+**Delegator verification method:**
+
+#### 15. To check if email delegation is working from the delegating account, go to Settings > Accounts > Grant access to your account > Check if 'Accepted' status appears next to the recipient's email.
 
     <ImageWithCaption
       src="/contents/gmail-delegation-google-workspace/gmail-delegation-step16-check-accepted-status-delegation-settings-google-workspace.png"
@@ -278,3 +313,21 @@ While example@kimjaahyun.com was hoping to handle emails from kimjaahyun@kimjaah
 1. **Processing status mismatch**: example@kimjaahyun.com has already processed the email, but when kimjaahyun@kimjaahyun.com checks, it remains unprocessed.
 2. **Risk of double processing**: kimjaahyun@kimjaahyun.com might process the email twice.
 3. **Work confusion**: Work confusion occurs.
+
+<Details summary="💡 Example of Double Email Processing">
+
+1. A customer inquiry about a purchase arrived at kimjaahyun@kimjaahyun.com.
+2. The email was automatically forwarded to example@kimjaahyun.com through the auto-forwarding setting.
+3. E, who manages example@kimjaahyun.com, read and replied to the email from the example@kimjaahyun.com inbox.
+4. In the kimjaahyun@kimjaahyun.com inbox, the email remains in an unprocessed state.
+5. K, the person in charge of kimjaahyun@kimjaahyun.com, later checked the email and replied to the customer to process it.
+6. The customer received two different replies.
+7. K and E later realized they had processed the email twice, wasting time.
+
+</Details>
+
+Below is how to set up auto-forwarding in Gmail.
+
+<Details summary="📮 How to Set Up Gmail Auto-Forwarding">1. blah</Details>
+
+### 🔔 Email Delegation Notification Solution 2: (More content needed)

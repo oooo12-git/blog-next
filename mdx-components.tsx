@@ -24,16 +24,23 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     h2: ({ children }) => (
-      <h2 className="text-2xl font-bold mt-6 mb-4 dark:text-white">
+      <h2 className="text-2xl font-bold mt-8 mb-6 dark:text-white">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl font-bold mt-6 mb-4 dark:text-white">
+      <h3 className="text-xl font-bold mt-8 mb-6 text-gray-700 dark:text-white">
         {children}
       </h3>
     ),
-    p: ({ children }) => <p className="mb-4 dark:text-white">{children}</p>,
+    h4: ({ children }) => (
+      <h4 className="text-lg font-bold mt-8 mb-6 text-gray-700 dark:text-white">
+        {children}
+      </h4>
+    ),
+    p: ({ children }) => (
+      <p className="mb-6 text-gray-500 dark:text-white">{children}</p>
+    ),
     blockquote: ({ children }) => (
       <blockquote className="border border-gray-400 bg-neutral-100 px-4 pt-4 my-4 rounded-r-md text-black dark:bg-gray-800 dark:border-gray-600 dark:text-neutral-200 rounded-lg">
         {children}
