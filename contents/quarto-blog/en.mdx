@@ -91,17 +91,17 @@ I'll explain in reverse flow, starting from the result (deployment).
 
 ### 1.1 Netlify Deployment
 
-We send the output in the \_site folder to Netlify.
+We send the output in the _site folder to Netlify.
 
 Netlify receives the output, uploads it to the server, and deploys it.
 
-So, how do we create the output in the \_site folder?
+So, how do we create the output in the _site folder?
 
-### 1.2 Creating Output in \_site Folder
+### 1.2 Creating Output in _site Folder
 
-When Quarto renders qmd files (cmd+shift+k), it applies predefined options to create output in the \_site folder.
+When Quarto renders qmd files (cmd+shift+k), it applies predefined options to create output in the _site folder.
 
-For example, if we render the index.qmd file in our workspace root folder, it considers the \_site folder as the new root folder and generates an index.html file.
+For example, if we render the index.qmd file in our workspace root folder, it considers the _site folder as the new root folder and generates an index.html file.
 
 This index.html file is deployed on Netlify and becomes the main page when you visit https://oooo12.ooo, the blog you're currently viewing.
 
@@ -114,6 +114,8 @@ This index.html file is deployed on Netlify and becomes the main page when you v
 <ImageWithCaption
   src="/contents/quarto-blog/1.png"
   alt="Quarto blog structure explanation image"
+  width={982}
+  height={968}
 />
 
 Let me give another example.
@@ -122,11 +124,13 @@ I created a blog folder in the root folder, and the blog folder contains posts (
 
 Then I create a hypothesis-testing-1 folder in the blog folder and create index.qmd inside it. (This has different content from the index.qmd mentioned earlier. Only the name is the same.)
 
-When I write content in this index.qmd and render it, a hypothesis-testing-1 folder is created in the blog folder within the \_site folder, and an index.html file is generated inside this folder.
+When I write content in this index.qmd and render it, a hypothesis-testing-1 folder is created in the blog folder within the _site folder, and an index.html file is generated inside this folder.
 
 <ImageWithCaption
   src="/contents/quarto-blog/2.png"
   alt="Blog folder structure explanation"
+  width={2262}
+  height={1196}
 />
 
 This index.html file will be visible at https://oooo12.ooo/blog/hypothesis-testing-1/ when deployed.
@@ -148,6 +152,8 @@ Like this, originally you would need to write two HTML files to present posts in
 <ImageWithCaption
   src="/contents/quarto-blog/3.png"
   alt="Project profile explanation diagram"
+  width={300}
+  height={104}
 />
 
 Project profiles have the functionality to show or hide content depending on the situation.
@@ -204,9 +210,9 @@ YAML adjusts overall options in Quarto.
 
 When you first create a blog, you use two YAML files in the root folder.
 
-You'll use the \_quarto.yml file and the \_publish.yml file, but the key is \_quarto.yml.
+You'll use the _quarto.yml file and the _publish.yml file, but the key is _quarto.yml.
 
-\_quarto.yml contains website settings, navbar, format, etc.
+_quarto.yml contains website settings, navbar, format, etc.
 
 We'll move all these settings to profile YAML files.
 
@@ -214,36 +220,36 @@ To do that, we need to create profile YAML files.
 
 <ImageWithCaption src="/contents/quarto-blog/3.png" alt="YAML file structure" />
 
-If we name the profile YAML's profile 'en' (we'll do English blog-related settings in the en profile from now on), we need to create \_quarto-en.yml in the root folder where \_quarto.yml is located.
+If we name the profile YAML's profile 'en' (we'll do English blog-related settings in the en profile from now on), we need to create _quarto-en.yml in the root folder where _quarto.yml is located.
 
 > **⚠️ Warning**
 >
-> The filename must be \_quarto-en.yml.
+> The filename must be _quarto-en.yml.
 >
-> If you use \_quarto.en.yml, it won't be recognized as a profile.
+> If you use _quarto.en.yml, it won't be recognized as a profile.
 >
 > This is because the rules for determining filenames have changed with updates.
 
 We'll also need a Korean profile.
 
-Similarly, create \_quarto-ko.yml in the root folder where \_quarto.yml is located.
+Similarly, create _quarto-ko.yml in the root folder where _quarto.yml is located.
 
-If you want both blogs to show the same blog format, you can copy and paste the settings from \_quarto.yml into both yml files.
+If you want both blogs to show the same blog format, you can copy and paste the settings from _quarto.yml into both yml files.
 
 However, let's first put important YAML at the top of each yml file.
 
-> **📋 \_quarto-en.yml Settings**
+> **📋 _quarto-en.yml Settings**
 >
-> Put the following code in \_quarto-en.yml.
+> Put the following code in _quarto-en.yml.
 
 ```YAML
 project:
   output-dir: ./_site
 ```
 
-> **📋 \_quarto-ko.yml Settings**
+> **📋 _quarto-ko.yml Settings**
 >
-> Put the following code in \_quarto-ko.yml.
+> Put the following code in _quarto-ko.yml.
 
 ```YAML
 project:
@@ -252,9 +258,9 @@ project:
 
 Those who are quick to notice will have realized that `output-dir` sets the directory address where the output comes out.
 
-This way, output corresponding to the en profile will be created in the \_site folder, and output corresponding to the ko profile will be created in the \_site/ko folder.
+This way, output corresponding to the en profile will be created in the _site folder, and output corresponding to the ko profile will be created in the _site/ko folder.
 
-So how should we configure \_quarto.yml?
+So how should we configure _quarto.yml?
 
 ```YAML
 project:
@@ -269,7 +275,7 @@ execute:
   freeze: auto
 ```
 
-\_quarto.yml, which can be considered the big boss, can be set with options commonly used for all profiles and profile group settings.
+_quarto.yml, which can be considered the big boss, can be set with options commonly used for all profiles and profile group settings.
 
 Actually, if you configure and understand the yml files well, it's almost finished.
 
@@ -310,7 +316,7 @@ To understand hypothesis testing, it's necessary to know exactly what a 'statist
 
 As mentioned earlier, using "`::: {.content-visible when-profile="ko"}`" makes content visible only when the profile is ko.
 
-That is, this part "`::: {.content-visible when-profile="ko"} ~~ this part ~~ :::`" receives options set in the previously configured \_quarto-ko.yml.
+That is, this part "`::: {.content-visible when-profile="ko"} ~~ this part ~~ :::`" receives options set in the previously configured _quarto-ko.yml.
 
 Therefore,
 
@@ -320,9 +326,9 @@ Therefore,
 가설 검정을 이해하려면 '통계적 가설'이 무엇인지 정확히 아는 것이 필요하다.
 ```
 
-The above part is rendered only in index.html located in a subdirectory of the \_site/ko directory.
+The above part is rendered only in index.html located in a subdirectory of the _site/ko directory.
 
-Specifically, it will be saved in 'root/\_site/ko/blog/hypothesis-testing-1/index.html'.
+Specifically, it will be saved in 'root/_site/ko/blog/hypothesis-testing-1/index.html'.
 
 Now you've probably figured out how to use it.
 
@@ -350,9 +356,9 @@ Based on PC screen, you'll see an 'English' button in the top right.
 
 This is because you're viewing the Korean version.
 
-To make the English button appear in the navbar for users viewing the Korean version, you need to set the navbar option in \_quarto-ko.yml.
+To make the English button appear in the navbar for users viewing the Korean version, you need to set the navbar option in _quarto-ko.yml.
 
-Part of the \_quarto-ko.yml settings is as follows:
+Part of the _quarto-ko.yml settings is as follows:
 
 ```YAML
 
@@ -372,9 +378,9 @@ website:
 
 The important point here is that href is `..`.
 
-That is, it goes to the parent folder \_site/ from \_site/ko/.
+That is, it goes to the parent folder _site/ from _site/ko/.
 
-This way, it goes to the main page of \_site/, which is also the main page of the English blog, \_site/index.html.
+This way, it goes to the main page of _site/, which is also the main page of the English blog, _site/index.html.
 
 However, there's an important point to note when doing this.
 
@@ -384,7 +390,7 @@ However, there's an important point to note when doing this.
 >
 > This Blog menu is generated as HTML by the blog.qmd file...
 
-The English version blog has the Blog menu setting in the navbar configured as follows in \_quarto-en.yml:
+The English version blog has the Blog menu setting in the navbar configured as follows in _quarto-en.yml:
 
 ```YAML
 website:
@@ -397,7 +403,7 @@ website:
 
 However, the Korean version blog needs to set href differently.
 
-Below is the \_quarto-ko.yml setting:
+Below is the _quarto-ko.yml setting:
 
 ```YAML
 website:
@@ -442,7 +448,7 @@ Next, let's enter the command to render the ko profile:
 quarto render --profile ko
 ```
 
-Now if you look at the root/\_site folder, you'll see files rendered by the en profile and the ko folder rendered by the ko profile.
+Now if you look at the root/_site folder, you'll see files rendered by the en profile and the ko folder rendered by the ko profile.
 
 ### 5.2 Deployment
 
@@ -466,4 +472,6 @@ Press enter and it will automatically deploy.
 <ImageWithCaption
   src="/contents/quarto-blog/1.gif"
   alt="Netlify deployment process GIF"
+  width={400}
+  height={93}
 />

@@ -1,0 +1,413 @@
+import ImageWithCaption from "../../app/components/ImageWithCaption";
+import Details from "../../app/components/Details";
+
+export const metadata = {
+  title:
+    "How to Set Up Gmail Email Delegation in Google Workspace (2025 Guide)",
+  description:
+    "Learn how to set up Gmail delegation in Google Workspace and explore two solutions (auto-forwarding, Mail Echo for Gmail) for the new mail notification issue in delegated accounts. This guide also includes installation and cost information for Mail Echo for Gmail.",
+  publishedAt: "2025-07-01",
+  lastModifiedAt: "2025-07-01",
+  timeToRead: 0,
+  heroImage:
+    "/contents/gmail-delegation-google-workspace/gmail-delegation-google-workspace-admin-console-access.png",
+  tags: [
+    "Gmail",
+    "Google Workspace",
+    "Email Delegation",
+    "Admin Console",
+    "Productivity",
+    "Mail Echo for Gmail",
+    "Notification",
+  ],
+};
+
+If you are using Google Workspace instead of a personal account, you first need to configure settings in the Google Admin Console to use Gmail's email delegation feature.
+
+## 🔧 1. Google Workspace Configuration
+
+### 📋 Enable Email Delegation in the Admin Console
+
+#### **Step 1: Access the Google Admin Console**
+
+Click the settings icon (gear shape) at the top of Gmail.
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-google-workspace-admin-console-access.png"
+  alt="Accessing the Google Admin Console"
+  caption="Accessing the Google Admin Console"
+  width={1780}
+  height={1086}
+/>
+
+#### **Step 2: Navigate to Gmail Settings**
+
+Sidebar > Apps > Google Workspace > Gmail
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/google-workspace-admin-gmail-settings-navigation.png"
+  alt="Google Admin Console Gmail settings navigation"
+  caption="Sidebar > Apps > Google Workspace > Gmail"
+  width={1624}
+  height={1338}
+/>
+
+#### Step 3: Expand User settings
+
+Click the down arrow in User settings.
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-user-settings-google-workspace-admin.png"
+  alt="Click the down arrow for User settings"
+  caption="Click the down arrow for User settings"
+  width={2830}
+  height={1212}
+/>
+
+#### Step 4: Edit Mail delegation settings
+
+Click the pencil icon in the Mail delegation settings.
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-settings-enable-google-workspace-admin.png"
+  alt="Edit Mail delegation settings"
+  caption="Click the pencil icon in the Mail delegation settings"
+  width={2860}
+  height={1186}
+/>
+
+#### Step 5: Enable Required Settings
+
+In the Mail delegation settings, only the items marked with a red box are mandatory. Check the others as needed and save.
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/enable-gmail-mail-delegation-save-settings-google-workspace.png"
+  alt="Save Mail delegation settings"
+  caption="Save Mail delegation settings"
+  width={2868}
+  height={1406}
+/>
+
+#### Step 6: Confirm Activation
+
+Verify that "Let users delegate access to their mailbox to other users in the domain" is **Enabled**.
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-mail-delegation-enabled-status-google-workspace-admin.png"
+  alt="Confirm Mail delegation setting is enabled"
+  caption="Confirm Mail delegation setting is enabled"
+  width={2850}
+  height={1228}
+/>
+
+✅ You can now set up email delegation in Gmail.
+
+## 📧 2. Gmail Settings
+
+### 🔄 Step-by-Step Guide to Email Delegation
+
+#### Step 1: Access Gmail Settings
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step01-settings-icon-google-workspace.png"
+  alt="Gmail delegation settings"
+  caption="Gmail settings"
+  width={2862}
+  height={678}
+/>
+
+#### **Step 2: Go to the Detailed Settings Menu**
+
+Click "See all settings".
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step02-view-all-settings-google-workspace.png"
+  alt="Click See all settings for Gmail delegation"
+  caption="Gmail settings > Click See all settings"
+  width={840}
+  height={730}
+/>
+
+#### Step 3: Select the Accounts Tab
+
+Click the "Accounts" tab.
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step03-account-tab-delegate-access-settings.png"
+  alt="Click the Accounts tab for Gmail delegation settings"
+  caption="Gmail settings > Click the Accounts tab"
+  width={2740}
+  height={1502}
+/>
+
+#### Step 4: Add a Delegated Account
+
+In the "Grant access to your account" section, click "Add another account".
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step04-add-delegate-account-google-workspace.png"
+  alt="Click Add another account in the Grant access to your account section"
+  caption="Gmail settings > Accounts tab > Click Add another account"
+  width={2852}
+  height={1384}
+/>
+
+#### Step 5: Identity Verification
+
+Proceed with identity verification.
+
+#### Step 6: Enter the Delegate's Email Address
+
+Enter the email address you want to grant access to, then click "Next Step".
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step06-enter-email-address-google-workspace.png"
+  alt="Email address input screen"
+  caption="Enter the email address you want to grant access to"
+  width={1212}
+  height={374}
+/>
+
+#### Step 7: Send the Authorization Email
+
+Click "Send email to grant access".
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step07-send-access-permission-email-google-workspace.png"
+  alt="Click Send email to grant access"
+  caption="Click Send email to grant access"
+  width={1218}
+  height={396}
+/>
+
+#### Step 8: Check the Pending Status
+
+The status next to the delegated email address will show as 'Pending' (it should change to 'Accepted' later).
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step08-pending-status-delegate-access-google-workspace.png"
+  alt="Pending status next to the delegated email address"
+  caption="Pending status next to the delegated email address"
+  width={1928}
+  height={312}
+/>
+
+### 👤 Acceptance Process for the Delegate
+
+#### Step 9: Receive the Delegation Request Email
+
+The delegate will receive an email like this:
+
+{" "}
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-step09-delegation-request-email-received-google-workspace.png"
+  alt="Delegation request email received by the delegate"
+  caption="Delegation request email received by the delegate"
+  width={2876}
+  height={862}
+/>
+
+#### Step 10: Accept the Request
+
+Click the link to accept the request in the email.
+
+    <ImageWithCaption
+      src="/contents/gmail-delegation-google-workspace/gmail-delegation-step10-accept-delegation-request-link-google-workspace.png"
+      alt="Click the accept request link in the email"
+      caption="Click the accept request link in the email"
+      width={2060}
+      height={1136}
+    />
+
+#### Step 11: Final Confirmation
+
+Click the "Confirm" button.
+
+    <ImageWithCaption
+      src="/contents/gmail-delegation-google-workspace/gmail-delegation-step11-confirm-delegation-request-google-workspace.png"
+      alt="Click the Confirm button"
+      caption="Click the Confirm button"
+      width={2828}
+      height={752}
+    />
+
+#### Step 12: Confirmation Complete
+
+A confirmation window will appear.
+
+    <ImageWithCaption
+      src="/contents/gmail-delegation-google-workspace/gmail-delegation-step12-delegation-confirmation-complete-google-workspace.png"
+      alt="Confirmation complete window"
+      caption="Confirmation complete window"
+      width={1882}
+      height={486}
+    />
+
+⏰ **The instructions say it may take up to 30 minutes, but it often works immediately.**
+
+### ✅ Verifying the Delegation Setup
+
+#### **How the Delegate Can Verify:**
+
+#### Step 13: To check if the email delegation is active, the delegate should click on their profile picture in the top right corner.
+
+    <ImageWithCaption
+      src="/contents/gmail-delegation-google-workspace/gmail-delegation-step14-check-profile-button-delegate-verification-google-workspace.png"
+      alt="Click the profile picture button in the top right"
+      caption="Click the profile picture button in the top right"
+      width={2864}
+      height={1442}
+    />
+
+#### Step 14: Check if the delegated account is listed.
+
+    <ImageWithCaption
+      src="/contents/gmail-delegation-google-workspace/gmail-delegation-step15-verify-delegated-account-list-google-workspace.png"
+      alt="Verify the delegated account list"
+      caption="Verify the delegated account list"
+      width={902}
+      height={1258}
+    />
+
+#### **How the Delegator Can Verify:**
+
+#### Step 15: Check for the `Accepted` status next to the delegate's email.
+
+To confirm the delegation from the delegator's account, go to Settings > Accounts > Grant access to your account, and check if the status next to the delegate's email is `Accepted`.
+
+    <ImageWithCaption
+      src="/contents/gmail-delegation-google-workspace/gmail-delegation-step16-check-accepted-status-delegation-settings-google-workspace.png"
+      alt="Check for Accepted status in the Grant access to your account list"
+      caption="Check for Accepted status in the Grant access to your account list"
+      width={2844}
+      height={1412}
+    />
+
+## ⚠️ However, the delegated account does not receive notifications for new emails.
+
+For example, let's say the `sales@company.com` email is delegated to Administrator A's email, `A_mail@company.com`.
+
+When a new email arrives at `sales@company.com`, no notification is sent to `A_mail@company.com`.
+
+There are two ways to solve this.
+
+### 📧 Solution 1: Auto-Forwarding
+
+#### **🎯 Summary:**
+
+When a new email arrives at `sales@company.com`, it is automatically forwarded to `A_mail@company.com`. This ensures that `A_mail@company.com` receives a notification.
+
+#### **✅ Advantages:**
+
+It's simple to set up.
+
+#### **❌ Disadvantages:**
+
+Administrator A is supposed to manage emails directly from the `sales@company.com` mailbox. However, auto-forwarding allows them to see all emails in their personal `A_mail@company.com` inbox. As a result, Administrator A may not feel the need to access the `sales@company.com` mailbox and might reply from their own account.
+
+**⚠️ This can lead to several problems:**
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/gmail-delegation-auto-forwarding-issue-comic.png"
+  alt="Comic illustrating the problems of auto-forwarding"
+  caption="Comic illustrating the problems of auto-forwarding"
+  width={2844}
+  height={1412}
+/>
+
+1.  **Status Mismatch**: Even if Administrator A reads and replies to an email from `A_mail@company.com`, the email in the `sales@company.com` mailbox will remain marked as 'unread'.
+2.  **Risk of Double Processing**: Another team member managing the `sales@company.com` mailbox might see the unread email and reply again, leading to duplicate responses.
+3.  **Work Confusion**: It becomes difficult to track who has handled which email, causing confusion.
+
+Below are the instructions for setting up auto-forwarding in Gmail (link to be added).
+
+<Details summary="📮 How to Set Up Gmail Auto-Forwarding">
+  Link to be added
+</Details>
+
+### 🔔 Solution 2: Mail Echo for Gmail
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/mail-echo-for-gmail_logo.png"
+  alt="Mail Echo for Gmail Logo"
+  caption="Mail Echo for Gmail: The notification solution for delegated Gmail accounts"
+  width={771}
+  height={637}
+/>
+
+Mail Echo for Gmail is a service that sends a notification email to the delegate's account when a new email arrives in the delegated account. This notification email includes a convenient link that takes you directly to the delegated mailbox.
+
+Let's revisit the example of the `sales@company.com` account delegated to Administrator A (`A_mail@company.com`).
+
+When a new email arrives at `sales@company.com`, Mail Echo sends a 'New Mail Notification' to `A_mail@company.com`.
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/mail-echo-alarm-iphone.png"
+  alt="Mail Echo for Gmail Notification"
+  caption="Mail Echo for Gmail Notification"
+  width={1143}
+  height={842}
+/>
+
+Administrator A can simply click the link in the notification email to be taken directly to the `sales@company.com` mailbox to handle the task.
+
+<ImageWithCaption
+  src="/contents/gmail-delegation-google-workspace/mail-echo-linkbutton.png"
+  alt="Mail Echo for Gmail Link Button"
+  caption="Clicking the Mail Echo for Gmail link button takes you to the delegated mailbox"
+  width={2074}
+  height={1236}
+/>
+
+#### ✅ Advantages:
+
+1.  **Real-time Notifications**: The delegated account receives timely notifications for new emails.
+2.  **Quick Access to Tasks**: The link in the notification email allows for one-click access to the delegated account (`sales@company.com`), speeding up response times.
+3.  **Shared Status and Transparency**: All work is handled directly within the delegated account, so the read/unread status and reply history are transparent to all team members. This prevents the confusion and duplicate work that can occur with auto-forwarding.
+
+## 🚀 Mail Echo for Gmail Installation Guide
+
+Solve your delegated email notification problems and improve work efficiency by installing Mail Echo for Gmail.
+
+### ☁️ Installation Method
+
+Mail Echo for Gmail is installed directly into your Google Cloud environment. I will handle the entire installation process; you just need to provide some basic information. You don't need to worry about any complex procedures.
+
+### 💰 Cost Information
+
+1.  **Google Cloud Usage Fee**: A small Google Cloud fee, amounting to a few hundred KRW (less than a dollar) per month, may be incurred for service operation.
+2.  **New User Benefit**: If you are new to Google Cloud, you can use the 90-day free credit to cover these costs, making it effectively free of charge during that period.
+3.  **Installation Fee**: The installation fee for Mail Echo for Gmail is **KRW 50,000**.
+    - **✨ July Special Discount**: For the month of July, we are offering a 30% discount, bringing the installation cost down to **KRW 35,000** (VAT included).
+
+### ✉️ Contact
+
+For installation inquiries or requests, please contact me at the email below.
+
+- **Email**: kimjaahyun@kimjaahyun.com
