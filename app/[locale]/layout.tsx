@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   verification: {
     other: {
       "naver-site-verification": "29a7617c3d120210148a81b685f20212482b8996",
+      "yandex-verification": "bfc6a4213a08b1fe",
     },
   },
 };
