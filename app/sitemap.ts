@@ -5,31 +5,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 정적 페이지들
   const staticPages = [
     {
-      url: "https://kimjaahyun.com",
+      url: "https://www.kimjaahyun.com",
       lastModified: new Date(),
       alternates: {
         languages: {
-          en: "https://kimjaahyun.com/en",
+          en: "https://www.kimjaahyun.com/en",
         },
       },
     },
     {
-      url: "https://kimjaahyun.com/ko/about",
+      url: "https://www.kimjaahyun.com/ko/about",
       lastModified: new Date("2025-06-13"),
       alternates: {
         languages: {
-          en: "https://kimjaahyun.com/en/about",
+          en: "https://www.kimjaahyun.com/en/about",
         },
       },
     },
     {
-      url: "https://kimjaahyun.com/ko/blog",
+      url: "https://www.kimjaahyun.com/ko/blog",
       lastModified: new Date(),
       alternates: {
         languages: {
-          en: "https://kimjaahyun.com/en/blog",
+          en: "https://www.kimjaahyun.com/en/blog",
         },
       },
+    },
+    {
+      url: "https://mailecho.kimjaahyun.com",
+      lastModified: new Date("2025-07-02"),
     },
   ];
 
@@ -42,11 +46,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 한국어 포스트들 처리
   for (const post of koPostsData.posts) {
     blogPosts.push({
-      url: `https://kimjaahyun.com/ko/blog/${post.slug}`,
+      url: `https://www.kimjaahyun.com/ko/blog/${post.slug}`,
       lastModified: new Date(post.metadata.lastModifiedAt),
       alternates: {
         languages: {
-          en: `https://kimjaahyun.com/en/blog/${post.slug}`,
+          en: `https://www.kimjaahyun.com/en/blog/${post.slug}`,
         },
       },
     });
@@ -55,11 +59,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 영어 포스트들 처리
   for (const post of enPostsData.posts) {
     blogPosts.push({
-      url: `https://kimjaahyun.com/en/blog/${post.slug}`,
+      url: `https://www.kimjaahyun.com/en/blog/${post.slug}`,
       lastModified: new Date(post.metadata.lastModifiedAt),
       alternates: {
         languages: {
-          ko: `https://kimjaahyun.com/ko/blog/${post.slug}`,
+          ko: `https://www.kimjaahyun.com/ko/blog/${post.slug}`,
         },
       },
     });
