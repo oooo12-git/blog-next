@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import CodeBlock from "@/app/components/CodeBlock";
 import MermaidDiagram from "@/app/components/MermaidDiagram";
 import { isValidElement } from "react";
+import Link from "next/link";
 
 // React 요소에서 텍스트를 추출하는 함수
 function extractText(node: React.ReactNode): string {
@@ -135,11 +136,25 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     },
     strong: ({ children }) => <strong className="font-bold">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
-    a: ({ href, children }) => (
-      <a href={href} className="text-blue-600 hover:underline">
-        {children}
-      </a>
-    ),
+    a: ({ href, children }) => {
+      if (href && (href.startsWith("/") || href.startsWith("#"))) {
+        return (
+          <Link href={href} className="text-blue-600 hover:underline">
+            {children}
+          </Link>
+        );
+      }
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          {children}
+        </a>
+      );
+    },
     hr: () => (
       <hr className="my-8 border-0 h-px bg-gray-300 dark:bg-gray-600" />
     ),
