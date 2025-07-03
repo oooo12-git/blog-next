@@ -10,7 +10,6 @@ interface CodeBlockProps {
 export default function CodeBlock({ children, ...props }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-
   // 언어 정보와 코드 텍스트 추출
   let language = "text";
   let codeText = "";
@@ -20,7 +19,7 @@ export default function CodeBlock({ children, ...props }: CodeBlockProps) {
   if ("data-language" in props && typeof props["data-language"] === "string") {
     language = props["data-language"] as string;
   }
-  
+
   // 2. props className에서 언어 확인 (language-xxx 패턴)
   else if ("className" in props && typeof props.className === "string") {
     const className = props.className as string;
@@ -33,11 +32,16 @@ export default function CodeBlock({ children, ...props }: CodeBlockProps) {
   // 3. children props에서 확인 (fallback)
   else if (isValidElement(children) && children.props) {
     const childProps = children.props as Record<string, unknown>;
-    
-    if ("data-language" in childProps && typeof childProps["data-language"] === "string") {
+
+    if (
+      "data-language" in childProps &&
+      typeof childProps["data-language"] === "string"
+    ) {
       language = childProps["data-language"];
-    }
-    else if ("className" in childProps && typeof childProps.className === "string") {
+    } else if (
+      "className" in childProps &&
+      typeof childProps.className === "string"
+    ) {
       const className = childProps.className;
       const langMatch = className.match(/language-(\w+)/);
       if (langMatch) {
@@ -46,18 +50,29 @@ export default function CodeBlock({ children, ...props }: CodeBlockProps) {
     }
   }
 
-
   // 코드 텍스트 추출
   const extractText = (node: React.ReactNode): string => {
     if (typeof node === "string") return node;
     if (Array.isArray(node)) return node.map(extractText).join("");
-    if (isValidElement(node) && node.props && typeof node.props === "object" && node.props !== null && "children" in node.props) {
+    if (
+      isValidElement(node) &&
+      node.props &&
+      typeof node.props === "object" &&
+      node.props !== null &&
+      "children" in node.props
+    ) {
       return extractText(node.props.children as React.ReactNode);
     }
     return "";
   };
 
-  if (isValidElement(children) && children.props && typeof children.props === "object" && children.props !== null && "children" in children.props) {
+  if (
+    isValidElement(children) &&
+    children.props &&
+    typeof children.props === "object" &&
+    children.props !== null &&
+    "children" in children.props
+  ) {
     codeText = extractText(children.props.children as React.ReactNode);
   }
 
@@ -72,7 +87,7 @@ export default function CodeBlock({ children, ...props }: CodeBlockProps) {
   };
 
   return (
-    <div className="border border-gray-300 bg-neutral-50 rounded-lg my-4 overflow-hidden dark:bg-gray-900 dark:border-gray-600">
+    <div className="border border-gray-300 bg-neutral-50 rounded-lg my-4 overflow-hidden dark:bg-[var(--shiki-dark-bg)] dark:border-gray-600">
       {/* 언어 라벨 및 복사 버튼 */}
       <div className="bg-[#ECEAEA] px-3 py-1 text-sm text-[#706E6E] border-b border-gray-300 dark:bg-gray-800 dark:text-neutral-200 dark:border-gray-600 flex justify-between items-center">
         <span>{language}</span>
@@ -85,7 +100,7 @@ export default function CodeBlock({ children, ...props }: CodeBlockProps) {
         </button>
       </div>
       {/* 코드 영역 */}
-      <div className="p-4 overflow-x-auto text-sm">
+      <div className="p-4 overflow-x-auto text-sm dark:bg-[#24292e]">
         <pre className="!bg-transparent !p-0 !m-0" {...props}>
           {children}
         </pre>
