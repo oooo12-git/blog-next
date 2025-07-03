@@ -1,0 +1,616 @@
+export const metadata = {
+  title:
+    "GoF Design Patterns: Structural Patterns (1) - Understanding Concepts for Information Processing Engineer Exam (Adapter, Decorator, Facade, Proxy)",
+  description:
+    "Learn about GoF (Gang of Four) structural design patterns that combine classes and objects to create larger structures: Adapter, Decorator, Facade, and Proxy patterns with JavaScript code examples.",
+  publishedAt: "2025-07-03",
+  lastModifiedAt: "2025-07-03",
+  timeToRead: 0,
+  heroImage: "/contents/default.jpg",
+  tags: [
+    "Design Patterns",
+    "GoF",
+    "Adapter",
+    "Decorator",
+    "Facade",
+    "Proxy",
+    "Structural Patterns",
+    "Development",
+  ],
+};
+
+## 📚 What are GoF Design Patterns?
+
+GoF stands for 'Gang of Four', referring to the four authors of a design pattern book that provides solutions to frequently occurring problems in object-oriented programming. The patterns they organized greatly help improve code reusability, maintainability, and extensibility. 💡
+
+Design patterns are broadly divided into three categories: Creational 🏗️, Structural 🧩, and Behavioral 🎭. In this article, we'll explore **Structural Patterns** �� that deal with how to combine classes and objects to form larger structures.
+
+### 🧱 What are Structural Patterns?
+
+Structural patterns focus on creating **'structures'** 🏗️ as the name suggests. They deal with how to assemble small classes and objects like LEGO blocks 🧩 to create larger, more complex yet flexible and efficient structures.
+
+For example:
+
+- 🔌 Connecting objects with different interfaces using adapters (Adapter pattern)
+- 🎁 Dynamically adding new responsibilities to objects (Decorator pattern)
+- 🚪 Providing a simple interface to make complex systems easier to use (Facade pattern)
+- 🛡️ Controlling access to an object (Proxy pattern)
+
+All of these fall under structural patterns.
+
+The key is **'relationships'** 🔗. By using structural patterns, you can effectively design inheritance relationships between classes or composition relationships between objects, allowing systems to easily adapt and extend to new requirements. ✨
+
+## 🔌 1. Adapter Pattern
+
+The Adapter pattern, as its name suggests, is a design pattern that **converts incompatible interfaces to work together**. Think of a real-world adapter (like converting 110V to 220V). It's very useful when you want to integrate new classes or external libraries into your system without modifying existing code.
+
+### 🏗️ Basic Structure
+
+The Adapter pattern consists of three main elements:
+
+- **🎯 Target**: The target interface that the client wants to use.
+- **🔌 Adaptee**: An existing class with an incompatible interface (the functionality we want to use).
+- **🔄 Adapter**: Converts the `Adaptee`'s interface to match the `Target` interface.
+
+### 💻 Example: Making Web Storage APIs Compatible
+
+Web browsers have two data storage options: `localStorage` and `sessionStorage`. Both APIs have similar interfaces like `setItem(key, value)` and `getItem(key)`, but suppose `sessionStorage` needs a special feature that automatically converts data to JSON format when storing.
+
+Our application is designed to handle data storage through a standard `Storage` interface (Target).
+
+```javascript
+// Target interface
+class Storage {
+  setData(key, data) {
+    throw new Error("setData() must be implemented.");
+  }
+  getData(key) {
+    throw new Error("getData() must be implemented.");
+  }
+}
+```
+
+By default, `localStorage` can use this `Storage` interface as is.
+
+```javascript
+// Concrete Target
+class LocalStorageManager extends Storage {
+  setData(key, data) {
+    localStorage.setItem(key, data);
+  }
+  getData(key) {
+    return localStorage.getItem(key);
+  }
+}
+```
+
+Now suppose we want to use `sessionStorage`, but this class has different methods called `saveObject` that automatically performs `JSON.stringify` when storing data, and `loadObject` that performs `JSON.parse` when retrieving data. This is our `Adaptee`.
+
+```javascript
+// Adaptee (class with incompatible interface)
+class SessionStorageHandler {
+  saveObject(key, obj) {
+    sessionStorage.setItem(key, JSON.stringify(obj));
+  }
+  loadObject(key) {
+    const item = sessionStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  }
+}
+```
+
+We create an adapter to make `SessionStorageHandler` compatible with our system's `Storage` interface.
+
+```javascript
+// Adapter
+class SessionStorageAdapter extends Storage {
+  constructor() {
+    super();
+    this.handler = new SessionStorageHandler();
+  }
+
+  // Connect Target's setData() to Adaptee's saveObject()
+  setData(key, data) {
+    // Since Adaptee expects an object, wrap string data in an object
+    this.handler.saveObject(key, { value: data });
+  }
+
+  // Connect Target's getData() to Adaptee's loadObject()
+  getData(key) {
+    const obj = this.handler.loadObject(key);
+    return obj ? obj.value : null;
+  }
+}
+
+// Client code
+function saveUserData(storage, userData) {
+  storage.setData("user", userData);
+  console.log("Data has been saved. ✅");
+}
+
+// Using LocalStorage (existing method)
+const localManager = new LocalStorageManager();
+saveUserData(localManager, "John Doe");
+console.log("Read from LocalStorage:", localStorage.getItem("user")); // "John Doe"
+
+// Using SessionStorage (with adapter)
+const sessionAdapter = new SessionStorageAdapter();
+saveUserData(sessionAdapter, "Jane Doe");
+console.log("Read from SessionStorage:", sessionStorage.getItem("user")); // {"value":"Jane Doe"}
+
+// Client calls getData but adapter handles JSON parsing internally
+console.log("Read through adapter:", sessionAdapter.getData("user")); // "Jane Doe"
+```
+
+The client code (`saveUserData`) uses the same `Storage` interface, so it doesn't need to know whether data is stored in `localStorage` or `sessionStorage` in JSON format. This way, the Adapter pattern allows you to easily integrate objects with different interfaces.
+
+> Adapter Pattern Key Keywords 🔑
+>
+> - 🤝 Connects incompatible interfaces.
+> - ♻️ Reuses existing code without modification.
+> - Also called 'Wrapper' class.
+> - **Both class patterns using inheritance and instance patterns using delegation exist.**
+
+### Class Adapter vs Instance Adapter
+
+The Adapter pattern is divided into two types based on implementation:
+
+- **Class Adapter**: Uses **inheritance**. The adapter inherits from the `Target` class and implements `Adaptee` functionality. The `SessionStorageAdapter extends Storage` example above falls into this category.
+- **Instance Adapter**: Uses **delegation**. The adapter contains an instance of the `Adaptee` internally and delegates work to the `Adaptee` when `Target` requests come in. This approach is more flexible and commonly used.
+
+#### Instance Adapter Example: Integrating a New Logging Library
+
+Suppose our system uses a simple `log(message)` interface that only receives messages, but the new library we want to introduce uses a `logMessage(timestamp, message)` interface that receives both timestamp and message.
+
+```javascript
+// Adaptee: New logger we want to integrate
+class NewLogger {
+  logMessage(timestamp, message) {
+    console.log(`[${new Date(timestamp).toISOString()}] - ${message}`);
+  }
+}
+
+// Target: Logger interface our system expects
+// Here we assume an object with a 'log(message)' method
+// const logger = { log: (message) => { console.log(message) } };
+
+// Instance Adapter
+class LoggerAdapter {
+  constructor(newLogger) {
+    // Contains Adaptee instance internally (Composition)
+    this.adaptee = newLogger;
+  }
+
+  // Implements log method matching Target interface
+  log(message) {
+    // Process data according to Adaptee's required format
+    const timestamp = Date.now();
+    // Delegate actual work to Adaptee ⭐️
+    this.adaptee.logMessage(timestamp, message);
+  }
+}
+
+// Client code
+function logSystemEvent(logger, message) {
+  logger.log(message);
+}
+
+const newLogger = new NewLogger();
+const adapter = new LoggerAdapter(newLogger);
+
+logSystemEvent(adapter, "User has logged in.");
+// Output: [2025-07-02TXX:XX:XX.XXX] - User has logged in.
+```
+
+In this example, `LoggerAdapter` doesn't `extend` any class. Instead, it receives a `NewLogger` instance in the constructor and stores it in `this.adaptee` (composition). When the client calls `adapter.log()`, the adapter 'delegates' the actual logging work to the `adaptee`. This way, instance adapters can create more flexible structures by using composition.
+
+## ☕️ 2. Decorator Pattern
+
+The Decorator pattern is a structural pattern that allows you to **dynamically add new functionality or responsibilities to objects without modifying existing code**. Like its name suggests, it extends functionality by decorating objects. While you can extend functionality through inheritance, inheritance is static and can cause 'class explosion' problems where you need to create subclasses for every combination. The Decorator pattern provides a flexible alternative to solve this problem.
+
+A real-world example is 'ordering coffee'. Like adding milk to basic coffee (americano) to make café latte, then adding syrup (vanilla latte), and topping with whipped cream (einspänner), you dynamically add various 'decorations (options)' to a basic object to create new objects.
+
+### 🏗️ Basic Structure
+
+The Decorator pattern consists of the following elements:
+
+- **📦 Component**: A common interface (or abstract class) that both the object to be decorated and the decorating objects (decorators) must implement.
+- **ConcreteComponent**: A concrete class with core functionality that becomes the target of decoration (e.g., basic coffee).
+- **🎁 Decorator**: Implements the `Component` interface while maintaining an internal reference to a `Component` object. This reference connects to the object to be decorated.
+- **ConcreteDecorator**: Inherits from `Decorator` and actually adds new functionality or responsibilities (e.g., adding milk, adding syrup).
+
+### 💻 Example: Coffee Ordering System
+
+Let's create a coffee ordering system where various options can be added.
+
+First, create a `Coffee` interface (defined as a class here) that all coffee objects will follow.
+
+```javascript
+// Component: Common interface
+class Coffee {
+  cost() {
+    throw new Error("cost() must be implemented.");
+  }
+
+  getDescription() {
+    throw new Error("getDescription() must be implemented.");
+  }
+}
+```
+
+Create the most basic coffee, `SimpleCoffee`.
+
+```javascript
+// ConcreteComponent: Basic object to be decorated
+class SimpleCoffee extends Coffee {
+  cost() {
+    return 5; // Basic coffee price 5
+  }
+
+  getDescription() {
+    return "Basic Coffee";
+  }
+}
+```
+
+Now create an abstract class that will be the foundation for decorators. This class will wrap other `Coffee` objects.
+
+```javascript
+// Decorator: Role of wrapping other Coffee objects
+class CoffeeDecorator extends Coffee {
+  constructor(coffee) {
+    super();
+    this._coffee = coffee; // Store the Coffee object to wrap
+  }
+
+  cost() {
+    return this._coffee.cost(); // Call the wrapped object's cost()
+  }
+
+  getDescription() {
+    return this._coffee.getDescription(); // Call the wrapped object's getDescription()
+  }
+}
+```
+
+Now create concrete decorators. `WithMilk` and `WithSugar` are responsible for adding milk and sugar respectively.
+
+```javascript
+// ConcreteDecorator A: Adding milk
+class WithMilk extends CoffeeDecorator {
+  constructor(coffee) {
+    super(coffee);
+  }
+
+  cost() {
+    return super.cost() + 2; // Add milk price to base price
+  }
+
+  getDescription() {
+    return super.getDescription() + ", with Milk";
+  }
+}
+
+// ConcreteDecorator B: Adding sugar
+class WithSugar extends CoffeeDecorator {
+  constructor(coffee) {
+    super(coffee);
+  }
+
+  cost() {
+    return super.cost() + 1; // Add sugar price to base price
+  }
+
+  getDescription() {
+    return super.getDescription() + ", with Sugar";
+  }
+}
+
+// Client code
+let coffee = new SimpleCoffee();
+console.log(`${coffee.getDescription()} - Price: ${coffee.cost()}`);
+// Output: Basic Coffee - Price: 5
+
+// Let's add milk
+coffee = new WithMilk(coffee);
+console.log(`${coffee.getDescription()} - Price: ${coffee.cost()}`);
+// Output: Basic Coffee, with Milk - Price: 7
+
+// Let's add sugar too
+coffee = new WithSugar(coffee);
+console.log(`${coffee.getDescription()} - Price: ${coffee.cost()}`);
+// Output: Basic Coffee, with Milk, with Sugar - Price: 8
+
+// We can also add sugar first by changing the order
+let anotherCoffee = new SimpleCoffee();
+anotherCoffee = new WithSugar(anotherCoffee);
+anotherCoffee = new WithMilk(anotherCoffee);
+console.log(
+  `${anotherCoffee.getDescription()} - Price: ${anotherCoffee.cost()}`
+);
+// Output: Basic Coffee, with Sugar, with Milk - Price: 8
+```
+
+Using the Decorator pattern this way, you can continuously add new features like `WithMilk` and `WithSugar` dynamically without modifying the `SimpleCoffee` class at all. If you need features like 'adding whipped cream' or 'adding shots', you just need to create new decorator classes.
+
+> Decorator Pattern Key Keywords 🔑
+>
+> - 🎁 Wraps objects to add new responsibilities.
+> - 🧩 Extends functionality through object composition (SimpleCoffee, WithMilk, WithSugar).
+> - 💡 A flexible alternative to inheritance.
+> - Can **dynamically** add or remove functionality.
+> - Core functionality and additional features follow the same interface.
+> - The order of decorators can affect the result.
+
+## 🎬 3. Facade Pattern
+
+Facade means 'building front' and is a design pattern that **provides a simple unified interface to complex subsystems**. It allows clients to perform desired functions by calling only simple methods provided by the facade object, without needing to know the complex internal structure of subsystems.
+
+A real-world example is a 'computer power button'. We think the computer turns on when we press just one power button, but internally, countless components and software like CPU, memory, hard disk, and operating system interact in complex ways. The 'power button' acts as a facade, hiding complex processes and providing users with a simple interface.
+
+### 🏗️ Basic Structure
+
+- **🚪 Facade**: Provides a simple interface by integrating subsystem functionality. When receiving client requests, it delegates work to various subsystem objects it knows.
+- **⚙️ Subsystem Classes**: A collection of classes that perform actual functions. Called by the facade, clients usually don't know these classes directly.
+
+### 🎥 Example: Controlling Home Theater System
+
+Imagine you have a home theater system consisting of a DVD player, amplifier, projector, lights, etc. To watch a movie, you need to go through several steps:
+
+1.  Turn on the projector
+2.  Turn on the DVD player
+3.  Turn on the amplifier
+4.  Adjust the amplifier volume
+5.  Dim the lights
+
+Manually controlling all these processes every time is very cumbersome. Using the Facade pattern, you can handle everything with one simple command: "watch movie".
+
+First, define subsystem classes representing each device.
+
+```javascript
+// Subsystem Class 1: Projector
+class Projector {
+  on() {
+    console.log("Projector is turned on.");
+  }
+  off() {
+    console.log("Projector is turned off.");
+  }
+}
+
+// Subsystem Class 2: Amplifier
+class Amplifier {
+  on() {
+    console.log("Amplifier is turned on.");
+  }
+  setVolume(level) {
+    console.log(`Volume is set to ${level}.`);
+  }
+  off() {
+    console.log("Amplifier is turned off.");
+  }
+}
+
+// Subsystem Class 3: Lights
+class Lights {
+  dim(level) {
+    console.log(`Lights are dimmed to ${level}% brightness.`);
+  }
+  brighten() {
+    console.log("Lights are brightened.");
+  }
+}
+
+// Subsystem Class 4: DVD Player
+class DvdPlayer {
+  on() {
+    console.log("DVD player is turned on.");
+  }
+  play(movie) {
+    console.log(`Playing '${movie}' movie.`);
+  }
+  off() {
+    console.log("DVD player is turned off.");
+  }
+}
+```
+
+Now create `HomeTheaterFacade` that controls all these subsystems.
+
+```javascript
+// Facade
+class HomeTheaterFacade {
+  constructor(amp, projector, lights, dvd) {
+    this.amplifier = amp;
+    this.projector = projector;
+    this.lights = lights;
+    this.dvdPlayer = dvd;
+  }
+
+  // Integrate movie watching process into one method
+  watchMovie(movie) {
+    console.log("--- Starting to prepare for movie ---");
+    this.lights.dim(10);
+    this.projector.on();
+    this.amplifier.on();
+    this.amplifier.setVolume(7);
+    this.dvdPlayer.on();
+    this.dvdPlayer.play(movie);
+  }
+
+  // Integrate movie ending process into one method
+  endMovie() {
+    console.log("\n--- Shutting down home theater ---");
+    this.dvdPlayer.off();
+    this.amplifier.off();
+    this.projector.off();
+    this.lights.brighten();
+  }
+}
+
+// Client code
+const amp = new Amplifier();
+const projector = new Projector();
+const lights = new Lights();
+const dvd = new DvdPlayer();
+
+// Create facade object
+const homeTheater = new HomeTheaterFacade(amp, projector, lights, dvd);
+
+// Client only needs to call simple methods without knowing complex processes
+homeTheater.watchMovie("Interstellar");
+homeTheater.endMovie();
+```
+
+**Output Result:**
+
+```text
+--- Starting to prepare for movie ---
+Lights are dimmed to 10% brightness.
+Projector is turned on.
+Amplifier is turned on.
+Volume is set to 7.
+DVD player is turned on.
+Playing 'Interstellar' movie.
+
+--- Shutting down home theater ---
+DVD player is turned off.
+Amplifier is turned off.
+Projector is turned off.
+Lights are brightened.
+```
+
+The client only needs to call `HomeTheaterFacade`'s `watchMovie()` and `endMovie()` methods. They don't need to know complex internal operation sequences or dependencies like whether to turn on the projector first or when to adjust the amplifier volume. This way, the Facade pattern **reduces coupling between subsystems and clients**, making code simpler and easier to maintain.
+
+> Facade Pattern Key Keywords 🔑
+>
+> - 🚪 Provides a **simple interface (window)** to complex subsystems.
+> - 🔗 **Reduces coupling** between clients and subsystems.
+> - 📦 Encapsulates subsystem internal implementation.
+> - 🧑‍⚖️ Facade only delegates requests and doesn't create new functionality itself.
+> - ✅ Allows unit-by-unit error checking.
+
+## 🛡️ 4. Proxy Pattern
+
+Proxy means 'representative' 🧑‍💼 and is a pattern that **creates an object that acts as a representative or placeholder for another object to control access to it**. Instead of directly accessing the actual object, you access it indirectly through a proxy object, which can control access or perform additional tasks during this process. 🔒
+
+A real-world example is a 'secretary' 🧑‍💼 or 'customer service representative' ☎️. It's difficult for us to speak directly with a company's CEO. Instead, we make appointments or deliver messages through a secretary. The secretary acts as a proxy, filtering unnecessary requests to the CEO (actual object) and controlling access. 🚦
+
+### 🏗️ Basic Structure
+
+- **🧑‍⚖️ Subject**: A common interface that both `RealSubject` and `Proxy` must implement. Clients can treat `Proxy` like `RealSubject` through this interface.
+- **👑 RealSubject**: The actual object that the proxy represents. Contains core business logic.
+- **🛡️ Proxy**: Has the same interface as `RealSubject`. Maintains an internal reference to `RealSubject` and receives client requests to forward them to `RealSubject` or sometimes handles them directly.
+
+### 🖼️ Example: Image Loading Delay (Virtual Proxy)
+
+Suppose you're loading very large images on a web page. If the screen freezes until the image is completely loaded, the user experience would be poor. You can use a **Virtual Proxy** 🕒 to delay creating the actual image object until it's needed.
+
+First, define an `Image` interface that all images will follow.
+
+```javascript
+// Subject: Common interface
+class Image {
+  display() {
+    throw new Error("display() must be implemented.");
+  }
+}
+```
+
+Create a `RealImage` class that actually loads heavy image files from disk and displays them on screen. Assume it performs heavy work from the constructor.
+
+```javascript
+// RealSubject: Actual object (expensive to create)
+class RealImage extends Image {
+  constructor(fileName) {
+    super();
+    this.fileName = fileName;
+    this.loadFromDisk(); // Load image immediately upon creation (heavy work)
+  }
+
+  loadFromDisk() {
+    console.log(`Loading ${this.fileName} file from disk... (time consuming)`);
+  }
+
+  display() {
+    console.log(`Displaying ${this.fileName} image on screen.`);
+  }
+}
+```
+
+Now create `ProxyImage` that will act as a proxy for `RealImage`.
+
+```javascript
+// Proxy: Object that represents RealImage
+class ProxyImage extends Image {
+  constructor(fileName) {
+    super();
+    this.fileName = fileName;
+    this.realImage = null; // Initially set actual image object to null
+  }
+
+  display() {
+    // Check if actual object is needed when display() is called
+    if (this.realImage === null) {
+      console.log(`[Proxy] Actual image is now needed. Creating it now.`);
+      // Create at the exact moment the actual object is needed! (Lazy Initialization)
+      this.realImage = new RealImage(this.fileName);
+    }
+    // Delegate work to actual object
+    this.realImage.display();
+  }
+}
+
+// Client code
+console.log("--- Creating proxy object ---");
+const image = new ProxyImage("high_resolution_landscape.jpg");
+
+console.log("\n--- First display() call ---");
+// RealImage object is created and loaded at this point
+image.display();
+
+console.log("\n--- Second display() call ---");
+// RealImage object already exists, so only display is called
+image.display();
+```
+
+**Output Result:**
+
+```text
+--- Creating proxy object ---
+
+--- First display() call ---
+[Proxy] Actual image is now needed. Creating it now.
+Loading high_resolution_landscape.jpg file from disk... (time consuming)
+Displaying high_resolution_landscape.jpg image on screen.
+
+--- Second display() call ---
+Displaying high_resolution_landscape.jpg image on screen.
+```
+
+The client uses `ProxyImage` exactly like `RealImage`, but the actual heavy work of image loading is delayed until `display()` is first called. If `display()` is never called, unnecessary image loading can be completely avoided.
+
+> #### 💡 Why is a proxy needed? (Time and Responsiveness)
+>
+> The main reason for using a proxy in the above example is **improving application initial responsiveness**.
+>
+> - **Without proxy?** 🐌 When opening a page with 100 high-resolution images, 100 `RealImage` objects are immediately created and all images start loading at once. Users have to look at a white screen for several seconds until all loading is complete.
+> - **With proxy?** 🚀 When opening the page, only 100 lightweight `ProxyImage` objects are created. The page loads immediately, and only when users scroll and images need to be displayed (when `.display()` is called) are the corresponding images loaded.
+>
+> This way, proxy uses **'Lazy Initialization'** technique to postpone heavy work (object creation, data loading, etc.) that isn't immediately needed, shortening system initial startup time and enabling efficient use of resources (memory, network).
+
+### Types of Proxies
+
+Proxy patterns are divided into several types based on their purpose:
+
+- **Virtual Proxy**: 🖼️ Like the example above, delays creation of expensive objects until needed.
+- **Protection Proxy**: 🔐 Controls access and checks permissions so only specific clients can access the actual object.
+- **Remote Proxy**: 🌐 Allows objects in different address spaces (e.g., remote servers) to be used as if they were local.
+- **Logging/Caching Proxy**: 📝 Logs requests before and after accessing the actual object, or caches request results to improve performance.
+
+> Proxy Pattern Key Keywords 🔑
+>
+> - 🛡️ **Represents** the actual object to adjust control flow.
+> - 🎭 Actual object and proxy use the same interface.
+> - 🎯 Used for various purposes like access control, cost reduction, complexity reduction.
+> - 🤫 Clients may not know whether they're using a proxy or the actual object.

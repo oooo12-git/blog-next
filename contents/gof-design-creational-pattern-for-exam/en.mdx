@@ -1,9 +1,10 @@
 export const metadata = {
-  title: "GoF Design Patterns: Core Concepts for Exams (Singleton, Factory Method, Builder, Prototype, Abstract Factory)",
+  title:
+    "GoF Design Patterns: Core Concepts for Exams (Singleton, Factory Method, Builder, Prototype, Abstract Factory)",
   description:
     "Learn the core concepts of the Gang of Four (GoF) design patterns, focusing on creational patterns like Singleton, Factory Method, Builder, Prototype, and Abstract Factory with code examples. Understand how to write scalable and flexible code.",
   publishedAt: "2025-07-02",
-  lastModifiedAt: "2025-07-02",
+  lastModifiedAt: "2025-07-03",
   timeToRead: 0,
   heroImage: "/contents/default.jpg",
   tags: [
@@ -20,17 +21,17 @@ export const metadata = {
   ],
 };
 
-## What are GoF Design Patterns?
+## 🎯 What are GoF Design Patterns?
 
-GoF stands for 'Gang of Four,' referring to the four authors of the book on design patterns that provides solutions to common problems in object-oriented programming. The patterns they compiled are a great help in increasing code reusability, maintainability, and scalability.
+GoF stands for 'Gang of Four,' referring to the four authors of the book on design patterns that provides solutions to common problems in object-oriented programming. The patterns they compiled are a great help in increasing code reusability, maintainability, and scalability. ✨
 
-Design patterns are broadly divided into three categories: Creational, Structural, and Behavioral. In this article, we will focus on the **Creational Patterns**, which deal with object creation.
+Design patterns are broadly divided into three categories: Creational, Structural, and Behavioral. In this article, we will focus on the **Creational Patterns**, which deal with object creation. 🏗️
 
-## 1. Singleton Pattern
+## 1. 👑 Singleton Pattern
 
-The Singleton pattern, as the name suggests, is a design pattern that **enforces the existence of only one object per class**. The key is that the instance is unique, as implied by the word `single`.
+The Singleton pattern, as the name suggests, is a design pattern that **enforces the existence of only one object per class**. The key is that the instance is unique, as implied by the word `single`. 👑
 
-### Basic Structure
+### 🏗️ Basic Structure
 
 In class-based languages, a singleton is typically implemented as follows:
 
@@ -52,17 +53,17 @@ class Singleton {
 const a = new Singleton();
 const b = new Singleton();
 
-console.log(a === b); // true
+console.log(a === b); // true ✅
 console.log(a.message); // "I am a class-based unique instance"
 ```
 
-Although `new Singleton()` was called twice, the variables `a` and `b` refer to the exact same instance.
+Although `new Singleton()` was called twice, the variables `a` and `b` refer to the exact same instance. 🎯
 
-### When is it needed?
+### 🤔 When is it needed?
 
-It is useful when there is a resource that needs to be shared globally across the application. A typical example is a **Logger**.
+It is useful when there is a resource that needs to be shared globally across the application. A typical example is a **Logger**. 📝
 
-If there are multiple Logger instances, logs might be recorded in a distributed manner.
+If there are multiple Logger instances, logs might be recorded in a distributed manner. ⚠️
 
 ```javascript
 class Logger {
@@ -80,7 +81,7 @@ class Logger {
   }
 }
 
-// Case where two instances are created
+// Case where two instances are created 😵
 const loggerA = new Logger("A");
 const loggerB = new Logger("B");
 
@@ -88,7 +89,7 @@ loggerA.log("Server started");
 loggerB.log("DB connected");
 loggerA.log("User logged in");
 
-// Logs are stored separately in each instance.
+// Logs are stored separately in each instance. 😞
 loggerA.printLogs();
 // [A] Server started
 // [A] User logged in
@@ -97,7 +98,7 @@ loggerB.printLogs();
 // [B] DB connected
 ```
 
-By applying the Singleton pattern to the Logger, even if instances are created in multiple places, only one instance is actually used, allowing for centralized log management.
+By applying the Singleton pattern to the Logger, even if instances are created in multiple places, only one instance is actually used, allowing for centralized log management. ✅
 
 ```javascript
 class Logger {
@@ -118,7 +119,7 @@ class Logger {
   }
 }
 
-// It's okay to call Logger from multiple places.
+// It's okay to call Logger from multiple places. 😊
 const logger1 = new Logger();
 const logger2 = new Logger();
 
@@ -126,7 +127,7 @@ logger1.log("Server started");
 logger2.log("DB connected");
 logger1.log("User logged in");
 
-// All logs are recorded in a single instance.
+// All logs are recorded in a single instance. 🎉
 logger1.printLogs();
 /*
 Server started
@@ -134,25 +135,25 @@ DB connected
 User logged in
 */
 
-console.log(logger1 === logger2); // true
+console.log(logger1 === logger2); // true ✅
 ```
 
-> **Singleton Pattern Keywords**
+> 💡 **Singleton Pattern Keywords**
 >
-> - Enforces that a class has only one instance.
+> - Enforces that a class has only one instance. 👑
 
-## 2. Factory Method Pattern
+## 2. 🏭 Factory Method Pattern
 
-The Factory Method pattern is a pattern where **the interface for creating objects is defined in a superclass, but the decision of which class's instance to create is left to the subclasses**.
+The Factory Method pattern is a pattern where **the interface for creating objects is defined in a superclass, but the decision of which class's instance to create is left to the subclasses**. ⚙️
 
 This pattern involves two main structures: `Creator` and `Product`.
 
--   **Product**: Defines the common interface for the objects to be created.
--   **Creator**: Defines the `factoryMethod()` that creates a `Product`. The actual creation logic is handled by the subclass `Creator`.
+- **Product**: Defines the common interface for the objects to be created. 📋
+- **Creator**: Defines the `factoryMethod()` that creates a `Product`. The actual creation logic is handled by the subclass `Creator`. 🏗️
 
-### Basic Structure
+### 🏗️ Basic Structure
 
-Let's take a payment system as an example. There are various payment methods (credit card, PayPal, etc.), but the overall flow of 'payment processing' is the same.
+Let's take a payment system as an example. There are various payment methods (credit card, PayPal, etc.), but the overall flow of 'payment processing' is the same. 💳
 
 ```javascript
 // Product Interface (Payment Gateway)
@@ -178,7 +179,7 @@ class PaypalGateway extends PaymentGateway {
 
 // Creator (Parent Payment Processor)
 class PaymentProcessor {
-  // This method does not depend on the specific payment method.
+  // This method does not depend on the specific payment method. 🎯
   process(amount) {
     const gateway = this.createGateway(); // Call Factory Method
     gateway.pay(amount);
@@ -204,7 +205,7 @@ class PaypalPaymentProcessor extends PaymentProcessor {
   }
 }
 
-// Usage Example
+// Usage Example ✨
 const cardProcessor = new CardPaymentProcessor();
 cardProcessor.process(10000); // 💳 Paid 10000 with credit card
 
@@ -212,9 +213,9 @@ const paypalProcessor = new PaypalPaymentProcessor();
 paypalProcessor.process(20000); // 🅿️ Paid 20000 with PayPal
 ```
 
-### Scalability
+### 🚀 Scalability
 
-The biggest advantage of the Factory Method is **scalability**. If a new payment method, 'KakaoPay,' needs to be added, there is no need to modify the existing code at all.
+The biggest advantage of the Factory Method is **scalability**. If a new payment method, 'KakaoPay,' needs to be added, there is no need to modify the existing code at all. 🎉
 
 ```javascript
 // New Concrete Product
@@ -231,44 +232,44 @@ class KakaoPayPaymentProcessor extends PaymentProcessor {
   }
 }
 
-// New functionality can be used immediately
+// New functionality can be used immediately 🚀
 const kakaoProcessor = new KakaoPayPaymentProcessor();
 kakaoProcessor.process(15000); // 💛 Paid 15000 with KakaoPay
 ```
 
-What if we handled this with a simple `if/switch` statement instead of the Factory Method?
+What if we handled this with a simple `if/switch` statement instead of the Factory Method? 🤔
 
 ```javascript
 function createGateway(type) {
   if (type === "card") return new CardGateway();
   if (type === "paypal") return new PaypalGateway();
-  // When adding 'KakaoPay', modifying the code below is unavoidable.
+  // When adding 'KakaoPay', modifying the code below is unavoidable. 😰
   if (type === "kakaopay") return new KakaoPayGateway(); // ❌ OCP violation
 }
 ```
 
 ### ✅ Core Concept: OCP (Open-Closed Principle)
 
-The Factory Method pattern is a great example of the OCP, one of the five SOLID principles of object-oriented design.
+The Factory Method demonstrates one of the five principles of object-oriented design (SOLID), the OCP. 📐
 
--   **Open for extension**: New payment methods (`KakaoPay`) can be easily added.
--   **Closed for modification**: There is no need to modify the existing `PaymentProcessor` or other payment-related classes to add new functionality.
+- **Open for extension**: New payment methods (`KakaoPay`) can be easily added. ➕
+- **Closed for modification**: There's no need to modify existing `PaymentProcessor` or other payment-related classes to add new functionality. 🔒
 
-Thus, the Factory Method pattern allows for the creation of flexible and scalable systems.
+This way, using the Factory Method pattern allows you to create systems that are flexible to change and have good scalability. 💪
 
-> **Factory Method Pattern Keywords**
+> 💡 **Factory Method Pattern Keywords**
 >
-> -   Defines an interface for creating an object in a superclass.
-> -   Lets subclasses alter the type of objects that will be created.
-> -   Separates the interface from the class that creates the actual object.
+> - Define an interface for creating objects in a superclass 🏗️
+> - Create instances in subclasses ⚙️
+> - Separate the interface from the classes that actually create objects 🔀
 
-## 3. Builder (Builder) Pattern
+## 3. 🔨 Builder Pattern
 
-The Builder pattern is a design pattern that **separates the construction of a complex object from its representation**, allowing the same construction process to create different representations. It is particularly useful when the constructor has many parameters or the object creation process is complex and involves multiple steps.
+The Builder pattern is a design pattern that **separates the construction of complex objects step by step**, allowing the same construction process to create different representation results. It's particularly useful when constructor parameters are numerous or when the object creation process is complex with multiple steps. 🏗️
 
-### Have you seen code like this?
+### 😵 Have you ever seen code like this?
 
-The case where a constructor has too many parameters is sometimes called the 'Telescoping Constructor Pattern'.
+When there are too many parameters in a constructor when creating an object, it's sometimes called the 'Telescoping Constructor Pattern'.
 
 ```javascript
 // 💩 Constructor with too many parameters
@@ -285,7 +286,7 @@ class HttpRequest {
   }
 }
 
-// Very inconvenient to use.
+// Very inconvenient to use. 😫
 const req = new HttpRequest(
   "GET",
   "https://api.example.com/data",
@@ -298,18 +299,18 @@ const req = new HttpRequest(
 );
 ```
 
-The problems with the code above are:
+The problems with the above code are: ⚠️
 
--   **Poor readability**: It's hard to know what each parameter does.
--   **Prone to errors**: It's easy to input parameters in the wrong order.
--   **Lack of flexibility**: You have to pass `null` or `undefined` for parameters you don't want to set.
+- **Poor readability**: It's hard to understand what each parameter does. 😵
+- **Error-prone**: It's easy to input parameters in the wrong order. 🔀
+- **Lack of flexibility**: Even if you want to set only some parameters, you have to keep passing `null` or `undefined`. 😓
 
-### Improving with the Builder Pattern
+### ✨ Improving with Builder Pattern
 
-The Builder pattern can solve this problem cleanly.
+The Builder pattern can solve this problem elegantly.
 
 ```javascript
-// Product (The result)
+// Product (Result)
 class HttpRequest {
   constructor(builder) {
     this.method = builder.method;
@@ -323,7 +324,7 @@ class HttpRequest {
   }
 
   send() {
-    console.log(`Sending request: [${this.method}] ${this.url}`);
+    console.log(`[${this.method}] ${this.url} request sent 🚀`);
     // ... actual request logic ...
   }
 }
@@ -331,7 +332,7 @@ class HttpRequest {
 // Builder
 class HttpRequestBuilder {
   constructor() {
-    // Set default values
+    // Set default values ⚙️
     this.method = "GET";
     this.headers = {};
     this.timeout = 10000;
@@ -340,10 +341,10 @@ class HttpRequestBuilder {
     this.useHttps = true;
   }
 
-  // Each setting method returns the builder instance itself (this) for method chaining.
+  // Each setting method returns the builder instance itself (this). (Method chaining) 🔗
   setMethod(method) {
     this.method = method;
-    return this; // Return self to allow method chaining
+    return this; // Return self to enable method chaining
   }
 
   setUrl(url) {
@@ -368,16 +369,16 @@ class HttpRequestBuilder {
 
   // ... other setting methods ...
 
-  // Finally, the build() method creates the HttpRequest object.
+  // Finally, the build() method creates the HttpRequest object. 🏗️
   build() {
     if (!this.url) {
-      throw new Error("URL is a required field.");
+      throw new Error("URL is required. ⚠️");
     }
     return new HttpRequest(this);
   }
 }
 
-// ✨ The usage is much clearer and more flexible.
+// ✨ Usage is much clearer and more flexible.
 const request = new HttpRequestBuilder()
   .setMethod("POST")
   .setUrl("https://api.example.com/users")
@@ -386,88 +387,88 @@ const request = new HttpRequestBuilder()
   .setTimeout(5000)
   .build();
 
-request.send(); // Sending request: [POST] https://api.example.com/users
+request.send(); // [POST] https://api.example.com/users request sent 🚀
 ```
 
-This example shows how the Builder pattern separates the method of creating an object (`HttpRequestBuilder` class) from the method of representing the object (`HttpRequest` class) when creating a composite object (with many properties, nested structures, etc.).
+Through the above example, we learned about the Builder pattern that separates the method of creating objects (`HttpRequestBuilder` class) from the method of implementing objects (`HttpRequest` class) when creating complex objects (many properties, nested structures...). 🎯
 
-> **Builder Pattern Keywords**
+> 💡 **Builder Pattern Keywords**
 >
-> -   When creating a complex object.
+> - When creating complex objects 🏗️
 >
-> -   The process of creating an object.
+> - Method of creating objects (process) ⚙️
 >
-> -   The representation of the object.
+> - Method of implementing (representing) objects 📋
 >
-> -   Separates these two concerns.
+> - Separate the two methods 🔀
 
-## 4. Prototype (Prototype) Pattern
+## 4. 🧬 Prototype Pattern
 
-The Prototype pattern is a design pattern that **creates new objects by cloning an existing object**. Instead of creating an object from a class using the `new` keyword, it copies a prototype object and modifies it as needed. This is particularly useful when the cost of creating an object is high, or the process of creating an object from a class is complex.
+The Prototype pattern is a design pattern that **creates new objects by cloning existing objects**. Instead of using the `new` keyword to create objects from classes, it copies a prototype object and modifies the necessary parts before use. It's particularly useful when object creation is expensive or when the process of creating objects from classes is complex. 💡
 
-Since JavaScript is a prototype-based language, this pattern can be used very naturally.
+JavaScript is a prototype-based language, so this pattern can be utilized very naturally. 🚀
 
-### Basic Structure
+### 🏗️ Basic Structure
 
-Let's look at an example of creating a game character. All characters share basic stats (HP, MP), but each can have a different name and job.
+Let's look at an example of creating game characters. All characters share basic stats (health, mana), but each can have different names and jobs. ⚔️
 
 ```javascript
-// Prototype (The original object)
+// Prototype (Original object)
 const characterPrototype = {
   hp: 100,
   mp: 50,
   attack(target) {
-    console.log(`${this.name} attacks ${target}!`);
+    console.log(`${this.name} attacks ${target}! ⚔️`);
   },
   // Method to clone the object
   clone() {
-    // Use Object.create() to create a new object based on the prototype.
+    // Use Object.create() to create a new object based on the prototype. 🧬
     return Object.create(this);
   },
 };
 
-// Create new objects by cloning the prototype
+// Create new objects by cloning the prototype ✨
 const warrior = characterPrototype.clone();
 warrior.name = "Strong Warrior";
 warrior.job = "Warrior";
-warrior.hp = 150; // Modified from the default
+warrior.hp = 150; // Change from default value
 
 const mage = characterPrototype.clone();
 mage.name = "Wise Mage";
 mage.job = "Mage";
-mage.mp = 120; // Modified from the default
+mage.mp = 120; // Change from default value
 
-warrior.attack("Orc"); // Strong Warrior attacks Orc!
-mage.attack("Goblin"); // Wise Mage attacks Goblin!
+warrior.attack("Orc"); // Strong Warrior attacks Orc! ⚔️
+mage.attack("Goblin"); // Wise Mage attacks Goblin! ⚔️
 
-console.log(warrior.hp); // 150
-console.log(mage.hp); // 100 (Uses the value from the original prototype)
+console.log(warrior.hp); // 150 💪
+console.log(mage.hp); // 100 (uses the original prototype value) ✅
 ```
 
-`Object.create()` creates a new object using the specified prototype object. The newly created object inherits the properties and methods of the original, while also being able to have its own unique state.
+`Object.create()` creates a new object using the specified prototype object. Objects created this way inherit the properties and methods of the original while being able to have their own unique state. 🎯
 
-### When is it needed?
+### 🤔 When is it needed?
 
--   **When the cost of creating an object is high**: If you need to create an object by querying heavy data from a database, you can gain a performance advantage by cloning an object that has been created once, instead of creating it every time.
--   **When you need to create various types of objects**: Without creating many subclasses like in the Factory Method pattern, you can easily create various modified objects with just a few prototype objects.
+- **When object creation is expensive**: If you need to query heavy data from a database to create objects, you can gain performance benefits by cloning a once-created object instead of creating it every time. 💾
+- **When you need to create various types of objects**: Without creating many subclasses like the Factory Method pattern, you can easily create various variant objects with just a few prototype objects. 🎨
 
-In JavaScript, the Prototype pattern can be easily implemented using `Object.create()` or the spread syntax (`{...original, ...overrides}`).
+In JavaScript, the Prototype pattern can be implemented simply through `Object.create()` or spread syntax (`{...original, ...overrides}`). ⚡
 
-> **Prototype Pattern Keywords**
+> 💡 **Prototype Pattern Keywords**
 >
-> -   Creates a new object by cloning an original object.
+> - Clone original objects to create new objects. 🧬
 >
-> -   Allows creating objects without the `new` keyword.
+> - Can create objects without the `new` keyword. ✨
 >
-> -   Effective when the cost of creating an object is high.
+> - Effective when object creation is expensive. 💰
 
-## 5. Abstract Factory Pattern
+## 5. 🏪 Abstract Factory Pattern
 
-The Abstract Factory pattern provides an interface for creating **families of related or dependent objects** without specifying their concrete classes. While the Factory Method pattern focuses on creating a single object, the Abstract Factory is used to create a 'family of products'.
+The Abstract Factory pattern **provides an interface for creating sets of related or dependent objects** without specifying their concrete classes. While the Factory Method pattern focuses on creating a single object, Abstract Factory is used to create 'families of products'. 👨‍👩‍👧‍👦
 
-A common example is managing UI component themes (e.g., light/dark mode). Various UI elements like buttons, checkboxes, and windows must have a consistent style depending on the theme.
+The most common example is managing UI component themes. According to light mode and dark mode, multiple UI elements like buttons, checkboxes, windows, etc., need to have consistent styles. 🎨
 
-### Basic Structure
+### 🏗️ Basic Structure
 
 ```javascript
 // Abstract Product A: Button
@@ -480,14 +481,14 @@ class Button {
 // Concrete Product A1: LightButton
 class LightButton extends Button {
   paint() {
-    console.log("🎨 Painting a light theme button.");
+    console.log("🎨 Drawing light theme button. ☀️");
   }
 }
 
 // Concrete Product A2: DarkButton
 class DarkButton extends Button {
   paint() {
-    console.log("🎨 Painting a dark theme button.");
+    console.log("🎨 Drawing dark theme button. 🌙");
   }
 }
 
@@ -501,14 +502,14 @@ class Checkbox {
 // Concrete Product B1: LightCheckbox
 class LightCheckbox extends Checkbox {
   paint() {
-    console.log("✅ Painting a light theme checkbox.");
+    console.log("✅ Drawing light theme checkbox. ☀️");
   }
 }
 
 // Concrete Product B2: DarkCheckbox
 class DarkCheckbox extends Checkbox {
   paint() {
-    console.log("✅ Painting a dark theme checkbox.");
+    console.log("✅ Drawing dark theme checkbox. 🌙");
   }
 }
 
@@ -542,7 +543,7 @@ class DarkThemeFactory extends GUIFactory {
   }
 }
 
-// Client Code
+// Client Code 🎯
 function renderUI(factory) {
   const button = factory.createButton();
   const checkbox = factory.createCheckbox();
@@ -550,38 +551,38 @@ function renderUI(factory) {
   checkbox.paint();
 }
 
-// Render UI with Light Theme
+// Render UI with light theme ☀️
 console.log("--- Light Mode UI ---");
 const lightFactory = new LightThemeFactory();
 renderUI(lightFactory);
-// 🎨 Painting a light theme button.
-// ✅ Painting a light theme checkbox.
+// 🎨 Drawing light theme button. ☀️
+// ✅ Drawing light theme checkbox. ☀️
 
-// Render UI with Dark Theme
+// Render UI with dark theme 🌙
 console.log("\n--- Dark Mode UI ---");
 const darkFactory = new DarkThemeFactory();
 renderUI(darkFactory);
-// 🎨 Painting a dark theme button.
-// ✅ Painting a dark theme checkbox.
+// 🎨 Drawing dark theme button. 🌙
+// ✅ Drawing dark theme checkbox. 🌙
 ```
 
-### Factory Method vs. Abstract Factory
+### 🆚 Factory Method vs. Abstract Factory
 
--   **Factory Method**: A `Creator` class uses inheritance to change the way **a single product** is created.
--   **Abstract Factory**: Provides an interface for creating **multiple product families**. The client does not need to know the concrete product classes; by simply switching the factory, the entire product family can be changed at once.
+- **Factory Method**: One `Creator` class changes the way **one product** is created through inheritance. 🏭
+- **Abstract Factory**: Provides an interface for creating **multiple product families**. Clients can change the entire product family at once just by replacing the factory, without needing to know specific product classes. 🏪
 
-> **Abstract Factory Pattern Keywords**
+> 💡 **Abstract Factory Pattern Keywords**
 >
-> -   Creates 'families' of related objects.
-> -   Client code does not depend on concrete classes.
-> -   The entire product family can be easily swapped.
-> -   Provides an API to the user, while the concrete implementation is handled by Concrete Product classes.
+> - Creates 'families' of related objects. 👨‍👩‍👧‍👦
+> - Client code does not depend on specific classes. 🔒
+> - Can easily replace entire product families. 🔄
+> - Provides API to users, and specific implementation is done in Concrete Product classes. 🎯
 
-### The Meaning of 'Providing an API' and 'Concrete Implementation'
+### 🤔 Meaning of 'API Provision' and 'Specific Implementation'
 
-Here, when we say "provides an API to the user," the 'user' refers to the **client code that uses the factory**, not an actual person.
+Here, "providing API to users" means the 'users' are not actual people, but **client code that uses the factory**.
 
--   **API Provision (Abstract Classes)**: Abstract classes like `GUIFactory`, `Button`, and `Checkbox` act as a 'contract' or 'manual'. The client code (the `renderUI` function) calls methods like `createButton()` or `paint()` based on this 'manual'. The client doesn't need to know about the existence of `LightButton` or `DarkButton`.
--   **Concrete Implementation (Concrete Classes)**: Concrete classes like `LightThemeFactory` or `DarkButton` are the 'workers' that actually fulfill the 'contract'. When a `createButton()` request comes in, they create the **actual light/dark theme button object**, and when a `paint()` request comes in, they execute the logic to **draw the style appropriate for the theme**.
+- **API Provision (Abstract Classes)**: Abstract classes like `GUIFactory`, `Button`, `Checkbox` serve as a kind of 'contract' or 'manual'. 📋 Client code (the `renderUI` function) only looks at this 'manual' and calls methods like `createButton()` or `paint()`. The client doesn't need to know the actual implementation of `LightButton` or `DarkButton` at all. 🔒
+- **Specific Implementation (Concrete Classes)**: Concrete classes like `LightThemeFactory` or `DarkButton` are 'implementers' who actually fulfill the contents of the 'contract'. 👷‍♂️ When a `createButton()` request comes, they create **actual light/dark theme button objects**, and when a `paint()` request comes, they perform **actual theme-specific styling logic**.
 
-In conclusion, the client code relies only on the abstract 'manual (API)' **without needing to directly reference concrete class names (`LightButton`) in the code**. This creates a flexible structure where the entire product family (theme) can be swapped at once just by changing the factory.
+In conclusion, client code **doesn't need to directly write specific class names (`LightButton`) in the code** and only depends on the abstract 'manual (API)'. Thanks to this, a flexible structure is created where just by replacing the factory, the entire product family (theme) can be changed at once. 🔄✨

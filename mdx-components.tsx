@@ -127,7 +127,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       // 인라인 코드 스타일
       return (
         <code
-          className="bg-gray-100 px-1 py-0.5 rounded text-sm dark:bg-gray-800"
+          className="bg-gray-100 px-1 py-0.5 rounded text-sm dark:bg-[#24292e] dark:text-white"
           {...props}
         >
           {children}

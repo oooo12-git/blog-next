@@ -47,7 +47,7 @@ indexing-api-kimjaahyun-blog-7ac7e0285a7c.json
 /.cursor/
 
 #gemini
-/gemini/
+.gemini
 GEMINI.md
 
 #claude
