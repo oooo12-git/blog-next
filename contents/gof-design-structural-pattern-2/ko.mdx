@@ -1,0 +1,410 @@
+export const metadata = {
+  title:
+    "GoF 디자인 패턴: 구조 패턴(2) - 정처기 실기 대비 개념 이해(컴포지트, 브릿지, 플라이웨이트)",
+  description:
+    "클래스와 객체를 조합해 더 큰 구조를 만드는 GoF(Gang of Four) 디자인 패턴의 구조 패턴인 컴포지트(Composite), 브릿지(Bridge), 플라이웨이트(Flyweight)를 자바스크립트 코드와 함께 알아봅니다.",
+  publishedAt: "2025-07-04",
+  lastModifiedAt: "2025-07-04",
+  timeToRead: 0,
+  heroImage: "/contents/default.jpg",
+  tags: [
+    "디자인 패턴",
+    "GoF",
+    "컴포지트",
+    "브릿지",
+    "플라이웨이트",
+    "구조패턴",
+    "개발",
+  ],
+};
+
+## 🧩 5. 컴포지트 (Composite) 패턴
+
+컴포지트 패턴은 **객체들을 트리 구조로 구성하여 '부분-전체' 계층을 표현**하는 디자인 패턴입니다. 이 패턴을 사용하면 클라이언트가 개별 객체(Leaf)와 복합 객체(Composite)를 동일한 방식으로 다룰 수 있습니다. 즉, 단일 객체이든 여러 객체로 이루어진 집합이든 똑같은 인터페이스로 제어할 수 있게 됩니다.
+
+가장 대표적인 예는 컴퓨터의 파일 시스템입니다. 폴더(복합 객체) 안에는 다른 폴더나 파일(개별 객체)이 들어갈 수 있습니다. 사용자는 폴더와 파일을 구분하지 않고 '이름 변경', '삭제' 등의 동일한 작업을 수행할 수 있습니다.
+
+### 🏗️ 기본 구조
+
+- **Component**: Leaf와 Composite가 모두 구현해야 하는 공통 인터페이스입니다. 트리 구조의 모든 객체에 대한 일관된 작업을 정의합니다.
+- **Leaf**: 트리의 가장 말단에 있는 개별 객체입니다. 자식을 가지지 않습니다. (예: 파일)
+- **Composite**: 자식(Leaf 또는 다른 Composite)을 가질 수 있는 복합 객체입니다. 자식들을 관리하는 메서드(add, remove 등)를 구현하며, Component 인터페이스의 메서드를 자식들에게 재귀적으로 전달합니다. (예: 폴더)
+
+### 💻 예시: 파일 시스템 표현하기
+
+파일과 폴더로 구성된 간단한 파일 시스템을 컴포지트 패턴으로 구현해 보겠습니다.
+
+```javascript
+// Component: 공통 인터페이스
+class FileSystemComponent {
+  constructor(name) {
+    this.name = name;
+  }
+
+  // 모든 컴포넌트가 공통으로 가질 작업
+  display(indent = "") {
+    throw new Error("display() 메서드는 반드시 구현되어야 합니다.");
+  }
+
+  // Composite 객체에서만 의미 있는 메서드들
+  add(component) {
+    throw new Error("이 객체에는 자식을 추가할 수 없습니다.");
+  }
+
+  remove(component) {
+    throw new Error("이 객체에서는 자식을 제거할 수 없습니다.");
+  }
+}
+
+// Leaf: 개별 파일
+class File extends FileSystemComponent {
+  constructor(name, size) {
+    super(name);
+    this.size = size;
+  }
+
+  display(indent = "") {
+    console.log(`${indent}- ${this.name} (${this.size}KB)`);
+  }
+}
+
+// Composite: 폴더
+class Folder extends FileSystemComponent {
+  constructor(name) {
+    super(name);
+    this.children = [];
+  }
+
+  add(component) {
+    this.children.push(component);
+  }
+
+  remove(component) {
+    const index = this.children.indexOf(component);
+    if (index > -1) {
+      this.children.splice(index, 1);
+    }
+  }
+
+  display(indent = "") {
+    console.log(`${indent}+ ${this.name}`);
+    // 자식들에게 재귀적으로 display 호출
+    this.children.forEach((child) => {
+      child.display(indent + "  ");
+    });
+  }
+}
+
+// 클라이언트 코드
+const root = new Folder("root");
+const documents = new Folder("문서");
+const music = new Folder("음악");
+
+const file1 = new File("이력서.docx", 120);
+const file2 = new File("프로젝트_계획.pdf", 340);
+const song1 = new File("아이유 - 밤편지.mp3", 4500);
+
+documents.add(file1);
+documents.add(file2);
+music.add(song1);
+
+root.add(documents);
+root.add(music);
+root.add(new File("중요한_파일.txt", 50));
+
+// 전체 파일 시스템 구조 출력
+root.display();
+```
+
+**출력 결과:**
+
+```
++ root
+  + 문서
+    - 이력서.docx (120KB)
+    - 프로젝트_계획.pdf (340KB)
+  + 음악
+    - 아이유 - 밤편지.mp3 (4500KB)
+  - 중요한_파일.txt (50KB)
+```
+
+클라이언트는 `root` 폴더 객체 하나만 가지고 `display()`를 호출했을 뿐인데, 전체 트리 구조가 재귀적으로 출력되는 것을 볼 수 있습니다. 클라이언트는 `File`과 `Folder`의 내부 구조 차이를 신경 쓸 필요 없이 `FileSystemComponent`라는 단일 인터페이스를 통해 동일하게 상호작용할 수 있습니다.
+
+> 컴포지트 패턴 중요 키워드 🔑
+>
+> - 🌳 **트리 구조**로 '부분-전체' 계층을 표현합니다.
+> - 🎭 단일 객체(Leaf)와 복합 객체(Composite)를 **동일하게 취급**합니다.
+> - 🔄 재귀적 구조를 통해 클라이언트 코드를 단순화합니다.
+> - 🧩 UI 툴킷, 파일 시스템 등 계층적 구조를 다룰 때 매우 유용합니다.
+
+## 🌉 6. 브릿지 (Bridge) 패턴
+
+브릿지 패턴은 **'추상화'와 '구현'을 두 개의 독립적인 클래스 계층으로 분리하여, 이 둘이 서로에게 영향을 주지 않고 독립적으로 확장될 수 있도록** 하는 디자인 패턴입니다. 이름처럼 두 영역을 연결하는 '다리' 역할을 합니다.
+
+상속을 사용하면 기능과 구현이 강하게 결합되어, 새로운 기능을 추가하거나 새로운 구현 방식을 지원해야 할 때 클래스가 기하급수적으로 늘어나는 문제가 발생할 수 있습니다. 브릿지 패턴은 상속 대신 **합성(Composition)** 을 사용하여 이 문제를 해결합니다.
+
+### 🏗️ 기본 구조
+
+- **Abstraction (추상화)**: 클라이언트가 사용할 상위 수준의 인터페이스를 정의합니다. 내부에 `Implementor`에 대한 참조를 가집니다.
+- **RefinedAbstraction (구체화된 추상화)**: `Abstraction`을 상속받아 더 구체적인 기능을 확장합니다.
+- **Implementor (구현자)**: 실제 기능을 구현하기 위한 하위 수준의 인터페이스를 정의합니다. `Abstraction`은 이 인터페이스에만 의존합니다.
+- **ConcreteImplementor (구체적인 구현자)**: `Implementor` 인터페이스를 실제로 구현하는 클래스입니다.
+
+### 💻 예시: 다양한 테마를 지원하는 UI 요소
+
+다양한 종류의 UI 요소(예: 버튼, 토글 스위치)가 여러 가지 테마(예: 라이트 모드, 다크 모드)를 지원해야 하는 상황을 가정해 봅시다.
+
+먼저, 테마를 구현할 `Theme` 인터페이스와 구체적인 테마 클래스들을 만듭니다.
+
+```javascript
+// Implementor: 테마 인터페이스
+class Theme {
+  getColor() {
+    throw new Error("getColor() 메서드는 반드시 구현되어야 합니다.");
+  }
+}
+
+// ConcreteImplementor A: 라이트 테마
+class LightTheme extends Theme {
+  getColor() {
+    return "White";
+  }
+}
+
+// ConcreteImplementor B: 다크 테마
+class DarkTheme extends Theme {
+  getColor() {
+    return "Black";
+  }
+}
+```
+
+이제 UI 요소를 나타내는 `UIComponent` 추상 클래스를 만듭니다. 이 클래스는 `Theme` 객체를 내부에 가집니다(합성).
+
+```javascript
+// Abstraction: UI 요소 추상 클래스
+class UIComponent {
+  constructor(theme) {
+    this.theme = theme;
+  }
+
+  render() {
+    throw new Error("render() 메서드는 반드시 구현되어야 합니다.");
+  }
+}
+```
+
+`UIComponent`를 상속받는 구체적인 UI 요소들을 만듭니다.
+
+```javascript
+// RefinedAbstraction A: 버튼
+class Button extends UIComponent {
+  render() {
+    console.log(`버튼을 렌더링합니다. (배경색: ${this.theme.getColor()})`);
+  }
+}
+
+// RefinedAbstraction B: 토글 스위치
+class Toggle extends UIComponent {
+  render() {
+    console.log(
+      `토글 스위치를 렌더링합니다. (배경색: ${this.theme.getColor()})`
+    );
+  }
+}
+```
+
+이제 클라이언트 코드에서 이들을 조합하여 사용합니다.
+
+```javascript
+// 클라이언트 코드
+const lightTheme = new LightTheme();
+const darkTheme = new DarkTheme();
+
+// 라이트 테마를 사용하는 UI 요소들
+const lightButton = new Button(lightTheme);
+const lightToggle = new Toggle(lightTheme);
+
+lightButton.render(); // 출력: 버튼을 렌더링합니다. (배경색: White)
+lightToggle.render(); // 출력: 토글 스위치를 렌더링합니다. (배경색: White)
+
+// 다크 테마를 사용하는 UI 요소들
+const darkButton = new Button(darkTheme);
+const darkToggle = new Toggle(darkTheme);
+
+darkButton.render(); // 출력: 버튼을 렌더링합니다. (배경색: Black)
+darkToggle.render(); // 출력: 토글 스위치를 렌더링합니다. (배경색: Black)
+```
+
+만약 새로운 '블루 테마'를 추가하고 싶다면 `BlueTheme` 클래스만 새로 만들면 됩니다. 기존 `Button`이나 `Toggle` 코드는 전혀 수정할 필요가 없습니다. 마찬가지로 새로운 UI 요소 '드롭다운 메뉴'를 추가하고 싶다면 `Dropdown` 클래스만 만들면 되고, 기존 테마 코드는 건드릴 필요가 없습니다.
+
+이처럼 브릿지 패턴은 **기능의 계층(UI 요소)과 구현의 계층(테마)을 분리**하여 각각 독립적으로 확장할 수 있게 해줍니다.
+
+> 브릿지 패턴 중요 키워드 🔑
+>
+> - 🌉 **추상화와 구현을 분리**하여 독립적으로 확장할 수 있게 합니다.
+> - 🔗 상속 대신 **합성(Composition)** 을 사용합니다.
+> - 💥 클래스 폭발 문제를 방지하고 유연성을 높입니다.
+> - ⚙️ 기능과 구현이 서로 다른 속도로 변경되거나, 여러 플랫폼을 지원해야 할 때 유용합니다.
+
+## 🕊️ 7. 플라이웨이트 (Flyweight) 패턴
+
+플라이웨이트 패턴은 **많은 수의 객체를 효율적으로 지원하기 위해 객체의 공유를 통해 메모리 사용량을 줄이는** 디자인 패턴입니다. '플라이웨이트'는 권투의 경량급을 의미하며, 이름처럼 객체를 가볍게 만들어 메모리 부담을 최소화하는 데 목적이 있습니다.
+
+이 패턴은 객체의 상태를 두 가지로 분리합니다.
+
+- **내재적 상태 (Intrinsic State)**: 객체 내부에서 관리되며, 여러 컨텍스트에서 공유될 수 있는 불변(immutable)의 상태입니다. 플라이웨이트 객체 내에 저장됩니다. (예: 나무의 모델, 텍스처, 색상)
+- **외재적 상태 (Extrinsic State)**: 각 객체마다 달라질 수 있으며, 클라이언트가 관리하고 필요할 때 플라이웨이트 객체에 전달하는 상태입니다. (예: 나무의 위치(x, y 좌표), 크기)
+
+### 🏗️ 기본 구조
+
+- **Flyweight**: 공유될 객체들의 인터페이스를 정의합니다.
+- **ConcreteFlyweight**: `Flyweight` 인터페이스를 구현하고, 내재적 상태를 저장합니다. 이 객체는 공유되어 재사용됩니다.
+- **FlyweightFactory**: 플라이웨이트 객체들을 생성하고 관리하는 팩토리입니다. 클라이언트가 요청한 플라이웨이트가 이미 존재하면 기존 객체를 반환하고, 없으면 새로 생성하여 풀(pool)에 저장합니다.
+- **Client**: 외재적 상태를 관리하고, `FlyweightFactory`를 통해 플라이웨이트 객체를 받아 필요한 작업을 수행합니다.
+
+### 💻 예시: 게임에서 수많은 나무 렌더링하기
+
+수천, 수만 그루의 나무로 숲을 표현해야 하는 게임을 만든다고 가정해 봅시다. 각 나무마다 모델, 텍스처 등 무거운 데이터를 가진 객체를 생성한다면 엄청난 메모리가 소모될 것입니다. 플라이웨이트 패턴을 사용하면 이 문제를 효과적으로 해결할 수 있습니다.
+
+먼저, 공유될 나무 모델(`TreeModel`)을 정의합니다.
+
+```javascript
+// Flyweight: 공유될 나무 모델
+class TreeModel {
+  constructor(mesh, texture) {
+    // 내재적 상태 (공유 가능, 불변)
+    this.mesh = mesh; // 3D 모델 데이터
+    this.texture = texture; // 표면 질감 데이터
+    console.log(
+      `[모델 로딩] ${this.mesh}와 ${this.texture}를 로드했습니다. (메모리 소모 큼)`
+    );
+  }
+
+  // 외재적 상태를 받아 화면에 그리는 메서드
+  draw(x, y, scale) {
+    console.log(
+      `(${x}, ${y}) 위치에 ${scale} 크기로 '${this.mesh}' 나무를 그립니다.`
+    );
+  }
+}
+```
+
+이제 `TreeModel` 객체를 관리하는 `TreeModelFactory`를 만듭니다.
+
+```javascript
+// FlyweightFactory: 나무 모델 팩토리
+class TreeModelFactory {
+  constructor() {
+    this.models = {};
+  }
+
+  getModel(mesh, texture) {
+    const key = `${mesh}-${texture}`;
+    if (!this.models[key]) {
+      this.models[key] = new TreeModel(mesh, texture);
+    } else {
+      console.log(`[팩토리] 기존 모델 재사용: ${key}`);
+    }
+    return this.models[key];
+  }
+
+  getModelCount() {
+    return Object.keys(this.models).length;
+  }
+}
+```
+
+클라이언트(게임 엔진) 코드에서 팩토리를 통해 나무를 생성하고 화면에 그립니다.
+
+```javascript
+// Client: 게임 엔진
+class Forest {
+  constructor() {
+    this.trees = [];
+    this.factory = new TreeModelFactory();
+  }
+
+  // 숲에 나무 심기
+  plantTree(x, y, scale, mesh, texture) {
+    const model = this.factory.getModel(mesh, texture);
+    // 외재적 상태와 공유 모델을 함께 저장
+    this.trees.push({ x, y, scale, model });
+  }
+
+  // 숲 전체를 그리기
+  render() {
+    this.trees.forEach(tree => {
+      tree.model.draw(tree.x, tree.y, tree.scale);
+    });
+  }
+}
+
+// 실행
+const forest = new Forest();
+
+console.log("--- 숲 생성 시작 ---");
+forest.plantTree(10, 20, 1.0, "소나무", "pine_texture.png");
+forest.plantTree(50, 80, 1.2, "참나무", "oak_texture.png");
+forest.plantTree(100, 30, 1.0, "소나무", "pine_texture.png");
+forest.plantTree(200, 150, 1.1, "소나무", "pine_texture.png");
+console.log("--- 숲 생성 완료 ---");
+
+console.log("
+--- 숲 렌더링 시작 ---");
+forest.render();
+console.log("--- 숲 렌더링 완료 ---");
+
+
+console.log(`
+총 생성된 나무 모델 객체 수: ${forest.factory.getModelCount()}`);
+```
+
+**출력 결과:**
+
+```
+--- 숲 생성 시작 ---
+[모델 로딩] 소나무와 pine_texture.png를 로드했습니다. (메모리 소모 큼)
+[모델 로딩] 참나무와 oak_texture.png를 로드했습니다. (메모리 소모 큼)
+[팩토리] 기존 모델 재사용: 소나무-pine_texture.png
+[팩토리] 기존 모델 재사용: 소나무-pine_texture.png
+--- 숲 생성 완료 ---
+
+--- 숲 렌더링 시작 ---
+(10, 20) 위치에 1 크기로 '소나무' 나무를 그립니다.
+(50, 80) 위치에 1.2 크기로 '참나무' 나무를 그립니다.
+(100, 30) 위치에 1 크기로 '소나무' 나무를 그립니다.
+(200, 150) 위치에 1.1 크기로 '소나무' 나무를 그립니다.
+--- 숲 렌더링 완료 ---
+
+총 생성된 나무 모델 객체 수: 2
+```
+
+숲에 4그루의 나무를 심었지만, 실제로 메모리를 많이 차지하는 `TreeModel` 객체는 '소나무'와 '참나무' 단 2개만 생성되었습니다. '소나무' 모델은 한 번 생성된 후 계속 재사용되었습니다. 각 나무의 고유한 정보(위치, 크기 등)는 외재적 상태로 클라이언트가 직접 관리합니다.
+
+이처럼 플라이웨이트 패턴은 **공유 가능한 상태(내재적 상태)를 가진 객체를 재사용**하여 메모리 사용량을 획기적으로 줄일 수 있습니다.
+
+> ### 🤔 '가상 인스턴스'는 무슨 의미일까?
+>
+> "여러 개의 가상 인스턴스를 제공해서 메모리를 절감한다"는 표현은 플라이웨이트 패턴의 핵심을 잘 나타내지만, '가상 인스턴스'라는 용어 때문에 헷갈릴 수 있습니다.
+>
+> **'고무 도장'** 비유를 통해 쉽게 이해해 봅시다.
+>
+> 수천 페이지 분량의 문서에 '소나무' 그림을 계속 찍어야 한다고 상상해 보세요.
+>
+> - **플라이웨이트 패턴 미적용:** 나무 1,000그루를 찍으려면, **실제 '소나무' 도장 1,000개**가 필요합니다. 도장을 보관할 엄청나게 큰 공간(메모리)이 필요합니다.
+> - **플라이웨이트 패턴 적용:**
+>   1.  **'소나무' 모양의 고무 도장 딱 하나만** 만듭니다. 이 도장이 바로 **플라이웨이트 객체**이며, '소나무'라는 본질적인 모양(내재적 상태)을 가집니다.
+>   2.  나무를 찍을 때마다 이 **유일한 '소나무' 도장을 재사용**합니다.
+>   3.  대신, 나무마다 달라지는 정보, 즉 **어디에(x, y 좌표), 어떤 크기로 찍을지**는 도장을 찍는 순간에 외부에서 알려줍니다. 이것이 바로 **외재적 상태**입니다.
+>
+> 여기서 **'가상 인스턴스'** 란, 우리 눈에 보이는 각각의 '소나무' 그림을 의미합니다. 실제 메모리에는 **'소나무' 모양을 가진 객체(도장)는 단 하나**만 존재하지만, **[공유되는 실제 객체 1개] + [각기 다른 외부 상태(좌표, 크기)]** 의 조합으로 마치 여러 개의 독립된 객체가 있는 것처럼 '보여주는' 것입니다.
+>
+> 게임 예제에서 `TreeModel` 객체는 단 2개('소나무', '참나무')만 생성되었지만, 화면에는 4그루의 나무, 즉 4개의 '가상 인스턴스'가 보이는 것과 같습니다.
+
+> 플라이웨이트 패턴 중요 키워드 🔑
+>
+> - 💾 **객체 공유**와 **가상 인스턴스** 제공을 통해 메모리 사용량을 줄입니다.
+> - ⚖️ 객체의 상태를 **내재적 상태(공유 가능)** 와 **외재적 상태(공유 불가)** 로 분리합니다.
+> - 🏭 팩토리를 사용하여 공유 객체를 관리합니다.
+> - 🎮 게임, 문서 편집기 등 대량의 객체를 효율적으로 다뤄야 할 때 매우 유용합니다.
