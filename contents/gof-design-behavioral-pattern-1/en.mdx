@@ -1,0 +1,278 @@
+export const metadata = {
+  title: "GoF Design Patterns: Behavioral Patterns (1) - Strategy, Observer",
+  description:
+    "Explore GoF's behavioral patterns. This guide covers the Strategy pattern for dynamic algorithms and the Observer pattern for automatic state propagation.",
+  publishedAt: "2025-07-04",
+  lastModifiedAt: "2025-07-04",
+  timeToRead: 0,
+  tags: [
+    "Design Pattern",
+    "GoF",
+    "Behavioral Pattern",
+    "Strategy Pattern",
+    "Observer Pattern",
+    "Object-Oriented",
+    "TypeScript",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+## 📚 What are GoF Design Patterns?
+
+GoF stands for 'Gang of Four', the four authors of the design patterns book that contains solutions to common problems in object-oriented programming. The patterns they compiled are a great help in increasing the reusability, maintainability, and scalability of code. 💡
+
+Design patterns are broadly divided into three categories: **Creational 🏗️**, **Structural 🧩**, and **Behavioral Patterns 🎭**. In this article, we will look at **Behavioral Patterns 🎭**, which deal with the interaction and distribution of responsibilities between objects.
+
+### 🎭 What are Behavioral Patterns?
+
+As the name suggests, behavioral patterns focus on the **'behavior' and 'communication' methods** of objects. While structural patterns focus on assembling objects to create a solid structure, behavioral patterns deal with **how objects exchange messages, divide roles, and cooperate to achieve a common goal** within that structure.
+
+It's like a play 🎬 where actors (objects) interact and deliver lines according to their roles to lead the play.
+
+For example:
+
+- 📬 Separating the object that sends a request from the object that processes it (Command Pattern)
+- 🧐 Automatically notifying other objects when the state of one object changes (Observer Pattern)
+- ♟️ Encapsulating an entire algorithm to allow for dynamic replacement (Strategy Pattern)
+- ⛓️ Providing multiple objects with the opportunity to process a request in a chain (Chain of Responsibility Pattern)
+
+All of these fall under behavioral patterns.
+
+The key is **'responsibility' and 'communication' 🔗**. Using behavioral patterns, you can lower the coupling between objects while managing complex interactions in a flexible and systematic way. This allows the system to respond more easily to changes, and the role of each object becomes clear, making maintenance easier. ✨
+
+## ♟️ 1. Strategy Pattern
+
+The Strategy pattern is a design pattern that **defines a family of algorithms, encapsulates each one, and makes them interchangeable**. In other words, it keeps the **'what'** to do in the `Context` object and delegates the **'how'** to do it to various `Strategy` objects.
+
+A real-world example is **'finding a route' 🗺️**. There are several ways to get from Seoul to Busan, such as KTX, bus, or plane. Whichever mode of transport you choose, the goal of 'moving from Seoul to Busan' (Context) remains the same, but the method of travel (Strategy) changes. The Strategy pattern allows these various 'methods (algorithms)' to be easily swapped like parts.
+
+### 🏗️ Basic Structure
+
+- **♟️ Context**: The entity that uses the strategy. It holds a reference to the `Strategy` interface and delegates the task to its strategy object when it receives a request from the client.
+- **📜 Strategy**: A common interface that all concrete strategy classes must implement. It usually defines a single method to execute the algorithm (e.g., `execute()`).
+- **🚗 ConcreteStrategy**: A class that implements the `Strategy` interface to define the actual algorithm. (e.g., `BusStrategy`, `TrainStrategy`)
+
+### 💻 Example: Implementing a Payment System
+
+Let's assume we are creating a system that supports various payment methods in an online shopping mall. The user should be able to pay by credit card, Kakao Pay, Naver Pay, etc.
+
+First, we define the `PaymentStrategy` interface that all payment strategies must follow.
+
+```javascript
+// Strategy: Common payment interface
+class PaymentStrategy {
+  pay(amount) {
+    throw new Error("The pay() method must be implemented.");
+  }
+}
+```
+
+Now, we implement the specific payment methods as `ConcreteStrategy`.
+
+```javascript
+// ConcreteStrategy A: Credit card payment
+class CreditCardStrategy extends PaymentStrategy {
+  constructor(name, cardNumber) {
+    super();
+    this.name = name;
+    this.cardNumber = cardNumber;
+  }
+
+  pay(amount) {
+    console.log(
+      `Paying ${amount} with ${this.name}'s credit card (${this.cardNumber}).`
+    );
+    // Actual credit card company integration logic...
+  }
+}
+
+// ConcreteStrategy B: Kakao Pay payment
+class KakaoPayStrategy extends PaymentStrategy {
+  constructor(email) {
+    super();
+    this.email = email;
+  }
+
+  pay(amount) {
+    console.log(`Paying ${amount} with ${this.email} Kakao Pay account.`);
+    // Actual Kakao Pay API integration logic...
+  }
+}
+```
+
+Next, we create the `ShoppingCart` class, which will be responsible for the payment process, as the `Context`.
+
+```javascript
+// Context: Shopping cart that uses a payment strategy
+class ShoppingCart {
+  constructor(amount) {
+    this.amount = amount;
+    this.paymentStrategy = null; // No strategy is set initially
+  }
+
+  // Provide a setter to allow the client to dynamically change the strategy
+  setPaymentStrategy(strategy) {
+    this.paymentStrategy = strategy;
+  }
+
+  // Execute payment
+  checkout() {
+    if (!this.paymentStrategy) {
+      console.log("No payment method selected.");
+      return;
+    }
+    this.paymentStrategy.pay(this.amount);
+  }
+}
+
+// Client code
+const cart = new ShoppingCart(10000); // Product worth 10,000 won
+
+// Pay with credit card
+const creditCard = new CreditCardStrategy("Jaehyun Kim", "1234-5678-9012-3456");
+cart.setPaymentStrategy(creditCard);
+cart.checkout();
+// Output: Paying 10000 with Jaehyun Kim's credit card (1234-5678-9012-3456).
+
+console.log("\n--- Changing payment method ---");
+
+// Pay with Kakao Pay
+const kakaoPay = new KakaoPayStrategy("test@kakao.com");
+cart.setPaymentStrategy(kakaoPay);
+cart.checkout();
+// Output: Paying 10000 with test@kakao.com Kakao Pay account.
+```
+
+The `ShoppingCart` class does not need to know specifically which payment method is selected. It simply calls the `pay()` method of the object assigned to `paymentStrategy`. If a new payment method called 'Naver Pay' is added, the `ShoppingCart` code does not need to be modified at all, as long as a new `NaverPayStrategy` class is created.
+
+Thus, the Strategy pattern is a design that follows the **'Open-Closed Principle (OCP)'** well. It is open to adding new features (strategies) and closed to modifying existing code.
+
+> Strategy Pattern Key Keywords 🔑
+>
+> - ↔️ **Encapsulates algorithms** and allows them to be **dynamically interchanged**.
+> - 📜 Separates **'how'** to do something from **'what'** to do.
+> - 🤝 Solves problems through **Delegation**. (Context delegates to Strategy)
+> - 🧩 A good way to refactor code full of `if-else` or `switch` statements.
+> - 💡 Satisfies the Open-Closed Principle (OCP).
+
+## 🧐 2. Observer Pattern
+
+The Observer pattern is a pattern that defines a one-to-many dependency relationship where, **when the state of one object changes, all other objects that depend on it are automatically notified and updated**. The object with the state is called the `Subject`, and the objects that are notified of state changes are called `Observers`.
+
+A real-world example is **'subscribing to a YouTube channel' 📢**. When a YouTuber (`Subject`) uploads a new video, all subscribers (`Observer`) who have subscribed (`register`) to that channel are automatically notified. If you unsubscribe (`unregister`), you will no longer receive notifications. The Observer pattern is very useful for implementing this kind of automated communication between loosely coupled objects.
+
+### 🏗️ Basic Structure
+
+- **📢 Subject**: The object being observed. It has a list of observers and provides methods to `register` and `unregister` observers. When its state changes, it calls the `notify()` method to inform all observers of the change.
+- **👀 Observer**: The interface that objects that are notified of `Subject`'s state changes must implement. It usually defines a method like `update()`, which is called when a notification is received from the `Subject`.
+- **ConcreteSubject**: A concrete class that implements the `Subject` interface. It stores the state and is responsible for notifying observers when the state changes.
+- **ConcreteObserver**: A concrete class that implements the `Observer` interface. It performs a specific action when its `update()` method is called.
+
+### 💻 Example: Newsletter Subscription System
+
+Let's create a newsletter system that notifies subscribers by email whenever a new article is published.
+
+First, we define the `Observer` interface that all observers (subscribers) will implement.
+
+```javascript
+// Observer: Subscriber interface
+class Subscriber {
+  update(article) {
+    throw new Error("The update() method must be implemented.");
+  }
+}
+```
+
+Next, we create the `NewsPublisher`, the object being observed, as the `Subject`.
+
+```javascript
+// Subject: News publisher
+class NewsPublisher {
+  constructor() {
+    this.subscribers = []; // List of observers (subscribers)
+    this.latestArticle = null;
+  }
+
+  // Register an observer
+  register(subscriber) {
+    this.subscribers.push(subscriber);
+    console.log(`${subscriber.name} has subscribed.`);
+  }
+
+  // Unregister an observer
+  unregister(subscriber) {
+    this.subscribers = this.subscribers.filter((sub) => sub !== subscriber);
+    console.log(`${subscriber.name} has unsubscribed.`);
+  }
+
+  // Notify all observers
+  notify() {
+    console.log("\n--- New article published! Notifying all subscribers ---");
+    this.subscribers.forEach((subscriber) => {
+      subscriber.update(this.latestArticle);
+    });
+  }
+
+  // Publish a new article (state change)
+  publishNewArticle(article) {
+    this.latestArticle = article;
+    this.notify();
+  }
+}
+```
+
+Now, we implement a concrete subscriber, `EmailSubscriber`, as a `ConcreteObserver`.
+
+```javascript
+// ConcreteObserver: Email subscriber
+class EmailSubscriber extends Subscriber {
+  constructor(name) {
+    super();
+    this.name = name;
+  }
+
+  update(article) {
+    console.log(`[Email sent to ${this.name}] New article: "${article.title}"`);
+  }
+}
+
+// Client code
+const publisher = new NewsPublisher();
+
+const sub1 = new EmailSubscriber("Jaehyun Kim");
+const sub2 = new EmailSubscriber("Younghee Lee");
+
+publisher.register(sub1); // Jaehyun Kim has subscribed.
+publisher.register(sub2); // Younghee Lee has subscribed.
+
+publisher.publishNewArticle({
+  title: "Will AI Replace Human Jobs?",
+  content: "...",
+});
+// Output:
+// --- New article published! Notifying all subscribers ---
+// [Email sent to Jaehyun Kim] New article: "Will AI Replace Human Jobs?"
+// [Email sent to Younghee Lee] New article: "Will AI Replace Human Jobs?"
+
+publisher.unregister(sub2); // Younghee Lee has unsubscribed.
+
+publisher.publishNewArticle({
+  title: "2025 Technology Trends Outlook",
+  content: "...",
+});
+// Output:
+// --- New article published! Notifying all subscribers ---
+// [Email sent to Jaehyun Kim] New article: "2025 Technology Trends Outlook"
+```
+
+The `NewsPublisher` does not need to know what kind of subscribers there are, or whether they receive emails or app pushes. It simply calls the `update()` method of each object in the `subscribers` list. If an 'app push notification' feature is needed, you can simply create a new `AppPushSubscriber` observer class and register it.
+
+In this way, the Observer pattern **lowers the coupling between `Subject` and `Observer`**, making the system flexible and scalable.
+
+> Observer Pattern Key Keywords 🔑
+>
+> - 📢 Defines a **one-to-many** dependency relationship.
+> - 🔗 **Loose Coupling**: The Subject does not need to know the concrete classes of the Observers.
+> - 🔄 Automatically **broadcasts** to dependent objects upon state change.
+> - 📰 Widely used in event-driven systems, MVC (Model-View-Controller) architecture, etc.
+> - ✅ Also known as the Publish/Subscribe model.
