@@ -1,0 +1,183 @@
+import Details from "@/app/components/Details";
+import MermaidDiagram from "@/app/components/MermaidDiagram";
+
+export const metadata = {
+  title: "UML and the 4+1 View Model: A Guide to Software Architecture 🚀",
+  description:
+    "Learn the basics of UML (Unified Modeling Language), its various diagrams, and the 4+1 View Model for systematically understanding complex software architecture.",
+  publishedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-05",
+  tags: [
+    "Software Engineering",
+    "UML",
+    "Software Architecture",
+    "4+1 View Model",
+    "Modeling",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+export const classDiagramExample = `
+classDiagram
+  Animal <|-- Duck
+  Animal <|-- Fish
+  Animal <|-- Zebra
+  Animal : +int age
+  Animal : +String gender
+  Animal: +isMammal()
+  Animal: +mate()
+  class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+  }
+  class Fish{
+      -int sizeInFeet
+      -canEat()
+  }
+  class Zebra{
+      +bool is_wild
+      +run()
+  }
+`;
+
+export const sequenceDiagramExample = `
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+    participant DB as Database
+
+    User->>Browser: Enters login credentials
+    Browser->>Server: POST /login (user info)
+    Server->>DB: Query to verify user
+    DB-->>Server: Return user information
+    Server-->>Browser: Login successful
+    Browser-->>User: Display welcome page
+
+`;
+
+export const stateMachineDiagramExample = `
+stateDiagram-v2
+    title Power State Transitions
+    [*] --> Off
+    Off --> On: Power button pressed
+    On --> Off: Power button pressed
+    On --> Sleep: Inactivity timer expires
+    Sleep --> On: Mouse/Keyboard input
+`;
+
+## 🤔 What is UML?
+
+Developing software is like constructing a magnificent building. It involves a process of listening to the client's requirements (elicitation), analyzing their feasibility (analysis), drawing up blueprints (specification), and verifying that the construction follows the blueprints (verification).
+
+In this process, the key tool used in the **requirement analysis and blueprint design stages** is **UML (Unified Modeling Language)**.
+
+UML, as its name suggests, is a 'Unified Modeling Language.' It's a standardized convention for representing complex systems with easy-to-understand diagrams. It acts as a blueprint 📐, helping to visually design the system's structure and behavior before writing code and enabling clear communication among developers, ensuring everyone is on the same page.
+
+## 🎨 Types of UML Diagrams
+
+UML includes several types of diagrams, broadly categorized into **Structure Diagrams** and **Behavior Diagrams**.
+
+### 1. Structure Diagrams (Static Model) 🏛️
+
+These show the static structure, or the skeleton, of the system.
+
+- **Class Diagram**: The most representative diagram, showing the system's classes and their relationships (inheritance, association, etc.).
+  <Details summary="View Class Diagram Example">
+    <MermaidDiagram chart={classDiagramExample} />
+  </Details>
+- **Object Diagram**: Shows objects and their relationships at a specific point in time. It can be seen as a real-world instance of a class diagram.
+  <Details summary="View Object Diagram Example">
+    [Example of an object diagram
+    (Wikipedia)](https://commons.wikimedia.org/wiki/File:Object_diagram.png#/media/File:Object_diagram.png)
+  </Details>
+- **Component Diagram**: Shows the physical components (modules, files) that make up a system and their dependencies.
+  <Details summary="View Component Diagram Example">
+    [Insurance Policy Management System Component Diagram
+    (Wikipedia)](https://commons.wikimedia.org/wiki/File:Policy_Admin_Component_Diagram.PNG#/media/File:Policy_Admin_Component_Diagram.PNG)
+  </Details>
+- **Deployment Diagram**: Shows how software is deployed on hardware (servers, equipment).
+  <Details summary="View Deployment Diagram Example">
+    [A sample deployment diagram
+    (Wikipedia)](https://commons.wikimedia.org/wiki/File:Deployment_Diagram.PNG#/media/File:Deployment_Diagram.PNG)
+  </Details>
+- **Composite Structure Diagram**: Shows the internal structure of a class and how that class collaborates with other classes. While class diagrams show "what exists," composite structure diagrams show "how they work together."
+  <Details summary="View Composite Structure Diagram Example">
+    [UML 2.0 Composite Structure Diagram Example
+    (Wikipedia)](https://en.wikipedia.org/wiki/Composite_structure_diagram#Examples)
+  </Details>
+- **Package Diagram**: Shows the relationships between packages that group related elements.
+  <Details summary="View Package Diagram Example">
+    [Deployment Model Structure.PNG (Wikipedia, Kishorekumar
+    62)](https://upload.wikimedia.org/wikipedia/commons/b/bc/Deployment_Model_Structure.PNG)
+  </Details>
+
+### 2. Behavior Diagrams (Dynamic Model) 💃
+
+These show how the system actually behaves and changes over time.
+
+- **Use Case Diagram**: Shows the system's functionality and interactions from the user's perspective.
+  <Details summary="View Use Case Diagram Example">
+    [UML Use Case Diagram
+    (Wikipedia)](https://en.wikipedia.org/wiki/Use_case_diagram#/media/File:Use_case_restaurant_model.svg)
+  </Details>
+- **Sequence Diagram**: Shows the order of interactions as objects exchange messages over time.
+  <Details summary="View Sequence Diagram Example">
+    <MermaidDiagram chart={sequenceDiagramExample} />
+  </Details>
+- **Communication Diagram**: Similar to sequence diagrams but focuses on the relationships between objects and message exchanges rather than time order. It shows how objects are connected and what messages they exchange.
+  <Details summary="View Communication Diagram Example">
+    [UML Communication Diagram Example
+    (Wikipedia)](https://commons.wikimedia.org/wiki/File:UML_Communication_diagram.svg#/media/File:UML_Communication_diagram.svg)
+  </Details>
+- **State Machine Diagram**: Shows how an object's state changes in response to specific events.
+  <Details summary="View State Machine Diagram Example">
+    <MermaidDiagram chart={stateMachineDiagramExample} />
+  </Details>
+- **Activity Diagram**: Represents workflows or processes as a flowchart.
+  <Details summary="View Activity Diagram Example">
+    [UML 1.x Activity Diagram
+    (Wikipedia)](https://commons.wikimedia.org/wiki/File:Activity_conducting.svg#/media/File:Activity_conducting.svg)
+  </Details>
+- **Timing Diagram**: Represents the state changes and interactions of objects over time as a timeline. It's useful for modeling time constraints in real-time or embedded systems.
+  <Details summary="View Timing Diagram Example">
+    [UML Timing Diagram Example
+    (Wikimedia)](https://commons.wikimedia.org/wiki/File:Uml-Zeitverlaufsdiagramm.svg)
+  </Details>
+
+## 🔭 The 4+1 View Model of Software Architecture
+
+Thinking, "When would I ever use all these diagrams?" You're right. That's why the **4+1 View Model** was introduced. It's a methodology for systematically viewing a complex system from five different perspectives (Views). Each view presents only the information relevant to a specific stakeholder (developer, designer, user, etc.).
+
+### 1. Use Case View 🧑‍💻 (+1)
+
+- **Perspective**: All stakeholders
+- **Description**: Defines the core functionality of the system (**as perceived by users**) and drives the other views with scenarios. It answers, "What can users do with this system?"
+- **Related UML Diagrams**: **Use Case Diagram**, Activity Diagram, Sequence Diagram
+
+### 2. Logical View 🧩
+
+- **Perspective**: Designers, Developers
+- **Description**: Shows the **functional requirements** and static structure of the system. It answers, "How is the system functionally organized?"
+- **Related UML Diagrams**: **Class Diagram**, Object Diagram
+
+### 3. Process View ⚙️
+
+- **Perspective**: System Integrators
+- **Description**: Deals with the dynamic behavior of the system, inter-process communication, and concurrency (**non-functional requirements**). It answers, "How does the system come alive and run?"
+- **Related UML Diagrams**: **Sequence Diagram**, Communication Diagram, Activity Diagram
+
+### 4. Implementation View 👨‍🔧
+
+- **Perspective**: Programmers
+- **Description**: Shows the software modules and component structure from the perspective of the actual development environment. It answers, "How is the software implemented and managed?"
+- **Related UML Diagrams**: **Component Diagram**, Package Diagram
+
+### 5. Deployment View 🖥️
+
+- **Perspective**: System Engineers
+- **Description**: Shows how the software is deployed on the physical hardware architecture. It answers, "In what physical environment does the system reside?"
+- **Related UML Diagrams**: **Deployment Diagram**
+
+By utilizing the 4+1 View Model, you can clearly understand the architecture of a complex system from various perspectives, enabling effective communication among all stakeholders and leading to a successful project! ✨

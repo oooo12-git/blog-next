@@ -46,6 +46,12 @@ const withMDX = createMDX({
 // 반환된 withMDX를 withMDX(nextConfig)와 같이 함수처럼 호출
 // Turbopack does not currently support the extension option and therefore does not support .md files.
 
+// module.exports = {
+//   images: {
+//     remotePatterns: [new URL("https://upload.wikimedia.org/**")],
+//   },
+// };
+
 // Merge MDX config with Next.js config
 export default withNextIntl(withMDX(nextConfig));
 // // 내부적으로 이런 식으로 동작합니다
