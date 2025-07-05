@@ -1,0 +1,104 @@
+import MermaidDiagram from "@/app/components/MermaidDiagram";
+
+export const metadata = {
+  title: "UML 클래스 다이어그램의 6가지 관계 쉽게 외우기",
+  description:
+    "UML 클래스 다이어그램의 6가지 관계(연관, 의존, 일반화, 실체화, 포함, 집합)를 표로 요약하여 쉽게 암기하는 방법을 알아봅니다.",
+  publishedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-05",
+  timeToRead: 0,
+  tags: [
+    "정처기",
+    "UML",
+    "Class Diagram",
+    "Software Engineering",
+    "클래스 다이어그램",
+    "소프트웨어 공학",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+UML 클래스 다이어그램의 6가지 관계는 소프트웨어 설계를 이해하는 데 매우 중요하지만, 처음에는 용어가 비슷해서 헷갈리기 쉽습니다. 각 관계를 비슷한 개념끼리 묶어 표로 요약하면 한눈에 파악하고 암기하는 데 도움이 됩니다.
+
+### UML 클래스 다이어그램 관계 요약표
+
+6가지 관계가 있는데, 강약 has-a 2개(포집), 강약 uses-a 2개(연의), is-a 1개, can-do 1개(일실)로 이뤄져있습니다.
+
+| 관계       | 핵심 개념     | 키워드                                  | 간단한 예시                                                                                                     |
+| :--------- | :------------ | :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| **포함**   | 강한 has-a    | **생명주기 일치**, 필수 부품(포함=복합) | `집`과 `방`(집에 없어지면 방도 없어진다.) 집 [꽉 찬 마름모] -> 방                                               |
+| **집합**   | 약한 has-a    | **생명주기 독립**, 선택 부품            | `학과`와 `학생`(학과가 없어져도 학생은 없어지지 않는다.) 학과(whole) [빈 마름모] -> 학생(part)                  |
+| **연관**   | 강한 uses-a   | 멤버 변수, 지속적 관계                  | `축구팀`과 `공격수`(축구팀은 공격수를 항상 사용한다.) 축구팀 -> 공격수                                          |
+| **의존**   | 약한 uses-a   | 메소드 파라미터, 잠깐 사용              | `개발자`와 `책`(개발자는 책을 잠깐 사용한다.) 개발자 --> 책                                                     |
+| **일반화** | is-a (상속)   | 상속, 부모-자식                         | `고양이`는 `동물`이다. (동물은 고양이보다 더 **일반적** 이다. 상위(동물), 하위(고양이)로 나뉨, 동물 \<- 고양이) |
+| **실체화** | can-do (구현) | 인터페이스, 약속 이행                   | `로봇`은 `청소할 수 있다`.(청소할 수 있는 **'기능'** 으로 그룹화. '청소할 수 있는' \<-- '사람')                 |
+
+### 관계별 클래스 다이어그램 (Mermaid)
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Animal["동물"]
+    class Cat["고양이"]
+    Animal <|-- Cat : 일반화
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Flyable["날 수 있는"] {
+      <<interface>>
+    }
+    class Eagle["독수리"]
+    Flyable <|.. Eagle : 실체화
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class House["집"]
+    class Room["방"]
+    House *--> Room : 포함
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Department["학과"]
+    class Student["학생"]
+    Department o--> Student : 집합
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Student["학생"]
+    class Professor["교수"]
+    Student --> Professor : 연관
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Developer["개발자"]
+    class Book["책"]
+    Developer ..> Book : 의존
+
+`}
+/>

@@ -1,0 +1,103 @@
+import MermaidDiagram from "@/app/components/MermaidDiagram";
+
+export const metadata = {
+  title: "Easily Memorize the 6 UML Class Diagram Relationships",
+  description:
+    "Learn how to easily memorize the six types of UML class diagram relationships (Association, Dependency, Generalization, Realization, Composition, Aggregation) with a summary table.",
+  publishedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-05",
+  timeToRead: 0,
+  tags: [
+    "UML",
+    "Class Diagram",
+    "Software Engineering",
+    "클래스 다이어그램",
+    "소프트웨어 공학",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+The six relationships in UML class diagrams are crucial for understanding software design, but their similar terms can be confusing at first. Grouping similar concepts together and summarizing them in a table helps you grasp and memorize them at a glance.
+
+### UML Class Diagram Relationships Summary Table
+
+There are 6 relationships in total, consisting of 2 strong/weak has-a relationships (Composition/Aggregation), 2 strong/weak uses-a relationships (Association/Dependency), 1 is-a relationship, and 1 can-do relationship (Generalization/Realization).
+
+| Relationship       | Core Concept            | Keywords                                           | Simple Example                                                                                                                                    |
+| :----------------- | :---------------------- | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Composition**    | Strong has-a            | **Shared Lifecycle**, Essential Part (Composition) | `House` and `Room` (If the house disappears, the room also disappears.) House [filled diamond] -> Room                                            |
+| **Aggregation**    | Weak has-a              | **Independent Lifecycle**, Optional Part           | `Department` and `Student` (Even if the department disappears, the student doesn't disappear.) Department(whole) [empty diamond] -> Student(part) |
+| **Association**    | Strong uses-a           | Member Variable, Lasting Relationship              | `Soccer Team` and `Striker` (The soccer team always uses the striker.) Soccer Team -> Striker                                                     |
+| **Dependency**     | Weak uses-a             | Method Parameter, Brief Use                        | `Developer` and `Book` (The developer uses the book briefly.) Developer --> Book                                                                  |
+| **Generalization** | is-a (Inheritance)      | Inheritance, Parent-Child                          | `Cat` is an `Animal`. (Animal is more **general** than cat. Divided into superclass(animal) and subclass(cat), Animal \<- Cat)                    |
+| **Realization**    | can-do (Implementation) | Interface, Fulfilling a contract                   | `Robot` can `clean`. (Grouped by **'capability'** to clean. 'Can clean' \<-- 'Person')                                                            |
+
+### Class Diagrams for Each Relationship (Mermaid)
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Animal["Animal"]
+    class Cat["Cat"]
+    Animal <|-- Cat : Generalization
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Flyable["Flyable"] {
+      <<interface>>
+    }
+    class Eagle["Eagle"]
+    Flyable <|.. Eagle : Realization
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class House["House"]
+    class Room["Room"]
+    House *--> Room : Composition
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Department["Department"]
+    class Student["Student"]
+    Department o--> Student : Aggregation
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Student["Student"]
+    class Professor["Professor"]
+    Student --> Professor : Association
+
+`}
+/>
+
+<MermaidDiagram
+  chart={`classDiagram
+    direction LR
+
+    class Developer["Developer"]
+    class Book["Book"]
+    Developer ..> Book : Dependency
+
+`}
+/>
