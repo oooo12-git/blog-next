@@ -1,0 +1,270 @@
+export const metadata = {
+  title:
+    "GoF Design Patterns: Behavioral Patterns (5) - Mediator, Visitor | TypeScript Examples",
+  description:
+    "This is the final part of the Behavioral Patterns series in GoF Design Patterns. Learn the concepts and TypeScript examples of the Mediator pattern, which centralizes complex communications between objects, and the Visitor pattern, which separates an algorithm from an object structure on which it operates.",
+  publishedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-05",
+  timeToRead: 0,
+  tags: [
+    "Design Patterns",
+    "GoF",
+    "Behavioral Patterns",
+    "Mediator Pattern",
+    "Visitor Pattern",
+    "Object-Oriented",
+    "TypeScript",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+In the [fourth part on Behavioral Patterns](gof-design-behavioral-pattern-4), we explored the **Iterator Pattern** and the **State Pattern**, learning how to traverse collections and change an object's behavior based on its state. This is the final installment of the behavioral patterns series. This time, we will look at elegant ways to untangle complex relationships between objects.
+
+- **✈️ Mediator Pattern**: Centralizes complex communications between multiple objects (M:N relationship) into a single mediator object (M:1 relationship).
+- **👨‍💼 Visitor Pattern**: Lets you add new operations to an object structure without modifying the objects themselves.
+
+Let's see how these patterns reduce complexity and enhance the extensibility of a system!
+
+## ✈️ 9. Mediator Pattern
+
+The Mediator pattern is a behavioral design pattern that **encapsulates how a set of objects (Colleagues) interact and depend on each other into a single mediator object**. This prevents objects from referring to each other explicitly, and it lets you vary their interaction independently.
+
+The most representative analogy is an **'air traffic control tower' 🗼**. At an airport, numerous airplanes are taking off and landing. If every airplane had to communicate directly with every other airplane to coordinate landing sequences and flight paths, it would result in chaos. Instead, all airplanes (Colleagues) communicate only with the control tower (Mediator). The control tower knows the status of all airplanes and centrally directs each one on when and where to go.
+
+In this way, the Mediator pattern transforms the direct connections between objects (an M:N relationship) into indirect connections through a mediator (an M:1 relationship), dramatically reducing the coupling of the system.
+
+### 🏗️ Basic Structure
+
+- **✈️ Mediator**: Defines an interface for communication between Colleague objects.
+- **ConcreteMediator**: Implements the `Mediator` interface and coordinates the Colleague objects. It knows each Colleague and mediates communication between them.
+- **👨‍✈️ Colleague**: Defines a common interface for objects that communicate through the mediator.
+- **ConcreteColleague**: A concrete class that implements the `Colleague` interface. When it needs to communicate with another colleague, it sends a request to its `Mediator` instead of calling the other colleague directly.
+
+### 💻 Example: Creating a Chat Room
+
+Let's create a chat room where multiple users can participate. Each user (Colleague) doesn't need to know about other users; they just send a message through the chat room (Mediator), and the chat room delivers the message to all users.
+
+```typescript
+// Colleague
+class User {
+  constructor(public name: string, private chatRoom: ChatRoom) {}
+
+  send(message: string): void {
+    this.chatRoom.showMessage(this, message);
+  }
+}
+
+// Mediator
+class ChatRoom {
+  showMessage(user: User, message: string): void {
+    const time = new Date().toLocaleTimeString();
+    const sender = user.name;
+    console.log(`${time} [${sender}]: ${message}`);
+  }
+}
+
+// Client Code
+const chatRoom = new ChatRoom();
+
+const user1 = new User("Jaahyun Kim", chatRoom);
+const user2 = new User("Younghee Lee", chatRoom);
+
+user1.send("Hello, Younghee!");
+// Output: 10:30:15 PM [Jaahyun Kim]: Hello, Younghee!
+
+user2.send("Hi, Jaahyun!");
+// Output: 10:30:18 PM [Younghee Lee]: Hi, Jaahyun!
+```
+
+This example is in its most basic form. In a real-world scenario, the `ChatRoom` would typically hold a list of `User`s and, when one `User` calls `send`, the `ChatRoom` would broadcast the message to all other `User`s.
+
+The `User` object has no need to know about the existence of other `User` objects. It only needs to know about the `ChatRoom` mediator. If a new user is added or the chat room's rules change (e.g., profanity filtering), the `User` class requires no modification. All logic is concentrated in the `ChatRoom`.
+
+> Key Takeaways for Mediator Pattern 🔑
+>
+> - ✈️ **Centralizes complex communications** between objects.
+> - 🕸️ Simplifies a complex M:N dependency relationship into an M:1 relationship, **reducing coupling**.
+> - 🔄 Colleague objects become easier to reuse, and the system's behavior can be easily changed by modifying only the Mediator's logic.
+> - ⚠️ A potential drawback is that the Mediator can become overly complex as all logic is concentrated in it.
+
+## 👨‍💼 9. Visitor Pattern
+
+The Visitor pattern is a way of **separating an algorithm from an object structure on which it operates**. This allows you to add new operations to the data structure without modifying the structure itself.
+
+A good analogy is a **'tax accountant' 👨‍💼**. An individual's assets can include various types (data structure) like a house, a car, and stocks. If you need a 'tax calculation' function, adding a `calculateTax()` method to the House class, the Car class, and so on, is inefficient. Every time a new type of asset is added, all classes would need to be modified.
+
+Instead, you create a 'TaxAccountant' (Visitor). This accountant knows how to calculate taxes by 'visiting' each asset (house, car, stock). The asset objects just need to 'accept' the accountant. If a new function like 'asset appraisal' is needed later, you can simply create a new 'Appraiser' visitor and add it. The existing asset classes don't need to be touched at all.
+
+### 🏗️ Basic Structure
+
+- **👨‍💼 Visitor**: Declares a `visit()` method for each `ConcreteElement`. (e.g., `visitHouse(h)`, `visitCar(c)`)
+- **ConcreteVisitor**: Implements the `Visitor` interface and contains the actual processing logic in each `visit()` method.
+- **🏠 Element**: Defines an `accept(visitor)` method that takes a visitor as an argument.
+- **ConcreteElement**: Implements the `Element` interface. Inside its `accept()` method, it calls `visitor.visit(this)` to allow the visitor to process it.
+- **ObjectStructure**: A collection of `Element`s that allows a visitor to traverse and visit all elements.
+
+### 💻 Example: Observing Animal Behaviors at a Zoo
+
+Let's apply 'make sound' and 'feed' behaviors (Visitors) to the animals (Elements) in a zoo.
+
+```typescript
+// Visitor interface
+interface AnimalVisitor {
+  visitLion(lion: Lion): void;
+  visitDolphin(dolphin: Dolphin): void;
+}
+
+// Element interface
+interface Animal {
+  accept(visitor: AnimalVisitor): void;
+}
+
+// ConcreteElement implementations
+class Lion implements Animal {
+  accept(visitor: AnimalVisitor): void {
+    visitor.visitLion(this);
+  }
+  roar(): void {
+    console.log("Roar!");
+  }
+}
+
+class Dolphin implements Animal {
+  accept(visitor: AnimalVisitor): void {
+    visitor.visitDolphin(this);
+  }
+  speak(): void {
+    console.log("Eeeeeek!");
+  }
+}
+
+// ConcreteVisitor implementations
+class SpeakVisitor implements AnimalVisitor {
+  visitLion(lion: Lion): void {
+    lion.roar();
+  }
+  visitDolphin(dolphin: Dolphin): void {
+    dolphin.speak();
+  }
+}
+
+class FeedVisitor implements AnimalVisitor {
+  visitLion(lion: Lion): void {
+    console.log("Feeding meat to the lion.");
+  }
+  visitDolphin(dolphin: Dolphin): void {
+    console.log("Feeding fish to the dolphin.");
+  }
+}
+
+// Client Code (acting as ObjectStructure)
+const animals: Animal[] = [new Lion(), new Dolphin()];
+
+const speakVisitor = new SpeakVisitor();
+console.log("--- Making Sounds ---");
+animals.forEach((animal) => animal.accept(speakVisitor));
+// Output:
+// Roar!
+// Eeeeeek!
+
+const feedVisitor = new FeedVisitor();
+console.log("\n--- Feeding Time ---");
+animals.forEach((animal) => animal.accept(feedVisitor));
+// Output:
+// Feeding meat to the lion.
+// Feeding fish to the dolphin.
+```
+
+Without modifying the `Lion` or `Dolphin` classes at all, we can continuously add new functionalities like `SpeakVisitor` and `FeedVisitor`. This is the greatest advantage of the Visitor pattern.
+
+> Key Takeaways for Visitor Pattern 🔑
+>
+> - 🏛️ **Separates the data structure from the functionality**.
+
+- ➕ **Open-Closed Principle (OCP)**: You can add new functions (Visitors) without modifying the existing data structure (Elements).
+- 🔄 **Double Dispatch**: Through two calls, `accept()` and `visit()`, the method to be called on the `Element` and the method to be called on the `Visitor` are determined at runtime.
+- ⚠️ If the data structure changes frequently, all Visitors must be modified, so it's best used when the structure is stable.
+
+## 📜 10. Interpreter Pattern
+
+The Interpreter pattern is a behavioral design pattern that **defines a grammatical representation for a language and provides an interpreter to deal with this grammar**. It is used to create an interpreter for a simple language (a DSL, or Domain-Specific Language) and to interpret sentences in that language.
+
+The most representative examples are a **'calculator' or 'regular expressions'**. When we have a text like `3 + 5 - 2`, we interpret it by breaking it down into numbers (Terminal Expressions) and operators (Non-terminal Expressions), and according to the defined grammar rules (like operator precedence), we derive the final result, `6`. The Interpreter pattern provides a structure for representing grammar rules as classes to interpret sentences.
+
+### 🏗️ Basic Structure
+
+- **📜 AbstractExpression**: An interface that all expressions (terminal and non-terminal) must implement. It usually defines an `interpret()` method.
+- **TerminalExpression**: Represents the smallest unit of the grammar (a terminal expression), such as a variable or a number.
+- **NonterminalExpression**: Represents a grammar rule. It can have other expressions as children and combines them to produce a new result (e.g., an addition expression, a subtraction expression).
+- **Context**: Contains global information that the interpreter needs to interpret a sentence (e.g., the values of variables).
+- **Client**: Builds the sentence to be interpreted and passes it to the interpreter for parsing.
+
+### 💻 Example: A Simple Addition/Subtraction Calculator
+
+Let's create a calculator that can interpret simple mathematical expressions like `x + y - z`.
+
+```typescript
+// Context
+const context = { x: 10, y: 5, z: 2 };
+
+// AbstractExpression
+interface Expression {
+  interpret(context: { [key: string]: number }): number;
+}
+
+// TerminalExpression
+class NumberExpression implements Expression {
+  constructor(private variable: string) {}
+
+  interpret(context: { [key: string]: number }): number {
+    return context[this.variable];
+  }
+}
+
+// NonterminalExpression
+class AddExpression implements Expression {
+  constructor(private left: Expression, private right: Expression) {}
+
+  interpret(context: { [key: string]: number }): number {
+    return this.left.interpret(context) + this.right.interpret(context);
+  }
+}
+
+class SubtractExpression implements Expression {
+  constructor(private left: Expression, private right: Expression) {}
+
+  interpret(context: { [key: string]: number }): number {
+    return this.left.interpret(context) - this.right.interpret(context);
+  }
+}
+
+// Client Code
+// Goal: Interpret x + y - z
+const x = new NumberExpression("x");
+const y = new NumberExpression("y");
+const z = new NumberExpression("z");
+
+// 1. x + y
+const sum = new AddExpression(x, y);
+
+// 2. (x + y) - z
+const resultExpression = new SubtractExpression(sum, z);
+
+// Final interpretation
+const result = resultExpression.interpret(context);
+console.log(`x + y - z = ${result}`); // 10 + 5 - 2 = 13
+// Output: x + y - z = 13
+```
+
+The `resultExpression` forms a tree structure like `new SubtractExpression(new AddExpression(new NumberExpression("x"), new NumberExpression("y")), new NumberExpression("z"))`. When the `interpret` method is called, it performs a post-order traversal of this tree to calculate the final result.
+
+> Key Takeaways for Interpreter Pattern 🔑
+>
+> - 📜 **Represents the grammar of a simple language as a class hierarchy**.
+> - 🌳 Interprets a sentence by building an **AST (Abstract Syntax Tree)**.
+> - ➕ Useful when the grammar is simple and does not change often.
+> - ⚠️ If the grammar becomes complex, the class hierarchy can become very large and difficult to manage.
+
+---
+
+This concludes our journey through the 11 core behavioral patterns of GoF. These patterns are powerful tools for making the interactions in complex software clear, flexible, and easy to maintain. Choose the right pattern for the situation to take your code quality to the next level!

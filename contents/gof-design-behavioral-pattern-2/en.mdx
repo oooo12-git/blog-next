@@ -1,0 +1,286 @@
+export const metadata = {
+  title:
+    "GoF Design Patterns: Behavioral Patterns (2) - Command, Template Method | JavaScript Examples",
+  description:
+    "This is the second part of the Behavioral Patterns series in GoF Design Patterns. Learn the concepts and TypeScript examples of the Command pattern, which encapsulates a request as an object to implement features like undo, and the Template Method pattern, which defines the skeleton of an algorithm in a superclass, letting subclasses redefine certain steps without changing the algorithm's structure.",
+  publishedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-05",
+  timeToRead: 0,
+  tags: [
+    "Design Patterns",
+    "GoF",
+    "Behavioral Patterns",
+    "Command Pattern",
+    "Template Method Pattern",
+    "Object-Oriented",
+    "TypeScript",
+    "Undo",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+In the [first part on Behavioral Patterns](gof-design-behavioral-pattern-1), we explored the **Strategy Pattern** and the **Observer Pattern**. While the Strategy pattern provides a way to dynamically change algorithms and the Observer pattern facilitates loose coupling between objects, this time we will look at other powerful behavioral patterns.
+
+This post covers the following patterns:
+
+-   **🎮 Command Pattern**: Encapsulates a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.
+-   **📝 Template Method Pattern**: Defines the skeleton of an algorithm in a superclass but lets subclasses override specific steps of the algorithm without changing its structure.
+
+Let's dive into how these patterns elegantly solve complex object interactions! ✨
+
+## 🎮 3. Command Pattern
+
+The Command pattern **encapsulates a request as an object**, thereby decoupling the object that invokes the operation (`Invoker`) from the object that knows how to perform it (`Receiver`).
+
+A common analogy is a **'TV remote control' 📺**. The buttons on the remote (`Invoker`) each represent a function (`Command`) like 'turn on power' or 'increase volume'. When we press a button, the remote sends a signal containing that function to the TV (`Receiver`). The remote knows nothing about how the TV works internally; it just sends a predefined signal. Similarly, the TV doesn't care what the remote looks like or how many buttons it has; it just processes the incoming signal.
+
+In this way, the Command pattern greatly enhances system flexibility by separating **'what to do'** from **'who does it and how'**.
+
+### 🏗️ Basic Structure
+
+-   **🎮 Command**: An interface that all concrete command classes must implement. It typically has a single method, `execute()`.
+-   **ConcreteCommand**: Implements the `Command` interface and holds a reference to a `Receiver` object. When `execute()` is called, it invokes a specific method on the `Receiver` to fulfill the request.
+-   **🕹️ Invoker**: Takes a `Command` object and executes it when a user (client) makes a request. (e.g., a remote control, a button). The `Invoker` depends only on the `Command` interface, not on any `ConcreteCommand`, so it can execute any command.
+-   **📺 Receiver**: The object that performs the actual work. It contains the business logic. (e.g., a TV, a light).
+
+### 💻 Example: Creating a Smart Home Remote
+
+Let's assume we are creating a simple smart home remote that can turn a light on and off. We'll also add the hallmark feature of the Command pattern: **'Undo'**.
+
+First, let's define the `Receiver`, the `Light` class, which will actually handle the request.
+
+```typescript
+// Receiver: The object that performs the actual work
+class Light {
+  turnOn() {
+    console.log("💡 Light is ON.");
+  }
+
+  turnOff() {
+    console.log("⬛ Light is OFF.");
+  }
+}
+```
+
+Next, we define the `Command` interface that all commands will follow. We'll add an `undo()` method to support the undo functionality.
+
+```typescript
+// Command: The interface all command objects will implement
+interface Command {
+  execute(): void;
+  undo(): void;
+}
+```
+
+Now, let's create the concrete commands, `LightOnCommand` and `LightOffCommand`.
+
+```typescript
+// ConcreteCommand: Turns the light on
+class LightOnCommand implements Command {
+  private light: Light;
+
+  constructor(light: Light) {
+    this.light = light;
+  }
+
+  execute(): void {
+    this.light.turnOn();
+  }
+
+  undo(): void {
+    this.light.turnOff();
+  }
+}
+
+// ConcreteCommand: Turns the light off
+class LightOffCommand implements Command {
+  private light: Light;
+
+  constructor(light: Light) {
+    this.light = light;
+  }
+
+  execute(): void {
+    this.light.turnOff();
+  }
+
+  undo(): void {
+    this.light.turnOn();
+  }
+}
+```
+
+Finally, let's create the `Invoker`, the `RemoteControl` class, which will receive and execute commands, and also keep a history of executed commands to handle the Undo feature.
+
+```typescript
+// Invoker: Executes commands and supports undo
+class RemoteControl {
+  private command: Command | null = null;
+  private commandHistory: Command[] = [];
+
+  setCommand(command: Command): void {
+    this.command = command;
+  }
+
+  pressButton(): void {
+    if (this.command) {
+      this.command.execute();
+      this.commandHistory.push(this.command); // Save to history
+    } else {
+      console.log("No command is set.");
+    }
+  }
+
+  pressUndoButton(): void {
+    const lastCommand = this.commandHistory.pop();
+    if (lastCommand) {
+      console.log("--- Undoing last action ---");
+      lastCommand.undo();
+    } else {
+      console.log("No action to undo.");
+    }
+  }
+}
+
+// Client Code
+const remote = new RemoteControl();
+const livingRoomLight = new Light();
+
+const lightOn = new LightOnCommand(livingRoomLight);
+const lightOff = new LightOffCommand(livingRoomLight);
+
+// Turn the light on
+remote.setCommand(lightOn);
+remote.pressButton(); // Output: 💡 Light is ON.
+
+// Turn the light off
+remote.setCommand(lightOff);
+remote.pressButton(); // Output: ⬛ Light is OFF.
+
+// Undo the last action (turning the light off)
+remote.pressUndoButton();
+// Output:
+// --- Undoing last action ---
+// 💡 Light is ON.
+
+// Undo again (turning the light on)
+remote.pressUndoButton();
+// Output:
+// --- Undoing last action ---
+// ⬛ Light is OFF.
+```
+
+The `RemoteControl` has no knowledge of the `Light` object. It only calls the `execute()` and `undo()` methods of the `Command` interface. If we wanted to add functionality to control an audio system, we would just need to create an `Audio` class and `AudioOnCommand`, etc., and set them on the remote. The remote's code would not need to change.
+
+> Key Takeaways for Command Pattern 🔑
+>
+> - 📦 **Encapsulates a request as an object**.
+> - 🤝 **Decouples the invoker from the receiver**, reducing coupling.
+> - 🔄 **High Reusability**: The `Invoker` depends only on the `Command` interface, making it a reusable class that can execute any function (`Command`). The `RemoteControl` in the example can execute commands for any `Receiver`, such as an `Audio` or `Heater`, not just the `Light`.
+> - ↩️ Is very useful for implementing **undo/redo** functionality.
+> - 📋 Can be used in various scenarios like job queues, transactions, and logging.
+
+## 📝 4. Template Method Pattern
+
+The Template Method pattern **defines the skeleton of an algorithm in a superclass, but lets subclasses override specific steps of the algorithm without changing its structure**. In other words, the parent controls the overall flow (the template), but delegates the specific details to its children.
+
+The **'making instant noodles' 🍜** analogy we used earlier is a perfect example of this pattern. The process of making instant noodles is generally fixed:
+
+1.  Boil water.
+2.  Add noodles and soup base.
+3.  (Optional) Add extra ingredients like an egg, cheese, or dumplings.
+4.  Serve in a bowl.
+
+This entire process is the **template method**. Steps like 'boil water' and 'add noodles and soup' are the same for all instant noodles, but the 'add extra ingredients' step can vary. The Template Method pattern allows you to **keep the invariant parts in a superclass and let subclasses implement the variant parts**, which reduces code duplication and maintains a consistent structure.
+
+### 🏗️ Basic Structure
+
+-   **📜 AbstractClass**: A class that defines the template method. The template method calls a series of other methods that represent the steps of the algorithm. Some of these may be `abstract methods` that must be implemented by subclasses, or `hook` methods that can be optionally overridden.
+-   **ConcreteClass**: A subclass that inherits from `AbstractClass` and implements the specific steps of the algorithm.
+
+### 💻 Example: Making All Kinds of Ramen
+
+Let's implement the process of making various kinds of ramen using the Template Method pattern.
+
+First, we create the `AbstractClass`, `RamenRecipe`, which defines the overall flow of ramen preparation.
+
+```typescript
+// AbstractClass: Defines the skeleton of the algorithm
+abstract class RamenRecipe {
+  // The template method: controls the overall flow and is best not overridden
+  cook(): void {
+    this.boilWater();
+    this.addNoodlesAndSoup();
+    this.addExtraIngredients(); // This step varies for each subclass
+    this.serve();
+  }
+
+  // An abstract method that must be implemented by subclasses
+  protected abstract addExtraIngredients(): void;
+
+  // Concrete methods that are used by all classes
+  private boilWater(): void {
+    console.log("Boiling water in a pot.");
+  }
+
+  private addNoodlesAndSoup(): void {
+    console.log("Adding noodles, soup powder, and flakes.");
+  }
+
+  private serve(): void {
+    console.log("Transferring to a bowl to make it look delicious.");
+  }
+}
+```
+
+Now, let's implement the `ConcreteClass`es, `CheeseRamen` and `DumplingRamen`, which inherit from `RamenRecipe` and provide specific implementations for the variant steps.
+
+```typescript
+// ConcreteClass: Cheese Ramen
+class CheeseRamen extends RamenRecipe {
+  protected addExtraIngredients(): void {
+    console.log("Melting a slice of cheddar cheese on top.");
+  }
+}
+
+// ConcreteClass: Dumpling Ramen
+class DumplingRamen extends RamenRecipe {
+  protected addExtraIngredients(): void {
+    console.log("Tossing in three frozen dumplings from the freezer.");
+  }
+}
+
+// Client Code
+console.log("--- Making Cheese Ramen ---");
+const cheeseRamen = new CheeseRamen();
+cheeseRamen.cook();
+// Output:
+// Boiling water in a pot.
+// Adding noodles, soup powder, and flakes.
+// Melting a slice of cheddar cheese on top.
+// Transferring to a bowl to make it look delicious.
+
+console.log("\n--- Making Dumpling Ramen ---");
+const dumplingRamen = new DumplingRamen();
+dumplingRamen.cook();
+// Output:
+// Boiling water in a pot.
+// Adding noodles, soup powder, and flakes.
+// Tossing in three frozen dumplings from the freezer.
+// Transferring to a bowl to make it look delicious.
+```
+
+Thanks to the `cook()` template method, every type of ramen is made in a consistent order. The developer only needs to focus on the parts that change, like `addExtraIngredients()`. If you wanted to add 'Egg Ramen', you would just need to create a new `EggRamen` class that adds an egg in its `addExtraIngredients()` method.
+
+> Key Takeaways for Template Method Pattern 🔑
+>
+> - 🏛️ **Defines the skeleton of an algorithm** in a superclass.
+> - 👨‍👦 Extends behavior through **inheritance**. (The Strategy pattern uses **composition/delegation**).
+> - 🔄 **Reduces code duplication** and enforces a consistent structure.
+> - 🪝 Provides **hook methods** to give subclasses optional control.
+> - 💡 Embodies the "Don't call us, we'll call you" principle (The Hollywood Principle) - the framework calls our code.
+
+
+---
+
+Over these two parts, we have covered the leading behavioral patterns: Strategy, Observer, Command, and Template Method. These patterns provide excellent blueprints for how to distribute responsibilities and communicate between objects. Stay tuned for the next series on other design patterns!
