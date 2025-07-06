@@ -30,14 +30,14 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
       <table className="w-full text-sm">
         <tbody>
           <tr className="border-b border-gray-200 dark:border-gray-700">
-            <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50">
+            <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
               문제
             </td>
-            <td className="p-3">{problem}</td>
+            <td className="p-3 dark:text-white">{problem}</td>
           </tr>
 
           <tr className="border-b border-gray-200 dark:border-gray-700">
-            <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50">
+            <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
               답
             </td>
             <td className="p-2">
@@ -53,7 +53,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
           </tr>
 
           <tr>
-            <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50">
+            <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
               정답
             </td>
             <td
