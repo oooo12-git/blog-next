@@ -1,10 +1,11 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
 export const metadata = {
-  title:
-    "GoF 디자인 패턴: 생성 패턴 - 정처기 실기 대비 개념 이해(싱글톤, 팩토리 메서드, 빌더, 프로토타입, 추상 팩토리)",
+  title: "GoF 디자인 패턴: 생성 패턴 - 🚀정처기 실기 대비 문제 포함",
   description:
-    "객체지향 프로그래밍의 핵심, GoF(Gang of Four) 디자인 패턴 중 생성 패턴인 싱글톤(Singleton), 팩토리 메서드(Factory Method), 빌더(Builder), 프로토타입(Prototype), 추상 팩토리(Abstract Factory)를 자바스크립트 코드와 함께 알아봅니다. 확장성 있고 유연한 코드 작성법을 배웁니다.",
+    "객체지향 프로그래밍의 핵심, GoF(Gang of Four) 디자인 패턴 중 생성 패턴인 싱글톤(Singleton), 팩토리 메서드(Factory Method), 빌더(Builder), 프로토타입(Prototype), 추상 팩토리(Abstract Factory)를 자바스크립트 코드와 함께 알아봅니다. 정처기 실기 대비를 위한 주관식 문제가 포함되어 있습니다.",
   publishedAt: "2025-07-02",
-  lastModifiedAt: "2025-07-03",
+  lastModifiedAt: "2025-07-06",
   timeToRead: 0,
   heroImage: "/contents/default.jpg",
   tags: [
@@ -21,6 +22,8 @@ export const metadata = {
     "개발",
   ],
 };
+
+> 포스팅 마지막에 정처기 실기 대비 실전 주관식 문제가 있습니다.
 
 ## 🎯 GoF 디자인 패턴이란?
 
@@ -587,3 +590,15 @@ renderUI(darkFactory);
 - **구체적 구현 (Concrete 클래스)**: `LightThemeFactory`나 `DarkButton` 같은 Concrete 클래스는 '계약서'의 내용을 실제로 이행하는 '실무자'입니다. 👷‍♂️ `createButton()` 요청이 오면 **실제 라이트/다크 테마 버튼 객체**를 생성하고, `paint()` 요청이 오면 **실제 테마에 맞는 스타일을 그리는 로직**을 수행합니다.
 
 결론적으로, 클라이언트 코드는 **구체적인 클래스 이름(`LightButton`)을 코드에 직접 쓸 필요 없이**, 추상적인 '설명서(API)'에만 의존하게 됩니다. 덕분에 팩토리만 교체하면 전체 제품군(테마)을 한 번에 바꿀 수 있는 유연한 구조가 만들어집니다. 🔄✨
+
+## 정처기 실기 대비 실전 문제
+
+<ProblemAnswer
+  problem="구체적인 클래스에 의존하지 않고 서로 연관되거나 의존적인 객체들의 조합을 만드는 인터페이스를 제공하는 패턴으로 이 패턴을 통해 생성된 클래스에서는 사용자에게 인터페이스(API)를 제공하고, 구체적인 구현은 Concrete Product 클래스에서 이루어지는 특징을 갖는 디자인 패턴"
+  correctAnswer="추상 팩토리(Abstract Factory)"
+/>
+
+<ProblemAnswer
+  problem="처음부터 일반적인 원형을 만들어 놓고, 그것을 복사한 후 필요한 부분만 수정하여 사용하는 패턴으로, 생성할 객체의 원형을 제공하는 인스턴스에서 생성할 객체들의 타입이 결정되도록 설정하며 객체를 생성할 때 갖추어야 할 기본 형태가 있을 때 사용되는 디자인 패턴"
+  correctAnswer="프로토타입(Prototype)"
+/>
