@@ -1,10 +1,12 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
 export const metadata = {
   title:
-    "GoF 디자인 패턴: 행위 패턴(2) - 커맨드, 템플릿 메서드 | 타입스크립트 예시",
+    "GoF 디자인 패턴: 행위 패턴(2) - 커맨드, 템플릿 메서드 | 타입스크립트 예시 + 🚀정처기 실기 대비 문제",
   description:
     "GoF 디자인 패턴 중 행위 패턴의 두 번째 파트입니다. 요청을 객체로 캡슐화하여 실행 취소(Undo) 기능을 구현하는 커맨드(Command) 패턴과, 상속을 통해 알고리즘의 골격을 정의하고 특정 단계를 유연하게 변경하는 템플릿 메서드(Template Method) 패턴의 개념과 TypeScript 예시를 알아봅니다.",
   publishedAt: "2025-07-05",
-  lastModifiedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-08",
   timeToRead: 0,
   tags: [
     "정처기",
@@ -281,3 +283,8 @@ dumplingRamen.cook();
 > - 👨‍👦 **상속**을 통해 동작을 확장합니다. (전략 패턴은 **위임**을 사용)
 > - 🔄 코드 **중복을 제거**하고 일관된 구조를 강제할 수 있습니다.
 > - 상위 작업의 구조를 바꾸지 않으면서 서브 클래스로 작업 일부분을 수행할 수 있습니다.
+
+<ProblemAnswer
+  problem="어떤 작업을 처리하는 일부분을 서브 클래스로 캡슐화하여 전체 일을 수행하는 구조는 바꾸지 않으면서 특정 단계에서 수행하는 내역을 바꾸는 패턴으로 일반적으로 상위 클래스(추상 클래스)에는 추상 메서드를 통해 기능의 골격을 제공하고, 하위 클래스(구체 클래스)의 메서드에는 세부 처리를 구체화하는 방식으로 사용하는 디자인 패턴은?"
+  correctAnswer="템플릿 메서드(Template Method)"
+/>

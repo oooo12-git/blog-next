@@ -1,0 +1,132 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
+export const metadata = {
+  title: "🚀Exam Prep Problems | 🔐 Master SSO, Kerberos, OAuth",
+  description:
+    "Learn core concepts, operating principles, and differences of SSO (Single Sign-On), Kerberos, and OAuth. Compare features and pros/cons of each authentication technology with practical exam problems.",
+  publishedAt: "2025-07-08",
+  lastModifiedAt: "2025-07-08",
+  timeToRead: 0,
+  tags: [
+    "Information Processing Engineer",
+    "Security",
+    "Authentication",
+    "SSO",
+    "Kerberos",
+    "OAuth",
+    "Information Security",
+    "Network",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+## 📊 Comparison Summary of Three Authentication Technologies
+
+| Category            | **SSO (Single Sign-On)**                     | **Kerberos**                                       | **OAuth**                                              |
+| :------------------ | :------------------------------------------- | :------------------------------------------------- | :----------------------------------------------------- |
+| **Main Purpose**    | **Authentication**                           | **Authentication**                                 | **Authorization**                                      |
+| **Core Concept**    | Access multiple services with single login   | Ticket-based mutual authentication                 | Delegate resource access without passwords             |
+| **Environment**     | Web-based enterprise systems, cloud services | Internal networks (Windows Active Directory, etc.) | External service integration, social login, API access |
+| **Security Method** | Token-based (SAML, JWT, etc.)                | Symmetric key encryption, ticket-based             | Access Token-based                                     |
+| **Analogy**         | Theme park unlimited pass 🎡                 | Movie theater ticket system 🎟️                     | Access card instead of house key 🔑                    |
+
+## 🤔 Why Are Authentication Technologies Important?
+
+Today, we use numerous services and systems, logging in multiple times daily. Authentication technology ensures user identity verification and secure access. Among various authentication technologies, SSO, Kerberos, and OAuth play crucial roles in modern IT environments. Let's understand the concepts and differences of these three technologies clearly and prepare for the Information Processing Engineer practical exam.
+
+---
+
+## SSO (Single Sign-On) - "Everything with One Login"
+
+**SSO (Single Sign-On)** is literally a system that allows **automatic access to multiple different services through a single authentication process**. Users don't need to remember multiple IDs and passwords, making it convenient, while organizations can centrally manage user access, improving security.
+
+- **Core Concept**: Once authenticated by a central authentication server (IdP, Identity Provider), users can access other services (SP, Service Provider) without additional login based on that authentication information.
+- **Operation Process**:
+  1. User attempts to access a service (SP).
+  2. Service (SP) redirects user to authentication server (IdP).
+  3. User logs into authentication server (IdP).
+  4. Authentication server (IdP) generates a token (SAML, JWT, etc.) indicating completed authentication and delivers it to the user.
+  5. User accesses the service (SP) again with this token.
+  6. Service (SP) verifies the token and grants access to the user.
+- **Advantages**:
+  - **Enhanced User Convenience**: No need to manage multiple passwords.
+  - **Strengthened Security**: Central access control and easy application of multi-factor authentication (MFA).
+  - **Management Efficiency**: Simplified user account management.
+- **Disadvantages**:
+  - **Central Authentication Server Dependency**: If the authentication server fails, login becomes impossible for all services.
+  - **Initial Setup Cost**: Time and cost required to build and integrate SSO system.
+
+---
+
+## 🏛️ Kerberos - "Ticket-Based Trusted Mediator"
+
+**Kerberos** is an authentication protocol named after the three-headed dog 'Cerberus' from Greek mythology. It **mutually authenticates users and servers through a trusted third party (KDC, Key Distribution Center) over the network**. Based on symmetric key encryption techniques, once authenticated, users receive a 'ticket' valid for a certain period to access multiple servers.
+
+- **Core Concept**: Users and services securely authenticate each other through a ticket-issuing server (KDC).
+- **Main Components**:
+  - **KDC (Key Distribution Center)**: Key distribution center, internally composed of AS and TGS.
+    - **AS (Authentication Server)**: Verifies user identity and issues TGT (Ticket Granting Ticket).
+    - **TGS (Ticket Granting Server)**: Verifies TGT and issues service tickets (ST) for accessing specific services.
+  - **Client (User)**
+  - **Server (Service)**
+- **Operation Process**:
+  1. **AS Authentication**: User sends their information to AS requesting authentication.
+  2. **TGT Issuance**: AS authenticates the user and issues TGT, a ticket for accessing TGS.
+  3. **Service Ticket Request to TGS**: User requests access ticket (ST) for specific service from TGS with TGT.
+  4. **Service Ticket (ST) Issuance**: TGS verifies TGT and issues ST for accessing the corresponding service.
+  5. **Service Access**: User finally accesses desired service with ST.
+- **Advantages**:
+  - **Strong Security**: All communications are encrypted and mutual authentication prevents man-in-the-middle attacks.
+  - **SSO Support**: Access to multiple services with single authentication.
+- **Disadvantages**:
+  - **KDC Dependency**: System authentication becomes paralyzed if KDC fails.
+  - **Time Synchronization Required**: All systems must be time-synchronized for proper operation.
+  - **Configuration Complexity**: Initial configuration and management are complex.
+
+---
+
+## OAuth - "Delegating Authority Without Giving Passwords"
+
+**OAuth (Open Authorization)** is an open standard protocol for **'Authorization'** rather than 'Authentication'. It allows users to safely delegate access rights to their information or functions held by specific services to other applications without directly providing their passwords to other services.
+
+For example, 'Login with Google account' functionality is a representative case of using OAuth. Users don't reveal their Google passwords to the website, but Google authenticates the user's identity on their behalf, and the website trusts this result to allow login.
+
+- **Core Concept**: Safely delegate access rights to user resources (data) to third-party applications.
+- **Key Terms**:
+  - **Resource Owner**: User (owner of resources)
+  - **Client**: Third-party application (service requesting authorization)
+  - **Resource Server**: Server where resources are stored (e.g., Google server)
+  - **Authorization Server**: Server that grants authorization and issues Access Tokens
+- **Operation Process (Based on Authorization Code Grant Type)**:
+  1. User clicks 'Login with Google' button in Client.
+  2. Client sends user to Authorization Server.
+  3. User logs into Authorization Server and consents to grant authorization to Client.
+  4. Authorization Server issues temporary code (Authorization Code) to Client.
+  5. Client requests Access Token from Authorization Server again with this temporary code.
+  6. Authorization Server verifies the code and issues Access Token to Client.
+  7. Client uses Access Token to access user information on Resource Server.
+- **Advantages**:
+  - **High Security**: User passwords are not exposed.
+  - **Authorization Scope Control**: Can selectively delegate access rights to specific functions or information only.
+  - **Standardization**: Good scalability and compatibility as a widely used standard protocol.
+- **Disadvantages**:
+  - **Complex Implementation**: Protocol flow is more complex compared to other methods.
+
+---
+
+## 📝 Information Processing Engineer Practical Exam Problems
+
+<ProblemAnswer
+  problem="What is the integrated login technology that allows access to multiple information systems without re-authentication procedures through a single system authentication?"
+  correctAnswer="SSO (Single Sign-On)"
+/>
+
+<ProblemAnswer
+  problem="What is the network authentication protocol that authenticates users through a centralized key management server (KDC) and controls access to services based on tickets?"
+  correctAnswer="Kerberos"
+/>
+
+<ProblemAnswer
+  problem="What is the open standard protocol that allows users to safely delegate access rights to specific resources without providing their passwords to other websites or applications?"
+  correctAnswer="OAuth"
+/>{" "}

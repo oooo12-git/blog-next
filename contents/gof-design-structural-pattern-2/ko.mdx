@@ -1,10 +1,12 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
 export const metadata = {
   title:
-    "GoF 디자인 패턴: 구조 패턴(2) - 정처기 실기 대비 개념 이해(컴포지트, 브릿지, 플라이웨이트)",
+    "GoF 디자인 패턴: 구조 패턴(2) - 컴포지트, 브릿지, 플라이웨이트 | 🚀정처기 실기 대비 문제 + 자바스크립트 예시",
   description:
-    "클래스와 객체를 조합해 더 큰 구조를 만드는 GoF(Gang of Four) 디자인 패턴의 구조 패턴인 컴포지트(Composite), 브릿지(Bridge), 플라이웨이트(Flyweight)를 자바스크립트 코드와 함께 알아봅니다.",
+    "클래스와 객체를 조합해 더 큰 구조를 만드는 GoF(Gang of Four) 디자인 패턴의 구조 패턴인 컴포지트(Composite), 브릿지(Bridge), 플라이웨이트(Flyweight)를 자바스크립트 코드와 함께 알아봅니다. 또한 정처기 실기 대비 문제와 함께 풀어봅니다.",
   publishedAt: "2025-07-04",
-  lastModifiedAt: "2025-07-04",
+  lastModifiedAt: "2025-07-08",
   timeToRead: 0,
   heroImage: "/contents/default.jpg",
   tags: [
@@ -409,3 +411,10 @@ console.log(`
 > - ⚖️ 객체의 상태를 **내재적 상태(공유 가능)** 와 **외재적 상태(공유 불가)** 로 분리합니다.
 > - 🏭 팩토리를 사용하여 공유 객체를 관리합니다.
 > - 🎮 게임, 문서 편집기 등 대량의 객체를 효율적으로 다뤄야 할 때 매우 유용합니다.
+
+## 정처기 실기 대비 문제
+
+<ProblemAnswer
+  problem="다수의 객체를 생성할 경우, 모두가 갖는 본질적인 요소를 클래스 화하여 공유함으로써 메모리를 절약하고, '클래스의 경량화'를 목적으로 하는 디자인 패턴은?"
+  correctAnswer="플라이웨이트 패턴(Flyweight Pattern)"
+/>

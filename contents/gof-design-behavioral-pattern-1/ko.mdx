@@ -1,9 +1,12 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
 export const metadata = {
-  title: "GoF 디자인 패턴: 행위 패턴(1) - 전략, 옵서버 | 자바스크립트 예시",
+  title:
+    "GoF 디자인 패턴: 행위 패턴(1) - 전략, 옵서버 | 자바스크립트 예시 + 🚀정처기 실기 대비 문제",
   description:
     "GoF 디자인 패턴 중 객체의 행동과 소통 방식을 다루는 행위 패턴을 소개합니다. 다양한 알고리즘을 동적으로 교체하는 전략(Strategy) 패턴과, 한 객체의 상태 변화를 여러 객체에 자동으로 전파하는 옵서버(Observer) 패턴의 개념과 예시를 알아봅니다.",
   publishedAt: "2025-07-04",
-  lastModifiedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-08",
   timeToRead: 0,
   tags: [
     "정처기",
@@ -280,3 +283,10 @@ publisher.publishNewArticle({
 > - 🔄 상태 변경 시 **자동으로** 의존 객체에 전파(broadcast)됩니다.
 > - 📰 이벤트 기반 시스템, MVC(Model-View-Controller) 아키텍처 등에서 널리 사용됩니다.
 > - ✅ 발행/구독(Publish/Subscribe) 모델이라고도 불립니다.
+
+## 정처기 실기 대비 문제
+
+<ProblemAnswer
+  problem="알고리즘 군을 정의하고(추상 클래스) 같은 알고리즘을 각각 하나의 클래스로 캡슐화한 다음, 필요할 때 서로 교환해서 사용할 수 있게 하는 패턴"
+  correctAnswer="전략 패턴(Strategy Pattern)"
+/>
