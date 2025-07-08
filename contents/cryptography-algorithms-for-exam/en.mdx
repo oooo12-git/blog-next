@@ -1,17 +1,22 @@
-
 export const metadata = {
-  title: "🔒 Complete Guide to Encryption Algorithms for Engineer Information Processing Exam (DES, AES, RSA, SHA)",
-  description: "This post compares and analyzes the core concepts and differences of symmetric-key (DES, SEED, AES), asymmetric-key (Diffie-Hellman, RSA, ECC), and hash (MD5, SHA) encryption algorithms that frequently appear in the Engineer Information Processing practical exam, and provides practice questions.",
+  title:
+    "🔒 Complete Guide to Encryption Algorithms for Engineer Information Processing Exam (DES, AES, RSA, SHA)",
+  description:
+    "This post compares and analyzes the core concepts and differences of symmetric-key (DES, SEED, AES), asymmetric-key (Diffie-Hellman, RSA, ECC), and hash (MD5, SHA) encryption algorithms that frequently appear in the Engineer Information Processing practical exam, and provides practice questions.",
   publishedAt: "2025-07-07",
   lastModifiedAt: "2025-07-07",
   timeToRead: 0,
-  tags: ["Engineer Information Processing", "Encryption", "DES", "AES", "RSA", "SHA", "Security"],
+  tags: [
+    "Engineer Information Processing",
+    "Encryption",
+    "DES",
+    "AES",
+    "RSA",
+    "SHA",
+    "Security",
+  ],
   heroImage: "/contents/default.jpg",
 };
-
-## Core Concepts of Encryption Algorithms for the Engineer Information Processing Exam
-
-Hello, fellow candidates for the Engineer Information Processing certification! In this post, we will provide a complete summary of **encryption algorithms**, a topic frequently covered in the practical exam. We will compare the main types and features of symmetric-key, asymmetric-key, and hash algorithms, and work through practice questions.
 
 ### 1. Symmetric-Key Encryption Algorithms 🔑
 
@@ -19,16 +24,17 @@ Symmetric-key encryption uses the **same key for both encryption and decryption*
 
 #### Key Algorithm Comparison
 
-| Category | DES (Data Encryption Standard) | SEED | AES (Advanced Encryption Standard) |
-| :--- | :--- | :--- | :--- |
-| **Developed by** | IBM (1975) | KISA (Korea Internet & Security Agency, 1999) | Joan Daemen, Vincent Rijmen (2001) |
-| **Block Size** | 64-bit | 128-bit | 128-bit |
-| **Key Length** | 56-bit (actually 64-bit) | 128, 256-bit | 128, 192, 256-bit |
-| **Structure** | Feistel Structure | Feistel Structure | SPN (Substitution-Permutation Network) |
-| **Security** | **Vulnerable**. No longer recommended for use. | Secure. Used as a domestic standard in Korea. | **Very secure**. Widely used as the current standard. |
-| **Features** | An early standard. Complemented by 3DES but replaced by AES. | South Korean standard encryption algorithm. | The US standard that replaced DES. Most widely used. |
+| Category         | DES (Data Encryption Standard)                               | SEED                                          | AES (Advanced Encryption Standard)                    |
+| :--------------- | :----------------------------------------------------------- | :-------------------------------------------- | :---------------------------------------------------- |
+| **Developed by** | IBM (1975)                                                   | KISA (Korea Internet & Security Agency, 1999) | Joan Daemen, Vincent Rijmen (2001)                    |
+| **Block Size**   | 64-bit                                                       | 128-bit                                       | 128-bit                                               |
+| **Key Length**   | 56-bit (actually 64-bit)                                     | 128, 256-bit                                  | 128, 192, 256-bit                                     |
+| **Structure**    | Feistel Structure                                            | Feistel Structure                             | SPN (Substitution-Permutation Network)                |
+| **Security**     | **Vulnerable**. No longer recommended for use.               | Secure. Used as a domestic standard in Korea. | **Very secure**. Widely used as the current standard. |
+| **Features**     | An early standard. Complemented by 3DES but replaced by AES. | South Korean standard encryption algorithm.   | The US standard that replaced DES. Most widely used.  |
 
 **💡 Key Takeaways**:
+
 - **DES**: The first standard, but now **vulnerable** due to its short key length.
 - **AES**: The **most secure and widely used** symmetric-key algorithm today.
 - **SEED**: A **South Korean** symmetric-key algorithm.
@@ -41,16 +47,17 @@ Asymmetric-key encryption uses **separate keys for encryption and decryption**. 
 
 #### Key Algorithm Comparison
 
-| Category | Diffie-Hellman | RSA (Rivest-Shamir-Adleman) | ECC (Elliptic Curve Cryptography) |
-| :--- | :--- | :--- | :--- |
-| **Primary Use** | **Key Exchange** | **Encryption, Digital Signatures** | **Encryption, Digital Signatures** |
-| **Underlying Principle** | Discrete Logarithm Problem | Difficulty of Integer Factorization | Elliptic Curve Discrete Logarithm Problem |
-| **Key Length** | Relatively long (e.g., 2048-bit) | Relatively long (e.g., 2048-bit) | **Relatively short** (e.g., 256-bit) |
-| **Performance** | Moderate | Slow | **Fast** |
-| **Security** | Secure | Secure | **Very secure (high security with a short key)** |
-| **Features** | The first public-key algorithm. Used only for key exchange. | The most widely used public-key algorithm. | Provides the same level of security as RSA with a shorter key. Advantageous for IoT and mobile environments. |
+| Category                 | Diffie-Hellman                                              | RSA (Rivest-Shamir-Adleman)                | ECC (Elliptic Curve Cryptography)                                                                            |
+| :----------------------- | :---------------------------------------------------------- | :----------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| **Primary Use**          | **Key Exchange**                                            | **Encryption, Digital Signatures**         | **Encryption, Digital Signatures**                                                                           |
+| **Underlying Principle** | Discrete Logarithm Problem                                  | Difficulty of Integer Factorization        | Elliptic Curve Discrete Logarithm Problem                                                                    |
+| **Key Length**           | Relatively long (e.g., 2048-bit)                            | Relatively long (e.g., 2048-bit)           | **Relatively short** (e.g., 256-bit)                                                                         |
+| **Performance**          | Moderate                                                    | Slow                                       | **Fast**                                                                                                     |
+| **Security**             | Secure                                                      | Secure                                     | **Very secure (high security with a short key)**                                                             |
+| **Features**             | The first public-key algorithm. Used only for key exchange. | The most widely used public-key algorithm. | Provides the same level of security as RSA with a shorter key. Advantageous for IoT and mobile environments. |
 
 **💡 Key Takeaways**:
+
 - **Diffie-Hellman**: Cannot be used for encryption/decryption, only for **secure key exchange**.
 - **RSA**: Based on the difficulty of **integer factorization** and is the most popular asymmetric-key algorithm.
 - **ECC**: Offers high security with a **short key length**, resulting in excellent performance. Suitable for mobile environments.
@@ -63,73 +70,14 @@ A hash algorithm is a one-way function that converts data of arbitrary length in
 
 #### Key Algorithm Comparison
 
-| Category | MD5 (Message-Digest Algorithm 5) | SHA-1 (Secure Hash Algorithm 1) | SHA-2 (SHA-256/384/512) |
-| :--- | :--- | :--- | :--- |
-| **Developed by** | Ronald Rivest (1991) | NSA (1995) | NSA (2001) |
-| **Hash Size** | 128-bit | 160-bit | 256, 384, 512-bit |
-| **Security** | **Very vulnerable (collision found)** | **Vulnerable (collision found)** | **Secure** |
-| **Features** | Widely used in the past but now prohibited. | More secure than MD5, but its use is now discouraged. | The most widely used hash algorithm today. The number indicates the hash size. |
+| Category         | MD5 (Message-Digest Algorithm 5)            | SHA-1 (Secure Hash Algorithm 1)                       | SHA-2 (SHA-256/384/512)                                                        |
+| :--------------- | :------------------------------------------ | :---------------------------------------------------- | :----------------------------------------------------------------------------- |
+| **Developed by** | Ronald Rivest (1991)                        | NSA (1995)                                            | NSA (2001)                                                                     |
+| **Hash Size**    | 128-bit                                     | 160-bit                                               | 256, 384, 512-bit                                                              |
+| **Security**     | **Very vulnerable (collision found)**       | **Vulnerable (collision found)**                      | **Secure**                                                                     |
+| **Features**     | Widely used in the past but now prohibited. | More secure than MD5, but its use is now discouraged. | The most widely used hash algorithm today. The number indicates the hash size. |
 
 **💡 Key Takeaways**:
+
 - **MD5, SHA-1**: **Collision vulnerabilities** have been found, so they should no longer be used.
 - **SHA-2 family (SHA-256, etc.)**: The most **widely used** and secure hash algorithm, currently the security standard.
-
----
-
-### 📝 Practice Questions for the Engineer Information Processing Exam
-
-Now, let's solve some practice problems based on what we've learned.
-
-<ProblemAnswer>
-  <div slot="problem">
-    **Problem 1.** The following are descriptions of symmetric-key and asymmetric-key encryption algorithms. Fill in the blanks with the most appropriate terms.
-
-    ( ① ) is an encryption method where the same key is used for both encryption and decryption. In contrast, ( ② ) is an encryption method where different keys are used for encryption and decryption, with the disadvantages of slow key generation and slow encryption/decryption speeds.
-  </div>
-  <div slot="answer">
-    **Answer**
-    - ①: Symmetric-key
-    - ②: Asymmetric-key (or Public-key)
-  </div>
-</ProblemAnswer>
-
-<ProblemAnswer>
-  <div slot="problem">
-    **Problem 2.** Identify the encryption algorithm described below.
-
-    - Developed by IBM in 1975 and designated as the Data Encryption Standard (DES) by the US Department of Defense.
-    - It has a block size of 64 bits and uses a 56-bit key.
-    - It is no longer recommended for use due to security vulnerabilities arising from its limited key length.
-  </div>
-  <div slot="answer">
-    **Answer**: DES
-  </div>
-</ProblemAnswer>
-
-<ProblemAnswer>
-  <div slot="problem">
-    **Problem 3.** Identify the encryption algorithm described below.
-
-    - A representative asymmetric-key encryption algorithm based on the difficulty of integer factorization.
-    - It provides both encryption and digital signature functions.
-    - It is the most widely used public-key encryption algorithm today.
-  </div>
-  <div slot="answer">
-    **Answer**: RSA
-  </div>
-</ProblemAnswer>
-
-<ProblemAnswer>
-  <div slot="problem">
-    **Problem 4.** The following is a description of a hash function. Fill in the blank with the most appropriate term.
-
-    The phenomenon where different input values produce the same hash result is called ( ), and algorithms like MD5 and SHA-1, where this vulnerability has been found, are not recommended for security purposes.
-  </div>
-  <div slot="answer">
-    **Answer**: Collision
-  </div>
-</ProblemAnswer>
-
-<br/>
-
-This concludes our review of encryption algorithms for the Engineer Information Processing practical exam. You can achieve great results by focusing on and comparing the **core principles, key lengths, and pros and cons** of each algorithm. Good luck!
