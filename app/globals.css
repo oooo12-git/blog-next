@@ -159,3 +159,8 @@ html.dark .shiki span {
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
+
+/* 부드러운 스크롤 효과 */
+html {
+  scroll-behavior: smooth;
+}

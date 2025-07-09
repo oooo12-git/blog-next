@@ -21,24 +21,55 @@ function extractText(node: React.ReactNode): string {
   return "";
 }
 
+// 텍스트를 URL에 안전한 id로 변환하는 함수
+function createId(text: string): string {
+  return (
+    text
+      .toLowerCase()
+      // .replace(/[^\w\s-]/g, "") // 특수문자 제거
+      .replace(/\s+/g, "-") // 공백을 하이픈으로
+      .replace(/-+/g, "-") // 연속된 하이픈을 하나로
+      .trim()
+      .replace(/^-|-$/g, "")
+  ); // 앞뒤 하이픈 제거
+}
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
-    h2: ({ children }) => (
-      <h2 className="text-2xl font-bold mt-8 mb-6 dark:text-white">
-        {children}
-      </h2>
-    ),
-    h3: ({ children }) => (
-      <h3 className="text-xl font-bold mt-8 mb-6 text-gray-700 dark:text-white">
-        {children}
-      </h3>
-    ),
-    h4: ({ children }) => (
-      <h4 className="text-lg font-bold mt-8 mb-6 text-gray-700 dark:text-white">
-        {children}
-      </h4>
-    ),
+    h2: ({ children }) => {
+      const text = extractText(children);
+      const id = createId(text);
+      return (
+        <h2 id={id} className="text-2xl font-bold mt-8 mb-6 dark:text-white">
+          {children}
+        </h2>
+      );
+    },
+    h3: ({ children }) => {
+      const text = extractText(children);
+      const id = createId(text);
+      return (
+        <h3
+          id={id}
+          className="text-xl font-bold mt-8 mb-6 text-gray-700 dark:text-white"
+        >
+          {children}
+        </h3>
+      );
+    },
+    h4: ({ children }) => {
+      const text = extractText(children);
+      const id = createId(text);
+      return (
+        <h4
+          id={id}
+          className="text-lg font-bold mt-8 mb-6 text-gray-700 dark:text-white"
+        >
+          {children}
+        </h4>
+      );
+    },
     p: ({ children }) => (
       <p className="mb-6 text-gray-500 dark:text-white leading-loose">
         {children}

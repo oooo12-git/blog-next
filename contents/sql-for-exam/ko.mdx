@@ -1,0 +1,224 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import Details from "@/app/components/Details";
+
+export const metadata = {
+  title: "정보처리기사 실기 SQL 문제 풀이",
+  description:
+    "정보처리기사 실기 시험에 나오는 SQL 문제를 단계별로 풀어보며 INSERT, UPDATE 등 기본 SQL 문법을 익힙니다. 실제 시험 문제 유형과 답안 작성법을 포함합니다.",
+  publishedAt: "2025-07-09",
+  lastModifiedAt: "2025-07-09",
+  timeToRead: 0,
+  heroImage: "/contents/default.jpg",
+  tags: ["SQL", "정보처리기사", "실기시험", "데이터베이스", "문제풀이"],
+};
+
+> SQL은 각 상황에 대한 쿼리 설명 후 문제를 풉니다. 그리고 맨 마지막에 모든 문제를 다시 풀어보는 식으로 구성되어 있습니다.
+>
+> 아주 쉽다고 생각하는 SQL 문제는 내지 않았습니다.
+>
+> SQL에 대한 감을 가져가세요.
+
+## 목차
+
+{/* prettier-ignore */}
+<Details summary="목차 펼치기">
+  1. [테이블에 데이터를 추가해야 하는 경우](#테이블에-데이터를-추가해야-하는-경우)
+  2. [테이블 데이터를 삭제해야 하는 경우](#테이블-데이터를-삭제해야-하는-경우)
+  3. [테이블 데이터를 수정해야 하는 경우](#테이블-데이터를-수정해야-하는-경우)
+  4. [테이블 제거](#테이블-제거할-때)
+</Details>
+
+## 테이블에 데이터를 추가해야 하는 경우
+
+```sql
+INSERT INTO table_name (column1, column2, column3, ... : 생략가능)
+VALUES (value1, value2, value3, ...);
+```
+
+<ProblemAnswer
+  problem="빈칸을 채우세요. 
+  신입사원이 입사하여 사원 테이블에 신입사원 정보 추가하는 SQL문 
+  INSERT INTO 사원(사원번호, 이름, 나이) _____ (100,'홍길동',20);"
+  correctAnswer="VALUES"
+/>
+
+## 테이블 데이터를 삭제해야 하는 경우
+
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+<ProblemAnswer
+  problem="빈칸을 채우세요. 
+  사원이 퇴사하여 삭제하는 SQL문 
+  DELETE _____ 사원 WHERE 사원번호 = 100;"
+  correctAnswer="FROM"
+/>
+
+## 테이블 데이터를 수정해야 하는 경우
+
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+```
+
+<ProblemAnswer
+  problem="빈칸을 채우세요. 
+  사원 테이블에서 부서의 주소를 수정하는 SQL문
+  UPDATE 사원 _____ 주소 = '서울' WHERE 부서 = '개발부';"
+  correctAnswer="SET"
+/>
+
+## 테이블 제거할 때
+
+### 해당 테이블을 참조하지 않으면 테이블 삭제, 참조하면 테이블 삭제 불가
+
+```sql
+DROP TABLE table_name RESTRICT;
+```
+
+<ProblemAnswer
+  problem="사원 테이블 제거할 때 사원 테이블 참조하지 않으면 테이블 삭제하고 참조하는 경우 테이블을 삭제하지 않도록 하는 DDL문 작성하시오."
+  correctAnswer="DROP TABLE 사원 RESTRICT;"
+/>
+
+### 참조하는 테이블까지 연쇄적으로 삭제
+
+```sql
+DROP TABLE table_name CASCADE;
+```
+
+<ProblemAnswer
+  problem="괄호 ( ) 안에 알맞은 옵션을 쓰시오.
+  테이블을 DROP 하려고 하는데 테이블에 외래키가 걸려 있다. 참조하는 테이블까지 연쇄적으로 제거할땐 ( 1 ) 옵션을 사용하고, 다른 테이블이 참조 중일때 제거하지 않도록 하려면 ( 2 ) 옵션을 사용한다."
+  correctAnswer="1 : CASCADE, 2 : RESTRICT"
+/>
+
+<ProblemAnswer
+  problem="회사 테이블 제거할 때 회사 테이블을 참조하는 모든 데이터도 함께 제거하는 DDL문 작성하시오."
+  correctAnswer="DROP TABLE 회사 CASCADE;"
+/>
+
+## 권한 회수
+
+```sql
+REVOKE privilege_type ON object_name FROM user_name;
+```
+
+<ProblemAnswer
+  problem="관리자가 USER로부터 사원 테이블에 대해 UPDATE 할 수 있는 권한을 회수하는 SQL문 작성하시오."
+  correctAnswer="REVOKE UPDATE ON 사원 FROM USER;"
+/>
+
+## 뷰 생성
+
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+<ProblemAnswer
+  problem="회사 테이블을 이용해 부서라는 이름의 뷰를 만들려고 한다. 밑줄을 채우세요.
+  CREATE VIEW 부서 _____ 
+  SELECT 부서명, 부서위치 FROM 회사;"
+  correctAnswer="AS"
+/>
+
+## 내림차순 정렬(두 개 컬럼)
+
+> column1 먼저 내림차순으로 정렬하고, column2 내림차순으로 정렬하려면...
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1 DESC, column2 DESC;
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서명과 부서위치를 내림차순으로 정렬하는 SQL문 작성하시오.(부서 위치 먼저 내림차순 정렬하고 부서 위치가 같을 경우 부서명 내림차순 정렬)"
+  correctAnswer="SELECT 부서명, 부서위치 FROM 회사 ORDER BY 부서위치 DESC, 부서명 DESC;"
+/>
+
+## 인덱스 생성
+
+```sql
+CREATE INDEX index_name ON table_name (column1, column2, ...);
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서명과 부서위치 컬럼에 대해 부서인덱스라는 이름의 인덱스를 생성하는 SQL문 작성하시오."
+  correctAnswer="CREATE INDEX 부서인덱스 ON 회사 (부서명, 부서위치);"
+/>
+
+## 특정 범위에 포함된 값을 가진 데이터 조회
+
+### BETWEEN
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column1 BETWEEN value1 AND value2;
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서번호가 1~3인 부서를 조회하는 SQL문 작성하시오.(모든 컬럼 조회하는)"
+  correctAnswer="SELECT * FROM 회사 WHERE 부서번호 BETWEEN 1 AND 3;"
+/>
+
+### IN
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column1 IN (value1, value2, ...);
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서명이 개발부, 인사부, 총무부인 부서를 조회하는 SQL문 작성하시오.(모든 컬럼 조회)"
+  correctAnswer="SELECT * FROM 회사 WHERE 부서명 IN ('개발부', '인사부', '총무부');"
+/>
+
+## 특정 문자로 시작하는 데이터 조회
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column1 LIKE 'value%';
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서명이 '개'로 시작하는 부서를 조회하는 SQL문 작성하시오.(모든 컬럼 조회)"
+  correctAnswer="SELECT * FROM 회사 WHERE 부서명 LIKE '개%';"
+/>
+
+## 특정문자 앞에 딱 한글자만 있는 데이터 조회
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column1 LIKE '_value';
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서명이 '부' 앞에 한 글자만 추가된 부서를 조회하는 SQL문 작성하시오.(모든 컬럼 조회)"
+  correctAnswer="SELECT * FROM 회사 WHERE 부서명 LIKE '_부';"
+/>
+
+## 합계에 조건을 걸고 조회할 때
+
+```sql
+SELECT column2, SUM(column1) AS total
+FROM table_name
+WHERE condition;
+GROUP BY column2;
+HAVING SUM(column1) condition;
+```
+
+<ProblemAnswer
+  problem="회사 테이블에서 부서명별 부서 인원 합계가 10명 이상인 부서명과 부서인원합계를 조회하는 SQL문 작성하시오."
+  correctAnswer="SELECT 부서명, SUM(부서인원) AS 부서인원합계 FROM 회사 GROUP BY 부서명 HAVING SUM(부서인원) >= 10;"
+/>
