@@ -1,0 +1,116 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import Details from "@/app/components/Details";
+
+export const metadata = {
+  title: "🛢️ Relational Algebra | 🚀Includes Practice Problems for Engineer Exam",
+  description:
+    "Learn the operators and characteristics of relational algebra, a core concept for the Information Processing Engineer practical exam. Understand the difference between procedural and non-procedural languages and prepare perfectly for the exam with actual past questions.",
+  publishedAt: "2025-07-09",
+  lastModifiedAt: "2025-07-09",
+  timeToRead: 0,
+  tags: ["Relational Algebra", "Database", "Information Processing Engineer", "Practical Exam"],
+  heroImage: "/contents/default.jpg",
+};
+
+> Past exam questions have been simple, asking for the symbols.
+>
+> Study just enough to be able to solve the problems below.
+
+## What is Relational Algebra?
+
+Relational algebra is a **procedural formal language** that describes how to find desired data in a relational database. It consists of a set of operations that take one or more relations (tables) as input and produce a new relation as a result.
+
+<Details summary="Relational Algebra vs. Relational Calculus: Procedural vs. Non-Procedural Languages">
+Database languages are broadly divided into **procedural languages** and **non-procedural (declarative) languages**.
+
+- **Procedural Language**
+
+  - Specifies **"How"** to access and retrieve data.
+  - It describes the specific processing steps and sequence to obtain the desired result.
+  - **Relational algebra** is a prime example. The order of operations, such as whether to perform a `SELECT` or a `JOIN` first, is defined.
+
+- **Non-procedural Language**
+  - Specifies only **"What"** is desired.
+  - It declares only what result is wanted, leaving the specific method or procedure to the system (DBMS).
+  - **Relational calculus** and **SQL** are prime examples. The user only specifies the conditions for the desired data, like `SELECT * FROM ... WHERE ...`, and the internal processing procedure is determined by the DBMS optimizer.
+
+Therefore, you can understand relational algebra as a language centered on the 'process', while relational calculus is centered on the 'goal'.
+
+</Details>
+
+## Relational Algebra Operators
+
+Relational algebra operators are broadly divided into **general set operators** and **pure relational operators**.
+
+### General Set Operators
+
+Based on mathematical set theory, they require the two relations to be **Union-compatible**. (The two relations must have the same number of attributes, and the domains of corresponding attributes must be the same).
+
+| Operator          | Symbol | Description                                                                       |
+| :---------------- | :----: | :-------------------------------------------------------------------------------- |
+| Union             |   ∪    | Returns a relation containing all tuples from both relations (duplicates excluded). |
+| Intersection      |   ∩    | Returns a relation consisting only of tuples that exist in both relations.        |
+| Difference        |   -    | Returns tuples that are in the first relation but not in the second.              |
+| Cartesian Product |   ×    | Returns all possible tuples by pairing tuples from two relations.                 |
+
+### Pure Relational Operators
+
+These are operators created specifically for the relational database model.
+
+| Operator          | Symbol | Description                                                                               |
+| :---------------- | :----: | :---------------------------------------------------------------------------------------- |
+| Select            |   σ    | Returns a horizontal subset of tuples (rows) that satisfy a given condition.              |
+| Project           |   π    | Returns a vertical subset of attributes (columns), with duplicates excluded.              |
+| Join              |   ⋈    | Combines two relations based on a common attribute to create a new relation.              |
+| Division          |   ÷    | Returns tuples from relation A that are related to all tuples in relation B.              |
+
+## 📝 Practice Problems for the Information Processing Engineer Exam
+
+From the options below, find the correct relational algebra operator symbol and write it in the answer field.
+
+**[Options]**
+`σ` , `π` , `⋈` , `÷` , `∪` , `∩` , `-` , `×`
+
+<ProblemAnswer
+  problem="Write the symbol for the Select relational algebra operator."
+  correctAnswer="σ"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Project relational algebra operator."
+  correctAnswer="π"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Join relational algebra operator."
+  correctAnswer="⋈"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Division relational algebra operator."
+  correct-answer="÷"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Union relational algebra operator."
+  correctAnswer="∪"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Intersection relational algebra operator."
+  correctAnswer="∩"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Difference relational algebra operator."
+  correctAnswer="-"
+/>
+
+<ProblemAnswer
+  problem="Write the symbol for the Cartesian Product relational algebra operator."
+  correctAnswer="×"
+/>
+
+## ➡️ Recommended Next Post
+
+- [Comprehensive Tips for the Information Processing Engineer Practical Exam📝](/en/blog/korean-information-processing-engineer-practical-exam-strategy)

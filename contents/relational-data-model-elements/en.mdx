@@ -1,0 +1,61 @@
+import Details from "@/app/components/Details";
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
+export const metadata = {
+  title: "🛢️ Core Components of the Relational Data Model",
+  description:
+    "A clear guide to the fundamental concepts of the relational data model, including relation, tuple, attribute, cardinality, degree, schema, instance, identifier, and domain, complete with examples and practice questions.",
+  publishedAt: "2025-07-09",
+  lastModifiedAt: "2025-07-09",
+  tags: ["Database", "Relational Model", "SQL", "Data Modeling"],
+  heroImage: "/contents/default.jpg",
+};
+
+<Details summary="🤔 What is a Relational Data Model?">
+
+When you start studying databases, the first concept you'll encounter is the **Relational Data Model**. 🗃️ It's the most widely used data model, representing data in the form of 2D tables called **Relations**.
+
+Think of it like an Excel sheet, where data is stored and managed in a table composed of rows and columns. This structure makes the data intuitive to understand and easy to handle using a standardized method like SQL.
+
+</Details>
+
+### 📊 Core Components of the Relational Data Model
+
+| Term (English)  | Description                                                                                                        | Example (Student Relation)                                         |
+| :-------------- | :----------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| **Relation**    | The 2D table itself, composed of rows and columns.                                                                 | The entire 'Student' table.                                        |
+| **Tuple**       | Each **row** in a relation. A set of related data, like a single student's information.                            | A single row: (1001, 'John Doe', 'Computer Science')               |
+| **Attribute**   | Each **column** in a relation. The smallest logical unit of data.                                                  | The 'StudentID', 'Name', and 'Major' columns.                      |
+| **Cardinality** | The **number of tuples** (rows) in a relation.                                                                     | If there are 3 students, the cardinality is 3.                     |
+| **Degree**      | The **number of attributes** (columns) in a relation.                                                              | With 3 attributes ('StudentID', 'Name', 'Major'), the degree is 3. |
+| **Schema**      | A specification of the database's **structure and constraints**. Defines the relation name, attributes, and types. | Student(<u>StudentID</u>:Integer, Name:String, Major:String)       |
+| **Instance**    | The **actual data set** within a relation at a specific point in time.                                             | All student data currently stored in the 'Student' table.          |
+| **Identifier**  | An attribute or set of attributes that uniquely identifies each tuple (e.g., candidate key, primary key).          | The 'StudentID' attribute.                                         |
+| **Domain**      | The **set of possible values** an attribute can have (e.g., the domain for 'Gender' is \{'Male', 'Female'\}).      | The domain for 'Year' could be \{1, 2, 3, 4\}.                     |
+
+## 📝 Practice Problems
+
+<ProblemAnswer
+  problem="In the relational data model, what is the term for the number of rows in a relation?"
+  correctAnswer="Cardinality"
+/>
+
+<ProblemAnswer
+  problem="In the relational data model, what is the term for the number of columns in a relation?"
+  correctAnswer="Degree"
+/>
+
+<ProblemAnswer
+  problem="What describes the overall structure and constraints of a database, defining the relation's name, each attribute's name and type, and constraints on attribute values?"
+  correctAnswer="Schema"
+/>
+
+<ProblemAnswer
+  problem="What is the set of all possible atomic values that an attribute can take?"
+  correctAnswer="Domain"
+/>
+
+<ProblemAnswer
+  problem="What is the term for a set of attributes that make up a row in a relation, used synonymously with 'record'?"
+  correctAnswer="Tuple"
+/>
