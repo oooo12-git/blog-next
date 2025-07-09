@@ -23,7 +23,8 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
   };
 
   const isCorrect =
-    userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
+    userAnswer.replace(/\s+/g, "").toLowerCase() ===
+    correctAnswer.replace(/\s+/g, "").toLowerCase();
 
   return (
     <div className="my-10 overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -43,13 +44,18 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
               답
             </td>
             <td className="p-2">
-              <input
-                type="text"
+              <textarea
                 value={userAnswer}
-                onChange={(e) => setUserAnswer(e.target.value)}
+                onChange={(e) => {
+                  setUserAnswer(e.target.value);
+                  // 자동으로 높이 조절
+                  e.target.style.height = "auto";
+                  e.target.style.height = e.target.scrollHeight + "px";
+                }}
                 placeholder="답을 입력해야 연습이됩니다!"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-black focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-black focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 resize-none overflow-hidden min-h-[38px]"
                 disabled={isCorrectAnswerVisible}
+                rows={1}
               />
             </td>
           </tr>
@@ -70,8 +76,8 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
                 <span
                   className={
                     isCorrect
-                      ? "font-bold text-blue-600 dark:text-blue-400"
-                      : "font-bold text-red-600 dark:text-red-400"
+                      ? "font-bold text-blue-600 dark:text-blue-400 whitespace-pre-wrap"
+                      : "font-bold text-red-600 dark:text-red-400 whitespace-pre-wrap"
                   }
                 >
                   {correctAnswer}
