@@ -9,7 +9,10 @@ export async function FeaturedPost({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const featuredMetadata = await getPost("photo-studio-reservation", locale);
+  const featuredMetadata = await getPost(
+    "korean-information-processing-engineer-practical-exam-strategy",
+    locale
+  );
   const t = await getTranslations("home");
 
   return (

@@ -1,8 +1,7 @@
 import ProblemAnswer from "@/app/components/ProblemAnswer";
 
 export const metadata = {
-  title:
-    "🔒 3A 완벽 정복: 인증, 권한 부여, 계정 관리 | 🚀정처기 실기 대비 문제 포함",
+  title: "🔒 3A : 인증, 권한 부여, 계정 관리 | 🚀정처기 실기 대비 문제 포함",
   description:
     "정보 보안의 핵심 3A 요소인 인증(Authentication), 권한 부여(Authorization), 계정 관리(Accounting)의 개념과 차이점을 명확히 알아봅니다. 각 요소가 어떻게 상호 작용하여 강력한 보안 시스템을 구축하는지 실제 예시와 함께 설명하며, 정처기 실기 대비 문제도 포함합니다.",
   publishedAt: "2025-07-08",
@@ -20,6 +19,27 @@ export const metadata = {
   ],
   heroImage: "/contents/default.jpg",
 };
+
+> 💡 정처기 실기 대비를 위한 주관식 문제는 포스팅 마지막에 있습니다. 문제를 여러번 푸는 걸 권장합니다.
+
+## 📊 3A 비교 요약
+
+| 구분          | **인증 (Authentication)**  | **권한 부여 (Authorization)**       | **계정 관리 (Accounting)**       |
+| :------------ | :------------------------- | :---------------------------------- | :------------------------------- |
+| **핵심 질문** | 당신은 누구인가?           | 무엇을 할 수 있는가?                | 무엇을 했는가?                   |
+| **목표**      | 신원 확인                  | 접근 제어                           | 활동 기록 및 책임 추적           |
+| **주요 기술** | 비밀번호, OTP, 생체 인식   | 접근 통제 목록(ACL), RBAC, DAC, MAC | 로그 파일, 시스템 모니터링, SIEM |
+| **순서**      | **1단계** (가장 먼저 수행) | **2단계** (인증 후 수행)            | **3단계** (접속 내내 지속)       |
+| **비유**      | 공항 탑승 수속 (신분 확인) | 비행기 좌석 등급 (권한 확인)        | 출입국 기록 및 면세점 구매 내역  |
+
+## 💡 암기 팁
+
+어쎈 인증! 어떠한 권한 부여?
+
+> - Authen(tication) 어쎈 인증.
+> - Author(ization) 권한 부여
+
+인증은 쎄고, 권한 부여는 어떻게 할까요?
 
 ## 🤔 3A (AAA) 란 무엇일까요?
 
@@ -89,16 +109,6 @@ export const metadata = {
 
 ---
 
-## 📊 3A 비교 요약
-
-| 구분          | **인증 (Authentication)**  | **권한 부여 (Authorization)**       | **계정 관리 (Accounting)**       |
-| :------------ | :------------------------- | :---------------------------------- | :------------------------------- |
-| **핵심 질문** | 당신은 누구인가?           | 무엇을 할 수 있는가?                | 무엇을 했는가?                   |
-| **목표**      | 신원 확인                  | 접근 제어                           | 활동 기록 및 책임 추적           |
-| **주요 기술** | 비밀번호, OTP, 생체 인식   | 접근 통제 목록(ACL), RBAC, DAC, MAC | 로그 파일, 시스템 모니터링, SIEM |
-| **순서**      | **1단계** (가장 먼저 수행) | **2단계** (인증 후 수행)            | **3단계** (접속 내내 지속)       |
-| **비유**      | 공항 탑승 수속 (신분 확인) | 비행기 좌석 등급 (권한 확인)        | 출입국 기록 및 면세점 구매 내역  |
-
 ## 📝 정처기 실기 대비 문제
 
 <ProblemAnswer
@@ -130,3 +140,10 @@ export const metadata = {
   problem="사용자가 시스템에서 수행한 모든 활동을 기록하고 추적하여 책임 추적성을 확보하는 보안 절차는?"
   correctAnswer="계정 관리 (Accounting)"
 />
+
+## 다음 읽으면 좋은 포스팅
+
+- [🔐 서버 접근 통제(Access Control) - DAC, MAC, RBAC | 🚀정처기 실기 대비 문제 포함](/ko/blog/server-access-control)
+- [🔐 인증 기술 : SSO, Kerberos, OAuth | 🚀정처기 실기 대비 문제 포함](/ko/blog/authentication-technologies)
+- [🔐 정처기 실기를 위한 인증 기법](/ko/blog/authentication-for-exam)
+- [정보처리기사 실기, 이론 문제 공략 팁 총정리📝](/ko/blog/korean-information-processing-engineer-practical-exam-strategy)

@@ -5,11 +5,21 @@ export const metadata = {
   description:
     "서비스 거부(DoS) 공격의 기본 개념과 분산 서비스 거부(DDoS) 공격과의 차이점을 알아봅니다. 또한, 증폭 공격 방식인 반사 서비스 거부(DRDoS)의 원리와 동작 방식에 대해 설명합니다. 정처기 실기 대비 실전 문제도 포함되어 있습니다.",
   publishedAt: "2025-07-06",
-  lastModifiedAt: "2025-07-06",
+  lastModifiedAt: "2025-07-09",
   timeToRead: 0,
   tags: ["정처기", "DoS", "DDoS", "DRDoS", "보안", "네트워크"],
   heroImage: "/contents/default.jpg",
 };
+
+> 💡 정처기 실기 대비를 위한 주관식 문제는 포스팅 마지막에 있습니다. 문제를 여러번 푸는 걸 권장합니다.
+
+## 서비스 거부(DoS) 공격 종류
+
+| 구분          | 공격 종류                                                           |
+| :------------ | :------------------------------------------------------------------ |
+| **기본**      | DoS (서비스 거부)                                                   |
+| **분산**      | DDoS (분산 서비스 거부), DRDoS (분산 반사 서비스 거부)              |
+| **주요 기법** | 랜드 어택, 스머프 어택, 티어드롭, 죽음의 핑, SYN 플러딩, UDP 플러딩 |
 
 ## 🚫 DoS(Denial of Service) 공격이란?
 
@@ -128,3 +138,9 @@ UDP는 TCP와 달리 연결 설정 과정이 없는 비연결성 프로토콜입
   problem="UDP 플러딩은 이러한 특징을 악용하여 다량의 UDP 패킷을 특정 포트로 무작위로 전송하는 공격입니다. 서버는 해당 포트에서 실행 중인 애플리케이션이 있는지 확인하고, 없으면 ICMP 'Destination Unreachable' 메시지를 응답합니다. 이 과정이 반복되면서 서버의 리소스가 고갈되어 정상적인 요청을 처리할 수 없게 됩니다. 이 공격 방법은?"
   correctAnswer="UDP 플러딩"
 />
+
+## 다음 읽으면 좋은 포스팅
+
+- [🔒 네트워크 공격 종류 - 🚀정처기 실기 대비 문제 포함](/ko/blog/network-attack)
+- [🔐보안 공격의 종류](/ko/blog/types-of-security-attack)
+- [정보처리기사 실기, 이론 문제 공략 팁 총정리📝](/ko/blog/korean-information-processing-engineer-practical-exam-strategy)
