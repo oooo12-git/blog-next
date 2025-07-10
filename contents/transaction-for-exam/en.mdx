@@ -1,0 +1,64 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
+export const metadata = {
+  title: "🛢️ Database Transactions and Recovery Techniques | Engineer Exam Prep",
+  description:
+    "A summary of the ACID properties (Atomicity, Consistency, Isolation, Durability) of database transactions and various recovery techniques (Log-based, Checkpoint, Shadow Paging), including a practice problem for the certification exam.",
+  publishedAt: "2025-07-10",
+  lastModifiedAt: "2025-07-10",
+  timeToRead: 0,
+  tags: [
+    "Engineer Exam",
+    "Database",
+    "Transaction",
+    "ACID",
+    "Recovery Techniques",
+    "Certification",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+## Transaction Properties: ACID
+
+To ensure the integrity and consistency of a database, a transaction must satisfy the following four main properties (ACID).
+
+| Property                 | Description                                                                                  |
+| :----------------------- | :------------------------------------------------------------------------------------------- |
+| **Atomicity**            | All operations of a transaction must be executed successfully, or none of them should be (All or Nothing). |
+| **Consistency**          | The database must always remain in a consistent state after a transaction is executed.       |
+| **Isolation**            | No other transaction can interfere while one transaction is being executed.                  |
+| **Durability**           | The results of a successfully completed transaction must be permanently stored in the database. |
+
+## Database Recovery Techniques
+
+These are techniques for restoring data to a previous consistent state when a database failure occurs.
+
+### Core Components of Recovery Techniques
+
+| Component         | Description                                                                                                |
+| :---------------- | :--------------------------------------------------------------------------------------------------------- |
+| **REDO**          | If a transaction has successfully committed but its changes have not been written to disk, REDO applies those changes again. |
+| **UNDO**          | If a transaction fails, UNDO reverts the database to its original state before the changes were made.        |
+
+### Types of Recovery Techniques
+
+| Technique                           | Description                                                                                                                                |
+| :---------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Log-based Recovery**              | Changes to the database are sequentially recorded in a log file. In case of failure, this log is used for recovery.                         |
+| &nbsp;&nbsp; - Deferred Update      | Delays applying changes to the database until the transaction successfully completes. It only requires REDO, not UNDO.                       |
+| &nbsp;&nbsp; - Immediate Update     | Changes made during a transaction are immediately reflected in the database. Both REDO and UNDO may be necessary.                            |
+| **Checkpoint Recovery**             | Saves a consistent state of the database at a specific point in time (a checkpoint). If a failure occurs, recovery starts from the most recent checkpoint, reducing recovery time. |
+| **Shadow Paging**                   | Creates a copy (shadow page) of the page that needs to be modified. When the transaction completes successfully, the original page is replaced with the shadow page. |
+
+---
+
+## ✍️ Practice Problem for Engineer Exam
+
+<ProblemAnswer
+  problem="Describe the core component of a database recovery technique that re-executes the changes by referring to the log when a transaction has completed successfully, but its changes have not been reflected on the disk."
+  correctAnswer="REDO"
+/>
+
+## ➡️ Recommended Next Post
+
+- [Complete Guide to Acing the Information Processing Engineer Practical Exam 📝](/en/blog/korean-information-processing-engineer-practical-exam-strategy)

@@ -1,0 +1,134 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
+export const metadata = {
+  title: "🗃️ Database Integrity: Entity, Referential, Attribute, User, Key | 🚀 Practice Problems",
+  description:
+    "Learn the concepts and examples of the 5 types of integrity (Entity, Referential, Attribute, User, Key) that ensure database accuracy and consistency, and finish with practice problems for certification exams.",
+  publishedAt: "2025-07-10",
+  lastModifiedAt: "2025-07-10",
+  timeToRead: 0,
+  tags: ["Certification", "Database", "DB", "Integrity", "Information Security"],
+  heroImage: "/contents/default.jpg",
+};
+
+> 💡 Multiple-choice practice problems for certification exams are at the end of this post. It is recommended to solve the problems multiple times.
+
+## 📊 Summary of Database Integrity Types
+
+Database integrity means maintaining the accuracy, consistency, and validity of data. Various constraints are used to enhance the reliability of the database.
+
+| Type                | **Core Keyword**              | **Description**                                                                 |
+| :------------------ | :---------------------------- | :------------------------------------------------------------------------------ |
+| **Entity Integrity**    | `PRIMARY KEY`                 | The primary key cannot contain `NULL` values and must be unique within the relation. |
+| **Referential Integrity** | `FOREIGN KEY`                 | A foreign key value must match a primary key value in the referenced relation or be `NULL`. |
+| **Attribute Integrity** | `DOMAIN`, `CHECK`, `DEFAULT`  | Attribute values must belong to a defined domain (data type, range, etc.).      |
+| **User-Defined Integrity** | `TRIGGER`                     | Integrity conditions defined by the user to fit specific business rules.      |
+| **Key Integrity**       | `UNIQUE`                      | No two tuples in a relation can have the same key value.                        |
+
+---
+
+## 1. Entity Integrity
+
+**Entity integrity** is a constraint that ensures every tuple (row) in a relation can be uniquely identified. It uses a **Primary Key**, which must satisfy two conditions:
+
+1.  It **cannot have a `NULL` value.** (Not Null)
+2.  It must have a **unique value** within the relation. (Unique)
+
+-   **Example**: If `student_id` is set as the primary key in a `Student` table, every student must have a unique ID, and no student data can exist without one.
+
+```sql
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    major VARCHAR(50)
+);
+```
+
+---
+
+## 2. Referential Integrity
+
+**Referential integrity** is a constraint that ensures the relationship between two relations remains valid. It is enforced using a **Foreign Key**, which must either be one of the **primary key** values from the referenced relation or be `NULL`.
+
+-   **Example**: The `student_id` in the `Enrollment` table is a foreign key that references the `student_id` in the `Student` table. Therefore, any `student_id` entered into the `Enrollment` table must already exist in the `Student` table. You cannot enter enrollment information for a non-existent student.
+
+```sql
+CREATE TABLE Enrollment (
+    enrollment_id INT PRIMARY KEY,
+    student_id INT,
+    course_code VARCHAR(10),
+    FOREIGN KEY (student_id) REFERENCES Student(student_id)
+);
+```
+
+---
+
+## 3. Attribute Integrity or Domain Integrity
+
+**Attribute integrity** is a constraint that ensures each attribute (column) value in a relation belongs to a valid range of values (a domain). It can be set using data types, `NULL` constraints, default values, and `CHECK` constraints.
+
+-   **Example**: In a `Student` table, you can enforce that the `gpa` attribute only accepts numbers between 0.0 and 4.5, and that `gender` can only be 'Male' or 'Female'.
+
+```sql
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    gender VARCHAR(10) CHECK(gender IN ('Male', 'Female')),
+    gpa DECIMAL(2, 1) CHECK(gpa BETWEEN 0.0 AND 4.5),
+    registration_date DATE DEFAULT CURRENT_DATE
+);
+```
+
+---
+
+## 4. User-Defined Integrity
+
+**User-defined integrity** is a set of constraints defined by the user to enforce specific business rules or organizational policies in the database. It is often implemented using **Triggers**.
+
+-   **Example**: You can create a rule where if a product's stock in the `Products` table drops below 10, its information is automatically added to the `Reorder` table.
+
+```sql
+CREATE TRIGGER low_stock_alert
+AFTER UPDATE ON Products
+FOR EACH ROW
+BEGIN
+    IF NEW.stock < 10 THEN
+        INSERT INTO Reorder (product_code, request_date) VALUES (NEW.product_code, NOW());
+    END IF;
+END;
+```
+
+---
+
+## 5. Key Integrity
+
+**Key integrity** is a constraint that ensures every tuple in a relation has a unique key value. While the Primary Key constraint covers both entity and key integrity, the `UNIQUE` constraint can be used to enforce uniqueness on non-primary key attributes as well.
+
+-   **Example**: In a `Members` table, the `email` is not the primary key, but you can set a `UNIQUE` constraint to ensure that every member has a different email address.
+
+```sql
+CREATE TABLE Members (
+    member_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
+```
+
+---
+
+## 📝 Practice Problems for Certification Exam
+
+<ProblemAnswer
+  problem="What is the constraint that ensures a primary key cannot have a NULL value and must be unique within the relation?"
+  correctAnswer="Entity Integrity"
+/>
+
+<ProblemAnswer
+  problem="What is the constraint that requires a foreign key value to either match a primary key value in another table or be NULL?"
+  correctAnswer="Referential Integrity"
+/>
+
+<ProblemAnswer
+  problem="What is the constraint that ensures attribute values belong to a predefined data type or range?"
+  correctAnswer="Attribute Integrity (or Domain Integrity)"
+/>

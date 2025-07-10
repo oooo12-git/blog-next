@@ -1,0 +1,137 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
+export const metadata = {
+  title:
+    "💻 Software Module Cohesion & Coupling: Core Principles of Good Code",
+  description:
+    "Understand the core principles of software design: Cohesion and Coupling. Learn the 7 types of cohesion and 6 types of coupling with examples. Concludes with practice questions for certification exams.",
+  publishedAt: "2025-07-10",
+  lastModifiedAt: "2025-07-10",
+  timeToRead: 0,
+  tags: ["Software Engineering", "Cohesion", "Coupling", "Software Design", "Module"],
+  heroImage: "/contents/default.jpg",
+};
+
+> 💡 The key to good software design is to maintain **High Cohesion** and **Low Coupling**.
+
+> ❗️It's important to memorize the characteristics and order of each type of cohesion and coupling.
+
+## 🚀 Cohesion and Coupling at a Glance
+
+Two important metrics that determine software quality are **Cohesion** and **Coupling**.
+
+-   **Cohesion**: Indicates how closely related the elements within a single module are. **Higher is better.**
+-   **Coupling**: Represents the degree of interdependence between modules. **Lower is better.**
+
+| Cohesion (Higher is better)      | Coupling (Worst to Best) |
+| :------------------------------- | :------------------------- |
+| **Functional**                   | **Content**                |
+| **Sequential**                   | **Common**                 |
+| **Communicational**              | **External**               |
+| **Procedural**                   | **Control**                |
+| **Temporal**                     | **Stamp**                  |
+| **Logical**                      | **Data**                   |
+| **Coincidental (Accidental)**    |                            |
+
+---
+
+## 1. 🧩 Module Cohesion
+
+**Cohesion** is a measure of how closely the components of a module work together to perform a single function. High cohesion increases a module's independence, making it easier to reuse and maintain.
+
+### Types of Cohesion (Worst to Best)
+
+1.  **Coincidental Cohesion (Accidental)**
+    -   The components within the module have no relationship. This is the lowest level of cohesion.
+    -   **Example**: A `Utils` module that contains unrelated functions like `sendEmail`, `calculateSum`, and `printReport`.
+
+2.  **Logical Cohesion**
+    -   Functions of a similar nature or belonging to a specific category are grouped into one module.
+    -   **Example**: A module that handles all types of `input`. Mouse, keyboard, and touchscreen inputs are all handled within one function using a case statement.
+
+3.  **Temporal Cohesion**
+    -   Functions that must be executed at the same time are grouped together.
+    -   **Example**: An `initialize` module that groups initialization codes that must run at program start (variable initialization, environment setup, opening log files).
+
+4.  **Procedural Cohesion**
+    -   Functions within a module are grouped because they must be executed in a specific order.
+    -   **Example**: A `process_user_data` module that calls `read_data()`, `validate_data()`, and `save_data()` in sequence.
+
+5.  **Communicational Cohesion**
+    -   Functions that use the same input data or produce the same output data are grouped together.
+    -   **Example**: A `print_student_info` module takes a 'student ID' as input and performs `get_name()`, `get_grades()`, and `get_address()` functions to output the information.
+
+6.  **Sequential Cohesion**
+    -   The output of one function serves as the input for another function in a sequential relationship.
+    -   **Example**: In a `file_processing` module, the output (file content) of the `read_file()` function is used as the input for the `compress_data()` function.
+
+7.  **Functional Cohesion**
+    -   All functions within the module are organized to perform a single, well-defined purpose. This is the most ideal cohesion.
+    -   **Example**: A `calculate_circle_area` module only performs the single function of calculating the area of a circle given its radius.
+
+---
+
+## 2. 🔗 Module Coupling
+
+**Coupling** is a measure of how much modules depend on each other. Lower coupling reduces the impact of changes in one module on others, improving the system's maintainability and scalability.
+
+### Types of Coupling (Worst to Best)
+
+1.  **Content Coupling**
+    -   One module directly references or modifies the internal functions or data of another module. This is the highest level of coupling.
+    -   **Example**: Module A branches into the middle of Module B's code or directly uses a local variable inside Module B.
+
+2.  **Common Coupling**
+    -   Multiple modules share a global variable or a common data area.
+    -   **Example**: Several modules read and modify settings from a global `GlobalConfig` object.
+
+3.  **External Coupling**
+    -   Two modules share an externally defined data format, communication protocol, or specific hardware.
+    -   **Example**: Two modules share a specific file format to read and write data.
+
+4.  **Control Coupling**
+    -   One module passes a control signal (Flag, Switch) to control the behavior of another module.
+    -   **Example**: Module A calls Module B, passing a `sort_method` flag that determines whether Module B will operate in ascending or descending order.
+
+5.  **Stamp Coupling**
+    -   Two modules pass a data structure (object, record, etc.) between them, but only a portion of the data is used.
+    -   **Example**: A `Student` object (containing ID, name, address, phone number) is passed to a `print_address` module, but the module only uses the `address` field.
+
+6.  **Data Coupling**
+    -   Two modules exchange only the minimum necessary data (simple parameters). This is the most ideal coupling.
+    -   **Example**: An `add` module takes two numbers, `a` and `b`, as parameters and returns their sum.
+
+---
+
+## 📝 Practice Questions for Certification Exam
+
+<ProblemAnswer
+  problem="What is the measure of how closely the elements within a module are related to a single purpose?"
+  correctAnswer="Cohesion"
+/>
+
+<ProblemAnswer
+  problem="What represents the degree of interdependence between modules, where a lower value indicates a better design?"
+  correctAnswer="Coupling"
+/>
+
+<ProblemAnswer
+  problem="Among the types of cohesion, which is considered the most ideal, where all functions in the module serve a single purpose?"
+  correctAnswer="Functional Cohesion"
+/>
+
+<ProblemAnswer
+  problem="Among the types of coupling, which is considered the most desirable, where two modules exchange only the minimum necessary data as parameters?"
+  correctAnswer="Data Coupling"
+/>
+
+<ProblemAnswer
+  problem="List the types of cohesion from lowest to highest, and the types of coupling from highest to lowest."
+  correctAnswer="Cohesion: Coincidental < Logical < Temporal < Procedural < Communicational < Sequential < Functional
+Coupling: Content > Common > External > Control > Stamp > Data"
+/>
+
+## ➡️ Recommended Next Reads
+
+- [🗃️ 데이터베이스 무결성: 개체, 참조, 속성, 사용자, 키](/ko/blog/data-integrity-for-exam)
+- [정보처리기사 실기, 이론 문제 공략 팁 총정리📝](/ko/blog/korean-information-processing-engineer-practical-exam-strategy)
