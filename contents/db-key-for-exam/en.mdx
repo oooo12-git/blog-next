@@ -1,0 +1,138 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+import Details from "@/app/components/Details";
+
+export const metadata = {
+  title:
+    "🔑 Database Keys: Superkey, Candidate Key, Primary Key, Foreign Key | 🚀 Includes Problems for Information Processing Engineer Exam",
+  description:
+    "Explore everything about Keys, a core concept in databases. This guide easily explains the characteristics of keys (uniqueness and minimality), the concepts and relationships of Superkeys, Candidate Keys, Primary Keys, Alternate Keys, and Foreign Keys with examples, and concludes with practice questions for the Information Processing Engineer certification exam.",
+  publishedAt: "2025-07-12",
+  lastModifiedAt: "2025-07-12",
+  timeToRead: 0,
+  tags: [
+    "Information Processing Engineer",
+    "Database",
+    "DB",
+    "Key",
+    "Primary Key",
+    "Foreign Key",
+  ],
+  heroImage: "/contents/db-key-for-exam/db-key-kidaeshu.png",
+};
+
+> 💡 **Database Keys** are a core concept in relational databases, used to uniquely identify rows (Tuples) in a table and define relationships between tables. They are frequently tested in the Information Processing Engineer exam, so it's crucial to clearly understand the characteristics and relationships of each key.
+
+| Key Type | Characteristics | Description |
+| :--- | :--- | :--- |
+| **Primary Key** | Chosen from candidate keys, Not Null | The key selected from candidate keys to represent the table. |
+| **Alternate Key** | Remaining candidate keys | Candidate keys that were not selected as the primary key. |
+| **Candidate Key** | Uniqueness O, Minimality O | A minimal set of attributes that can uniquely identify a tuple. |
+| **Superkey** | Uniqueness O, Minimality X | An attribute or set of attributes that can uniquely identify a tuple. |
+| **Foreign Key** | References another table's primary key | Defines relationships between tables and ensures referential integrity. |
+
+## 🎯 What is a Database Key?
+
+A **Key** is an **attribute or a set of attributes** that serves as a unique identifier to find or sort tuples (rows) that meet a condition, distinguishing them from other tuples. Keys ensure data integrity and enable efficient data management.
+
+---
+
+## ✨ Key Characteristics
+
+Not all keys always satisfy these two properties, but they are essential for defining a candidate key.
+
+- **Uniqueness**: A key value must be able to **uniquely identify a single tuple**. For example, in a 'Student' table, the 'student_id' uniquely identifies each student, thus satisfying uniqueness.
+- **Minimality**: It must be composed of the **minimum number of attributes** that satisfy uniqueness. This means if any attribute is removed from the key, it no longer satisfies uniqueness.
+
+---
+
+## 🔑 Types of Keys and Their Relationships
+
+There are several types of keys in a database, which have an inclusive relationship with each other.
+
+### Mnemonic: APCS
+
+**A**lternate Key + **P**rimary Key = **C**andidate Key ⊂ **S**uperkey.
+
+<ImageWithCaption
+  src="/contents/db-key-for-exam/db-key-kidaeshu.png"
+  alt="A mnemonic for remembering the relationship between database keys"
+  caption="The Korean mnemonic '기대슈' (Ki-Dae-Shu) is a popular way to remember this hierarchy."
+  width={1024}
+  height={1024}
+/>
+
+**A**lternate Key + **P**rimary Key = **C**andidate Key ⊂ **S**uperkey.
+
+### 1. Primary Key (PK)
+
+- **Definition**: **A single key selected from the candidate keys**. It represents the table.
+- **Characteristics**:
+  - **Cannot have a NULL value.**
+  - Cannot have duplicate values.
+  - Only one primary key exists per table.
+- **Selection Criteria**: A candidate key that is short, does not change frequently, and does not have NULL values is usually selected as the primary key.
+- **Example**: Between the two candidate keys `{student_id}` and `{resident_registration_number}`, `student_id` is generally chosen as the primary key.
+
+### 2. Alternate Key
+
+- **Definition**: The **remaining candidate keys** that were not selected as the primary key.
+- **Characteristics**: They retain the properties of a candidate key (uniqueness, minimality).
+- **Example**: If `student_id` is chosen as the primary key, `resident_registration_number` becomes an alternate key.
+
+### 3. Candidate Key
+
+- **Definition**: A key composed of the **minimum attributes** required to **uniquely identify** each row in a table.
+- **Characteristics**: Must satisfy both **uniqueness** and **minimality**.
+- **Example**: In the 'Student' table example above:
+  - `{student_id}`: Candidate key (Uniqueness O, Minimality O)
+  - `{resident_registration_number}`: Candidate key (Uniqueness O, Minimality O)
+  - `{student_id, name}`: Not a candidate key (Minimality X - uniqueness is satisfied by `student_id` alone).
+
+### 4. Superkey
+
+- **Definition**: An attribute or a set of attributes that can **uniquely identify** each row in a table.
+- **Characteristics**: It satisfies **uniqueness**, but not necessarily **minimality**.
+- **Example**: Assuming a 'Student' table has attributes `(student_id, resident_registration_number, name)`:
+  - `{student_id}`: Superkey (Uniqueness O)
+  - `{resident_registration_number}`: Superkey (Uniqueness O)
+  - `{student_id, name}`: Superkey (Uniqueness O)
+  - `{student_id, resident_registration_number}`: Superkey (Uniqueness O)
+
+### 5. Foreign Key (FK)
+
+- **Definition**: An attribute in one table that **references the primary key (PK)** of another table.
+- **Purpose**: Used to establish a **Relationship** between tables and ensure **referential integrity**.
+- **Characteristics**:
+  - Can only contain values that exist in the referenced primary key or NULL values.
+  - The foreign key must have the same domain as the primary key it references.
+- **Example**: In an 'Enrollment' table, the `student_id` attribute is a foreign key that references the primary key `student_id` in the 'Student' table. This establishes a relationship showing which student is enrolled in which course.
+
+---
+
+## 📝 Practice Problems for the Engineer Exam
+
+<ProblemAnswer
+  problem="What is the key that can uniquely identify a tuple, satisfying uniqueness but not necessarily minimality?"
+  correctAnswer="Superkey"
+/>
+
+<ProblemAnswer
+  problem="What is the key that satisfies both uniqueness and minimality, making it a candidate to become the primary key?"
+  correctAnswer="Candidate Key"
+/>
+
+<ProblemAnswer
+  problem="What is the key selected from the candidate keys to represent the table? This key cannot have NULL values."
+  correctAnswer="Primary Key"
+/>
+
+<ProblemAnswer
+  problem="What are the remaining candidate keys that are not selected as the primary key called?"
+  correctAnswer="Alternate Key"
+/>
+
+<ProblemAnswer
+  problem="What is the key used to establish relationships between tables and ensure referential integrity by referencing the primary key of another table?"
+  correctAnswer="Foreign Key"
+/>

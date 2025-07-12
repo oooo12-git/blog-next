@@ -1,0 +1,102 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+
+export const metadata = {
+  title:
+    "💾 Data Model: 3 Elements & 4 Design Stages | 🚀 Includes Practice Questions for Engineer Exam",
+  description:
+    "Master the 3 essential components of a data model (Structure, Operation, Constraint) and the 4 stages of database design (Requirements Analysis, Conceptual, Logical, Physical) for the Information Processing Engineer exam.",
+  publishedAt: "2025-07-12",
+  lastModifiedAt: "2025-07-12",
+  timeToRead: 0,
+  tags: ["Data Model", "Database", "Database Design", "Engineer Exam"],
+  heroImage: "/contents/default.jpg",
+};
+
+> 💡 Questions about the components of a data model and the stages of database design are frequently asked in the Information Processing Engineer practical exam. It's crucial to clearly understand the characteristics and deliverables of each stage.
+
+---
+
+## 🗺️ What is a Data Model?
+
+A **data model** is a conceptual tool for representing real-world information in the digital world. It specifies how data is **structured**, what **operations** are possible, and what **constraints** it must follow in a database.
+
+## 1. The 3 Components of a Data Model
+
+A data model consists of the following three core components:
+
+| Category | **Core Concept** | **Description** |
+| :--- | :--- | :--- |
+| **Structure** | Logical structure of data | Defines the object types, data types, and relationships between objects to be represented in the database. |
+| **Operation** | Data processing methods | Specifies how to manipulate and retrieve data (e.g., SELECT, INSERT, UPDATE, DELETE). |
+| **Constraint** | Data validity | Logical restrictions on data to ensure the database maintains valid and consistent information. |
+
+---
+
+## 2. The 4 Stages of Database Design
+
+Database design follows a systematic 4-stage process from requirements analysis to physical implementation.
+
+> Mnemonic: Requirements → Conceptual → Logical → Physical
+
+### **Stage 1: Requirements Analysis**
+
+- **Core Activity**: Collect and analyze user requirements to create a specification document.
+- **Description**: This stage involves understanding the needs of the people who will use the database, determining what data to store, and how it will be used. The success of this stage dictates the direction of the entire project.
+- **Deliverable**: Requirements Specification Document
+
+### **Stage 2: Conceptual Design**
+
+- **Core Activity**: Represent the real world as an abstract conceptual model.
+- **Description**: Defines the system's core entities and their relationships, independent of any specific DBMS. It is primarily expressed using an **Entity-Relationship Diagram (E-R Diagram)**.
+- **Deliverable**: Conceptual Schema, E-R Diagram
+
+### **Stage 3: Logical Design**
+
+- **Core Activity**: Convert the conceptual model into a logical model supported by a specific DBMS.
+- **Description**: The E-R diagram created in the conceptual design stage is transformed into a table (relation) schema based on an actual database model (e.g., relational model). The normalization process is performed at this stage.
+- **Deliverable**: Logical Schema (Table Specifications)
+
+### **Stage 4: Physical Design**
+
+- **Core Activity**: Define the physical structure for storing the logical model on a storage device.
+- **Description**: Considers database performance and storage efficiency to determine file structures, indexes, and access paths. It is designed to achieve optimal performance by considering the characteristics of a specific DBMS.
+- **Deliverable**: Physical Schema (Storage Structure)
+
+### 📊 Summary of the 4 Database Design Stages
+
+| Stage | Core Activity | Key Deliverable | Characteristics |
+| :--- | :--- | :--- | :--- |
+| **Requirements Analysis** | Collect & analyze user needs | Requirements Specification | Identifies user needs and sets system goals. |
+| **Conceptual Design** | Abstract modeling of the real world | E-R Diagram, Conceptual Schema | Creates a DBMS-independent model (human-centric). |
+| **Logical Design** | Convert to a DBMS-specific logical model | Logical Schema (Table Specs) | Converts E-R diagram to tables and performs normalization. |
+| **Physical Design** | Design physical structure for storage | Physical Schema (Storage Structure) | Designs indexes and file structures for performance and efficiency. |
+
+---
+
+## 📝 Practice Questions for the Engineer Exam
+
+<ProblemAnswer
+  problem="List the three components of a data model."
+  correctAnswer="Structure, Operation, Constraint"
+/>
+
+<ProblemAnswer
+  problem="In which stage of database design is an E-R diagram used to represent the real world as an abstract model?"
+  correctAnswer="Conceptual Design"
+/>
+
+<ProblemAnswer
+  problem="Which database design stage involves designing table schemas and performing normalization for a specific DBMS?"
+  correctAnswer="Logical Design"
+/>
+
+<ProblemAnswer
+  problem="List the stages of database design in order."
+  correctAnswer="Requirements Analysis → Conceptual Design → Logical Design → Physical Design"
+/>
+
+## ➡️ Recommended Next Reads
+
+- [🗃️ Database Integrity: Entity, Referential, Attribute, User, Key](/en/blog/data-integrity-for-exam)
+- [🔑 A Complete Guide to Database Keys: Superkey, Candidate Key, Primary Key, Alternate Key, Foreign Key](/en/blog/db-key-for-exam)
