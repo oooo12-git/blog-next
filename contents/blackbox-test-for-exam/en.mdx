@@ -1,0 +1,157 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
+export const metadata = {
+  title: "⬛ A Complete Guide to Black-Box Testing Types | 🚀 For Engineer Exam Prep",
+  description:
+    "Learn the core concept of black-box testing, a key part of software testing, and its main types (Equivalence Partitioning, Boundary Value Analysis, Cause-Effect Graphing, Error Guessing, Decision Table). The post concludes with practice problems for the Information Processing Engineer exam.",
+  publishedAt: "2025-07-12",
+  lastModifiedAt: "2025-07-12",
+  timeToRead: 0,
+  tags: ["Software Testing", "Black-box Testing", "Engineer Exam", "Test Cases"],
+  heroImage: "/contents/blackbox-test-for-exam/blackbox-testing-types.webp",
+};
+
+> 💡 Short-answer questions for the engineer exam are at the end of this post. It is recommended to solve them multiple times.
+
+> ❗️It is important to understand the concept of each test type and when it is used.
+
+## 🚀 What is Black-Box Testing?
+
+**Black-box Testing** is a method of software testing that examines the functionality of an application without peering into its internal structures or workings. This method of test can be applied to virtually every level of software testing: unit, integration, system, and acceptance. It is sometimes referred to as **specification-based testing**.
+
+## ⬛ Black-Box Testing Types at a Glance
+
+| Test Type | Core Concept | Key Feature |
+| :--- | :--- | :--- |
+| **Equivalence Partitioning** | Divides input data into valid/invalid classes for testing. | Effectively reduces the number of test cases. |
+| **Boundary Value Analysis** | Focuses on testing the boundaries of the partitioned classes. | Based on the idea that errors are more likely at boundaries. |
+| **Decision Table Testing** | Organizes complex business logic and corresponding actions in a table. | Useful when logical conditions are complex. |
+| **Cause-Effect Graphing** | Represents the logical relationship between inputs (causes) and outputs (effects) in a graph. | Visually analyzes relationships between conditions. |
+| **State Transition Testing** | Designs test cases based on the system's state changes. | Verifies state changes in response to specific events. |
+| **Error Guessing** | Predicts parts of the system prone to errors based on tester's experience and intuition. | Can find errors that are hard to detect with other techniques. |
+| **Comparison Testing** | Compares different versions or products with the same functionality. | Verifies consistency and performance differences. |
+| **Pairwise Testing** | Tests all pairs of input values instead of all possible combinations. | Drastically reduces test cases for multiple parameter combinations. |
+| **Classification Tree Method** | Derives test cases by analyzing test-related factors in a tree structure. | Systematically visualizes complex input condition combinations. |
+| **Use Case Testing** | Tests based on user scenarios (use cases). | Verifies real user interaction and business flows. |
+
+---
+
+## 1. 🧩 Detailed Black-Box Testing Types
+
+### 1. Equivalence Partitioning
+
+This is a software testing technique that divides the input data of a software unit into partitions of equivalent data from which test cases can be derived. In principle, test cases are designed to cover each partition at least once.
+
+- **Example**: A system that accepts test scores (from 1 to 100).
+  - **Valid Partition**: Values from 1 to 100 (e.g., 50).
+  - **Invalid Partitions**: Values less than 1 (e.g., 0), values greater than 100 (e.g., 101).
+
+### 2. Boundary Value Analysis
+
+This technique focuses on the "boundaries" of the input domain. It is an extension of Equivalence Partitioning and tests the boundary values of each partition.
+
+- **Example**: A system that accepts test scores (from 1 to 100).
+  - **Boundary Values**: 0, 1, 2 (minimum boundary) and 99, 100, 101 (maximum boundary).
+
+### 3. Decision Table Testing
+
+This is a systematic approach where various input combinations and their corresponding system behavior (output) are captured in a tabular form. It is used to design test cases for systems with complex logical conditions.
+
+- **Example**: A shopping mall's discount policy.
+  - **Conditions**: Is the customer a VIP member? Is the purchase amount over $100? Was a coupon used?
+  - **Actions**: 20% discount, 10% discount, 5% discount, no discount.
+
+### 4. Cause-Effect Graphing
+
+This is a technique that systematically analyzes the relationships between input data and their effects on the output to select highly effective test cases. It represents the logical relationships between causes (inputs) and effects (outputs) as a graph.
+
+### 5. State Transition Testing
+
+This technique analyzes and tests how the state of a system changes in response to specific events. Test cases are designed using a state transition diagram.
+
+- **Example**: An ATM machine.
+  - **States**: Idle, Card Inserted, PIN Entered, In Transaction, Card Returned.
+  - **Events**: Insert card, enter PIN, request withdrawal, end transaction.
+
+### 6. Error Guessing
+
+This is a testing technique where the tester's experience and intuition are used to predict what errors might be present in the system and to design test cases to verify them. While not a formal method, it can be effective at finding errors that other techniques might miss.
+
+- **Example**: Entering an ID in the password field, entering text in a numeric field, leaving required fields blank.
+
+### 7. Comparison Testing
+
+This technique involves testing with the same data on multiple versions of a program or against competitor products to compare the results.
+
+### 8. Pairwise Testing (All-Pairs Testing)
+
+Instead of testing all possible combinations of input parameters, this technique creates combinations to ensure that **every pair of parameter values is tested at least once**. It is highly effective in addressing the "combinatorial explosion" problem, where the number of combinations grows exponentially as parameters increase.
+
+- **Example**: Website settings (OS: Win, Mac / Browser: Chrome, Firefox / Language: Korean, English)
+  - Instead of all 8 combinations (2x2x2), the following 4 cases can test every pair (OS-Browser, OS-Language, Browser-Language):
+    1. Win - Chrome - Korean
+    2. Win - Firefox - English
+    3. Mac - Chrome - English
+    4. Mac - Firefox - Korean
+
+### 9. Classification Tree Method
+
+This method systematically derives test cases by representing the inputs and conditions of a test object in a tree structure. It helps to visually clarify complex input combinations and design logical test cases.
+
+- **Example**: File upload feature
+  - **Tree Root**: File Upload
+  - **Level 1 (Classifications)**: File Type, File Size
+  - **Level 2 (Classes)**: (Image, Document), (Under 10MB, Over 10MB)
+  - **Test Cases**: Combinations like (Image, Under 10MB), (Document, Over 10MB), etc.
+
+### 10. Use Case Testing
+
+This technique designs test cases based on **use cases**, which define scenarios of how a system is used from a user's perspective. It focuses on verifying the interaction flow as the system helps a user achieve a specific goal.
+
+- **Example**: "Purchase Item" use case for an online store
+  - **Scenario**: Log in -> Search for item -> Select item -> Add to cart -> Order/Pay -> Confirm order
+  - The test follows this flow, verifying the functionality and handling exceptions (e.g., entering incorrect card info) at each step.
+
+---
+
+## 📝 Practice Problems for the Engineer Exam
+
+<ProblemAnswer
+  problem="What is the type of testing that examines the functionality of a software without knowing its internal structure or workings?"
+  correctAnswer="Black-box Testing"
+/>
+
+<ProblemAnswer
+  problem="What are two other names for black-box testing?"
+  correctAnswer="Specification-based testing, Functional testing"
+/>
+
+<ProblemAnswer
+  problem="What is the technique that divides the input data domain into valid and invalid partitions and selects a representative value from each to design test cases?"
+  correctAnswer="Equivalence Partitioning"
+/>
+
+<ProblemAnswer
+  problem="What is the technique that, after equivalence partitioning, designs test cases focusing on boundary values, assuming errors are concentrated there?"
+  correctAnswer="Boundary Value Analysis"
+/>
+
+<ProblemAnswer
+  problem="What is the technique where a tester uses experience and intuition to guess which parts of a system are likely to have errors?"
+  correctAnswer="Error Guessing"
+/>
+
+<ProblemAnswer
+  problem="What is the technique that designs test cases by representing the logical relationships (causes) and their corresponding results (effects) in a graph?"
+  correctAnswer="Cause-Effect Graphing"
+/>
+
+<ProblemAnswer
+  problem="What is the technique that analyzes and tests how the state of a system changes in response to specific events?"
+  correctAnswer="State Transition Testing"
+/>
+
+## ➡️ Recommended Next Reads
+
+- [💻 Software Module Cohesion and Coupling](/en/blog/module-cohesion-coupling)
+- [Tips for the Information Processing Engineer Practical Exam 📝](/en/blog/korean-information-processing-engineer-practical-exam-strategy)
