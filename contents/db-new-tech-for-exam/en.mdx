@@ -1,0 +1,216 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import Details from "@/app/components/Details";
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "💾 Database & Big Data Tech (Hadoop, Data Mining, Data Warehouse) | 🚀 For Engineer Exam",
+  description: "A complete guide to core big data and database technologies like Hadoop, HDFS, Data Mining, Data Warehouse, Metadata, and MyData, from fundamental principles. Perfect for the Information Processing Engineer exam.",
+  publishedAt: "2025-07-13",
+  lastModifiedAt: "2025-07-13",
+  timeToRead: 0,
+  tags: ["Engineer Exam", "Database", "Big Data", "New Technology", "Hadoop", "Data Mining"],
+  heroImage: "/contents/default.jpg",
+};
+
+> 💡 **Data technology** is a crucial part of software development and a key topic in the Information Processing Engineer exam. It's more important to understand the **fundamental principles** and background of each technology than to simply memorize them.
+
+## 🗃️ Key Data Technologies Summary Table
+
+| Category | Technology | Keywords |
+| :--- | :--- | :--- |
+| **Big Data Foundation** | **⭐️Hadoop** | Distributed processing framework, HDFS + MapReduce, Ecosystem |
+| | **HDFS** | Distributed file system, Fault-tolerance, Write-Once-Read-Many |
+| **Data Collection/Transfer** | **Chukwa** | Large-scale log collection, Agent-Collector, HDFS-based |
+| | **Sqoop** | Data transfer between RDBMS and Hadoop, Import/Export |
+| | **Scrapy** | Web crawling framework, Python, Automated data collection |
+| **Data Analysis/Utilization** | **⭐️Data Mining** | Pattern/rule discovery, Classification, Clustering, Association, Knowledge extraction |
+| | **⭐️Data Warehouse** | Decision support, Subject-oriented, Integrated, Time-variant, Non-volatile |
+| | **Data Mart** | A subset of a data warehouse, Specific department/subject, Rapid deployment |
+| **Data Management** | **⭐️Metadata** | Data about data, Core of data management, Data catalog |
+| | **Digital Archiving** | Long-term preservation, Authenticity/Integrity, Legal/Historical value |
+| | **MyData** | Data sovereignty, Data portability, Personalized services |
+
+---
+
+## Why Does the Engineer Exam Favor 'Data Warehouse'?
+
+With so many new big data technologies, why does 'Data Warehouse' consistently appear on the exam? It's because the data warehouse is the **starting point for all activities that turn data into business value**.
+
+- **'Cleansing' and 'Integration' of Data**: It's the first step in gathering scattered operational data and organizing it cleanly by subject.
+- **Foundation for Analysis**: Only with this refined data can higher-level analyses like data mining, BI reporting, and AI model training become possible.
+
+In conclusion, the examiners want to assess whether you understand the **entire data utilization process and its underlying principles**, not just whether you know the latest technologies. The data warehouse embodies these core principles.
+
+---
+
+## 💡 3 Fundamental Principles Driving Data Technology
+
+Just as the data warehouse is the 'root' of data utilization, there are core principles driving the current data technology paradigm. Understanding these principles makes it easy to grasp numerous new technologies.
+
+> ⭐️ : Frequently tested core concepts
+
+| Technology | Core Principle | What It Enables |
+| :--- | :--- | :--- |
+| **⭐️Hadoop & Distributed Tech** | **Distribution**: Storing and processing large data across multiple machines. | Almost all big data tech, cloud storage, large-scale AI model training. |
+| **⭐️Data Warehouse & Mining** | **Integration & Extraction**: Gathering and refining data to discover knowledge. | Business Intelligence (BI), CRM, Recommendation Systems. |
+| **MyData & Scrapy** | **Sovereignty & Automation**: Individuals control data, machines automate collection. | Personalized financial/medical services, data-driven business models. |
+
+### 1. ⭐️Hadoop and Distributed Technology (Distribution)
+
+{/* prettier-ignore */}
+<Details summary="Overcoming limitations and processing massive data through 'distribution'.">
+  - **Concept**: Instead of one supercomputer, it links many commodity computers to act as one giant system. Data is split and stored across these machines (**HDFS**), and computational tasks are also divided and processed simultaneously (**MapReduce**).
+  - **Why It's Fundamental**: Without this 'distribution' paradigm, today's big data, AI, and cloud technologies would not exist. It's the foundation for all tasks involving petabyte-scale data processing and training AI models with billions of parameters.
+</Details>
+
+### 2. ⭐️Data Warehouse and Data Mining (Integration & Extraction)
+
+{/* prettier-ignore */}
+<Details summary="Finding hidden value in data through 'integration' and 'extraction'.">
+  - **Concept**:
+    - **Data Warehouse**: A repository that **'integrates'** data from various sources (ERP, CRM, logs) and **'cleanses'** it into a format suitable for analysis.
+    - **Data Mining**: The technology to **'extract'** meaningful patterns, rules, and **'knowledge'** from this well-refined data.
+  - **Why It's Fundamental**: It goes beyond simply storing data, enabling an organization to make data-driven **decisions**. It forms the basis of all Business Intelligence (BI), CRM, and recommendation systems.
+</Details>
+
+### 3. MyData and Scrapy (Sovereignty & Automation)
+
+{/* prettier-ignore */}
+<Details summary="Returning data 'sovereignty' to individuals and 'automating' collection.">
+  - **Concept**:
+    - **MyData**: A concept that returns the control of personal data, or **'data sovereignty'**, from companies and institutions to the individual. Individuals can move their data where they want (portability) and use it themselves.
+    - **Scrapy**: A technology where programs, not humans, **'automatically'** collect and structure vast amounts of public data from the web.
+  - **Why It's Fundamental**: It presents a new paradigm for data ownership and utilization. Individuals become the owners of their data, and businesses create new models through automated collection.
+</Details>
+
+---
+
+## 💾 Detailed Technology Explanations
+
+### Big Data Foundation Technologies
+
+#### ⭐️Hadoop
+
+{/* prettier-ignore */}
+<Details summary="An open-source framework for distributed processing of large datasets and the starting point of the big data ecosystem.">
+  - **Core Components**:
+    - **HDFS (Hadoop Distributed File System)**: A file system for storing data across multiple servers.
+    - **MapReduce**: A programming model for parallel processing of distributed data.
+  - **Features**: It is cost-effective as it allows building large clusters from inexpensive commodity hardware. It has high fault tolerance, operating stably without data loss even if some servers fail.
+</Details>
+
+#### HDFS (Hadoop Distributed File System)
+
+{/* prettier-ignore */}
+<Details summary="A distributed file system designed for storing very large files for Hadoop.">
+  - **Features**: Optimized for a 'Write-Once-Read-Many' model, where data, once stored, is primarily read rather than modified. It enhances data reliability and availability by splitting data into blocks and replicating each block across multiple servers.
+</Details>
+
+### Data Collection and Transfer Technologies
+
+#### Chukwa
+
+{/* prettier-ignore */}
+<Details summary="An Apache project for reliably collecting log data from large-scale distributed systems.">
+  - **Architecture**: Consists of **Agents** that collect data and **Collectors** that receive the collected data and forward it to storage.
+  - **Features**: It primarily stores data in HDFS and is used to build real-time data analysis and monitoring systems.
+</Details>
+
+#### Sqoop
+
+{/* prettier-ignore */}
+<Details summary="A tool for efficiently transferring large amounts of data between relational databases (RDBMS) and Hadoop (HDFS, Hive, etc.).">
+  - **Key Functions**:
+    - **Import**: Fetches data from an RDBMS into Hadoop.
+    - **Export**: Sends data from Hadoop to an RDBMS.
+  - **Features**: It enables fast and reliable data transfer by creating MapReduce jobs to process data in parallel.
+</Details>
+
+#### Scrapy
+
+{/* prettier-ignore */}
+<Details summary="A Python-based open-source framework for extracting structured data from websites (crawling).">
+  - **Features**: It can collect web pages at very high speeds using asynchronous processing. You can define data extraction rules (Spiders) to precisely get the information you want, and the collected data can be saved in various formats like JSON and CSV.
+</Details>
+
+### Data Analysis and Utilization Technologies
+
+#### ⭐️Data Mining
+
+{/* prettier-ignore */}
+<Details summary="The process of discovering meaningful patterns, rules, and relationships in large datasets to turn them into valuable information.">
+  - **Key Techniques**:
+    - **Classification**: Assigns items to predefined groups (e.g., spam filtering).
+    - **Clustering**: Groups data with similar characteristics (e.g., customer segmentation).
+    - **Association**: Finds relationships between data items (e.g., the 'diapers and beer' correlation).
+</Details>
+
+#### ⭐️Data Warehouse
+
+{/* prettier-ignore */}
+<Details summary="A database that stores data from multiple systems, integrated and organized by subject, to support business decision-making.">
+  - **The 4 Characteristics**:
+    - **Subject-Oriented**: Data is organized around subjects like 'customer' or 'product'.
+    - **Integrated**: Data is stored in a consistent format.
+    - **Time-Variant**: Data is stored to analyze changes over time.
+    - **Non-Volatile**: Once stored, data is not deleted or updated.
+</Details>
+
+#### Data Mart
+
+{/* prettier-ignore */}
+<Details summary="A smaller version of a data warehouse, tailored to the needs of a specific department or user group.">
+  - **Features**: It focuses on a specific subject, making it faster and cheaper to build than a full data warehouse. Its purpose is to meet the analytical needs of a specific business unit rather than enterprise-wide analysis.
+</Details>
+
+### Data Management Technologies
+
+#### ⭐️Metadata
+
+{/* prettier-ignore */}
+<Details summary="'Data about data,' describing all information such as the structure, attributes, history, and relationships of data.">
+  - **Importance**: It enhances the value of data by clarifying its origin, meaning, and format, helping users easily find, understand, and utilize it. It is a key element of data governance and data quality management.
+</Details>
+
+#### Digital Archiving
+
+{/* prettier-ignore */}
+<Details summary="The practice of systematically collecting, managing, and preserving digital information of long-term value for future use.">
+  - **Features**: The core is to ensure the **authenticity, integrity, and reliability** of information. It is used to safely preserve legal evidence, historical records, and research data.
+</Details>
+
+#### MyData
+
+{/* prettier-ignore */}
+<Details summary="A data paradigm where individuals, as the subjects of information, have control over their own data to manage and utilize it directly.">
+  - **Core Right**: Through the **right to personal credit information portability**, individuals can gather their information scattered across financial institutions and other organizations in one place to receive personalized asset and credit management services.
+</Details>
+
+---
+
+## 📝 Practice Problems for the Engineer Exam
+
+<ProblemAnswer
+  problem="What is the open-source framework that uses HDFS and MapReduce as its core components to store and process large-scale data across a cluster of computers?"
+  correctAnswer="Hadoop"
+/>
+
+<ProblemAnswer
+  problem="What is the non-volatile data repository that stores time-variant, integrated, and subject-oriented data from various sources to support business decision-making?"
+  correctAnswer="Data Warehouse"
+/>
+
+<ProblemAnswer
+  problem="What is the technique of discovering useful patterns and rules from large datasets, using methods like classification, clustering, and association analysis?"
+  correctAnswer="Data Mining"
+/>
+
+<ProblemAnswer
+  problem="What is 'data about data,' which includes information like data location, format, history, and ownership to facilitate data management?"
+  correctAnswer="Metadata"
+/>
+
+<ProblemAnswer
+  problem="What is the system that empowers individuals with control over their own data, allowing them to manage and utilize their personal information scattered across institutions like finance and healthcare?"
+  correctAnswer="MyData"
+/>
