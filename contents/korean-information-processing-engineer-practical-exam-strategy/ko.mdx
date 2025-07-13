@@ -33,7 +33,7 @@ export const metadata = {
 | DB          | 4개    | [💯SQL](/ko/blog/sql-for-exam), [⭐️정규화](/ko/blog/db-normalization-for-exam), [⭐️키](/ko/blog/db-key-for-exam),[🔥관계대수](/ko/blog/relational-algebra-for-exam), [🔥요개논물](/ko/blog/data-model-for-exam) |
 | SW 개발     | 2개    | [⭐️커버리지](/ko/blog/test-coverage-for-exam), [⭐️인터페이스 구현](/ko/blog/interface-implementation-for-exam), [🔥블랙박스](/ko/blog/blackbox-test-for-exam)                                                   |
 | SW 설계     | 2개    | [⭐️디자인 패턴](/ko/blog/gof-design-pattern-cheat-sheet), [⭐️응집도,결합도](/ko/blog/module-cohesion-coupling), [🔥UML](/ko/blog/uml-diagram-4-1-view)                                                          |
-| 네트워크/OS | 2개    | ⭐️[메모리](/ko/blog/page-replacement-for-exam)/[프로세스](/ko/blog/process-scheduling-for-exam), [🔥라우팅](/ko/blog/routing-protocol)                                                                           |
+| 네트워크/OS | 2개    | ⭐️[메모리](/ko/blog/page-replacement-for-exam)/[프로세스](/ko/blog/process-scheduling-for-exam), [🔥라우팅](/ko/blog/routing-protocol), 🔥네트워크계층, 🔥데이터링크계층                                         |
 | 보안        | 1개    | [🔥암호 알고리즘](/ko/blog/cryptography-algorithms-for-exam),[🔥보안 기능](/ko/blog/authentication-for-exam)                                                                                                      |
 | 총          | 11개   |
 
@@ -93,10 +93,10 @@ export const metadata = {
 
 > 출제확률 - 💯: 100%, ⭐️: 80%, 🔥: 50%, 🤔: 20%
 
-| 주요항목   | 문제수 | 예상 문제 범위(클릭시 이동)                                                                                                      |
-| :--------- | :----- | :------------------------------------------------------------------------------------------------------------------------------- |
-| 테스트     | 1개    | [⭐️테스트 커버리지](/ko/blog/test-coverage-for-exam), [🔥블랙박스 테스트](/ko/blog/blackbox-test-for-exam), 🤔테스트 자동화도구 |
-| 인터페이스 | 1개    | [⭐️인터페이스 구현](/ko/blog/interface-implementation-for-exam)                                                                 |
+| 주요항목   | 문제수 | 예상 문제 범위(클릭시 이동)                                                                                                                                          |
+| :--------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 테스트     | 1개    | [⭐️테스트 커버리지](/ko/blog/test-coverage-for-exam), [🔥블랙박스 테스트](/ko/blog/blackbox-test-for-exam), [🤔테스트 자동화도구](/ko/blog/test-auto-tool-for-exam) |
+| 인터페이스 | 1개    | [⭐️인터페이스 구현](/ko/blog/interface-implementation-for-exam)                                                                                                     |
 | 총         | 2개    |
 
 ### 2025년 2회 정처기 실기 예상 출제 문제 수 SW 설계 과목
@@ -116,9 +116,9 @@ export const metadata = {
 | 주요항목         | 문제수  | 예상 문제 범위(클릭시 이동)                                                                                    |
 | :--------------- | :------ | :------------------------------------------------------------------------------------------------------------- |
 | 메모리, 프로세스 | 1개     | ⭐️[메모리 관리](/ko/blog/page-replacement-for-exam)/[프로세스 스케쥴링](/ko/blog/process-scheduling-for-exam) |
-| 네트워크 7계층   | 0 ~ 1개 | [🔥라우팅 프로토콜](/ko/blog/routing-protocol)                                                                 |
+| 네트워크 7계층   | 0 ~ 1개 | [🔥라우팅 프로토콜](/ko/blog/routing-protocol), 🔥네트워크 계층 프로토콜, 🔥데이터링크 계층 프로토콜           |
 | IP               | 0 ~ 1개 | 🤔서브넷 마스크                                                                                                |
-| shell script     | 0 ~ 1개 | 🤔chmod                                                                                                        |
+| shell script     | 0 ~ 1개 | [🤔chmod](/ko/blog/chmod-for-exam)                                                                             |
 | 총               | 2개     |
 
 ### 2025년 2회 정처기 실기 예상 출제 문제 수 보안 과목
@@ -235,6 +235,7 @@ export const metadata = {
 
 - [🧪 테스트 커버리지: 문장, 결정, 조건, MC/DC | 🚀정처기 실기 대비 문제 포함](/ko/blog/test-coverage-for-exam)
 - [⬛ 블랙박스 테스트 유형 완벽 정리 | 🚀정처기 실기 대비 문제 포함](/ko/blog/blackbox-test-for-exam)
+- [🤖 테스트 하네스 구성요소 완벽 정리 |🚀 정처기 실기 대비 문제 포함](/ko/blog/test-auto-tool-for-exam)
 
 </Details>
 
@@ -289,6 +290,10 @@ export const metadata = {
 
 </Details>
 
+### OS
+
+- [🐧 리눅스 chmod 명령어 사용법 (8진수 권한 설정) | 🚀 정처기 실기 대비 문제 포함](/ko/blog/chmod-for-exam)
+
 ### UML 다이어그램
 
 <Details summary="UML 다이어그램 포스팅 목록 확인">
@@ -305,7 +310,7 @@ export const metadata = {
 
 > ==== 업데이트 기록 ====
 >
-> - 7/13 메모리 관리, 프로세스 스케쥴링 추가, 신기술 및 장비 추가
+> - 7/13 메모리 관리, 프로세스 스케쥴링 추가, 신기술 및 장비, 테스트 하네스, chmod 추가
 > - 7/12 2021년 부터 2025년 1회까지 출제 경향 분석 후 전략 수정
 > - 7/11 2023년 개정 출제 기준과 이전 출제 기준 변경 사항 확인(없음)
 > - 7/10 2024년, 2025년 1회 출제 경향 분석 후 전략 수정

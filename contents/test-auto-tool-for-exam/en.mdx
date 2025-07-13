@@ -1,0 +1,97 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import Details from "@/app/components/Details";
+
+export const metadata = {
+  title:
+    "🤖 Complete Guide to Test Harness Components | 🚀 Includes Practice Questions for Information Processing Engineer Exam",
+  description:
+    "A comprehensive guide to the components of a test harness (Test Driver, Stub, Suite, Case, Scenario, Script, Mock Object), a key concept for the Information Processing Engineer practical exam. It clearly explains the difference between Test Drivers and Stubs, which are frequently tested.",
+  publishedAt: "2025-07-13",
+  lastModifiedAt: "2025-07-13",
+  timeToRead: 0,
+  tags: [
+    "Information Processing Engineer",
+    "Test Harness",
+    "Test Driver",
+    "Test Stub",
+    "Software Testing",
+    "Unit Testing",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+> 💡 Questions about the roles and differences between **Test Driver** and **Test Stub** are common in the Information Processing Engineer practical exam. Clearly distinguishing and memorizing these two concepts is key to passing.
+
+---
+
+## ⚙️ What is a Test Harness?
+
+A **Test Harness** refers to a **software tool or framework** that builds an environment for executing tests in unit or module testing. It can be described as an execution environment that bundles code and data to support testing, ensuring that the component under test functions correctly.
+
+Its main components include Test Drivers, Test Stubs, Test Suites, and Test Cases, which together form a single test environment.
+
+---
+
+## 1. Core Components of a Test Harness
+
+### **Test Driver**
+
+A **Test Driver** is test code that acts as a high-level module to **call** the module under test and verify the test results. It is primarily used in **Bottom-up testing**.
+
+- **Role**: Calls the lower-level module (the one being tested) to start the test, passes parameters, and checks the results.
+- **Direction**: `High-level Module ← [Test Driver]` + `Low-level Module (Under Test)`
+- **Keywords**: **Bottom-up testing**, **low-level module testing**, **calling module**
+
+### **Test Stub**
+
+A **Test Stub** is a dummy module that **temporarily replaces** the functionality of another module called by the module under test. It is primarily used in **Top-down testing**.
+
+- **Role**: Temporarily performs the role of a lower-level module called by the high-level module (under test), returning pre-defined values or handling simple logic.
+- **Direction**: `High-level Module (Under Test)` + `Low-level Module ← [Test Stub]`
+- **Keywords**: **Top-down testing**, **high-level module testing**, **called module**
+
+<Details summary="💡 [Exam Tip] Perfect Comparison: Test Driver vs. Test Stub">
+  This table perfectly summarizes the two concepts.
+
+| Category    | **Test Driver**                                    | **Test Stub**                                            |
+| :---------- | :------------------------------------------------- | :------------------------------------------------------- |
+| **Purpose** | Used to test a **low-level module**                | Used to test a **high-level module**                     |
+| **Role**    | Acts as a high-level module that **calls** the UUT | Acts as a low-level module that is **called by** the UUT |
+| **Testing** | **Bottom-up** testing                              | **Top-down** testing                                     |
+| **Analogy** | A **driver** operating a car                       | A **stunt double (Stub)** standing in for the main actor |
+| **Flow**    | `Driver` → `UUT (Low-level)`                       | `UUT (High-level)` → `Stub`                              |
+
+</Details>
+
+### **Other Key Components**
+
+| Component         | Description                                                                                                                                      |
+| :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Test Suite**    | A **collection** of test cases. A unit that groups all test cases for a specific feature or module.                                              |
+| **Test Case**     | A **specification** of inputs, execution conditions, and expected results to verify a specific requirement. The smallest unit of a test.         |
+| **Test Scenario** | A validation of a single **workflow (story)** by grouping multiple test cases. (e.g., 'Log in and then write a post')                            |
+| **Test Script**   | **Code** written to execute test cases in an automated fashion.                                                                                  |
+| **Mock Object**   | Similar to a stub, but a more sophisticated object that also **verifies the state or behavior** of calls. (e.g., 'Was method A called 3 times?') |
+
+---
+
+## 📝 Practice Questions for the Exam
+
+<ProblemAnswer
+  problem="In bottom-up unit testing, what is the test harness component that acts as a high-level module to call the low-level module under test, pass parameters, and execute the test?"
+  correctAnswer="Test Driver"
+/>
+
+<ProblemAnswer
+  problem="In top-down unit testing, what is the dummy module that temporarily replaces the functionality of a low-level module called by the high-level module under test?"
+  correctAnswer="Test Stub"
+/>
+
+<ProblemAnswer
+  problem="What is the term for a set of inputs, execution conditions, and expected results for a test, representing the smallest unit of testing?"
+  correctAnswer="Test Case"
+/>
+
+## ➡️ Recommended Next Post
+
+- [Information Processing Engineer Practical Exam 2025 Round 2 Theory Predictions | ⚡️ Cramming Tips](/en/blog/korean-information-processing-engineer-practical-exam-strategy)
