@@ -1,0 +1,26 @@
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "Engineer Information Processing Practical Exam: Subnet Mask",
+  description:
+    "Explains subnet masks and subnetting in IPv4. Covers calculating network, host, and broadcast addresses, CIDR notation, and includes practice problems for certification.",
+  publishedAt: "2024-07-26",
+  lastModifiedAt: "2025-07-14",
+  timeToRead: 0,
+  heroImage: "/contents/subnet-mask-for-exam/ip-v4-address.png",
+  tags: ["Engineer Information Processing", "Network", "Subnet Mask", "IPv4"],
+};
+
+Subnet mask problems only cover IPv4 addresses, as IPv6 addresses would be too long.
+
+An IPv4 address consists of 32 bits, divided into four 8-bit sections. Converting these bits (binary) to decimal results in the familiar IP address format.
+
+<ImageWithCaption
+  src="/contents/subnet-mask-for-exam/ip-v4-address.png"
+  alt="IPv4 Address"
+  caption="IPv4 Address"
+/>
+
+Now, let's find the largest decimal number that can be represented with 8 bits.
+
+$11111111_(2) = 2^0 + 2^1 + 2^2 + 2^3 + 2^4 + 2^5 + 2^6 + 2^7 = 255$

@@ -81,7 +81,7 @@ export default function CommentForm({
             value={formData.author}
             onChange={handleChange}
             placeholder={t("author")}
-            className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] dark:bg-gray-700 dark:text-white text-sm"
+            className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] dark:bg-gray-700 dark:text-white text-base"
             required
           />
         </div>
@@ -95,7 +95,7 @@ export default function CommentForm({
               value={formData.email}
               onChange={handleChange}
               placeholder={t("email")}
-              className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] dark:bg-gray-700 dark:text-white text-sm"
+              className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] dark:bg-gray-700 dark:text-white text-base"
               required
             />
             {/* 이메일 안내 툴팁 */}
@@ -126,7 +126,7 @@ export default function CommentForm({
           onChange={handleChange}
           placeholder={t("placeholder")}
           rows={4}
-          className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] resize-none dark:bg-gray-700 dark:text-white text-sm"
+          className="w-full px-3 py-2 border-[0.5px] border-gray-200 dark:border-neutral-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#706E6E] resize-none dark:bg-gray-700 dark:text-white text-base"
           required
         />
       </div>

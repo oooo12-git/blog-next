@@ -53,7 +53,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
                   e.target.style.height = e.target.scrollHeight + "px";
                 }}
                 placeholder="답을 입력해야 연습이됩니다!"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-black focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 resize-none overflow-hidden min-h-[38px]"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-base text-black focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 resize-none overflow-hidden min-h-[38px]"
                 disabled={isCorrectAnswerVisible}
                 rows={1}
               />

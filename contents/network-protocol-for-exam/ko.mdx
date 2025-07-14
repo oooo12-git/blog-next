@@ -1,0 +1,146 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "🌐 네트워크 계층 프로토콜 | 🚀 정처기 실기 대비 문제 포함",
+  description:
+    "네트워크의 핵심인 네트워크 계층 프로토콜(IP, ARP, RARP, ICMP, IGMP)과 주요 기술(라우팅, NAT)의 개념과 특징을 알아보고, 정보처리기사 시험에 대비한 예상 문제까지 풀어봅니다.",
+  publishedAt: "2025-07-14",
+  lastModifiedAt: "2025-07-14",
+  timeToRead: 0,
+  tags: [
+    "네트워크",
+    "프로토콜",
+    "IP",
+    "ARP",
+    "ICMP",
+    "라우팅",
+    "NAT",
+    "정처기",
+  ],
+  heroImage: "/contents/default.jpg",
+};
+
+> 💡 정보처리기사 실기 대비를 위한 주관식 문제는 포스팅 마지막에 있습니다. 문제를 여러번 푸는 걸 권장합니다.
+
+> ❗️각 프로토콜과 기술의 역할, 특징을 정확히 구분하여 암기하는 것이 중요합니다.
+
+## 🚀 네트워크 계층 주요 기술 한눈에 보기
+
+네트워크 계층은 데이터가 최종 목적지까지 정확하게 도달할 수 있도록 경로를 설정(Routing)하고, 논리적인 주소(IP 주소)를 관리하는 역할을 담당합니다.
+
+| 기술/프로토콜       | 주요 기능                             | 특징                                       |
+| :------------------ | :------------------------------------ | :----------------------------------------- |
+| **IP**              | 데이터그램의 주소 지정 및 경로 설정   | 비연결성, 비신뢰성                         |
+| **ARP**             | 논리 주소(IP)를 물리 주소(MAC)로 변환 | 동적, 브로드캐스트 기반 요청               |
+| **RARP**            | 물리 주소(MAC)를 논리 주소(IP)로 변환 | ARP의 역 기능, 부팅 시 IP 주소 할당에 사용 |
+| **ICMP**            | 오류 보고 및 네트워크 상태 진단       | IP에 의존하여 동작, 제어 메시지 전송       |
+| **IGMP**            | 멀티캐스트 그룹 관리                  | 특정 그룹에만 데이터 전송, 대역폭 효율화   |
+| **라우팅 프로토콜** | 최적의 데이터 전송 경로 탐색          | RIP, OSPF, BGP                             |
+| **NAT**             | 사설 IP 주소를 공인 IP 주소로 변환    | IP 주소 절약, 내부 네트워크 보안 강화      |
+
+---
+
+## 1. 📍 IP (Internet Protocol)
+
+**IP**는 송신 측과 수신 측 간의 데이터 전송을 위한 주소 지정 및 경로 설정을 담당하는 핵심 프로토콜입니다. 데이터를 패킷(Packet) 또는 데이터그램(Datagram) 단위로 캡슐화하여 전송하지만, 신뢰성을 보장하지는 않습니다.
+
+- **비연결성 (Connectionless)**: 데이터를 전송하기 전에 연결을 설정하지 않습니다.
+- **비신뢰성 (Unreliable)**: 패킷의 도착 순서나 전송 여부를 보장하지 않으며, 오류 제어 기능이 없습니다. (신뢰성은 상위 계층인 TCP에서 담당)
+
+---
+
+## 2. 🤝 ARP (Address Resolution Protocol)
+
+**ARP**는 호스트의 IP 주소를 해당 호스트의 물리적인 네트워크 주소(MAC 주소)로 변환해주는 프로토콜입니다. 로컬 네트워크(LAN) 내에서 통신하기 위해 필수적입니다.
+
+1. **요청**: 송신 측은 특정 IP 주소에 해당하는 MAC 주소를 찾기 위해 네트워크 전체에 ARP 요청 메시지를 브로드캐스트합니다.
+2. **응답**: 해당 IP 주소를 사용하는 장비는 자신의 MAC 주소를 담아 ARP 응답 메시지를 유니캐스트로 송신 측에 보냅니다.
+3. **캐시**: 송신 측은 응답받은 MAC 주소를 ARP 캐시에 일정 시간 동안 저장하여 불필요한 요청을 줄입니다.
+
+---
+
+## 3. ↩️ RARP (Reverse Address Resolution Protocol)
+
+**RARP**는 ARP와 반대로, 물리 주소(MAC 주소)는 알지만 IP 주소를 모르는 경우에 사용하는 프로토콜입니다. 주로 디스크가 없는 워크스테이션이나 프린터 등이 부팅 시 자신의 IP 주소를 할당받기 위해 사용합니다.
+
+> **참고**: RARP는 오래된 기술이며, 현재는 DHCP(Dynamic Host Configuration Protocol - 응용계층 프로토콜)가 이 기능을 대체하여 IP 주소 할당 및 관리를 더욱 효율적으로 수행합니다.
+
+---
+
+## 4. 📢 ICMP (Internet Control Message Protocol)
+
+**ICMP**는 IP 패킷을 처리할 때 발생하는 문제를 보고하거나, 네트워크 상태를 진단하기 위한 제어 메시지를 전송하는 프로토콜입니다. IP는 오류 보고 기능이 없기 때문에 ICMP가 이를 보완합니다.
+
+- **주요 메시지 유형**:
+  - **Echo Request/Reply**: 네트워크 연결 상태를 확인 (`ping` 명령어)
+  - **Destination Unreachable**: 목적지에 도달할 수 없음
+  - **Time Exceeded**: 패킷의 TTL(Time To Live)이 0이 되어 패킷이 폐기됨
+  - **Redirect**: 더 나은 경로를 알려줌
+
+---
+
+## 5. 👨‍👩‍👧‍👦 IGMP (Internet Group Management Protocol)
+
+**IGMP**는 호스트가 멀티캐스트 그룹에 가입하거나 탈퇴할 때 사용하는 프로토콜입니다. 멀티캐스트는 ��정 그룹에 속한 다수의 호스트에게만 데이터를 한 번에 전송하는 방식으로, IPTV나 온라인 게임 등에서 효율적인 데이터 전송을 위해 사용됩니다.
+
+- 라우터는 IGMP를 통해 어떤 호스트가 어떤 멀티캐스트 그룹에 속해 있는지 파악하고, 해당 그룹으로 향하는 트래픽만 선택적으로 전달합니다.
+
+---
+
+## 6. 🗺️ 라우팅 프로토콜 (Routing Protocol)
+
+**라우팅 프로토콜**은 라우터 간에 통신하여 최적의 데이터 전송 경로를 동적으로 탐색하고 설정하는 규약입니다. 크게 내부 게이트웨이 프로토콜(IGP)과 외부 게이트웨이 프로토콜(EGP)로 나뉩니다.
+
+- **RIP (Routing Information Protocol)**: 거리 벡터 알고리즘 기반으로, 홉 카운트(거치는 라우터 수)가 가장 적은 경로를 최적 경로로 선택합니다. 소규모 네트워크에 적합합니다.
+- **OSPF (Open Shortest Path First)**: 링크 상태 알고리즘 기반으로, 네트워크 변화에 빠르게 대처하며 대규모 네트워크에 적합합니다.
+- **BGP (Border Gateway Protocol)**: 자율 시스템(AS) 간의 라우팅을 위해 사용되는 외부 게이트웨이 프로토콜입니다. 현재 인터넷에서 핵심적인 역할을 수행합니다.
+
+> 자세한 내용은 [네트워크 라우팅 프로토콜 IGP와 EGP | 🚀 정처기 실기 대비 문제 포함](/ko/blog/routing-protocol) 포스팅을 참고해주세요.
+
+---
+
+## 7. 🎭 NAT (Network Address Translation)
+
+**NAT**는 사설 IP 주소를 사용하는 내부 네트워크의 장치들이 인터넷에 접속할 때, 사설 IP 주소를 공인 IP 주소로 변환해주는 기술입니다. IPv4 주소 고갈 문제를 해결하고 내부 네트워크를 외부로부터 보호하는 역할을 합니다.
+
+- **동작 방식**: 내부 장치가 외부로 패킷을 보낼 때, NAT 장비(주로 라우터)는 출발지 사설 IP 주소를 자신의 공인 IP 주소로 변경하여 전송합니다. 외부에서 응답이 오면, 다시 해당 사설 IP 주소로 변환하여 내부 장치에 전달합니다.
+
+---
+
+## 📝 정처기 실기 대비 문제
+
+<ProblemAnswer
+  problem="송신자와 수신자 간의 데이터 전송을 위해 주소 지정 및 경로 설정을 담당하지만, 신뢰성을 보장하지 않는 네트워크 계층의 핵심 프로토콜은 무엇인가?"
+  correctAnswer="IP (Internet Protocol)"
+/>
+
+<ProblemAnswer
+  problem="논리적 주소인 IP 주소를 기반으로 물리적 주소인 MAC 주소를 알아내기 위해 사용하는 프로토콜은 무엇인가?"
+  correctAnswer="ARP (Address Resolution Protocol)"
+/>
+
+<ProblemAnswer
+  problem="물리 주소(MAC)는 알지만 IP 주소를 모를 때, 서버로부터 IP 주소를 할당받기 위해 사용하는 프로토콜은 무엇인가?"
+  correctAnswer="RARP (Reverse Address Resolution Protocol)"
+/>
+
+<ProblemAnswer
+  problem="IP 통신 중 발생하는 오류 정보를 전송하거나 네트워크 상태를 진단하기 위한 제어 메시지를 전달하는 프로토콜은 무엇인가? (ping 명령어와 관련 있음)"
+  correctAnswer="ICMP (Internet Control Message Protocol)"
+/>
+
+<ProblemAnswer
+  problem="하나의 송신자가 특정 그룹에 속한 다수의 수신자에게만 데이터를 전송하는 멀티캐스트 통신을 위해, 호스트가 멀티캐스트 그룹에 가입하거나 탈퇴할 때 사용하는 프로토콜은 무엇인가?"
+  correctAnswer="IGMP (Internet Group Management Protocol)"
+/>
+
+<ProblemAnswer
+  problem="RIP, OSPF와 같이 라우터 간에 최적의 경로 정보를 교환하여 데이터 전송 경로를 동적으로 결정하는 프로토콜의 총칭은 무엇인가?"
+  correctAnswer="라우팅 프로토콜 (Routing Protocol)"
+/>
+
+<ProblemAnswer
+  problem="내부 네트워크의 사설 IP 주소를 인터넷상의 공인 IP 주소로 변환하여 IPv4 주소 부족 문제를 해결하고 보안을 강화하는 기술은 무엇인가?"
+  correctAnswer="NAT (Network Address Translation)"
+/>
