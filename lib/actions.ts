@@ -17,6 +17,8 @@ import {
   updateComment,
   deleteComment,
   getCommentById,
+  getPostDownloadCount,
+  incrementPostDownloadCount,
 } from "./utils";
 import { CommentFormData } from "./types";
 import { revalidatePath } from "next/cache";
@@ -240,7 +242,7 @@ export async function createComment(
         try {
           // 원 댓글 정보 조회
           const parentComment = await getCommentById(parentId);
-          
+
           if (parentComment && parentComment.email !== sanitizedData.email) {
             // 자신에게 답글을 다는 경우가 아닐 때만 알림 발송
             const replyApiUrl = `${baseUrl}/api/email/reply-notification`;
@@ -400,5 +402,34 @@ export async function removeComment(
   } catch (error) {
     console.error("Error in removeComment action:", error);
     return { success: false, error: "댓글 삭제에 실패했습니다." };
+  }
+}
+
+// ==================== 다운로드 관련 Server Actions ====================
+
+export async function getDownloadCount(slug: string) {
+  try {
+    if (!validateSlug(slug)) {
+      return { success: false, downloadCount: 0 };
+    }
+    const downloadCount = await getPostDownloadCount(slug);
+    return { success: true, downloadCount };
+  } catch (error) {
+    console.error("Error in getDownloadCount action:", error);
+    return { success: false, downloadCount: 0 };
+  }
+}
+
+export async function incrementDownloadCount(slug: string) {
+  try {
+    if (!validateSlug(slug)) {
+      return { success: false, error: "잘못된 페이지 식별자입니다." };
+    }
+    const newCount = await incrementPostDownloadCount(slug);
+    revalidatePath(`/ko/blog/${slug}`); // 해당 경로의 캐시를 무효화
+    return { success: true, downloadCount: newCount };
+  } catch (error) {
+    console.error("Error in incrementDownloadCount action:", error);
+    return { success: false, error: "Failed to increment download count" };
   }
 }

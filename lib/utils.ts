@@ -993,3 +993,50 @@ export async function getCommentById(
     return null;
   }
 }
+
+// ==================== 다운로드 관련 함수들 ====================
+
+// 다운로드 횟수 가져오기
+export async function getPostDownloadCount(slug: string): Promise<number> {
+  try {
+    const { data, error } = await supabase
+      .from("post_downloads")
+      .select("downloads")
+      .eq("post_slug", slug)
+      .single();
+
+    if (error && error.code !== "PGRST116") {
+      console.error("Error fetching download count:", error);
+      return 0;
+    }
+
+    return data?.downloads || 0;
+  } catch (error) {
+    console.error("Error in getPostDownloadCount:", error);
+    return 0;
+  }
+}
+
+// 다운로드 횟수 증가
+export async function incrementPostDownloadCount(
+  slug: string
+): Promise<number> {
+  try {
+    const { data, error } = await supabase.rpc("increment_downloads", {
+      post_slug_text: slug,
+    });
+
+    if (error) {
+      console.error("Error incrementing download count:", error);
+      // 에러 발생 시 현재 카운트를 다시 조회하여 반환
+      const currentCount = await getPostDownloadCount(slug);
+      return currentCount;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error in incrementPostDownloadCount:", error);
+    const currentCount = await getPostDownloadCount(slug);
+    return currentCount;
+  }
+}

@@ -1,3 +1,4 @@
+import DownloadButton from "@/app/components/DownloadButton";
 import type { MDXComponents } from "mdx/types";
 import CodeBlock from "@/app/components/CodeBlock";
 import MermaidDiagram from "@/app/components/MermaidDiagram";
@@ -189,6 +190,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     hr: () => (
       <hr className="my-8 border-0 h-px bg-gray-300 dark:bg-gray-600" />
     ),
+    DownloadButton,
   };
 }
 // Create an mdx-components.tsx (or .js) file in the root of your project to define global MDX Components. https://nextjs.org/docs/app/guides/mdx#add-an-mdx-componentstsx-file
