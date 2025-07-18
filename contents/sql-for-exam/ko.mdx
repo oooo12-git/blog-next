@@ -6,7 +6,7 @@ export const metadata = {
   description:
     "정보처리기사 실기 시험에 나오는 SQL 문제를 단계별로 풀어보며 INSERT, UPDATE 등 기본 SQL 문법을 익힙니다. 실제 시험 문제 유형과 답안 작성법을 포함합니다.",
   publishedAt: "2025-07-09",
-  lastModifiedAt: "2025-07-15",
+  lastModifiedAt: "2025-07-18",
   timeToRead: 0,
   heroImage: "/contents/default.jpg",
   tags: [
@@ -323,7 +323,8 @@ WHERE condition;
 ```
 
 <ProblemAnswer
-  problem="`사원` 테이블에서 `개발부`에 속한 사원의 총 수를 계산하는 SQL문을 작성하시오."
+  problem="`사원` 테이블에서 `개발부`에 속한 사원의 총 수를 계산하는 SQL문을 작성하시오.
+  (사원 테이블 컬럼 : 이름, 부서)"
   correctAnswer="SELECT COUNT(*) FROM 사원 WHERE 부서 = '개발부';"
 />
 
@@ -390,11 +391,11 @@ WHERE condition;
 />
 
 <ProblemAnswer
-  problem="회사 테이블에서 부서명별 부서 인원 합계가 10명 이상인 부서명과 부서인원합계를 조회하는 SQL문 작성하시오.
-  (회사 테이블 컬럼 : 부서명, 부서인원)"
-  correctAnswer="SELECT 부서명, SUM(부서인원) AS 부서인원합계 
+  problem="회사 테이블에서 그룹별 부서인원합계가 10명 이상인 그룹명과 부서인원합계를 조회하는 SQL문 작성하시오.
+  (회사 테이블 컬럼 : 그룹명, 부서명, 부서인원)"
+  correctAnswer="SELECT 그룹명, SUM(부서인원) AS 부서인원합계 
   FROM 회사 
-  GROUP BY 부서명 
+  GROUP BY 그룹명 
   HAVING SUM(부서인원) >= 10;"
 />
 
@@ -453,7 +454,7 @@ WHERE condition;
 
 <ProblemAnswer
   problem="회사 테이블에서 부서명과 부서위치를 기준으로 데이터를 내림차순으로 정렬하는 SQL문 작성하시오.
-  (부서 위치 먼저 내림차순 정렬하고 부서 위치가 같을 경우 부서명 내림차순 정렬)
+  (부서위치 먼저 내림차순 정렬하고 부서위치가 같을 경우 부서명 내림차순 정렬)
   (모든 컬럼 조회)"
   correctAnswer="SELECT * 
   FROM 회사 
