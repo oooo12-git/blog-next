@@ -101,5 +101,14 @@
         "firstWritten": "처음 쓰여진 날",
         "lastModified": "마지막으로 고쳐진 날",
         "emailInfo": "이메일은 답글 알림 및 수정,삭제를 위해 사용됩니다."
+    },
+    "ProblemAnswer": {
+        "problem": "문제",
+        "correctAnswer": "정답",
+        "userAnswer": "답변",
+        "reveal": "정답 보기",
+        "answer": "정답",
+        "firstAnswer": "먼저 답을 입력해주세요.",
+        "answerPlaceholder": "답을 입력해야 연습이됩니다!"
     }
 }

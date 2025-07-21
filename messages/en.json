@@ -101,5 +101,14 @@
         "firstWritten": "First Written",
         "lastModified": "Last Modified",
         "emailInfo": "Email is used for reply notifications, edits, and deletions."
+    },
+    "ProblemAnswer": {
+        "problem": "Problem",
+        "correctAnswer": "Correct Answer",
+        "userAnswer": "Your Answer",
+        "reveal": "Reveal Answer",
+        "answer": "Answer",
+        "firstAnswer": "Please enter your answer first.",
+        "answerPlaceholder": "You need to enter your answer to practice!"
     }
 }

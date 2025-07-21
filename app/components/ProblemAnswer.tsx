@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface ProblemAnswerProps {
   problem: string;
@@ -11,6 +12,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
   problem,
   correctAnswer,
 }) => {
+  const t = useTranslations("ProblemAnswer");
   const [userAnswer, setUserAnswer] = useState("");
   const [isCorrectAnswerVisible, setIsCorrectAnswerVisible] = useState(false);
 
@@ -18,13 +20,13 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
     if (userAnswer.trim() !== "") {
       setIsCorrectAnswerVisible(true);
     } else {
-      alert("먼저 답을 입력해주세요.");
+      alert(t("firstAnswer"));
     }
   };
 
   const isCorrect =
-    userAnswer.replace(/\s+/g, "").toLowerCase() ===
-    correctAnswer.replace(/\s+/g, "").toLowerCase();
+    (userAnswer || "").replace(/\s+/g, "").toLowerCase() ===
+    (correctAnswer || "").replace(/\s+/g, "").toLowerCase();
 
   return (
     <div className="my-10 overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -32,7 +34,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
         <tbody>
           <tr className="border-b border-gray-200 dark:border-gray-700">
             <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
-              문제
+              {t("problem")}
             </td>
             <td className="p-3 whitespace-pre-wrap dark:text-white">
               {problem}
@@ -41,7 +43,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
 
           <tr className="border-b border-gray-200 dark:border-gray-700">
             <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
-              답
+              {t("userAnswer")}
             </td>
             <td className="p-2">
               <textarea
@@ -52,7 +54,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
                   e.target.style.height = "auto";
                   e.target.style.height = e.target.scrollHeight + "px";
                 }}
-                placeholder="답을 입력해야 연습이됩니다!"
+                placeholder={t("answerPlaceholder")}
                 className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-base text-black focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 resize-none overflow-hidden min-h-[38px]"
                 disabled={isCorrectAnswerVisible}
                 rows={1}
@@ -62,7 +64,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
 
           <tr>
             <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
-              정답
+              {t("correctAnswer")}
             </td>
             <td
               className={`p-3 ${
@@ -83,7 +85,7 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
                   {correctAnswer}
                 </span>
               ) : (
-                "정답 확인하기"
+                t("reveal")
               )}
             </td>
           </tr>
