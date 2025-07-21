@@ -1,20 +1,31 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
 
 export const metadata = {
-  title: "🛡️ Everything About Denial of Service (DoS) Attacks: DoS vs. DDoS vs. DRDoS",
+  title: "DoS, DDoS, DRDoS - Types of Denial of Service (DoS) Attacks",
   description:
-    "Learn the basic concepts of Denial of Service (DoS) attacks and their differences from Distributed Denial of Service (DDoS) attacks. This post also explains the principles and mechanics of Distributed Reflection Denial of Service (DRDoS), an amplification attack method.",
+    "Learn the basic concepts of Denial of Service (DoS) attacks and their differences from Distributed Denial of Service (DDoS) attacks. This post also explains the principles and mechanics of Distributed Reflection Denial of Service (DRDoS), an amplification attack method. Includes practice problems for the engineer exam.",
   publishedAt: "2025-07-06",
-  lastModifiedAt: "2025-07-06",
+  lastModifiedAt: "2025-07-21",
   timeToRead: 0,
-  tags: ["DoS", "DDoS", "DRDoS", "Security", "Network"],
+  tags: ["Engineer Exam", "DoS", "DDoS", "DRDoS", "Security", "Network"],
   heroImage: "/contents/default.jpg",
 };
+
+> 💡 Short-answer practice problems for the Information Processing Engineer exam are at the end of this post. It is recommended to solve the problems multiple times.
+
+## Types of Denial of Service (DoS) Attacks
+
+| Category           | Attack Types                                                                   |
+| :----------------- | :----------------------------------------------------------------------------- |
+| **Basic**          | DoS (Denial of Service)                                                        |
+| **Distributed**    | DDoS (Distributed Denial of Service), DRDoS (Distributed Reflection DoS)       |
+| **Key Techniques** | LAND Attack, Smurf Attack, Teardrop, Ping of Death, SYN Flooding, UDP Flooding |
 
 ## 🚫 What is a DoS (Denial of Service) Attack?
 
 A Denial of Service (DoS) attack is an attack that prevents legitimate users from accessing a service by overwhelming the system's resources. It is carried out by a single attacker sending a large volume of requests to a target server or exploiting a system's vulnerabilities to exhaust its resources.
 
-For example, if an attacker sends numerous connection requests to a specific website, exceeding the server's processing capacity, other users will be unable to access the site. This is like one person blocking the entrance to a store 🚪, preventing other customers from entering.
+For example, if an attacker sends numerous connection requests to a specific website, exceeding the server's processing capacity, other users will be unable to access the site. This is **like one person blocking the entrance to a store 🚪, preventing other customers from entering.**
 
 ## 🆚 Differences Between DoS and DDoS
 
@@ -22,11 +33,11 @@ While a DoS attack is conducted from a single system, a **Distributed Denial of 
 
 The attacker controls numerous computers infected with malware (zombie PCs 🧟) and directs them to attack a specific target system simultaneously. This results in a much larger attack scale and makes it extremely difficult to trace the origin of the attack.
 
-| Category | DoS (Denial of Service) 🧍 | DDoS (Distributed Denial of Service) 👨‍👩‍👧‍👦 |
-| :--- | :--- | :--- |
-| **Attacker** | Single system | Multiple distributed systems (Zombie PCs) |
-| **Attack Scale** | Relatively small | Very large |
-| **Defense Difficulty** | Relatively easy (block the attack IP) | Very difficult (diverse attack IPs) |
+| Category               | DoS (Denial of Service) 🧍            | DDoS (Distributed Denial of Service) 👨‍👩‍👧‍👦   |
+| :--------------------- | :------------------------------------ | :---------------------------------------- |
+| **Attacker**           | Single system                         | Multiple distributed systems (Zombie PCs) |
+| **Attack Scale**       | Relatively small                      | Very large                                |
+| **Defense Difficulty** | Relatively easy (block the attack IP) | Very difficult (diverse attack IPs)       |
 
 ## 🔄 What is DRDoS (Distributed Reflection DoS)?
 
@@ -46,14 +57,14 @@ There are various DoS attack techniques, each disrupting a system in different w
 
 ### DoS Attack Mnemonics 💡
 
-| Attack Name | Core Keyword/Principle | Simple Analogy (Try remembering it this way!) |
-| :--- | :--- | :--- |
-| **LAND Attack** | **A letter to oneself** 📮 | Constantly calling your own phone number to make the line busy. |
-| **Smurf Attack** | **Causing chaos by shouting someone else's name** 📢 | Shouting "Everyone run to person A!" in a broadcast room to overwhelm A. |
-| **Teardrop** | **Broken toy pieces** 🧩 | Intentionally sending broken toy pieces (data) to break the person assembling it. |
-| **Ping of Death** | **An oversized gift box** 🎁 | Forcing a house-sized gift box through a tiny door, breaking the door. |
-| **SYN Flooding** | **A "ding-dong-ditch" prank call** 🏃 | Ringing the doorbell (SYN) and running away when someone answers (ACK), forcing the owner to keep the door open. |
-| **UDP Flooding** | **Mindlessly distributing flyers to every house** 📬 | Ringing every doorbell in an apartment building (UDP) and asking "Is anyone home?" to exhaust the security guard (server). |
+| Attack Name       | Core Keyword/Principle                               | Simple Analogy (Try remembering it this way!)                                                                              |
+| :---------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
+| **LAND Attack**   | **A letter to oneself** 📮                           | Constantly calling your own phone number to make the line busy.                                                            |
+| **Smurf Attack**  | **Causing chaos by shouting someone else's name** 📢 | Shouting "Everyone run to person A!" in a broadcast room to overwhelm A.                                                   |
+| **Teardrop**      | **Broken toy pieces** 🧩                             | Intentionally sending broken toy pieces (data) to break the person assembling it.                                          |
+| **Ping of Death** | **An oversized gift box** 🎁                         | Forcing a house-sized gift box through a tiny door, breaking the door.                                                     |
+| **SYN Flooding**  | **A "ding-dong-ditch" prank call** 🏃                | Ringing the doorbell (SYN) and running away when someone answers (ACK), forcing the owner to keep the door open.           |
+| **UDP Flooding**  | **Mindlessly distributing flyers to every house** 📬 | Ringing every doorbell in an apartment building (UDP) and asking "Is anyone home?" to exhaust the security guard (server). |
 
 ### 🔄 LAND Attack
 
@@ -67,8 +78,8 @@ A Smurf attack works by spoofing the source IP to the target's IP and then sendi
 >
 > The name of this attack comes from the cartoon **"The Smurfs."**
 >
-> -   **Small but numerous Smurfs**: The many devices connected to the network (PCs, printers, etc.).
-> -   **Running towards a single target**: All these devices simultaneously send responses to a single victim.
+> - **Small but numerous Smurfs**: The many devices connected to the network (PCs, printers, etc.).
+> - **Running towards a single target**: All these devices simultaneously send responses to a single victim.
 >
 > The name "Smurf Attack" was coined because the attack resembles numerous 'Smurfs' (devices) swarming a single 'Gargamel' (the victim). It's quite an intuitive name, isn't it? 😄
 
@@ -96,3 +107,40 @@ SYN Flooding exploits a vulnerability in the TCP three-way handshake. The attack
 
 Unlike TCP, UDP is a connectionless protocol without a handshake process. UDP Flooding exploits this by sending a large number of UDP packets to random ports on a target server. The server checks for an application at the specified port. If none is found, it sends back an ICMP "Destination Unreachable" message. This process, when repeated, exhausts the server's resources, making it unable to handle legitimate requests.
 
+## Exam Preparation Problems
+
+<ProblemAnswer
+  problem="What is the attack method where an attacker changes the source address or port of a packet to be the same as the destination address, causing the target computer to slow down or crash, leading to a denial of service?"
+  correctAnswer="LAND Attack"
+/>
+
+<ProblemAnswer
+  problem="What is the attack method that spoofs the source address to the target's IP and broadcasts an ICMP Echo packet to the entire network, causing the target system to be paralyzed?"
+  correctAnswer="Smurf (or Smurfing)"
+/>
+
+<ProblemAnswer
+  problem="What is the attack method that sends fragmented data with mixed-up or missing pieces, causing the receiving system to overload or crash during reassembly?"
+  correctAnswer="Teardrop"
+/>
+
+<ProblemAnswer
+  problem="What is the attack method that intentionally creates and sends an ICMP packet larger than the maximum size (65,535 bytes)?"
+  correctAnswer="Ping of Death"
+/>
+
+<ProblemAnswer
+  problem="What is the attack method that exploits the TCP 3-way handshake by sending numerous SYN packets but not the final ACK packet?"
+  correctAnswer="SYN Flooding"
+/>
+
+<ProblemAnswer
+  problem="This attack exploits UDP's connectionless nature by sending a large number of UDP packets to random ports. The server checks for an application at the port and, if none is found, sends an ICMP 'Destination Unreachable' message. This repeated process exhausts the server's resources. What is this attack method?"
+  correctAnswer="UDP Flooding"
+/>
+
+## Recommended Next Posts
+
+- [🔒 Types of Network Attacks - 🚀 Includes Prep Questions for Engineer Exam](/en/blog/network-attack)
+- [🔐 Types of Security Attacks](/en/blog/types-of-security-attack)
+- [Ultimate Guide to the Information Processing Engineer Practical Exam 📝](/en/blog/korean-information-processing-engineer-practical-exam-strategy)

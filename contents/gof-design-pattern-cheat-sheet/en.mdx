@@ -1,17 +1,17 @@
 import ImageWithCaption from "@/app/components/ImageWithCaption";
 
 export const metadata = {
-  title: "GOF Design Patterns Cheat Sheet",
+  title: "GoF Design Patterns Cheat Sheet 👺 | Mnemonics + Images",
   description:
-    "Provides easy memorization methods for GOF design patterns with explanation links. Organized creational, structural, and behavioral patterns with mnemonics.",
-  publishedAt: "2025-07-08",
-  lastModifiedAt: "2025-07-08",
+    "This guide provides an easy way to memorize the Gang of Four (GoF) design patterns, complete with mnemonics and links to detailed explanations. It covers Creational, Structural, and Behavioral patterns.",
+  publishedAt: "2025-07-09",
+  lastModifiedAt: "2025-07-21",
   timeToRead: 0,
   heroImage:
     "/contents/gof-design-pattern-cheat-sheet/creational-pattern-singfacbuilpab.png",
   tags: [
     "GOF",
-    "Design Patterns",
+    "Design Pattern",
     "Creational Pattern",
     "Structural Pattern",
     "Behavioral Pattern",
@@ -20,22 +20,93 @@ export const metadata = {
   ],
 };
 
-Methods for memorizing design patterns and links to each design pattern explanation.
+> This post provides memorization tips for design patterns and links to detailed explanations for each.
+>
+> - The best way to memorize is to use a method you are comfortable with, ideally related to a topic you find interesting.
+> - The mnemonics below are for reference.
+> - The method I use combines acronyms and images.
+> - It's not enough to just know the names of the design patterns. Be sure to click the links to understand what each pattern does.
 
 ## Creational Patterns
 
-### **SingFacBuilProApp**
+### Mnemonic: **SingFacBuilPAb**
+
+Singleton, Factory, Builder, Prototype, Abstract Factory
 
 <ImageWithCaption
   src="/contents/gof-design-pattern-cheat-sheet/creational-pattern-singfacbuilpab.png"
-  alt="Creational Pattern Mnemonic"
-  caption="Creational Pattern Mnemonic: SingFacBuilProApp"
+  alt="Mnemonic for Creational Patterns"
+  caption="Creational Patterns Mnemonic: SingFacBuilPAb"
+  width={1024}
+  height={1024}
 />
 
-Singleton Factory Builder Prototype Abstract Factory
+> - Sing: Singleton Pattern
+> - Fac: Factory Method Pattern
+> - Buil: Builder Pattern
+> - P: Prototype Pattern
+> - Ab: Abstract Factory Pattern
 
-Structural Patterns
-AdDePrBrFlCom
+### Creational Patterns Explained (Links)
 
-Behavioral Patterns
-StrOp MeViItSt MemChResTem
+- [All Creational Patterns Explained + Exam Questions](/en/blog/gof-design-creational-pattern-for-exam)
+
+## Structural Patterns
+
+### Mnemonic: **ADPFBFC**
+
+Adapter, Decorator, Proxy, Facade, Bridge, Flyweight, Composite
+
+<ImageWithCaption
+  src="/contents/gof-design-pattern-cheat-sheet/whrerispuffcome.png"
+  alt="Mnemonic for Structural Patterns"
+  caption="Structural Patterns Mnemonic: ADPFBFC"
+  width={1024}
+  height={1024}
+/>
+
+> - A: Adapter Pattern
+> - D: Decorator Pattern
+> - P: Proxy Pattern
+> - F: Facade Pattern
+> - B: Bridge Pattern
+> - F: Flyweight Pattern
+> - C: Composite Pattern
+
+### Structural Patterns Explained (Links)
+
+1. [Adapter, Decorator, Proxy, Facade Explained + Exam Questions](/en/blog/gof-design-structural-pattern-for-exam)
+2. [Bridge, Flyweight, Composite Explained + Exam Questions](/en/blog/gof-design-structural-pattern-2)
+
+## Behavioral Patterns
+
+### Mnemonic: **SO MVI SMC CT**
+
+Strategy, Observer, Mediator, Visitor, Iterator, State, Memento, Command, Chain of Responsibility, Template Method
+
+<ImageWithCaption
+  src="/contents/gof-design-pattern-cheat-sheet/behavioral-pattern-alloptionabovemiddledefencebookmechanictem.png"
+  alt="Mnemonic for Behavioral Patterns"
+  caption="Behavioral Patterns Mnemonic: SO MVI SMC CT"
+  width={1024}
+  height={1024}
+/>
+
+> - S: Strategy Pattern
+> - O: Observer Pattern
+> - M: Mediator Pattern
+> - V: Visitor Pattern
+> - I: Iterator Pattern
+> - S: State Pattern
+> - M: Memento Pattern
+> - C: Command Pattern
+> - C: Chain of Responsibility Pattern
+> - T: Template Method Pattern
+
+### Behavioral Patterns Explained (Links)
+
+1. [Strategy, Observer Explained + Exam Questions](/en/blog/gof-design-behavioral-pattern-1)
+2. [Mediator, Visitor Explained + Exam Questions](/en/blog/gof-design-behavioral-pattern-5)
+3. [Iterator, State Explained + Exam Questions](/en/blog/gof-design-behavioral-pattern-4)
+4. [Chain of Responsibility, Memento Explained + Exam Questions](/en/blog/gof-design-behavioral-pattern-3)
+5. [Command, Template Method Explained + Exam Questions](/en/blog/gof-design-behavioral-pattern-2)

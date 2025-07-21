@@ -2,13 +2,22 @@ import ProblemAnswer from "@/app/components/ProblemAnswer";
 import ImageWithCaption from "@/app/components/ImageWithCaption";
 
 export const metadata = {
-  title: "🌐 Network Layer Guide: IP, ARP, RARP, ICMP, IGMP, Routing, and NAT",
+  title: "Network Layer Guide: IP, ARP, RARP, ICMP, IGMP, Routing, and NAT",
   description:
     "Explore key network layer protocols (IP, ARP, RARP, ICMP, IGMP) and technologies (Routing, NAT). Understand their functions and test your knowledge with practice questions.",
   publishedAt: "2025-07-14",
-  lastModifiedAt: "2025-07-14",
+  lastModifiedAt: "2025-07-21",
   timeToRead: 0,
-  tags: ["Network", "Protocol", "IP", "ARP", "ICMP", "Routing", "NAT", "Certification"],
+  tags: [
+    "Network",
+    "Protocol",
+    "IP",
+    "ARP",
+    "ICMP",
+    "Routing",
+    "NAT",
+    "Certification",
+  ],
   heroImage: "/contents/network-protocol-for-exam/network-layer-protocols.webp",
 };
 
@@ -20,15 +29,15 @@ export const metadata = {
 
 The Network Layer is responsible for routing data to its final destination and managing logical addresses (IP addresses).
 
-| Technology/Protocol | Main Function | Characteristics |
-| :--- | :--- | :--- |
-| **IP** | Datagram addressing and routing | Connectionless, Unreliable |
-| **ARP** | Resolves logical (IP) to physical (MAC) address | Dynamic, broadcast-based requests |
-| **RARP** | Resolves physical (MAC) to logical (IP) address | Reverse of ARP, used for boot-time IP assignment |
-| **ICMP** | Error reporting and network diagnostics | Relies on IP, sends control messages |
-| **IGMP** | Manages multicast group membership | Sends data only to a specific group, saves bandwidth |
-| **Routing Protocols** | Discover optimal data transmission paths | Use algorithms like RIP, OSPF, BGP |
-| **NAT** | Translates private IP addresses to public IP addresses | Conserves IP addresses, enhances internal network security |
+| Technology/Protocol   | Main Function                                          | Characteristics                                            |
+| :-------------------- | :----------------------------------------------------- | :--------------------------------------------------------- |
+| **IP**                | Datagram addressing and routing                        | Connectionless, Unreliable                                 |
+| **ARP**               | Resolves logical (IP) to physical (MAC) address        | Dynamic, broadcast-based requests                          |
+| **RARP**              | Resolves physical (MAC) to logical (IP) address        | Reverse of ARP, used for boot-time IP assignment           |
+| **ICMP**              | Error reporting and network diagnostics                | Relies on IP, sends control messages                       |
+| **IGMP**              | Manages multicast group membership                     | Sends data only to a specific group, saves bandwidth       |
+| **Routing Protocols** | Discover optimal data transmission paths               | Use algorithms like RIP, OSPF, BGP                         |
+| **NAT**               | Translates private IP addresses to public IP addresses | Conserves IP addresses, enhances internal network security |
 
 ---
 
@@ -38,12 +47,6 @@ The Network Layer is responsible for routing data to its final destination and m
 
 - **Connectionless**: It does not establish a connection before sending data.
 - **Unreliable**: It does not guarantee packet delivery, order of arrival, or error control. (Reliability is handled by the upper layer, TCP).
-
-<ImageWithCaption
-  src="/contents/network-protocol-for-exam/ip-header.png"
-  alt="IPv4 Header Structure"
-  caption="IPv4 Header Structure: Consists of fields such as Version, Header Length, Type of Service, Total Length, TTL, Protocol, and Source/Destination IP Addresses."
-/>
 
 ---
 

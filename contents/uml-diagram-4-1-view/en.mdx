@@ -1,20 +1,22 @@
 import Details from "@/app/components/Details";
 import MermaidDiagram from "@/app/components/MermaidDiagram";
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+import ProblemAnswer from "@/app/components/ProblemAnswer";
 
 export const metadata = {
-  title: "UML and the 4+1 View Model: A Guide to Software Architecture 🚀",
+  title: "UML and the 4+1 View Model",
   description:
-    "Learn the basics of UML (Unified Modeling Language), its various diagrams, and the 4+1 View Model for systematically understanding complex software architecture.",
+    "Learn the basics of UML (Unified Modeling Language), its various diagrams, and the 4+1 View Model for systematically understanding complex software architecture. Includes memorization tips and short-answer questions for the engineer exam.",
   publishedAt: "2025-07-05",
-  lastModifiedAt: "2025-07-05",
+  lastModifiedAt: "2025-07-21",
   tags: [
-    "Software Engineering",
+    "Engineer Exam",
     "UML",
     "Software Architecture",
     "4+1 View Model",
     "Modeling",
   ],
-  heroImage: "/contents/default.jpg",
+  heroImage: "/contents/uml-diagram-4-1-view/doctor_strange-and-sheikah-slate.png",
 };
 
 export const classDiagramExample = `
@@ -67,13 +69,35 @@ stateDiagram-v2
     Sleep --> On: Mouse/Keyboard input
 `;
 
+> 💡 Short-answer practice problems for the Information Processing Engineer exam are added as wrap-ups throughout the content. You can also review them along with final practice problems at the end of the post.
+
+### UML Diagram Summary Table
+
+| Category                                  | Diagram             | Keywords                                                      |
+| :---------------------------------------- | :------------------ | :------------------------------------------------------------ |
+| **Structure Diagrams**<br/>(Static Model) | Class               | System's static structure, classes, attributes, relationships |
+|                                           | Object              | Instance at a specific time, real example                     |
+|                                           | Component           | Physical components, **dependencies**                         |
+|                                           | Deployment          | **Component dependencies**, physical element locations        |
+|                                           | Composite Structure | Internal structure of a class, collaboration                  |
+|                                           | Package             | Grouping of related elements                                  |
+
+| Category                                  | Diagram       | Keywords                                                        |
+| :---------------------------------------- | :------------ | :-------------------------------------------------------------- |
+| **Behavior Diagrams**<br/>(Dynamic Model) | Use Case      | **User perspective**, system functions, interactions            |
+|                                           | Sequence      | **Time flow**, message flow                                     |
+|                                           | Communication | Focus on relationships and **message exchange** between objects |
+|                                           | State         | State changes of a single object                                |
+|                                           | Activity      | Workflow, processing logic, **processing flow**                 |
+|                                           | Timing        | Object state changes over **time constraints**                  |
+
 ## 🤔 What is UML?
 
-Developing software is like constructing a magnificent building. It involves a process of listening to the client's requirements (elicitation), analyzing their feasibility (analysis), drawing up blueprints (specification), and verifying that the construction follows the blueprints (verification).
+Developing software is like constructing a magnificent building. 🏗️ It involves a process of listening to the client's requirements (elicitation), analyzing their feasibility (analysis), drawing up blueprints (specification), and verifying that the construction follows the blueprints (verification).
 
 In this process, the key tool used in the **requirement analysis and blueprint design stages** is **UML (Unified Modeling Language)**.
 
-UML, as its name suggests, is a 'Unified Modeling Language.' It's a standardized convention for representing complex systems with easy-to-understand diagrams. It acts as a blueprint 📐, helping to visually design the system's structure and behavior before writing code and enabling clear communication among developers, ensuring everyone is on the same page.
+UML, as its name suggests, is a 'Unified Modeling Language.' It's a standardized convention for representing complex systems with easy-to-understand diagrams. 📜 It acts as a blueprint 📐, helping to visually design the system's structure and behavior before writing code and enabling clear communication among developers, ensuring everyone is on the same page.
 
 ## 🎨 Types of UML Diagrams
 
@@ -97,7 +121,7 @@ These show the static structure, or the skeleton, of the system.
     [Insurance Policy Management System Component Diagram
     (Wikipedia)](https://commons.wikimedia.org/wiki/File:Policy_Admin_Component_Diagram.PNG#/media/File:Policy_Admin_Component_Diagram.PNG)
   </Details>
-- **Deployment Diagram**: Shows how software is deployed on hardware (servers, equipment).
+- **Deployment Diagram**: Shows how software is deployed on hardware (servers, equipment) and the dependencies between components.
   <Details summary="View Deployment Diagram Example">
     [A sample deployment diagram
     (Wikipedia)](https://commons.wikimedia.org/wiki/File:Deployment_Diagram.PNG#/media/File:Deployment_Diagram.PNG)
@@ -107,7 +131,7 @@ These show the static structure, or the skeleton, of the system.
     [UML 2.0 Composite Structure Diagram Example
     (Wikipedia)](https://en.wikipedia.org/wiki/Composite_structure_diagram#Examples)
   </Details>
-- **Package Diagram**: Shows the relationships between packages that group related elements.
+- **Package Diagram**: Shows the relationships between packages that group related elements (looks similar to folders).
   <Details summary="View Package Diagram Example">
     [Deployment Model Structure.PNG (Wikipedia, Kishorekumar
     62)](https://upload.wikimedia.org/wikipedia/commons/b/bc/Deployment_Model_Structure.PNG)
@@ -122,11 +146,11 @@ These show how the system actually behaves and changes over time.
     [UML Use Case Diagram
     (Wikipedia)](https://en.wikipedia.org/wiki/Use_case_diagram#/media/File:Use_case_restaurant_model.svg)
   </Details>
-- **Sequence Diagram**: Shows the order of interactions as objects exchange messages over time.
+- **Sequence Diagram**: Shows the order of interactions as objects exchange messages over **time**.
   <Details summary="View Sequence Diagram Example">
     <MermaidDiagram chart={sequenceDiagramExample} />
   </Details>
-- **Communication Diagram**: Similar to sequence diagrams but focuses on the relationships between objects and message exchanges rather than time order. It shows how objects are connected and what messages they exchange.
+- **Communication Diagram**: Similar to sequence diagrams but focuses on the **relationships between objects and message exchanges** rather than time order. It shows how objects are connected and what messages they exchange.
   <Details summary="View Communication Diagram Example">
     [UML Communication Diagram Example
     (Wikipedia)](https://commons.wikimedia.org/wiki/File:UML_Communication_diagram.svg#/media/File:UML_Communication_diagram.svg)
@@ -146,9 +170,44 @@ These show how the system actually behaves and changes over time.
     (Wikimedia)](https://commons.wikimedia.org/wiki/File:Uml-Zeitverlaufsdiagramm.svg)
   </Details>
 
+### 🧠 How to Memorize UML Diagrams
+
+Using mnemonics can help create a lasting image.
+
+The image below shows Doctor Strange (Benedict **Cumber**batch) holding the **Sheikah** Slate from The Legend of Zelda.
+
+<ImageWithCaption
+  src="/contents/uml-diagram-4-1-view/doctor_strange-and-sheikah-slate.png"
+  alt="How to Memorize UML Diagrams"
+  caption="Memorization Tip: Cumberbatch + Sheikah Slate"
+  width="1024"
+  height="1024"
+/>
+
+For Structure Diagrams (Static Model), think of "ClOb**ComDe**CoPa" and associate it with Benedict 'Cumber'batch.
+For Behavior Diagrams (Dynamic Model), think of "U**SeCo**StAcTi" and associate it with the 'Sheikah' Slate.
+
+> **Memorization Order 📝**
+>
+> 1.  Types of UML Diagrams: Picture Benedict Cumberbatch holding the Sheikah Slate.
+> 2.  Structure Diagrams (Static Model) = Cumberbatch -> ClObComDeCoPa
+> 3.  Behavior Diagrams (Dynamic Model) = Sheikah Slate -> USeCoStAcTi
+> 4.  ClObComDeCoPa = Class, Object, Component, Deployment, Composite, Package
+> 5.  USeCoStAcTi = Use Case, Sequence, Communication, State, Activity, Timing
+
+<ProblemAnswer
+  problem="List all types of Structure Diagrams."
+  correctAnswer="Class, Object, Component, Deployment, Composite, Package"
+/>
+
+<ProblemAnswer
+  problem="List all types of Behavior Diagrams."
+  correctAnswer="Use Case, Sequence, Communication, State, Activity, Timing"
+/>
+
 ## 🔭 The 4+1 View Model of Software Architecture
 
-Thinking, "When would I ever use all these diagrams?" You're right. That's why the **4+1 View Model** was introduced. It's a methodology for systematically viewing a complex system from five different perspectives (Views). Each view presents only the information relevant to a specific stakeholder (developer, designer, user, etc.).
+Thinking, "When would I ever use all these diagrams?" 🤔 You're right. That's why the **4+1 View Model** was introduced. It's a methodology for systematically viewing a complex system from five different perspectives (Views). Each view presents only the information relevant to a specific stakeholder (developer, designer, user, etc.).
 
 ### 1. Use Case View 🧑‍💻 (+1)
 
@@ -181,3 +240,67 @@ Thinking, "When would I ever use all these diagrams?" You're right. That's why t
 - **Related UML Diagrams**: **Deployment Diagram**
 
 By utilizing the 4+1 View Model, you can clearly understand the architecture of a complex system from various perspectives, enabling effective communication among all stakeholders and leading to a successful project! ✨
+
+<ProblemAnswer
+  problem="List all five views of the 4+1 View Model."
+  correctAnswer="Use Case, Logical, Process, Implementation, Deployment"
+/>
+
+## 📝 Exam Preparation Problems
+
+<ProblemAnswer
+  problem="A diagram that shows the dependencies between components and the location of physical elements such as artifacts, processes, and components."
+  correctAnswer="Deployment Diagram"
+/>
+
+<ProblemAnswer
+  problem="A diagram that shows the relationships between packages that group model elements such as use cases or classes."
+  correctAnswer="Package Diagram"
+/>
+
+<ProblemAnswer
+  problem="Which view in the 4+1 software architecture model describes how the system's functional requirements are provided from the perspective of designers and developers?"
+  correctAnswer="Logical View"
+/>
+
+<ProblemAnswer
+  problem="Which view in the 4+1 software architecture model expresses non-functional attributes of the system such as efficient resource use, concurrent execution, asynchronous processing, and event handling from the perspective of developers and system integrators?"
+  correctAnswer="Process View"
+/>
+
+<ProblemAnswer
+  problem="Which view in the 4+1 software architecture model shows the structure of static software modules in the development environment, including component structure and dependencies, and defines additional information about components?"
+  correctAnswer="Implementation View"
+/>
+
+<ProblemAnswer
+  problem="A diagram that expresses the functions provided by the system and related external elements from the user's perspective."
+  correctAnswer="Use Case Diagram"
+/>
+
+<ProblemAnswer
+  problem="A diagram that models the dynamic interaction between objects, focusing on the temporal concept of message flow."
+  correctAnswer="Sequence Diagram"
+/>
+
+## 🔁 Review Problems
+
+<ProblemAnswer
+  problem="List all types of Structure Diagrams."
+  correctAnswer="Class, Object, Component, Deployment, Composite, Package"
+/>
+
+<ProblemAnswer
+  problem="List all types of Behavior Diagrams."
+  correctAnswer="Use Case, Sequence, Communication, State, Activity, Timing"
+/>
+
+<ProblemAnswer
+  problem="List all five views of the 4+1 View Model."
+  correctAnswer="Use Case, Logical, Process, Implementation, Deployment"
+/>
+
+## Recommended Next Posts
+
+- [The 6 Relationships in UML Class Diagrams - 🚀 Includes Prep Questions for Engineer Exam](/en/blog/uml-class-diagram-relationships)
+- [Ultimate Guide to the Information Processing Engineer Practical Exam 📝](/en/blog/korean-information-processing-engineer-practical-exam-strategy)
