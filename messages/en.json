@@ -1,4 +1,12 @@
 {
+    "HomePage": {
+        "title": "JaaHyun Dev & Plan",
+        "description": "Hello, I'm Jaa Hyun Kim"
+    },
+    "BlogPage": {
+        "title": "JaaHyun Dev & Plan Blog",
+        "description": "Jaa Hyun Kim's Dev Blog"
+    },
     "home": {
         "featured": "Featured",
         "timeToRead1": "",

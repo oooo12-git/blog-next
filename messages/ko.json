@@ -1,4 +1,12 @@
 {
+    "HomePage": {
+        "title": "재현기획개발",
+        "description": "안녕하세요 재현기획개발입니다."
+    },
+    "BlogPage": {
+        "title": "재현기획개발 블로그",
+        "description": "재현기획개발의 블로그입니다."
+    },
     "home": {
         "featured": "추천 글",
         "timeToRead1": "읽는데 약 ",

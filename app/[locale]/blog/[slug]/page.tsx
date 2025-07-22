@@ -177,7 +177,7 @@ export async function generateMetadata({
   const pathname = getPathname({ locale, href: `/blog/${slug}` });
 
   return {
-    title: `${metadata.title} | 김재현의 블로그`,
+    title: `${metadata.title} | 재현기획개발`,
     description: metadata.description,
     alternates: {
       canonical: `${baseUrl}${pathname}`,
@@ -186,7 +186,7 @@ export async function generateMetadata({
       type: "article",
       title: metadata.title,
       description: metadata.description,
-      siteName: "Jaehyun's Blog 김재현의 블로그 ",
+      siteName: "재현기획개발 JaeHyun Dev & Plan",
       locale,
       publishedTime: metadata.publishedAt,
       modifiedTime: metadata.lastModifiedAt || metadata.publishedAt,

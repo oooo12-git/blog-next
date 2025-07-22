@@ -165,22 +165,22 @@ export async function generateMetadata({
   const pathname = getPathname({ locale, href: `/blog/tag/${tagSlug}` });
 
   return {
-    title: `${decodedTag} 태그 - Dev Jaehyun's Blog`,
+    title: `${decodedTag} 태그 Tag - 재현기획개발 JaeHyun Dev & Plan`,
     description: `${decodedTag} 태그가 포함된 ${postCount}개의 포스트를 확인해보세요.`,
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`,
     },
     openGraph: {
       type: "website",
-      title: `${decodedTag} 태그 - Dev Jaehyun's Blog`,
+      title: `${decodedTag} 태그 Tag - 재현기획개발 JaeHyun Dev & Plan`,
       description: `${decodedTag} 태그가 포함된 ${postCount}개의 포스트를 확인해보세요.`,
-      siteName: "Jaehyun's Blog 김재현의 블로그",
+      siteName: "재현기획개발 JaeHyun Dev & Plan",
       locale,
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/tag/${tagSlug}`,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${decodedTag} 태그 - Dev Jaehyun's Blog`,
+      title: `${decodedTag} 태그 Tag - 재현기획개발 JaeHyun Dev & Plan`,
       description: `${decodedTag} 태그가 포함된 ${postCount}개의 포스트를 확인해보세요.`,
     },
   };

@@ -2,11 +2,25 @@ import { getAllTags, getTagCounts, getRecentTags } from "@/lib/utils";
 import { PopularPosts } from "@/app/components/Posts";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { Metadata } from "next";
 
 interface BlogPageProps {
   params: Promise<{
     locale: string;
   }>;
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "BlogPage" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
