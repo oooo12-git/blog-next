@@ -38,16 +38,23 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
+  const defaultJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: locale === "ko" ? "재현기획개발" : "Jaehyun Dev & Plan",
+    url: "https://www.kimjaahyun.com",
+  };
+
   return (
     <html lang={locale} className="dark:bg-black">
-      {/* <head> */}
-      {/* <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} /> */}
-      {/* <meta
-          name="naver-site-verification"
-          content="29a7617c3d120210148a81b685f20212482b8996"
-        /> */}
-      {/* </head> */}
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(defaultJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      </head>
       <body>
         <div className="max-w-[700px] mx-auto">
           {/* mx-auto : 좌우 여백 동일 */}

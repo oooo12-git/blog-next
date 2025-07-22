@@ -96,23 +96,10 @@ export default async function Page({ params }: PageProps) {
   const post: Post = { slug, metadata };
   const jsonLd = generateJsonLd(post, locale, slug);
 
-  const defaultJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: locale === "ko" ? "김재현의 개발맛집" : "Jaehyun's Blog",
-    url: "https://www.kimjaahyun.com",
-  };
-
   return (
     <div className={`${inter.className}`}>
       <article className="mt-4 px-2 sm:px-0">
         {/* JSON-LD 구조화된 데이터 */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(defaultJsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
