@@ -1,13 +1,15 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+
 export const metadata = {
-  title:
-    "GoF Design Patterns: Core Concepts for Exams (Singleton, Factory Method, Builder, Prototype, Abstract Factory)",
+  title: "GoF Design Patterns: Creational Patterns With JavaScript Examples",
   description:
-    "Learn the core concepts of the Gang of Four (GoF) design patterns, focusing on creational patterns like Singleton, Factory Method, Builder, Prototype, and Abstract Factory with code examples. Understand how to write scalable and flexible code.",
+    "Learn about the core of object-oriented programming, the Gang of Four (GoF) design patterns, focusing on creational patterns like Singleton, Factory Method, Builder, Prototype, and Abstract Factory with JavaScript code examples. Includes short-answer questions for the Information Processing Engineer exam.",
   publishedAt: "2025-07-02",
-  lastModifiedAt: "2025-07-03",
+  lastModifiedAt: "2025-07-21",
   timeToRead: 0,
   heroImage: "/contents/default.jpg",
   tags: [
+    "Engineer Exam",
     "Design Patterns",
     "GoF",
     "Singleton",
@@ -21,11 +23,13 @@ export const metadata = {
   ],
 };
 
+> There are short-answer practice problems for the Information Processing Engineer exam at the end of the post.
+
 ## 🎯 What are GoF Design Patterns?
 
 GoF stands for 'Gang of Four,' referring to the four authors of the book on design patterns that provides solutions to common problems in object-oriented programming. The patterns they compiled are a great help in increasing code reusability, maintainability, and scalability. ✨
 
-Design patterns are broadly divided into three categories: Creational, Structural, and Behavioral. In this article, we will focus on the **Creational Patterns**, which deal with object creation. 🏗️
+Design patterns are broadly divided into three categories: Creational, Structural, and Behavioral. In this article, we will focus on the five most representative **Creational Patterns**, which deal with object creation. 🏗️
 
 ## 1. 👑 Singleton Pattern
 
@@ -586,3 +590,15 @@ Here, "providing API to users" means the 'users' are not actual people, but **cl
 - **Specific Implementation (Concrete Classes)**: Concrete classes like `LightThemeFactory` or `DarkButton` are 'implementers' who actually fulfill the contents of the 'contract'. 👷‍♂️ When a `createButton()` request comes, they create **actual light/dark theme button objects**, and when a `paint()` request comes, they perform **actual theme-specific styling logic**.
 
 In conclusion, client code **doesn't need to directly write specific class names (`LightButton`) in the code** and only depends on the abstract 'manual (API)'. Thanks to this, a flexible structure is created where just by replacing the factory, the entire product family (theme) can be changed at once. 🔄✨
+
+## Exam Preparation Problems
+
+<ProblemAnswer
+  problem="A design pattern that provides an interface for creating combinations of related or dependent objects without specifying their concrete classes. In this pattern, the created classes provide an interface (API) to the user, and the specific implementation is done in the Concrete Product classes."
+  correctAnswer="Abstract Factory"
+/>
+
+<ProblemAnswer
+  problem="A design pattern that creates a general prototype from the beginning and then copies it, modifying only the necessary parts. The types of objects to be created are determined by the instance that provides the prototype of the object to be created, and it is used when there is a basic form that an object must have when it is created."
+  correctAnswer="Prototype"
+/>

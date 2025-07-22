@@ -5,6 +5,7 @@ interface ImageWithCaptionProps extends Omit<ImageProps, "alt"> {
   alt: string;
   caption?: string;
   showCaption?: boolean;
+  maxWidth?: number;
 }
 
 export default function ImageWithCaption({
@@ -13,6 +14,7 @@ export default function ImageWithCaption({
   showCaption = true,
   style,
   src,
+  maxWidth,
   ...props
 }: ImageWithCaptionProps) {
   const captionText = caption || alt;
@@ -25,7 +27,18 @@ export default function ImageWithCaption({
   // to prevent layout shift and ensure the image is displayed correctly.
   // This change makes the container size adapt to the actual image dimensions.
   return (
-    <figure className="my-8 text-center">
+    <figure
+      className="my-8 text-center"
+      style={
+        maxWidth
+          ? {
+              maxWidth: `${maxWidth}px`,
+              marginLeft: "auto",
+              marginRight: "auto",
+            }
+          : {}
+      }
+    >
       <Image
         src={src}
         alt={alt}
