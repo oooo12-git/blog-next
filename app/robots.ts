@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://kimjaahyun.com/sitemap.xml",
+    sitemap: "https://www.kimjaahyun.com/sitemap.xml",
   };
 }
