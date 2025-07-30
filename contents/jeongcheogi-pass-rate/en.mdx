@@ -1,0 +1,180 @@
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+import InteractiveChart from "@/app/components/InteractiveChart";
+
+export const metadata = {
+  title:
+    "Information Processing Engineer Pass Rate Trends and Predictions (2020-2025 Round 2)",
+  description:
+    "Provides the latest Information Processing Engineer written and practical exam pass rate data in tables and graphs. Analyzes pass rate trends to provide predicted pass rates for the 2025 Round 2 practical exam and predicts the difficulty of the 2025 Round 3 practical exam.",
+  publishedAt: "2025-07-30",
+  lastModifiedAt: "2025-07-30",
+  timeToRead: 0,
+  tags: ["Information Processing Engineer", "2025 Round 2 Practical Exam"],
+  heroImage:
+    "/contents/jeongcheogi-pass-rate/kimjaahyun_thumb_jeongcheogi-pass-rate.webp",
+};
+
+## Information Processing Engineer Pass Rates by Year and Round
+
+| Year |                     Round                      | Written Pass Rate |                   Practical Pass Rate                    |
+| :--: | :--------------------------------------------: | :---------------: | :------------------------------------------------------: |
+| 2025 |                    Round 2                     |      63.68%       | <span className="text-green-800">**25% Expected**</span> |
+| 2025 | <span className="text-red-500">Round 1</span>  |      69.78%       |     <span className="text-red-500">**15.1%**</span>      |
+| 2024 |                    Round 3                     |      55.79%       |                          20.7%                           |
+| 2024 |                    Round 2                     |      59.61%       |                          27.7%                           |
+| 2024 | <span className="text-blue-500">Round 1</span> |      66.75%       |     <span className="text-blue-500">**36.7%**</span>     |
+| 2023 |                    Round 3                     |      54.18%       |                          17.7%                           |
+| 2023 |                    Round 2                     |      57.70%       |                          17.9%                           |
+| 2023 | <span className="text-blue-500">Round 1</span> |      64.65%       |     <span className="text-blue-500">**27.5%**</span>     |
+| 2022 |                    Round 3                     |      51.66%       |                          20.4%                           |
+| 2022 |                    Round 2                     |      51.66%       |                          16.1%                           |
+| 2022 | <span className="text-blue-500">Round 1</span> |      64.12%       |     <span className="text-blue-500">**25.6%**</span>     |
+| 2021 |                    Round 3                     |      67.01%       |                          23.6%                           |
+| 2021 |                    Round 2                     |      36.76%       |                          27.7%                           |
+| 2021 | <span className="text-blue-500">Round 1</span> |      82.08%       |     <span className="text-blue-500">**39.5%**</span>     |
+| 2020 |                    Round 5                     |      52.94%       |                          20.9%                           |
+| 2020 |                    Round 4                     |      52.94%       |                          13.9%                           |
+| 2020 |                    Round 3                     |      67.37%       |                          18.3%                           |
+| 2020 |                    Round 2                     |      52.25%       |                          21.0%                           |
+| 2020 | <span className="text-red-500">Round 1</span>  |      52.25%       |      <span className="text-red-500">**5.3%**</span>      |
+
+### Analysis and Prediction of Information Processing Engineer 2025 Round 2 Practical Exam Pass Rate
+
+Looking at the Round 1 pass rates for each year, <span className="text-red-500">**the Information Processing Engineer practical exam pass rate falling below 20% in Round 1 was the first time in 2025**</span> (excluding 2020 immediately after the revision).
+
+{/* Annual Round-based Practical Exam Pass Rate Graph */}
+
+<InteractiveChart
+  chartType="line"
+  title="Information Processing Engineer Practical Exam Pass Rates by Year and Round"
+  xAxisDataKey="name"
+  lineDataKeys={["Practical Pass Rate"]}
+  data={[
+    { name: "2020 Round 1", "Practical Pass Rate": 5.3 },
+    { name: "2020 Round 2", "Practical Pass Rate": 21.0 },
+    { name: "2020 Round 3", "Practical Pass Rate": 18.3 },
+    { name: "2020 Round 4", "Practical Pass Rate": 13.9 },
+    { name: "2020 Round 5", "Practical Pass Rate": 20.9 },
+    { name: "2021 Round 1", "Practical Pass Rate": 39.5 },
+    { name: "2021 Round 2", "Practical Pass Rate": 27.7 },
+    { name: "2021 Round 3", "Practical Pass Rate": 23.6 },
+    { name: "2022 Round 1", "Practical Pass Rate": 25.6 },
+    { name: "2022 Round 2", "Practical Pass Rate": 16.1 },
+    { name: "2022 Round 3", "Practical Pass Rate": 20.4 },
+    { name: "2023 Round 1", "Practical Pass Rate": 27.5 },
+    { name: "2023 Round 2", "Practical Pass Rate": 17.9 },
+    { name: "2023 Round 3", "Practical Pass Rate": 17.7 },
+    { name: "2024 Round 1", "Practical Pass Rate": 36.7 },
+    { name: "2024 Round 2", "Practical Pass Rate": 27.7 },
+    { name: "2024 Round 3", "Practical Pass Rate": 20.7 },
+    { name: "2025 Round 1", "Practical Pass Rate": 15.1 },
+  ]}
+/>
+
+Accordingly, the 2025 Round 2 practical exam was set easier compared to Round 1. <span className="text-blue-500">**Considering the perceived difficulty and the examiners' goals, the 2025 Round 2 practical exam pass rate is expected to be around 25%.**</span> (The 2025 Round 2 Information Processing Engineer practical exam pass rate is scheduled to be announced on September 12th)
+
+## Information Processing Engineer Pass Rates by Year Summary
+
+|       Year        | Written Pass Rate |             Practical Pass Rate             |
+| :---------------: | :---------------: | :-----------------------------------------: |
+|       2024        |       60.8%       | <span className="text-red-500">28.9%</span> |
+|       2023        |       59.0%       |                    21.0%                    |
+|       2022        |       56.1%       |                    20.8%                    |
+|       2021        |       63.6%       |                    30.8%                    |
+| **2020(Revised)** |     **57.3%**     |                  **17.7%**                  |
+|       2019        |       58.2%       |                    51.4%                    |
+|       2018        |       51.4%       |                    50.5%                    |
+|       2017        |       42.6%       |                    27.4%                    |
+|       2016        |       47.9%       |                    65.5%                    |
+|       2015        |       51.4%       |                    56.2%                    |
+
+### Why the 2025 Round 1 Information Processing Engineer Practical Exam Was Difficult
+
+Looking at both annual pass rates and round-specific pass rates, we can infer why the 2025 Round 1 practical exam pass rate was particularly low compared to other years. From 2021 to 2022 and 2023, as theory questions decreased and programming questions increased, the problem composition changed, and **the examiners were able to achieve the desired pass rate of around 20%.**
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-rate/jeongcheogi_2024_shock.webp"
+  alt="2024 Information Processing Engineer Practical Exam Pass Rate Surge"
+  caption="2024 Information Processing Engineer Practical Exam Pass Rate Surge"
+  width={1024}
+  height={1024}
+  maxWidth={450}
+/>
+
+However, **in the 2024 Round 1 practical exam, difficulty control failed and the pass rate soared to 36.7%.** To lower the overall 2024 practical exam pass rate, the 2024 Round 2 and 3 practical exam questions were set more difficult than Round 1, but both rounds exceeded 20% pass rate, resulting in **an overall 2024 practical exam pass rate of 28.9%.**
+
+{/* prettier-ignore */}
+<span className="text-red-500">Due to the high pass rate in 2024, **it appears that in 2025, to achieve a pass rate of around 20%, they started by making Round 1 practical exam difficult, which has the highest number of applicants.**</span>
+
+### Why the 2025 Round 2 Information Processing Engineer Practical Exam Was Easier Than Round 1
+
+Although the examiners made the 2025 Round 1 practical exam difficult, I don't think they wanted a low pass rate of 15%. They probably still wanted a pass rate of around 20%.
+
+However, <span className="text-blue-500">**since Round 1 practical exam resulted in a lower 15% pass rate than the examiners expected, the 2025 Round 2 practical exam had to be set easier than Round 1.**</span>
+
+To achieve a 20% pass rate for 2025 overall, **it is expected that the 2025 Round 2 practical exam was set to achieve around 25% pass rate.**
+
+### Prediction for 2025 Round 3 Information Processing Engineer Practical Exam Difficulty
+
+If the 2025 Round 2 practical exam pass rate comes out around 25% as expected, the 2025 Round 3 practical exam is expected to be set at a similar difficulty to the 2024 Round 3 practical exam. The pass rate is also expected to be similarly around 25%.
+
+## Information Processing Engineer Written Exam Pass Rate Trends
+
+<InteractiveChart
+  chartType="line"
+  title="Information Processing Engineer Annual Written Exam Pass Rates"
+  xAxisDataKey="name"
+  lineDataKeys={["Pass Rate"]}
+  data={[
+    { name: "2020", "Pass Rate": 57.3 },
+    { name: "2021", "Pass Rate": 63.6 },
+    { name: "2022", "Pass Rate": 56.1 },
+    { name: "2023", "Pass Rate": 59.0 },
+    { name: "2024", "Pass Rate": 60.8 },
+  ]}
+/>
+
+The written exam has consistently maintained an average pass rate of **50% to 60%**. The Round 1 of 2021 recorded an exceptionally high pass rate of 82.08%. However, this appears to be a phenomenon that occurred during the difficulty adjustment process in the early stages of the revision. Overall, the written exam has a level where 5 to 6 out of 10 people pass, suggesting it's sufficiently passable with faithful study of basic concepts.
+
+## Information Processing Engineer Practical Exam Pass Rate Trends
+
+<InteractiveChart
+  chartType="line"
+  title="Information Processing Engineer Annual Practical Exam Pass Rates"
+  xAxisDataKey="name"
+  lineDataKeys={["Pass Rate"]}
+  data={[
+    { name: "2020", "Pass Rate": 17.7 },
+    { name: "2021", "Pass Rate": 30.8 },
+    { name: "2022", "Pass Rate": 20.8 },
+    { name: "2023", "Pass Rate": 21.0 },
+    { name: "2024", "Pass Rate": 28.9 },
+  ]}
+/>
+
+The practical exam has a significantly lower pass rate compared to the written exam, recording **an average of around 20%**. Immediately after the revision in 2020 Round 1, it recorded an extremely low pass rate of 5.3%. The highest was 2021 Round 1 at 39.5%. The 2024 average practical exam pass rate is 28.9%, which is on the high side. The 2025 Round 1 practical exam pass rate is 15.1%, which is on the low side considering historical pass rates.
+
+### Should You Target the 2025 Round 3 Information Processing Engineer Practical Exam or the 2026 Round 1 Practical Exam?
+
+{/* prettier-ignore */}
+<span className="text-blue-500">**If the 2025 Round 2 practical exam pass rate is in the 25% range as expected**</span>, the 2025 Round 3 practical exam might be easier than the 2026 Round 1 practical exam. There's a high possibility that the examiners will tend to make Round 1 practical exams more difficult each year, unlike before.
+
+However, <span className="text-red-500">**if the 2025 Round 2 practical exam pass rate comes out higher than expected around 30%**</span>, the 2026 Round 1 practical exam might be easier than the 2025 Round 3 practical exam. This is because the examiners are expected to make the 2025 Round 3 practical exam difficult due to the high 2025 Round 2 practical exam pass rate (though it will still be easier than 2025 Round 1).
+
+### 2025 Round 2 Information Processing Engineer Practical Exam Review
+
+1. Programming problem difficulty decreased
+2. Theory problem difficulty decreased
+3. SQL query problems not included
+4. C language/Java `for` loop eliminated
+5. Programming 'easy' difficulty problems eliminated
+
+[👺Detailed 2025 Round 2 Information Processing Engineer Practical Exam Review Link](/blog/jeongcheogi-practical-exam-review-2025-2)
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-rate/kimjaahyun_thumb_jeongcheogi-pass-rate.webp"
+  alt="Information Processing Engineer Pass Rate"
+  width={1024}
+  height={1024}
+  maxWidth={450}
+/>

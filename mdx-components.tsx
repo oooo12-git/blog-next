@@ -35,6 +35,15 @@ function createId(text: string): string {
   ); // 앞뒤 하이픈 제거
 }
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
@@ -94,34 +103,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     li: ({ children }) => (
       <li className="mb-1 dark:text-white leading-loose">{children}</li>
     ),
-    table: ({ children }) => (
-      <div className="overflow-x-auto my-6">
-        <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600">
-          {children}
-        </table>
-      </div>
-    ),
-    thead: ({ children }) => (
-      <thead className="bg-gray-50 dark:bg-gray-800">{children}</thead>
-    ),
-    tbody: ({ children }) => (
-      <tbody className="bg-white dark:bg-gray-900">{children}</tbody>
-    ),
-    tr: ({ children }) => (
-      <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
-        {children}
-      </tr>
-    ),
-    th: ({ children }) => (
-      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white border-r border-gray-300 dark:border-gray-600 last:border-r-0">
-        {children}
-      </th>
-    ),
-    td: ({ children }) => (
-      <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 border-r border-gray-300 dark:border-gray-600 last:border-r-0">
-        {children}
-      </td>
-    ),
+    table: (props) => <Table {...props} />,
+    thead: (props) => <TableHeader {...props} />,
+    tbody: (props) => <TableBody {...props} />,
+    tr: (props) => <TableRow {...props} />,
+    th: (props) => <TableHead {...props} />,
+    td: (props) => <TableCell {...props} />,
     pre: ({ children, ...props }) => {
       // mermaid 코드 블록 감지
       const child = children as any;
