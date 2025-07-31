@@ -117,6 +117,7 @@
         "reveal": "정답 보기",
         "answer": "정답",
         "firstAnswer": "먼저 답을 입력해주세요.",
-        "answerPlaceholder": "답을 입력해야 연습이됩니다!"
+        "answerPlaceholder": "답을 입력해야 연습이됩니다!",
+        "examSessions": "기출"
     }
 }

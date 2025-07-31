@@ -1,0 +1,191 @@
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import TooltipLink from "@/app/components/TooltipLink";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+
+export const metadata = {
+  title: "2025년 정보처리기사 실기 난이도 - 이론문제(최신 2회 실기 반영)",
+  description:
+    "정보처리기사 자격증 실기 시험의 이론 문제 난이도를 분석하고, 상/중/하 난이도별 기출문제를 통해 체감 난이도를 파악할 수 있도록 돕습니다. 2025년 회차별 문제 난이도 비교표도 제공합니다.",
+  publishedAt: "2025-07-31",
+  lastModifiedAt: "2025-07-31",
+  timeToRead: 0,
+  tags: ["정처기", "정처기 실기 2025년 2회"],
+  heroImage:
+    "/contents/jeongcheogi-difficulty-theory/kimjaahyun_thumb_jeongcheogi-difficulty.webp",
+};
+
+## 정보처리기사 실기 이론 문제 난이도별 예시 문제
+
+정보처리기사 자격증 실기 난이도를 체감하고 싶으신 분들을 위해 난이도 상, 중, 하로 나눠서 기출 문제를 제공합니다.
+난이도별 정보처리기사 자격증 실기 이론 문제들을 풀어보면서 이론 문제 난이도를 체감해보고 **이론 문제에 얼마나 많은 시간을 투자해야할지 가늠해보세요.**
+
+### 난이도 상 - 정보처리기사 자격증 실기 기출 문제
+
+> ❗️난이도 상 문제는 신유형 혹은 기출 변형이지만 까다로운 문제 혹은 이론 문제 중 어려운 유형의 문제입니다.
+
+<ProblemAnswer
+  problem="호스트 주소가 223.13.234.132이고, 서브넷 마스크는 255.255.255.192일 때 괄호 안에 들어가는 값은?
+  이 호스트의 네트워크 주소는 223.13.234.( (1) )이다.
+  이 네트워크 주소에서 사용 가능한 호스트 주소의 개수는 네트워크 주소와 브로드캐스트 주소를 뺀 ( (2) )개이다.
+  "
+  correctAnswer="(1): 128, (2): 62"
+  examSessions={["[실기]25년2회"]}
+/>
+
+이 문제는 기출 변형 문제에 해당합니다. 서브넷 마스크 관련 문제는 다른 기출 변형 문제에 비해 체감상 어렵게 느껴지는 문제입니다.
+
+하지만 서브넷 마스크, IP의 개념을 잘 이해하고 있다면 쉽게 풀 수 있는 문제였습니다.
+
+**정보처리기사 실기 이론 문제는 난이도가 "상"에 해당하더라도 충분히 쉽게 풀 수 있습니다.**
+
+<TooltipLink
+  href="/ko/blog/subnet-mask-for-exam"
+  text="서브넷 마스크, 서브네팅 관련 포스팅"
+/>
+
+### 난이도 중 - 정보처리기사 실기 기출 문제
+
+> ❗️난이도 중 문제는 기출 변형 문제, 신유형이지만 흔히 다루는 이론 용어를 다루는 문제입니다.
+
+<ProblemAnswer
+  problem="3 way handshake의 취약점 이용하여 공격하는 방법
+  공격자가 클라이언트 역할로 수많은 SYN 패킷을 서버에 전송한 뒤 마지막 ACK를 고의로 보내지 않아 서버가 연결 대기 상태를 계속 유지 하는 공격 방법은 무엇인가요?"
+  correctAnswer="Syn 플러딩"
+  examSessions={["[실기]25년2회"]}
+/>
+
+이 문제는 **신유형이지만 흔히 문제집에서 다루는 이론 용어를 맞춰야하는 문제입니다.** 이론을 공부하다보면 충분히 대비할 수 있는 문제입니다.
+
+<TooltipLink
+  href="/ko/blog/dos-attack"
+  text="Syn 플러딩 관련 포스팅(DOS 공격)"
+/>
+
+### 난이도 하 - 정보처리기사 실기 기출 문제
+
+> ❗️난이도 하 문제는 기출에 똑같이 나온 문제, 기출 변형이지만 단순 변형 문제입니다.
+
+다음 EMPLOYEE 테이블에 대하여 $\pi_{TTL}(EMPLOYEE)$ 연산을 수행한 결과는 무엇인가요?
+
+EMPLOYEE 테이블
+
+| EMPNO | NAME   | DEPT | TTL  |
+| :---- | :----- | :--- | :--- |
+| 1001  | 홍길동 | 총무 | 부장 |
+| 1002  | 이순신 | 영업 | 과장 |
+| 1003  | 강감찬 | 개발 | 대리 |
+
+<br />
+<br />
+결과 테이블
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <Table style={{ width: "50px", textAlign: "center" }}>
+    <TableHeader>
+      <TableRow>
+        <TableHead className="text-center">(1)</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableCell className="text-center">(2)</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="text-center">(3)</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="text-center">(4)</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</div>
+
+<ProblemAnswer
+  problem="1,2,3,4에 들어갈 값을 쓰시오."
+  correctAnswer="1: TTL, 2: 부장, 3: 과장, 4: 대리"
+  examSessions={["[실기]25년2회", "[실기]22년2회"]}
+/>
+
+이 문제는 이전 기출에 **똑같은 문제**가 나왔던 문제입니다. 기출을 풀었으면 틀리기 어려운 문제입니다.
+
+관계대수 기호 프로젝트(Project)가 뭔지 알면 쉽게 풀 수 있는 문제입니다.
+
+<TooltipLink
+  href="/ko/blog/relational-algebra-for-exam"
+  text="관계대수 관련 포스팅"
+/>
+
+## 2025년 1회, 2회 정보처리기사 실기 이론문제 난이도 비교
+
+| 구분                                       | 2025년 1회 | 2025년 2회 |
+| :----------------------------------------- | :--------- | :--------- |
+| <span className="text-red-500">상</span>   | 4          | 3          |
+| <span className="text-green-800">중</span> | 3          | 3          |
+| <span className="text-blue-500">하</span>  | 4          | 5          |
+
+정보처리기사 2025년 2회 실기 이론 문제는 1회에 비해 난이도 <span className="text-red-500">"상"</span> 문제가 1개 줄고 <span className="text-blue-500">"하"</span> 문제가 1개 늘었습니다. 난이도가 하향 조정되었습니다.
+
+아래 표는 정보처리기사 실기 2025년 1회, 2회 전체 이론 문제와 난이도를 정리해놓은 표입니다. 쭉 훑어보면서 난이도를 확인해보세요.
+
+### 2025년 1회 정보처리기사 실기 이론문제 난이도
+
+| 체감 난이도                                | 문제 키워드                                                                                                                                             | 답                                      |
+| :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------- |
+| <span className="text-green-800">중</span> | SELECT, 조인, AND                                                                                                                                       | 쿼리 실행결과 작성                      |
+| <span className="text-red-500">상</span>   | domain : 입력될 수 있는 값의 유형, 범위<br />foreign : 참조하는 속성                                                                                    | degree, cardinality, foreign, domain    |
+| <span className="text-red-500">상</span>   | 도메인 무결성 : 제약조건 개수가 속성의 개수와 동일<br />개체 무결성 : 릴레이션내 제약조건 개수 1개<br />참조 무결성 : 릴레이션내 제약조건 개수 0~여러개 | 도메인 무결성, 개체 무결성, 참조 무결성 |
+| <span className="text-blue-500">하</span>  | 문장 커버리지 순서(제어흐름도)                                                                                                                          | 문장 커버리지 순서                      |
+| <span className="text-blue-500">하</span>  | 내용 결합도 : 모듈 내부 변수<br />스탬프 결합도 : 자료구조 전달<br />공통 결합도 : 전역 변수 참조 갱신                                                  | 내용 결합도, 스탬프 결합도, 공통 결합도 |
+| <span className="text-green-800">중</span> | 서로 다른 인터페이스 가진 클래스 연결                                                                                                                   | Adapter                                 |
+| <span className="text-blue-500">하</span>  | 세션 가로채다                                                                                                                                           | 세션 하이재킹                           |
+| <span className="text-red-500">상</span>   | 겁을 주다                                                                                                                                               | 스캐어웨어                              |
+| <span className="text-green-800">중</span> | 오류감지, 체크섬 추가, 다항식 기반                                                                                                                      | 오류제어(CRC)                           |
+| <span className="text-blue-500">하</span>  | IP -> MAC(ARP) MAC -> IP(RARP)                                                                                                                          | ARP, RARP                               |
+| <span className="text-red-500">상</span>   | 브로드캐스팅 수신 가능 IP                                                                                                                               | 서브넷 마스크                           |
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-difficulty-theory/kimjaahyun_thumb_jeongcheogi-difficulty.webp"
+  alt="2025년 정보처리기사 실기 이론문제 난이도"
+  caption="2025년 정보처리기사 실기 이론문제 난이도"
+  width={1000}
+  height={1000}
+  maxWidth={450}
+/>
+
+### 2025년 2회 정보처리기사 실기 이론문제 난이도
+
+| 체감 난이도                                | 문제 키워드                                                           | 답                      |
+| :----------------------------------------- | :-------------------------------------------------------------------- | :---------------------- |
+| <span className="text-green-800">중</span> | DB 열 관련 용어, 파일에서 필드와 같은 의미                            | attribute               |
+| <span className="text-blue-500">하</span>  | 프로젝트 수행 결과                                                    | 관계대수 기호(프로젝트) |
+| <span className="text-green-800">중</span> | 데이터베이스 물리설계 - 레코드 접근(순차)방법, 인덱스 방법, 해싱 방법 | 인덱스                  |
+| <span className="text-blue-500">하</span>  | 분기 커버리지(제어흐름도)                                             | 분기 커버리지 경로 순서 |
+| <span className="text-blue-500">하</span>  | 비동기식으로 웹 페이지의 일부 콘텐츠만 리로드                         | AJAX                    |
+| <span className="text-blue-500">하</span>  | 대리 객체                                                             | Proxy(프록시)           |
+| <span className="text-green-800">중</span> | 3 way handshake의 취약점 이용                                         | Syn 플러딩              |
+| <span className="text-red-500">상</span>   | 라운드 로빈                                                           | 라운드 로빈             |
+| <span className="text-red-500">상</span>   | 선점, 비선점 둘다 가능, 선점형 ( ) 스케줄링                           | SJF, SRT                |
+| <span className="text-blue-500">하</span>  | 포트번호 22                                                           | SSH                     |
+| <span className="text-red-500">상</span>   | 네트워크 주소, 호스트 주소 갯수                                       | 서브넷 마스크           |
+
+## 추천 포스팅
+
+<TooltipLink
+  href="/ko/blog/jeongcheogi-practical-exam-review-2025-2"
+  text="2025년 2회 정처기 실기 후기"
+/>
+<br />
+<TooltipLink href="/ko/blog/jeongcheogi-pass-rate" text="정보처리기사 합격률" />
+<br />
+<TooltipLink
+  href="/ko/blog/jeongcheogi-practical-theory-summary-pdf"
+  text="정보처리기사 요약 PDF(2025년 2회)"
+/>

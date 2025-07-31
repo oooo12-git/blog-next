@@ -117,6 +117,7 @@
         "reveal": "Reveal Answer",
         "answer": "Answer",
         "firstAnswer": "Please enter your answer first.",
-        "answerPlaceholder": "You need to enter your answer to practice!"
+        "answerPlaceholder": "You need to enter your answer to practice!",
+        "examSessions": "Past Questions"
     }
 }

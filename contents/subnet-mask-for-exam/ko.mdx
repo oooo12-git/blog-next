@@ -1,16 +1,17 @@
 import ImageWithCaption from "@/app/components/ImageWithCaption";
 import ProblemAnswer from "@/app/components/ProblemAnswer";
 import Details from "@/app/components/Details";
+import SwipeHintAlert from "@/app/components/SwipeHintAlert";
 
 export const metadata = {
-  title: "서브넷 마스크, 서브네팅 | 🚀 정처기 실기 대비 문제 포함",
+  title: "서브넷 마스크, 서브넷팅 - 정보처리기사 문제 예제 포함",
   description:
     "IPv4 주소 체계에서 서브넷 마스크와 서브네팅의 원리를 설명합니다. 네트워크, 호스트, 브로드캐스트 주소를 계산하는 방법과 CIDR 표기법을 다루며, 정보처리기사 실기 대비를 위한 다양한 계산 문제를 제공합니다.",
   publishedAt: "2025-07-14",
-  lastModifiedAt: "2025-07-14",
+  lastModifiedAt: "2025-07-31",
   timeToRead: 0,
   heroImage: "/contents/subnet-mask-for-exam/ip-v4-address.png",
-  tags: ["정보처리기사", "네트워크", "서브넷마스크", "IPv4"],
+  tags: ["정처기", "네트워크"],
 };
 
 <Details summary="문제로 바로 이동하기">
@@ -31,6 +32,8 @@ export const metadata = {
 | 서브네팅(FLSM) | 서브넷 구하는데 사용        |
 
 ## 헷갈리기 쉬운 주소 요약
+
+<SwipeHintAlert />
 
 | 구분              | 설명                                                        |
 | ----------------- | ----------------------------------------------------------- |
@@ -349,7 +352,7 @@ A기업이 임대받은 IP주소 중 마지막 IP주소는 01111111 이 됩니�
 
 뒷자리 5개를 0으로 바꾸면 11111111.00001110.11101010.10000000 이 됩니다.
 
-이를 10진수로 바꾸면 255.14.234.128 이 ��니다.
+이를 10진수로 바꾸면 255.14.234.128 이 됩니다.
 
 </Details>
 
@@ -379,3 +382,12 @@ $2^n >= 3$ 를 만족하는 n은 2 이므로 서브넷을 나누기 위해 앞�
 이를 10진수로 바꾸면 234.122.1.127 이 됩니다.
 
 </Details>
+
+<ProblemAnswer
+  problem="호스트 주소가 223.13.234.132이고, 서브넷 마스크는 255.255.255.192일 때 괄호 안에 들어가는 값은?
+  이 호스트의 네트워크 주소는 223.13.234.( (1) )이다.
+  이 네트워크 주소에서 사용 가능한 호스트 주소의 개수는 네트워크 주소와 브로드캐스트 주소를 뺀 ( (2) )개이다.
+  "
+  correctAnswer="(1): 128, (2): 62"
+  examSessions={["[실기]25년2회"]}
+/>

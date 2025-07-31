@@ -1,13 +1,15 @@
 import Details from "@/app/components/Details";
 import ProblemAnswer from "@/app/components/ProblemAnswer";
+import SwipeHintAlert from "@/app/components/SwipeHintAlert";
+import TooltipLink from "@/app/components/TooltipLink";
 
 export const metadata = {
-  title: "🛢️ 관계 데이터 모델의 구성요소 | 🚀정처기 실기 대비 문제 포함",
+  title: "관계 데이터 모델의 구성요소 - 릴레이션, 카디널리티, 차수 등 정리",
   description:
     "데이터베이스의 기본, 관계 데이터 모델을 구성하는 릴레이션, 튜플, 속성, 카디널리티, 차수, 스키마, 인스턴스, 식별자, 도메인의 개념을 표로 명확하게 정리하고 예시와 함께 알아봅니다.",
   publishedAt: "2025-07-09",
-  lastModifiedAt: "2025-07-18",
-  tags: ["정처기", "데이터베이스", "관계형데이터모델", "SQL"],
+  lastModifiedAt: "2025-07-31",
+  tags: ["정처기", "데이터베이스"],
   heroImage: "/contents/default.jpg",
 };
 
@@ -24,11 +26,13 @@ export const metadata = {
 
 ### 📊 관계 데이터 모델 핵심 구성요소
 
-| 용어 (영문)                  | 설명                                                                                       | 예시 (학생 릴레이션)                             |
+<SwipeHintAlert title="표를 좌우로 스와이프하세요" />
+
+| 용어 (영문)                  | 핵심 키워드                                                                                | 예시 (학생 릴레이션)                             |
 | :--------------------------- | :----------------------------------------------------------------------------------------- | :----------------------------------------------- |
 | **릴레이션 (Relation)**      | 행과 열로 구성된 2차원 테이블 자체                                                         | '학생' 테이블 전체                               |
 | **튜플 (Tuple)**             | 레코드, 릴레이션의 각 **행(Row)**. 한 학생의 전체 데이터와 같이 연관된 데이터의 집합.      | (1001, '김철수', '컴퓨터공학') 한 줄             |
-| **속성 (Attribute)**         | 릴레이션의 각 **열(Column)**. 데이터의 가장 작은 논리적 단위.                              | '학번', '이름', '전공' 각각의 열                 |
+| **속성 (Attribute)**         | 릴레이션의 각 **열(Column)**. 파일 구조상 **데이터 필드**에 해당                           | '학번', '이름', '전공' 각각의 열                 |
 | **카디널리티 (Cardinality)** | 릴레이션에 포함된 **튜플의 수**. 특정 데이터 집합의 유니크한 값의 개수                     | 학생이 3명이면 카디널리티는 3                    |
 | **차수 (Degree)**            | 릴레이션에 포함된 **속성의 수**. (Number of Columns)                                       | '학번', '이름', '전공' 3개 속성이므로 차수는 3   |
 | **스키마 (Schema)**          | 데이터베이스의 **구조와 제약 조건에 대한 명세**. 릴레이션의 이름, 속성, 타입 정의.         | 학생(<u>학번</u>:정수, 이름:문자열, 전공:문자열) |
@@ -37,6 +41,12 @@ export const metadata = {
 | **도메인 (Domain)**          | 하나의 속성이 가질 수 있는 **값들의 집합**. (예: '성별' 속성의 도메인은 \{'남', '여'})     | '학년' 속성의 도메인은 \{1, 2, 3, 4}             |
 
 ## 📝 정처기 실기 대비 실전 문제
+
+<ProblemAnswer
+  problem="파일 구조상 데이터 항목 또는 데이터 필드에 해당하는 관계 데이터 모델 요소를 영어로 쓰시오"
+  correctAnswer="Attribute"
+  examSessions={["[실기]25년2회", "[필기]21년2회"]}
+/>
 
 <ProblemAnswer
   problem="관계 데이터 모델에서 하나의 릴레이션에 포함된 행(Row)의 수를 의미하는 용어는 무엇인가요?"
@@ -65,4 +75,7 @@ export const metadata = {
 
 ## ➡️ 다음 읽으면 좋은 포스팅
 
-- [정보처리기사 실기, 이론 문제 공략 팁 총정리📝](/ko/blog/korean-information-processing-engineer-practical-exam-strategy)
+<TooltipLink
+  href="/ko/blog/korean-information-processing-engineer-practical-exam-strategy"
+  text="정보처리기사 실기, 이론 문제 공략 팁 총정리"
+/>

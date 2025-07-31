@@ -1,12 +1,13 @@
 import ImageWithCaption from "@/app/components/ImageWithCaption";
 import InteractiveChart from "@/app/components/InteractiveChart";
+import TooltipLink from "@/app/components/TooltipLink";
 
 export const metadata = {
   title: "정보처리기사 필기 실기 합격률(2020-2025년 2회) + 난이도 예상",
   description:
     "최신 정보처리기사 필기 및 실기 시험 합격률 데이터를 표와 그래프로 제공합니다. 합격률 추이를 분석하여 2025년 2회 정처기 실기 합격률 예상치를 제공하고, 2025년 3회 정처기 실기 난이도를 예상합니다.",
   publishedAt: "2025-07-30",
-  lastModifiedAt: "2025-07-30",
+  lastModifiedAt: "2025-07-31",
   timeToRead: 0,
   tags: ["정처기", "정처기 실기 2025년 2회"],
   heroImage:
@@ -169,7 +170,10 @@ export const metadata = {
 4. C언어/Java `for`문 소멸
 5. 프로그래밍 '하' 난이도 문제 소멸
 
-[👺자세한 2025년 2회 정처기 실기 리뷰 링크](/blog/jeongcheogi-practical-exam-review-2025-2)
+<TooltipLink
+  href="/ko/blog/jeongcheogi-practical-exam-review-2025-2"
+  text="자세한 2025년 2회 정처기 실기 리뷰"
+/>
 
 <ImageWithCaption
   src="/contents/jeongcheogi-pass-rate/kimjaahyun_thumb_jeongcheogi-pass-rate.webp"
@@ -177,4 +181,9 @@ export const metadata = {
   width={1024}
   height={1024}
   maxWidth={450}
+/>
+
+<TooltipLink
+  href="/ko/blog/jeongcheogi-difficulty-theory"
+  text="정보처리기사 실기 이론 문제 난이도"
 />

@@ -1,0 +1,167 @@
+export const metadata = {
+  title:
+    "2025 Information Processing Engineer Practical Exam Difficulty - Theory Problems (Latest 2 Sessions Reflected)",
+  description:
+    "Analyzes the difficulty of theory problems in the Information Processing Engineer practical exam, helping to understand the perceived difficulty through high/medium/low difficulty past problems. Also provides difficulty comparison tables by 2025 exam sessions.",
+  publishedAt: "2025-07-31",
+  lastModifiedAt: "2025-07-31",
+  timeToRead: 0,
+  tags: ["Information Processing Engineer", "Practical Exam 2025 2nd Session"],
+  heroImage: "/contents/default.jpg",
+};
+
+import ProblemAnswer from "@/app/components/ProblemAnswer";
+import TooltipLink from "@/app/components/TooltipLink";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+## Information Processing Engineer Practical Exam Theory Problem Examples by Difficulty Level
+
+For those who want to experience the difficulty of the Information Processing Engineer practical exam, we provide past problems divided into high, medium, and low difficulty levels.
+By solving theory problems at different difficulty levels, you can **gauge how much time you should invest in theory problems**.
+
+### High Difficulty - Information Processing Engineer Practical Exam Past Problems
+
+> ❗️High difficulty problems are new types or past problem variations that are challenging, or difficult types among theory problems.
+
+<ProblemAnswer
+  problem="Given a host address of 223.13.234.132 and subnet mask of 255.255.255.192, what values go in the parentheses?
+  The network address of this host is 223.13.234.( (1) ).
+  The number of available host addresses in this network, excluding network and broadcast addresses, is ( (2) ).
+  "
+  correctAnswer="(1): 128, (2): 62"
+  examSessions={["[Practical]2025-2nd"]}
+/>
+
+This problem is a variation of past problems. Subnet mask-related problems tend to feel more difficult compared to other past problem variations.
+
+However, if you understand the concepts of subnet masks and IP addresses well, this was an easily solvable problem.
+
+Information Processing Engineer practical exam theory problems can be solved easily even when they correspond to "high" difficulty.
+
+<TooltipLink
+  href="/en/blog/subnet-mask-for-exam"
+  text="Subnet mask and subnetting related post"
+/>
+
+### Medium Difficulty - Information Processing Engineer Practical Exam Past Problems
+
+> ❗️Medium difficulty problems are past problem variations or new types that deal with commonly covered theoretical terms.
+
+<ProblemAnswer
+  problem="Attack method exploiting vulnerabilities in 3-way handshake
+  What is the attack method where an attacker acts as a client, sends numerous SYN packets to the server, then deliberately doesn't send the final ACK, keeping the server in a connection waiting state?"
+  correctAnswer="SYN Flooding"
+  examSessions={["[Practical]2025-2nd"]}
+/>
+
+This problem is a new type but requires matching commonly covered theoretical terms. It's a problem you can adequately prepare for by studying theory.
+
+<TooltipLink
+  href="/en/blog/dos-attack"
+  text="SYN flooding related post (DOS attacks)"
+/>
+
+### Low Difficulty - Information Processing Engineer Practical Exam Past Problems
+
+> ❗️Low difficulty problems are identical to past problems or simple variations of past problems.
+
+What is the result of performing the $\pi_{TTL}(EMPLOYEE)$ operation on the following EMPLOYEE table?
+
+EMPLOYEE Table
+
+| EMPNO | NAME          | DEPT            | TTL               |
+| :---- | :------------ | :-------------- | :---------------- |
+| 1001  | Hong Gil-dong | General Affairs | Manager           |
+| 1002  | Lee Soon-shin | Sales           | Section Chief     |
+| 1003  | Gang Gam-chan | Development     | Assistant Manager |
+
+<br />
+<br />
+Result Table
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <Table style={{ width: "50px", textAlign: "center" }}>
+    <TableHeader>
+      <TableRow>
+        <TableHead className="text-center">(1)</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableCell className="text-center">(2)</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="text-center">(3)</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className="text-center">(4)</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</div>
+
+<ProblemAnswer
+  problem="Write the values that go in 1, 2, 3, 4."
+  correctAnswer="1: TTL, 2: Manager, 3: Section Chief, 4: Assistant Manager"
+  examSessions={["[Practical]2025-2nd", "[Practical]2022-2nd"]}
+/>
+
+This problem is identical to a previous past problem. If you solved past problems, it would be difficult to get this wrong.
+
+If you know what the relational algebra symbol Project means, you can easily solve this problem.
+
+<TooltipLink
+  href="/en/blog/relational-algebra-for-exam"
+  text="Relational algebra related post"
+/>
+
+## 2025 1st and 2nd Session Practical Exam Theory Problem Difficulty Comparison
+
+| Category                                       | 2025 1st Session | 2025 2nd Session |
+| :--------------------------------------------- | :--------------- | :--------------- |
+| <span className="text-red-500">High</span>     | 4                | 3                |
+| <span className="text-green-800">Medium</span> | 3                | 3                |
+| <span className="text-blue-500">Low</span>     | 4                | 5                |
+
+The Information Processing Engineer 2025 2nd session practical exam theory problems had one fewer <span className="text-red-500">"high"</span> difficulty problem and one more <span className="text-blue-500">"low"</span> difficulty problem compared to the 1st session. The difficulty was adjusted downward.
+
+The table below summarizes all theory problems and their difficulty levels for the Information Processing Engineer practical exam 2025 1st and 2nd sessions. Look through it to check the difficulty levels.
+
+### 2025 1st Session Practical Exam Theory Problem Difficulty
+
+| Perceived Difficulty                           | Problem Keywords                                                                                                                                                                        | Answer                                                    |
+| :--------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
+| <span className="text-green-800">Medium</span> | SELECT, join, AND                                                                                                                                                                       | Query execution result                                    |
+| <span className="text-red-500">High</span>     | domain: type and range of values that can be input<br />foreign: referenced attribute                                                                                                   | degree, cardinality, foreign, domain                      |
+| <span className="text-red-500">High</span>     | Domain integrity: number of constraints equals number of attributes<br />Entity integrity: 1 constraint per relation<br />Referential integrity: 0 to multiple constraints per relation | Domain integrity, Entity integrity, Referential integrity |
+| <span className="text-blue-500">Low</span>     | Statement coverage order (control flow diagram)                                                                                                                                         | Statement coverage order                                  |
+| <span className="text-blue-500">Low</span>     | Content coupling: internal module variables<br />Stamp coupling: data structure transfer<br />Common coupling: global variable reference and update                                     | Content coupling, Stamp coupling, Common coupling         |
+| <span className="text-green-800">Medium</span> | Connecting classes with different interfaces                                                                                                                                            | Adapter                                                   |
+| <span className="text-blue-500">Low</span>     | Hijack session                                                                                                                                                                          | Session hijacking                                         |
+| <span className="text-red-500">High</span>     | Frighten/scare                                                                                                                                                                          | Scareware                                                 |
+| <span className="text-green-800">Medium</span> | Error detection, checksum addition, polynomial-based                                                                                                                                    | Error control (CRC)                                       |
+| <span className="text-blue-500">Low</span>     | IP -> MAC(ARP) MAC -> IP(RARP)                                                                                                                                                          | ARP, RARP                                                 |
+| <span className="text-red-500">High</span>     | IP capable of receiving broadcast                                                                                                                                                       | Subnet mask                                               |
+
+### 2025 2nd Session Practical Exam Theory Problem Difficulty
+
+| Perceived Difficulty                           | Problem Keywords                                                                           | Answer                              |
+| :--------------------------------------------- | :----------------------------------------------------------------------------------------- | :---------------------------------- |
+| <span className="text-green-800">Medium</span> | DB column-related term, same meaning as field in files                                     | attribute                           |
+| <span className="text-blue-500">Low</span>     | Project execution result                                                                   | Relational algebra symbol (project) |
+| <span className="text-green-800">Medium</span> | Database physical design - record access (sequential) method, index method, hashing method | Index                               |
+| <span className="text-blue-500">Low</span>     | Branch coverage (control flow diagram)                                                     | Branch coverage path order          |
+| <span className="text-blue-500">Low</span>     | Asynchronously reload only part of web page content                                        | AJAX                                |
+| <span className="text-blue-500">Low</span>     | Proxy object                                                                               | Proxy                               |
+| <span className="text-green-800">Medium</span> | Exploiting 3-way handshake vulnerabilities                                                 | SYN flooding                        |
+| <span className="text-red-500">High</span>     | Round robin                                                                                | Round robin                         |
+| <span className="text-red-500">High</span>     | Both preemptive and non-preemptive possible, preemptive ( ) scheduling                     | SJF, SRT                            |
+| <span className="text-blue-500">Low</span>     | Port number 22                                                                             | SSH                                 |
+| <span className="text-red-500">High</span>     | Network address, number of host addresses                                                  | Subnet mask                         |

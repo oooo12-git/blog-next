@@ -2,15 +2,18 @@
 
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
 
 interface ProblemAnswerProps {
   problem: string;
   correctAnswer: string;
+  examSessions?: string[];
 }
 
 const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
   problem,
   correctAnswer,
+  examSessions,
 }) => {
   const t = useTranslations("ProblemAnswer");
   const [userAnswer, setUserAnswer] = useState("");
@@ -32,6 +35,27 @@ const ProblemAnswer: React.FC<ProblemAnswerProps> = ({
     <div className="my-10 overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
       <table className="w-full text-sm">
         <tbody>
+          {examSessions && examSessions.length > 0 && (
+            <tr className="border-b border-gray-200 dark:border-gray-700">
+              <td className="w-1/6 min-w-[80px] bg-red-100 p-3 font-semibold dark:bg-red-900 dark:text-white">
+                {t("examSessions")}
+              </td>
+              <td className="p-3 bg-red-100 dark:bg-red-900 dark:text-white">
+                <div className="flex flex-wrap gap-2">
+                  {examSessions.map((session, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      size="sm"
+                      className="bg-red-400 text-white dark:bg-red-600 dark:text-white"
+                    >
+                      {session}
+                    </Button>
+                  ))}
+                </div>
+              </td>
+            </tr>
+          )}
           <tr className="border-b border-gray-200 dark:border-gray-700">
             <td className="w-1/6 min-w-[80px] bg-gray-50 p-3 font-semibold dark:bg-gray-700/50 dark:text-white">
               {t("problem")}
