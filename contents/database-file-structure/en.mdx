@@ -1,0 +1,116 @@
+export const metadata = {
+  title:
+    "Database File Structures: Sequential, Indexed Sequential, and Hashing Access Methods",
+  description:
+    "Explore the core database file structures including sequential access, indexed sequential access, and hashing methods. Compare their advantages, disadvantages, and use cases.",
+  publishedAt: "2025-07-30",
+  lastModifiedAt: "2025-07-30",
+  tags: ["KIPE", "Database"],
+};
+
+> This is a topic covered in past exams.
+
+| Category              | Sequential Access | Indexed Sequential Access | Hashing                                          |
+| :-------------------- | :---------------- | :------------------------ | :----------------------------------------------- |
+| **Main Access Type**  | Sequential        | Sequential + Random       | Random                                           |
+| **Search Speed**      | Slow              | Moderate ~ Fast           | Very Fast                                        |
+| **Data Modification** | Inefficient       | Overhead Occurs           | Efficient (Performance degrades with collisions) |
+| **Storage Space**     | Efficient         | Additional Space Required | Potential Waste                                  |
+| **Suitable Tasks**    | Batch Processing  | Mixed Sequential/Random   | Real-time Queries                                |
+
+## Introduction
+
+The way databases store and retrieve data on disk, known as **file structure**, has a profound impact on the overall performance of database systems. The speed and efficiency with which users can find the data they need depends largely on the file structure employed.
+
+In this post, we'll explore the three most fundamental database file structure approaches: **Sequential Access**, **Indexed Sequential Access**, and **Hashing**. Understanding the concepts and trade-offs of each approach will be invaluable when designing databases or optimizing their performance.
+
+## 1. Sequential Access
+
+**Sequential access** is the simplest file structure. As the name suggests, it involves accessing records in the order they are stored in the file, one after another. It's like finding a specific song on a cassette tape by listening through the tracks from the beginning.
+
+- **Storage Method**: Records are typically stored in physically contiguous space, either in the order they were entered or sorted by a specific field (e.g., student ID, hire date).
+- **Search Method**: To find a specific record, you must sequentially read and compare every record from the beginning of the file to the end.
+
+### Advantages
+
+- **Simplicity**: The structure is very simple and easy to implement.
+- **Sequential Processing Efficiency**: Highly efficient for tasks that process all data sequentially (e.g., calculating total salaries for all employees).
+- **Storage Space Efficiency**: Records are stored continuously, requiring no additional space (like indexes), making efficient use of storage space.
+
+### Disadvantages
+
+- **Slow Search Speed**: For 'random access' where you need to find a specific record directly, it's very inefficient as you must read through an average of half the file. Search time increases dramatically as file size grows.
+- **Difficulty in Modification and Deletion**: Inserting or deleting records in the middle requires moving all subsequent records, creating significant overhead.
+
+### Use Cases
+
+- **Batch Processing**: Suitable for tasks like payroll batch processing, month-end settlements, and other operations that sequentially read and process entire datasets.
+- **Log Files**: Useful for recording and analyzing events that occur in chronological order.
+
+## 2. Indexed Sequential Access Method (ISAM)
+
+To address the slow search speed of sequential access, **indexed sequential access** was developed. This method adds an **index** to the sequential file, enabling faster access to specific records. Think of it like the index pages at the back of a book.
+
+- **Structure**:
+
+  - **Data File**: Records are sorted by primary key and stored sequentially.
+  - **Index File**: A separate index table containing pointers to specific record locations in the data file along with their key values. Since indexes are usually much smaller than data, they can be loaded into memory for fast searching.
+
+- **Search Method**:
+  1. First search for the desired key value in the index file.
+  2. Find the pointer associated with that key value in the index to determine the approximate location in the data file.
+  3. Search sequentially from that location to find the desired record.
+
+### Advantages
+
+- **Supports Both Sequential and Random Access**: Efficiently handles both sequential processing and fast random access to specific records.
+- **Fast Search Speed**: Provides much faster search speeds compared to sequential access. No need to read the entire file; you can access directly through the index.
+
+### Disadvantages
+
+- **Additional Storage Space Required**: Separate space is needed to store the index.
+- **Overhead**: When inserting or deleting new records, both the data file and index file must be updated, creating overhead. This can degrade performance in systems with frequent data changes.
+- **Reorganization Required**: Repeated insertions and deletions can create empty spaces (overflow areas) in files or make index structures inefficient, requiring periodic file reorganization.
+
+### Use Cases
+
+- Widely used in systems that need both sequential business processing and random searches through user queries (e.g., customer management systems, inventory management systems).
+
+## 3. Hashing
+
+**Hashing** is a very fast random access method that uses a **hash function** to convert key values into hash addresses, which serve as the physical addresses for storing records. Knowing just the key value allows you to immediately determine where the record is stored through calculation, eliminating most of the search process.
+
+- **Storage Method**:
+
+  1. Apply the record's key value to a hash function.
+  2. The hash function returns a fixed-length hash address (bucket address) through specific calculations.
+  3. Use this hash address as the disk location where the record will be stored.
+
+- **Hash Collision**: When different key values return the same hash address through the hash function, this is called a **hash collision**. This is a problem that must be resolved in hashing systems.
+  - **Solutions**:
+    - **Chaining**: Manage records with the same hash address by linking them in a linked list.
+    - **Open Addressing**: When collision occurs, find another empty space according to predetermined rules to store the data.
+
+### Advantages
+
+- **Very Fast Random Access Speed**: Since record locations are calculated directly from key values, nearly instantaneous searches are possible regardless of file size. Average search complexity approaches O(1).
+
+### Disadvantages
+
+- **Difficulty with Sequential Access**: Since data is scattered based on hash results of key values, sequential access is very inefficient.
+- **Hash Function Dependency**: Designing a good hash function is crucial. Overall performance depends on how well the hash function avoids collisions and evenly distributes data.
+- **Storage Space Waste**: May need to allocate more storage space (buckets) than actual data volume to reduce hash collisions, potentially causing space waste.
+
+### Use Cases
+
+- Used in Online Transaction Processing (OLTP) systems where fast queries are essential, or in internal database indexing structures (hash indexes).
+
+## Conclusion: Which Method Should You Choose?
+
+Each of the three file structures has clear advantages and disadvantages, so the choice depends on your application's requirements.
+
+- If **most tasks involve sequential processing of entire datasets**, **sequential access** is a good choice.
+- If you need **both sequential processing and random queries**, **indexed sequential access** can be the most flexible solution.
+- If **fast random access speed is most important**, **hashing** will provide the strongest performance.
+
+Modern Database Management Systems (DBMS) use more sophisticated data structures like B-trees, B+ trees, and hash indexes that combine and enhance these basic file structures to maximize performance. Understanding these fundamental concepts is the first step toward grasping how databases work internally.

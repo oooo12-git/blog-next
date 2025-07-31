@@ -1,15 +1,15 @@
 import ProblemAnswer from "@/app/components/ProblemAnswer";
 import Details from "@/app/components/Details";
+import TooltipLink from "@/app/components/TooltipLink";
 
 export const metadata = {
-  title:
-    "🧪 테스트 커버리지: 문장, 결정, 조건, MC/DC | 🚀정처기 실기 대비 문제 포함",
+  title: "테스트 커버리지 종류 구문(문장), 결정, 조건, MC DC - 예제",
   description:
     "소프트웨어 테스트의 핵심 개념인 테스트 커버리지(구문, 결정, 조건, 조건/결정, MC/DC)를 알아보고, 정보처리기사 실기 기출문제를 통해 완벽하게 대비합니다.",
   publishedAt: "2025-07-10",
-  lastModifiedAt: "2025-07-12",
+  lastModifiedAt: "2025-07-31",
   timeToRead: 0,
-  tags: ["정처기", "소프트웨어테스트", "테스트커버리지", "화이트박스테스트"],
+  tags: ["정처기", "테스트"],
   heroImage:
     "/contents/test-coverage-for-exam/test-coverage-statement-quiz.webp",
 };
@@ -331,9 +331,11 @@ graph TD
 
 ## 👩‍💻 실전 기출 유형 문제
 
+### 문제1
+
 다음 코드와 제어흐름도를 보고 문제를 푸세요.
 
-### 대상 코드
+**대상 코드**
 
 ```java
 // b[]: 정수 배열, m: 배열의 유효 크기, x: 비교 값
@@ -349,19 +351,22 @@ int Main(int b[], int m, int x) {
 }
 ```
 
-### 제어 흐름도
+**제어 흐름도**
 
 ```mermaid
-graph TD
-    subgraph 제어 흐름도
-        N1["1"] --> N2{"2"};
-        N2 -- "True" --> N3{"3"};
-        N2 -- "False" --> N6["6"];
-        N3 -- "True" --> N4["4"];
-        N3 -- "False" --> N5["5"];
-        N4 --> N5;
-        N5 --> N2;
-    end
+---
+config:
+  flowchart:
+    curve: linear
+---
+flowchart TD
+  N1["1"] --> N2{"2"};
+  N2 -- "True" --> N3{"3"};
+  N2 -- "False" --> N6["6"];
+  N3 -- "True" --> N4["4"];
+  N3 -- "False" --> N5["5"];
+  N4 --> N5;
+  N5 --> N2;
 ```
 
 <ProblemAnswer
@@ -385,6 +390,42 @@ graph TD
   correctAnswer={`3 -> 4 -> 5 -> 2 -> 3 -> 5 -> 2 -> 6`}
 />
 
+### 문제2
+
+**제어 흐름도**
+
+```mermaid
+---
+config:
+  flowchart:
+    curve: linear
+---
+
+flowchart TD
+    N1["① POINTER = FALSE"] --> N2{"② X > K?"};
+    N2 -- "YES" --> N3["③ POINTER = TRUE"];
+    N2 -- "NO" --> N4["④ X = X + 2"];
+    N3 --> N5["⑤ CALL SUB(X, POINTER, RESULT)"];
+    N4 --> N5;
+    N5 --> N6{"⑥ RESULT > 1?"};
+    N6 -- "YES" --> N1;
+    N6 -- "NO" --> N7["⑦ PRINT RESULT"];
+    N7 --> End(( ));
+```
+
+<ProblemAnswer
+  problem={`제어흐름도가 분기 커버리지를 만족하기 위한 테스트 순서를 쓰시오
+  1: ① -> ② -> ( ) -> ( ) -> ( ) -> ( ) -> ( ) 
+  2: ( ) -> ( ) -> ( ) -> ( ) -> ( ) -> ( )`}
+  correctAnswer={`1: ① -> ② -> ③ -> ④ -> ⑤ -> ⑥ -> ⑦ 
+2: ① -> ② -> ④ -> ⑤ -> ⑥ -> ①
+`}
+  examSessions={["[실기]25년2회", "[실기]23년1회"]}
+/>
+
 ## ➡️ 다음 읽으면 좋은 포스팅
 
-- [정보처리기사 실기, 이론 문제 공략 팁 총정리📝](/ko/blog/korean-information-processing-engineer-practical-exam-strategy)
+<TooltipLink
+  href="/ko/blog/korean-information-processing-engineer-practical-exam-strategy"
+  text="정보처리기사 실기, 이론 문제 공략 팁 총정리"
+/>

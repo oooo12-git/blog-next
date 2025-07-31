@@ -1,16 +1,14 @@
 import ProblemAnswer from "@/app/components/ProblemAnswer";
 import Details from "@/app/components/Details";
-import CodeBlock from "@/app/components/CodeBlock";
 
 export const metadata = {
-  title:
-    "🔄 인터페이스 통신 기술: AJAX, Fetch, WebSocket, GraphQL | 🚀정처기 실기 대비 문제 포함",
+  title: "AJAX, Fetch API, WebSocket, GraphQL - 인터페이스 통신 기술",
   description:
     "정보처리기사 실기 시험의 핵심 주제인 인터페이스 통신 기술을 완벽히 정리합니다. 비동기 통신의 근간인 AJAX부터 현대적인 Fetch API, 실시간 통신을 위한 WebSocket, 효율적인 데이터 요청을 위한 GraphQL까지 각 기술의 특징과 차이점을 알아봅니다.",
   publishedAt: "2025-07-12",
-  lastModifiedAt: "2025-07-12",
+  lastModifiedAt: "2025-07-31",
   timeToRead: 0,
-  tags: ["정처기", "인터페이스", "AJAX", "WebSocket", "GraphQL", "Fetch API"],
+  tags: ["정처기", "인터페이스"],
   heroImage: "/contents/default.jpg",
 };
 
@@ -19,6 +17,13 @@ export const metadata = {
 ## 🔄 인터페이스 통신 기술
 
 클라이언트와 서버가 데이터를 주고받기 위해 사용하는 다양한 통신 기술들입니다. 각 기술은 사용 목적과 특징이 다릅니다.
+
+| 기술          | 핵심 키워드                                  | 주요 특징                                                        |
+| :------------ | :------------------------------------------- | :--------------------------------------------------------------- |
+| **AJAX**      | `XMLHttpRequest`, 비동기, 일부 컨텐츠 리로드 | 페이지 새로고침 없이 동적으로 화면 일부를 업데이트하는 개발 기법 |
+| **Fetch API** | `Promise` 기반, 내장 API, 간결한 문법        | `XMLHttpRequest`를 대체하는 현대적인 웹 표준 API                 |
+| **WebSocket** | 양방향, 실시간, 서버 푸시(Server-Push)       | 지속적인 연결을 통해 실시간으로 데이터를 주고받는 프로토콜       |
+| **GraphQL**   | API 쿼리 언어, Over-fetching 해결            | 클라이언트가 필요한 데이터만 정확하게 요청하는 API 명세          |
 
 ### 1. AJAX (Asynchronous JavaScript and XML)
 
@@ -131,8 +136,9 @@ getProduct("prod-123");
 ## 📝 정처기 실기 대비 문제
 
 <ProblemAnswer
-  problem="웹페이지 전체를 새로고침하지 않고, 백그라운드에서 서버와 비동기적으로 데이터를 교환하여 화면 일부만 동적으로 갱신하는 개발 기법은 무엇인가?"
-  correctAnswer="AJAX (Asynchronous JavaScript and XML)"
+  problem="비동기식으로 웹 페이지의 일부 콘텐츠만 리로드하는 방식, HTML만으로 어려운 작업을 웹페이지에 구현 가능하게 하는 기법은 무엇인가?"
+  correctAnswer="AJAX"
+  examSessions={["[실기]25년2회", "[실기]23년1회"]}
 />
 
 <ProblemAnswer
@@ -142,10 +148,15 @@ getProduct("prod-123");
 
 <ProblemAnswer
   problem="클라이언트와 서버 간의 양방향 실시간 통신을 가능하게 하여, 서버가 클라이언트의 요청 없이도 데이터를 보낼 수 있는(Server-Push) 프로토콜은 무엇인가?"
-  correctAnswer="웹소켓 (WebSockets)"
+  correctAnswer="WebSocket"
 />
 
 <ProblemAnswer
   problem="클라이언트가 필요한 데이터만 정확하게 요청하여 Over-fetching 및 Under-fetching 문제를 해결하는 API를 위한 쿼리 언어는 무엇인가?"
   correctAnswer="GraphQL"
+/>
+
+<ProblemAnswer
+  problem="웹페이지 전체를 새로고침하지 않고, 백그라운드에서 서버와 비동기적으로 데이터를 교환하여 화면 일부만 동적으로 갱신하는 개발 기법은 무엇인가?"
+  correctAnswer="AJAX"
 />
