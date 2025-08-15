@@ -1,11 +1,5 @@
 import Link from "next/link";
-import { RocknRoll_One } from "next/font/google";
-
-const rocknRollOne = RocknRoll_One({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+import Image from "next/image";
 
 type LogoProps = {
   interClass: string;
@@ -14,8 +8,18 @@ type LogoProps = {
 export default function Logo({ interClass }: LogoProps) {
   return (
     <div className="flex items-center">
-      <Link href="/" className="flex-shrink-0 flex items-center group">
-        <header className="flex flex-col items-center">
+      <Link
+        href="/"
+        className="flex-shrink-0 flex items-center group w-10 h-10"
+      >
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={773}
+          height={773}
+          className="rounded-full object-cover"
+        />
+        {/* <header className="flex flex-col items-center">
           <p
             className={`text-lg sm:text-2xl ${rocknRollOne.className} text-gray-900 dark:text-white dark:group-hover:text-gray-200 transition-colors duration-200`}
           >
@@ -26,7 +30,7 @@ export default function Logo({ interClass }: LogoProps) {
           >
             KIM JAA HYUN
           </p>
-        </header>
+        </header> */}
       </Link>
     </div>
   );
