@@ -4,6 +4,7 @@ import { FeaturedPost } from "@/app/components/Featured";
 import { BlogPostsBottom } from "@/app/components/PostsBottom";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
+import Banner from "@/app/components/Banner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function Home({
   return (
     <main className={`${inter.className} dark:text-white`}>
       <BlogPosts params={params} />
+      <Banner />
       <FeaturedPost params={params} />
       <BlogPostsBottom params={params} />
     </main>
