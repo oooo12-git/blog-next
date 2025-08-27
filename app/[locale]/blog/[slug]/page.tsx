@@ -16,6 +16,7 @@ import ViewCounter from "@/app/components/ViewCounter";
 import RelatedTagPosts from "@/app/components/RelatedTagPosts";
 import NotRelatedPosts from "@/app/components/NotRelatedPosts";
 import CommentSection from "@/app/components/CommentSection";
+import JeongcheogiPromoBanner from "@/app/components/JeongcheogiPromoBanner";
 
 import { Post } from "@/lib/utils";
 
@@ -96,6 +97,9 @@ export default async function Page({ params }: PageProps) {
   const post: Post = { slug, metadata };
   const jsonLd = generateJsonLd(post, locale, slug);
 
+  // 정처기 태그가 있는지 확인
+  const hasJeongcheogiTag = metadata.tags?.includes("정처기");
+
   return (
     <div className={`${inter.className}`}>
       <article className="mt-4 px-2 sm:px-0">
@@ -144,11 +148,18 @@ export default async function Page({ params }: PageProps) {
             {metadata.description}
           </p>
         </header>
+
+        {/* 정처기 관련 프로모션 배너 */}
+        {hasJeongcheogiTag && <JeongcheogiPromoBanner />}
+
         <div className="px-1 sm:px-0">
           <Post />
         </div>
       </article>
       <LikeButtonSupabase slug={slug} locale={locale} size="lg" />
+
+      {/* 정처기 관련 프로모션 배너 */}
+      {hasJeongcheogiTag && <JeongcheogiPromoBanner />}
 
       {/* 댓글 섹션 */}
       <CommentSection slug={slug} locale={locale} />
