@@ -8,8 +8,15 @@ export const metadata = {
   publishedAt: "2025-07-13",
   lastModifiedAt: "2025-07-13",
   timeToRead: 0,
-  tags: ["Operating System", "Page Replacement", "FIFO", "LRU", "LFU", "Exam Prep"],
-  heroImage: "/contents/page-replacement-for-exam/page-replacement-algorithms.webp",
+  tags: [
+    "Operating System",
+    "Page Replacement",
+    "FIFO",
+    "LRU",
+    "LFU",
+    "Exam Prep",
+  ],
+  heroImage: "/contents/default.webp",
 };
 
 > 💡 A subjective question for exam preparation is at the end of this post. Try to calculate the number of page faults for each algorithm yourself.
@@ -49,27 +56,27 @@ The goal of a page replacement algorithm is to **minimize the number of page fau
 
 This is the simplest algorithm. It evicts the **page that has been in RAM the longest**, just like a queue where the first person to arrive is the first to leave.
 
--   **Advantage**: Very simple to implement.
--   **Disadvantage**: It can be inefficient by replacing a frequently used page simply because it was loaded first. This is known as **Belady's Anomaly**, where increasing the number of frames can paradoxically increase the number of page faults.
+- **Advantage**: Very simple to implement.
+- **Disadvantage**: It can be inefficient by replacing a frequently used page simply because it was loaded first. This is known as **Belady's Anomaly**, where increasing the number of frames can paradoxically increase the number of page faults.
 
 ### 2. LRU (Least Recently Used)
 
 This algorithm replaces the **page that has not been used for the longest period of time**. It is based on the idea of **temporal locality**, which suggests that pages used recently are likely to be used again in the near future.
 
--   **Advantage**: Generally results in a lower page fault rate than FIFO and performs well.
+- **Advantage**: Generally results in a lower page fault rate than FIFO and performs well.
 
--   **Disadvantage**: Requires tracking the last access time for each page, which adds overhead and complexity to the OS.
+- **Disadvantage**: Requires tracking the last access time for each page, which adds overhead and complexity to the OS.
 
 ### 3. LFU (Least Frequently Used)
 
 This algorithm replaces the **page with the lowest reference count**. It operates on the assumption that pages used frequently in the past will be used frequently in the future.
 
--   **Advantage**: It can account for long-term access patterns that LRU might miss.
+- **Advantage**: It can account for long-term access patterns that LRU might miss.
 
--   **Disadvantages**:
-    -   The overhead of calculating reference counts is significant.
-    -   A page that was heavily used initially but is no longer needed might remain in memory.
-    -   If multiple pages have the same reference count, an additional rule (e.g., FIFO) is needed to decide which one to replace.
+- **Disadvantages**:
+  - The overhead of calculating reference counts is significant.
+  - A page that was heavily used initially but is no longer needed might remain in memory.
+  - If multiple pages have the same reference count, an additional rule (e.g., FIFO) is needed to decide which one to replace.
 
 ---
 
@@ -84,34 +91,34 @@ This algorithm replaces the **page with the lowest reference count**. It operate
 
 #### 1. FIFO (First-In, First-Out)
 
-| Ref  | 2 | 3 | 2 | 1 | 5 | 2 | 4 | 5 | 3 | 2 | 5 | 2 |
-| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| **1**  | 2 | 2 | 2 | 2 | 5 | 5 | 5 | 5 | 3 | 3 | 3 | 2 |
-| **2**  |   | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 5 | 5 |
-| **3**  |   |   |   | 1 | 1 | 1 | 4 | 4 | 4 | 5 | 2 | 3 |
-| **Fault**| Y | Y | N | Y | Y | Y | Y | N | Y | Y | Y | N |
+| Ref       |  2  |  3  |  2  |  1  |  5  |  2  |  4  |  5  |  3  |  2  |  5  |  2  |
+| :-------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **1**     |  2  |  2  |  2  |  2  |  5  |  5  |  5  |  5  |  3  |  3  |  3  |  2  |
+| **2**     |     |  3  |  3  |  3  |  3  |  2  |  2  |  2  |  2  |  2  |  5  |  5  |
+| **3**     |     |     |     |  1  |  1  |  1  |  4  |  4  |  4  |  5  |  2  |  3  |
+| **Fault** |  Y  |  Y  |  N  |  Y  |  Y  |  Y  |  Y  |  N  |  Y  |  Y  |  Y  |  N  |
 
 - **Total Page Faults: 9**
 
 #### 2. LRU (Least Recently Used)
 
-| Ref  | 2 | 3 | 2 | 1 | 5 | 2 | 4 | 5 | 3 | 2 | 5 | 2 |
-| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| **1**  | 2 | 2 | 2 | 2 | 5 | 5 | 5 | 5 | 5 | 2 | 2 | 2 |
-| **2**  |   | 3 | 3 | 1 | 1 | 2 | 2 | 2 | 3 | 3 | 5 | 5 |
-| **3**  |   |   |   | 3 | 2 | 4 | 4 | 4 | 4 | 5 | 3 | 3 |
-| **Fault**| Y | Y | N | Y | Y | Y | Y | N | Y | Y | N | N |
+| Ref       |  2  |  3  |  2  |  1  |  5  |  2  |  4  |  5  |  3  |  2  |  5  |  2  |
+| :-------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **1**     |  2  |  2  |  2  |  2  |  5  |  5  |  5  |  5  |  5  |  2  |  2  |  2  |
+| **2**     |     |  3  |  3  |  1  |  1  |  2  |  2  |  2  |  3  |  3  |  5  |  5  |
+| **3**     |     |     |     |  3  |  2  |  4  |  4  |  4  |  4  |  5  |  3  |  3  |
+| **Fault** |  Y  |  Y  |  N  |  Y  |  Y  |  Y  |  Y  |  N  |  Y  |  Y  |  N  |  N  |
 
 - **Total Page Faults: 7**
 
 #### 3. LFU (Least Frequently Used)
 
-| Ref  | 2 | 3 | 2 | 1 | 5 | 2 | 4 | 5 | 3 | 2 | 5 | 2 |
-| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| **1**  | 2 | 2 | 2 | 2 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 |
-| **2**  |   | 3 | 3 | 1 | 1 | 2 | 2 | 2 | 3 | 3 | 3 | 2 |
-| **3**  |   |   |   | 3 | 3 | 3 | 4 | 4 | 4 | 2 | 2 | 3 |
-| **Fault**| Y | Y | N | Y | Y | Y | Y | N | Y | Y | N | N |
+| Ref       |  2  |  3  |  2  |  1  |  5  |  2  |  4  |  5  |  3  |  2  |  5  |  2  |
+| :-------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **1**     |  2  |  2  |  2  |  2  |  5  |  5  |  5  |  5  |  5  |  5  |  5  |  5  |
+| **2**     |     |  3  |  3  |  1  |  1  |  2  |  2  |  2  |  3  |  3  |  3  |  2  |
+| **3**     |     |     |     |  3  |  3  |  3  |  4  |  4  |  4  |  2  |  2  |  3  |
+| **Fault** |  Y  |  Y  |  N  |  Y  |  Y  |  Y  |  Y  |  N  |  Y  |  Y  |  N  |  N  |
 
 - **Total Page Faults: 7**
 - **Reference Count Changes**
