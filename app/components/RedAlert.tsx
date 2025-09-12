@@ -14,10 +14,13 @@ const RedAlert: React.FC<RedAlertProps> = ({
   description,
 }) => {
   return (
-    <Alert variant="destructive" className={className}>
+    <Alert
+      variant="destructive"
+      className={`flex flex-wrap items-center mb-2 ${className || ""}`}
+    >
       <AlertCircle className="w-4 h-4" />
       {/* prettier-ignore */}
-      <AlertTitle>{title}</AlertTitle>
+      <AlertTitle className="text-base flex-1 min-w-0">{title}</AlertTitle>
       <AlertDescription>{description}</AlertDescription>
     </Alert>
   );
