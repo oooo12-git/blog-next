@@ -1,0 +1,245 @@
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+import InteractiveChart from "@/app/components/InteractiveChart";
+import TooltipLink from "@/app/components/TooltipLink";
+import RedAlert from "@/app/components/RedAlert";
+
+export const metadata = {
+  // title은 공백포함 20자(38바이트)일때 모바일에서 1줄로 깔끔하게 보임. 2줄로 간다면 40자내로 가는걸 권장
+  title: "비전공자 독학러 정보처리기사 실기 합격 후기 + 빡쳐서 책 쓰려는 썰",
+  description:
+    "비전공자 독학러가 정보처리기사 실기 75점으로 합격한 생생한 후기. 화남에서 평안까지 5단계 감정 변화와 AI 활용법, 최소 공부 범위 전략을 공유합니다.",
+  publishedAt: "2025-09-13",
+  lastModifiedAt: "2025-09-13",
+  timeToRead: 0,
+  tags: ["정처기", "정처기 실기 2025년 2회"],
+  heroImage:
+    "/contents/jeongcheogi-pass-review/jeongcheogi-pass-review_thumb.webp",
+};
+
+## 요약
+
+| 단계   | 요약                                          |
+| ------ | --------------------------------------------- |
+| 화남   | For문 문제 때문에 코딩 문제 거의 포기함       |
+| 무력감 | 이론 문제 범위도 너무 넓어서 공부하기 싫어짐  |
+| 분개   | AI와 같이 공부하며 길을 찾음                  |
+| 분노   | 그래도 범위 너무 넓어서 최소 공부 범위 찾아냄 |
+| 평안   | 직접 공부 범위 가이드, 요약 PDF 만들고 합격   |
+
+---
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/jeongcheogi-pass-review_thumb.webp"
+  alt="비전공자 독학으로 정보처리기사 실기 75점 동차 합격한 후기"
+  width={600}
+  height={239}
+  maxWidth={600}
+/>
+
+**나는 비전공자지만 2025년 2회 정보처리기사 필기, 실기를 동차 합격했다.**
+
+내 블로그엔 정보처리기사 실기 이론에 대한 글이 많다.
+
+모두 정처기 실기를 준비하면서 쓴 글이다.
+
+심지어 [정처기 감자](https://jeongcheogi.edugamja.com) 라는 사이트까지 만들었다.
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/jeongcheogi_gamja.webp"
+  alt="정처기 감자 사이트"
+  width={500}
+  height={564}
+  maxWidth={450}
+/>
+
+<RedAlert title="정처기를 준비하면서 화나는 일이 많아서 만든 사이트다." />
+
+비전공자인 내가 독학으로 정보처리기사 실기를 준비하면서 느꼈던 감정과 해결 과정에 대해 풀어보겠다.
+
+---
+
+## 화남(怒)
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/angry-computer_gamja.webp"
+  alt="나를 컴퓨터 취급하는 시험은 처음이었잖슴 - 정보처리기사"
+  caption="컴퓨터가 되어야 정보처리기사가 될 수 있는 건 아니잖아요"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+실기에서는 C언어, 자바, 파이썬 문제가 나온다. 코딩 문제라고 하는데, 예전 기출들을 보면 For문 문제가 엄청 많다.
+
+For문은 내부 코드를 반복해서 돌릴 수 있도록 하는 문법이다.
+
+그 중에 최악의 빌런문제인 [완전수 문제](https://jeongcheogi.edugamja.com/coding/c-language/perfect-number)가 있다.(23년 3회 기출)
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/perfect-number_problem.webp"
+  alt="완전수 문제 - 정처기 감자"
+  caption="완전수 문제는 정처기 감자에서 풀어볼 수 있다."
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+내가 완전수를 외우지 않았다면 **2부터 100까지 하나씩 전부 넣어보고 확인해야** 맞출 수 있는 문제다.
+
+이 외에도 여러 For문 문제가 출제되었는데, 악질인 문제들은 적어도 20개 이상 숫자든 문자든 넣어봐야 풀 수 있었다.
+
+정보처리기사는 개발하기에 기본이 갖춰진 사람을 가려야 하는데, 이런 문제는 **그냥 '컴퓨터 그 자체'를 가리는 시험인거 같아서 화가 났다.**
+
+**난 컴퓨터가 아니기 때문에 이런 문제 나오면 버린다는 마음가짐으로 준비했다.**
+
+<RedAlert title="다행히 25년 2회에는 For문 문제가 없어졌다." />
+
+---
+
+## 무력감(無力感)
+
+25년 2회 정보처리기사 실기를 대비하다보니 25년 1회 실기 문제를 많이 봤다.
+
+25년 1회 실기는 15%의 합격률로 2020년 개정이후 3번째로 어려웠던 시험이다.(개정 직후 시험을 제외하면 2번째로 어려웠던 시험이다.)
+
+**1회 실기에는 미친 코딩 문제가 많았다.**
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/redeye_gamja.webp"
+  alt="완전 미친 정보처리기사 문제"
+  caption="말도 안됨"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+실제 시험장에서 절대 풀 수 없을 것 같은 문제들 투성이었다.
+
+그래서 **이론을 빡세게 준비해서 이론 문제를 다수 맞추고 코딩 문제는 쉬운 것만 맞추는 전략을 세웠다.**
+
+그런데 이론 쪽 내용을 보니 외워야할게 너무 너무 많았다.
+{/* 몇 페이지 정도 되는지 확인 */}
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/dodongtak_gamza.webp"
+  alt="두둥탁!"
+  caption="이론 범위가 미쳤잖아...!"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+책에는 설명도 빈약해서 이해하기도 어렵다보니 도저히 외워지지 않았다.
+(외우기 싫어졌다는 표현이 더 맞다.)
+
+그렇게 공부는 잘 안되고 빈둥빈둥 거리는 날이 늘어갔다.
+
+<RedAlert title="이대로면 실기 합격은 불가능했다." />
+
+---
+
+## 분개(憤怒)
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/uprising_gamja.webp"
+  alt="이대로 물러설순 없다"
+  caption="이대로 물러설순 없다"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+그런데 지금은 바야흐로 AI의 시대가 아니던가.
+
+부족한 책 설명을 보충하기 위해 AI에게 이것저것 물어보다 보니 **공부가 재밌어졌다.**
+
+<RedAlert title="특히 디자인패턴은 책만 봐선 절대 외우지 못할거라고 생각했는데, AI와 함께 외울 수 있었다." />
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/design-pattern-quantity.webp"
+  alt="디자인 패턴 외워야 하는 양"
+  caption="디자인 패턴 외워야 하는 양 - 이걸 외운다고?"
+  width={500}
+  height={500}
+  maxWidth={500}
+/>
+
+어떻게 외웠는지 알고 싶다면 [정처기 감자 - SW설계](https://jeongcheogi.edugamja.com/theory/sw-design)에 있는 디자인패턴 관련 글들을 읽어보길 바란다.
+
+글들은 모두 AI와 함께 작성했고, 예시도 같이 있어서 각 디자인패턴을 이해하기 좋다.
+
+[두음법칙 + 이미지 암기법](https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-cheatsheet)을 생각해내기도 했으니 읽어보면 반드시 도움이 될 것이다.
+
+---
+
+## 분노(憤怒)
+
+AI덕에 공부를 재밌게 할 수 있었지만, 여전히 이론 공부양이 너무 많았다.
+
+이대로는 1회독도 불가능했다.
+
+결국 기출 문제 분석에 돌입했는데, **이론 문제를 보니 패턴이 있었다!**
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/stay_gamja.webp"
+  alt="그건 외우지 않아도 돼! Stay~~~!"
+  caption="그건 외우지 않아도 돼! Stay~!"
+  width={500}
+  height={500}
+  maxWidth={500}
+/>
+
+<RedAlert title="60점을 얻기 위해선 최소 범위만 공부해도 되는거였다." />
+
+그런데 내가 공부하는 책은 모든 기출문제 범위에, 플러스로 나올 수도 있겠다 싶은 이론을 모조리 적어놨다.
+
+그래서 책을 보면, 공부해야할 이론 범위가 어마어마하다.
+
+하지만 사실 책에는 허수가 많았던 것이다.
+
+---
+
+## 평안(平安)
+
+60점을 얻기 위한 최소 이론 공부 범위를 적어놓은 것이 [정처기 실기 공부법 [이론편] 👺 | 기출 기반 2025년 2회 실기 이론 문제 예상](/ko/blog/korean-information-processing-engineer-practical-exam-strategy) 페이지이다.
+
+그리고 이 범위를 기반으로 용어와 기출문제에 나온 키워드를 매칭하여 요약한 것이 [정처기 실기 요약 이론 pdf 다운 2025년 2회 예상 초압축 벼락치기용](/ko/blog/jeongcheogi-practical-theory-summary-pdf) 이다.
+
+<RedAlert title="이 범위 내에서 나온 이론 문제가 11문제 중 9문제였다." />
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/jeongcheogi-practical-theory-summary-preview1.webp"
+  alt="2025년 2회 예상 초압축 벼락치기용 pdf 일부"
+  caption="2025년 2회 예상 초압축 벼락치기용 pdf 일부"
+  width={1170}
+  height={1170}
+  maxWidth={500}
+/>
+
+**나는 실제로 이론문제 11문제 중 10문제를 맞추고 코딩문제 9문제에서 5문제를 맞추며 75점을 얻었다.**
+
+나와 같이 시험을 본 지인(1회 실기에서 불합격)도 이 블로그에 있는 문제를 풀고, 시험 당일 이 요약 pdf를 참고하여 65점에 합격했다.
+
+---
+
+## 시험 이후
+
+이 블로그에 있는 정보처리기사 실기 이론 관련 글을 다듬어서 [정처기 감자](https://jeongcheogi.edugamja.com) 사이트에 올리고 있다.
+
+다른 현생이 바빠서 빨리 올리지 못하고 있는데, 지속적으로 업데이트하려 한다.
+
+2025년 3회 실기에 대한 예상 문제 분석과 요약 PDF는 정처기 감자에 올라갈 예정이다.
+
+업데이트가 모두 끝나면 글을 모아서 PDF 책으로 만들 예정이다.
+
+이 글을 끝까지 읽어준 여러분 모두 합격하길 바란다.
+
+<TooltipLink
+  href="https://jeongcheogi.edugamja.com/"
+  text="정처기 감자 사이트로 이동"
+/>
+
+<TooltipLink
+  href="https://www.youtube.com/@%EC%A0%95%EC%B2%98%EA%B8%B0%EA%B0%90%EC%9E%90"
+  text="정처기 감자 유튜브 채널로 이동"
+/>

@@ -23,5 +23,14 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", ".next", "scripts", ".gemini", ".cursor", ".naver_contents", "temp"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "scripts",
+    ".gemini",
+    ".cursor",
+    ".naver_contents",
+    "temp",
+    "contents_template"
+  ]
 }

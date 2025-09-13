@@ -1,0 +1,242 @@
+import ImageWithCaption from "@/app/components/ImageWithCaption";
+import InteractiveChart from "@/app/components/InteractiveChart";
+import TooltipLink from "@/app/components/TooltipLink";
+import RedAlert from "@/app/components/RedAlert";
+
+export const metadata = {
+  // title은 공백포함 20자(38바이트)일때 모바일에서 1줄로 깔끔하게 보임. 2줄로 간다면 40자내로 가는걸 권장
+  title:
+    "Non-CS Major Self-Study Korean Information Processing Engineer Practical Exam Pass Review + Story of Writing a Book Out of Anger",
+  description:
+    "A vivid review of a non-CS major self-learner passing the Information Processing Engineer practical exam with 75 points. Shares 5-stage emotional journey from anger to peace, AI utilization methods, and minimal study scope strategies.",
+  publishedAt: "2025-09-13",
+  lastModifiedAt: "2025-09-13",
+  timeToRead: 0,
+  tags: [
+    "정처기",
+    "정처기 실기",
+    "2025년 2회",
+    "비전공자",
+    "독학",
+    "합격후기",
+    "AI",
+    "공부법",
+  ],
+  heroImage:
+    "/contents/jeongcheogi-pass-review/jeongcheogi-pass-review_thumb.webp",
+};
+
+## Summary
+
+| Stage        | Summary                                                  |
+| ------------ | -------------------------------------------------------- |
+| Anger        | Almost gave up on coding problems due to For-loop issues |
+| Helplessness | Theory problem scope too broad, lost motivation to study |
+| Indignation  | Found a way by studying together with AI                 |
+| Fury         | Still too broad scope, found minimal study range         |
+| Peace        | Created study guide and summary PDF myself and passed    |
+
+---
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/jeongcheogi-pass-review_thumb.webp"
+  alt="Non-CS major self-study Information Processing Engineer practical exam 75-point pass review"
+  width={600}
+  height={239}
+  maxWidth={600}
+/>
+
+**I am a non-CS major, but I passed both the written and practical exams of the 2025 2nd Korean Information Processing Engineer certification on the same attempt.**
+
+My blog has many articles about Information Processing Engineer practical theory.
+
+All were written while preparing for the practical exam.
+
+I even created a website called [정처기 감자](https://jeongcheogi.edugamja.com).
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/jeongcheogi_gamja.webp"
+  alt="정처기 감자 사이트"
+  width={500}
+  height={564}
+  maxWidth={450}
+/>
+
+<RedAlert title="This is a site I created because I got angry while preparing for the Information Processing Engineer exam." />
+
+I'll share the emotions I felt and the problem-solving process as a non-CS major preparing for the Information Processing Engineer practical exam through self-study.
+
+---
+
+## Anger (怒)
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/angry-computer_gamja.webp"
+  alt="This was the first exam that treated me like a computer"
+  caption="You don't have to become a computer to become an Information Processing Engineer"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+The practical exam includes C language, Java, and Python problems. They're called coding problems, but looking at past questions, there are tons of For-loop problems.
+
+For-loops are syntax that allows you to repeatedly run internal code.
+
+Among them, there's the worst villain problem, the [perfect number problem](https://jeongcheogi.edugamja.com/coding/c-language/perfect-number) (2023 3rd exam).
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/perfect-number_problem.webp"
+  alt="Perfect number problem - 정처기 감자"
+  caption="You can solve the perfect number problem at 정처기 감자."
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+If I hadn't memorized perfect numbers, I would have had to **try putting in every number from 2 to 100 one by one** to get it right.
+
+Besides this, various For-loop problems were presented, and the malicious ones required putting in at least 20 or more numbers or characters to solve.
+
+The Information Processing Engineer exam should filter people with basic development skills, but these problems seemed like **they were just testing 'computers themselves,' which made me angry.**
+
+**Since I'm not a computer, I prepared with the mindset of giving up when such problems appear.**
+
+<RedAlert title="Fortunately, there were no For-loop problems in the 2025 2nd exam." />
+
+---
+
+## Helplessness (無力感)
+
+While preparing for the 2025 2nd Information Processing Engineer practical exam, I looked at many 2025 1st practical exam problems.
+
+The 2025 1st practical exam had a 15% pass rate, making it the 3rd most difficult exam since the 2020 revision (2nd most difficult excluding the post-revision exams).
+
+**The 1st practical exam had many crazy coding problems.**
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/redeye_gamja.webp"
+  alt="Completely crazy Information Processing Engineer problems"
+  caption="Ridiculous"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+They were full of problems that seemed absolutely unsolvable in an actual exam setting.
+
+So **I strategized to intensively prepare theory to get most theory problems right and only solve easy coding problems.**
+
+But looking at the theory content, there was way too much to memorize.
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/dodongtak_gamza.webp"
+  alt="Ta-da!"
+  caption="The theory scope is insane...!"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+The explanations in books were poor, making them hard to understand and impossible to memorize.
+(It's more accurate to say I didn't want to memorize them.)
+
+As studying became ineffective, I spent more days idling around.
+
+<RedAlert title="At this rate, passing the practical exam was impossible." />
+
+---
+
+## Indignation (憤怒)
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/uprising_gamja.webp"
+  alt="I can't back down like this"
+  caption="I can't back down like this"
+  width={500}
+  height={500}
+  maxWidth={450}
+/>
+
+But isn't this the era of AI?
+
+To supplement the insufficient book explanations, I started asking AI various questions, and **studying became fun.**
+
+<RedAlert title="Especially design patterns - I thought I'd never memorize them just from books, but I could memorize them with AI." />
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/design-pattern-quantity.webp"
+  alt="Amount of design patterns to memorize"
+  caption="Amount of design patterns to memorize - Are you supposed to memorize all this?"
+  width={500}
+  height={500}
+  maxWidth={500}
+/>
+
+If you want to know how I memorized them, please read the design pattern articles in [정처기 감자 - SW설계](https://jeongcheogi.edugamja.com/theory/sw-design).
+
+All articles were written with AI, and they include examples, making it easy to understand each design pattern.
+
+I even came up with [Initial Sound Law + Image Memory Method](https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-cheatsheet), so reading it will definitely help.
+
+---
+
+## Fury (憤怒)
+
+Thanks to AI, I could study enjoyably, but the theory study volume was still too much.
+
+At this rate, even one complete reading was impossible.
+
+Finally, I started analyzing past exam problems, and **I found patterns in theory problems!**
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/stay_gamja.webp"
+  alt="You don't need to memorize that! Stay~~~!"
+  caption="You don't need to memorize that! Stay~!"
+  width={500}
+  height={500}
+  maxWidth={500}
+/>
+
+<RedAlert title="To get 60 points, studying only the minimal scope was enough." />
+
+But the book I was studying included all past exam problem scopes, plus theories that might possibly appear.
+
+So looking at the book, the theory scope to study was enormous.
+
+But in fact, there were many false positives in the book.
+
+---
+
+## Peace (平安)
+
+The minimal theory study scope to get 60 points is written on the [Information Processing Engineer Practical Study Method [Theory Part] 👺 | 2025 2nd Practical Theory Problem Prediction Based on Past Exams](/ko/blog/korean-information-processing-engineer-practical-exam-strategy) page.
+
+And based on this scope, matching terms and keywords from past exam problems is summarized in [Information Processing Engineer Practical Theory Summary PDF Download 2025 2nd Prediction Ultra-Compressed Cramming](/ko/blog/jeongcheogi-practical-theory-summary-pdf).
+
+<RedAlert title="9 out of 11 theory problems came from within this scope." />
+
+<ImageWithCaption
+  src="/contents/jeongcheogi-pass-review/jeongcheogi-practical-theory-summary-preview1.webp"
+  alt="Part of 2025 2nd prediction ultra-compressed cramming PDF"
+  caption="Part of 2025 2nd prediction ultra-compressed cramming PDF"
+  width={1170}
+  height={1170}
+  maxWidth={500}
+/>
+
+I actually got 10 out of 11 theory problems right and 5 out of 9 coding problems right, achieving 75 points.
+
+A friend who took the exam with me (failed the 1st practical exam) also solved problems on this blog and passed with 65 points by referring to this summary PDF on exam day.
+
+---
+
+## After the Exam
+
+I'm refining the Information Processing Engineer practical exam articles on this blog and posting them on the [정처기 감자](https://jeongcheogi.edugamja.com) site.
+
+I can't post quickly due to other busy life matters, but I plan to update continuously.
+
+Problem analysis and summary PDF predictions for the 2025 3rd practical exam will be posted on 정처기 감자.
+
+I hope everyone who reads this article to the end will pass.
