@@ -13,9 +13,9 @@ export default function AboutPage() {
 
   return (
     <div className="flex flex-col">
+      <h2 className="m-4 text-2xl font-bold">{t("title")}</h2>
       <div className="flex flex-col sm:flex-row justify-between px-4">
         <div className="my-2 dark:text-white sm:w-[350px]">
-          <h2 className="mb-4 text-2xl font-bold">{t("title")}</h2>
           {/* locale : ko - 경력  */}
           {locale === "ko" && (
             <div className="text-sm rounded-lg bg-[#ECEAEA] dark:bg-gray-800 p-2 border border-black mb-4">
@@ -25,12 +25,31 @@ export default function AboutPage() {
               <ul className="font-normal list-disc list-outside pl-4 space-y-1">
                 <li>
                   <Link
+                    href={"https://jeongcheogi.edugamja.com"}
+                    target="_blank"
+                    className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
+                  >
+                    정보처리기사 시험 준비 서비스 운영(2025.08 ~ 진행중)
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={"https://mailecho.kimjaahyun.com/"}
+                    target="_blank"
+                    className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
+                  >
+                    지메일 위임 알림 서비스 운영(2025.07 ~ 진행중)
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href={`/${locale}/blog/photo-studio-reservation`}
                     className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
                   >
-                    스튜디오 예약 시스템 개발 (2024.09 ~ 진행중)
+                    점포 예약 관리 개발 및 유지보수(2024.09 ~ 진행중)
                   </Link>
                 </li>
+                <li>급여 관리 개발 및 유지보수(2025.09 ~ 진행중)</li>
                 <li>
                   <Link
                     href="https://blog.naver.com/PostView.naver?blogId=n_cloudplatform&logNo=223790788385"
@@ -53,10 +72,22 @@ export default function AboutPage() {
               <ul className="font-normal list-disc list-outside pl-4 space-y-1">
                 <li>
                   <Link
+                    href={"https://jeongcheogi.edugamja.com"}
+                    target="_blank"
+                    className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
+                  >
+                    Information Processing Engineer Practical Exam Preparation
+                    Service Operation (2025.08 ~ Ongoing)
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
                     href={`/${locale}/blog/photo-studio-reservation`}
                     className="text-gray-600 hover:underline hover:text-black dark:text-neutral-300 dark:hover:text-white"
                   >
-                    Studio Reservation System Development (2024.09 ~ Ongoing)
+                    Studio Reservation System Development and Maintenance
+                    (2024.09 ~ Ongoing)
                   </Link>
                 </li>
                 <li>
@@ -77,9 +108,9 @@ export default function AboutPage() {
             <li>
               <p className="inline">{t("education")}</p>
             </li>
-            <li>
+            {/* <li>
               <p className="inline">{t("experience")}</p>
-            </li>
+            </li> */}
             <li>
               <p className="inline">{t("training")}</p>
             </li>
@@ -91,7 +122,7 @@ export default function AboutPage() {
             </li>
           </ul>
         </div>
-        <div className="w-[200px] sm:w-[300px]">
+        <div className="w-[200px] sm:w-[300px] mt-2">
           <Image
             src={profileLight}
             alt="profile"
@@ -105,48 +136,50 @@ export default function AboutPage() {
         </div>
       </div>
       <div className="rounded-lg bg-[#ECEAEA] dark:bg-gray-800 p-2 border border-black m-4">
-      <h2 className="text-center mt-4 mb-4 text-xl font-bold dark:text-white ">{t("contact")}</h2>
-      <div className="flex flex-row justify-center items-center gap-6 pb-8">
-        <Link 
-          href="mailto:kimjaahyun@kimjaahyun.com" 
-          className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
-          title="Email"
-        >
-          <HiOutlineMail size={32} />
-        </Link>
-        <Link 
-          href="https://instagram.com/kimjaahyun" 
-          target="_blank"
-          className="text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
-          title="Instagram"
-        >
-          <FaInstagram size={32} />
-        </Link>
-        <Link 
-          href="http://pf.kakao.com/_HJhan/chat" 
-          target="_blank"
-          className="text-gray-600 hover:text-yellow-500 dark:text-gray-300 dark:hover:text-yellow-400 transition-colors"
-          title="KakaoTalk"
-        >
-          <SiKakaotalk size={32} />
-        </Link>
-        <Link 
-          href="https://wa.me/821075647127" 
-          target="_blank"
-          className="text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors"
-          title="WhatsApp"
-        >
-          <FaWhatsapp size={32} />
-        </Link>
-        <Link 
-          href="https://line.me/ti/p/@567iaofl" 
-          target="_blank"
-          className="text-gray-600 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-400 transition-colors"
-          title="Line"
-        >
-          <FaLine size={32} />
-        </Link>
-        {/* <Link 
+        <h2 className="text-center mt-4 mb-4 text-xl font-bold dark:text-white ">
+          {t("contact")}
+        </h2>
+        <div className="flex flex-row justify-center items-center gap-6 pb-8">
+          <Link
+            href="mailto:kimjaahyun@kimjaahyun.com"
+            className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
+            title="Email"
+          >
+            <HiOutlineMail size={32} />
+          </Link>
+          <Link
+            href="https://instagram.com/kimjaahyun"
+            target="_blank"
+            className="text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
+            title="Instagram"
+          >
+            <FaInstagram size={32} />
+          </Link>
+          <Link
+            href="http://pf.kakao.com/_HJhan/chat"
+            target="_blank"
+            className="text-gray-600 hover:text-yellow-500 dark:text-gray-300 dark:hover:text-yellow-400 transition-colors"
+            title="KakaoTalk"
+          >
+            <SiKakaotalk size={32} />
+          </Link>
+          {/* <Link
+            href="https://wa.me/821075647127"
+            target="_blank"
+            className="text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors"
+            title="WhatsApp"
+          >
+            <FaWhatsapp size={32} />
+          </Link>
+          <Link
+            href="https://line.me/ti/p/@567iaofl"
+            target="_blank"
+            className="text-gray-600 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-400 transition-colors"
+            title="Line"
+          >
+            <FaLine size={32} />
+          </Link> */}
+          {/* <Link 
           href="https://weixin.qq.com/wxid_55dajb3d5go412" 
           target="_blank"
           className="text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400 transition-colors"
@@ -154,7 +187,7 @@ export default function AboutPage() {
         >
           <FaWeixin size={32} /> 
         </Link> */}
-      </div>
+        </div>
       </div>
     </div>
   );
