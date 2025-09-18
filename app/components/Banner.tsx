@@ -9,7 +9,10 @@ import {
 
 export default function Banner() {
   return (
-    <div className="p-3 overflow-hidden border-b-1">
+    <div className="p-3 overflow-hidden border-b-1 flex flex-col">
+      <h2 className="text-start text-lg font-semibold mb-2 ml-3">
+        재현기획개발이 만든 서비스
+      </h2>
       <Carousel
         opts={{
           align: "start",
