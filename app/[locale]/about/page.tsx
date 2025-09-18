@@ -1,4 +1,6 @@
 import { useTranslations, useLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
 import Image from "next/image";
 import profileLight from "./김재현_about_light.jpeg";
 import profileDark from "./김재현_about_dark.jpeg";
@@ -6,6 +8,20 @@ import Link from "next/link";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaInstagram, FaWhatsapp, FaLine } from "react-icons/fa";
 import { SiKakaotalk } from "react-icons/si";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function AboutPage() {
   const t = useTranslations("about");
