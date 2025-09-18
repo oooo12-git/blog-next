@@ -18,7 +18,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "about" });
 
   return {
-    title: t("title"),
+    title: t("title") + " | 재현기획개발 JaeHyun Dev & Plan",
     description: t("description"),
   };
 }
@@ -29,15 +29,15 @@ export default function AboutPage() {
 
   return (
     <div className="flex flex-col">
-      <h2 className="m-4 text-2xl font-bold">{t("title")}</h2>
+      <h1 className="m-4 text-2xl font-bold">{t("title")}</h1>
       <div className="flex flex-col sm:flex-row justify-between px-4">
         <div className="my-2 dark:text-white sm:w-[350px]">
           {/* locale : ko - 경력  */}
           {locale === "ko" && (
             <div className="text-sm rounded-lg bg-[#ECEAEA] dark:bg-gray-800 p-2 border border-black mb-4">
-              <h3 className="font-medium text-xl mb-2 text-black dark:text-white">
+              <h2 className="font-medium text-xl mb-2 text-black dark:text-white">
                 경력
-              </h3>
+              </h2>
               <ul className="font-normal list-disc list-outside pl-4 space-y-1">
                 <li>
                   <Link
