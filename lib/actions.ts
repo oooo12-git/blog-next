@@ -21,7 +21,7 @@ import {
   incrementPostDownloadCount,
 } from "./utils";
 import { CommentFormData } from "./types";
-import { revalidatePath } from "next/cache";
+// revalidatePath 제거 - 낙관적 업데이트로 전환
 import { headers } from "next/headers";
 
 // 입력값 검증 및 보안 함수들
@@ -100,9 +100,8 @@ export async function incrementViewCount(slug: string, locale: string) {
     // 1. 데이터베이스에서 조회수 증가
     const newCount = await incrementPostViewCount(slug);
 
-    // 2. 해당 페이지의 캐시를 무효화
-    revalidatePath(`/${locale}/blog/${slug}`);
-    //    → 다음에 이 페이지를 요청하면 새로운 조회수로 페이지를 재생성
+    // 2. revalidatePath 제거 - 낙관적 업데이트로 전환
+    //    → 클라이언트에서 즉시 UI 업데이트, 서버는 데이터만 처리
 
     return { success: true, viewCount: newCount };
   } catch (error) {
@@ -145,8 +144,8 @@ export async function toggleLike(slug: string, locale: string) {
     const result = await togglePostLike(slug, userSession);
 
     if (result.success) {
-      // 해당 페이지의 캐시를 무효화
-      revalidatePath(`/${locale}/blog/${slug}`);
+      // revalidatePath 제거 - 낙관적 업데이트로 전환
+      //    → 클라이언트에서 즉시 UI 업데이트, 서버는 데이터만 처리
 
       return {
         success: true,
@@ -312,8 +311,8 @@ export async function createComment(
         }
       }
 
-      // 해당 페이지의 캐시를 무효화
-      revalidatePath(`/${locale}/blog/${slug}`);
+      // revalidatePath 제거 - 낙관적 업데이트로 전환
+      //    → 클라이언트에서 즉시 UI 업데이트, 서버는 데이터만 처리
       return { success: true, comment: result.comment };
     } else {
       return { success: false, error: result.error };
@@ -361,8 +360,8 @@ export async function editComment(
     );
 
     if (result.success) {
-      // 해당 페이지의 캐시를 무효화
-      revalidatePath(`/${locale}/blog/${slug}`);
+      // revalidatePath 제거 - 낙관적 업데이트로 전환
+      //    → 클라이언트에서 즉시 UI 업데이트, 서버는 데이터만 처리
       return { success: true, comment: result.comment };
     } else {
       return { success: false, error: result.error };
@@ -393,8 +392,8 @@ export async function removeComment(
     const result = await deleteComment(commentId, email.trim().toLowerCase());
 
     if (result.success) {
-      // 해당 페이지의 캐시를 무효화
-      revalidatePath(`/${locale}/blog/${slug}`);
+      // revalidatePath 제거 - 낙관적 업데이트로 전환
+      //    → 클라이언트에서 즉시 UI 업데이트, 서버는 데이터만 처리
       return { success: true };
     } else {
       return { success: false, error: result.error };
@@ -426,7 +425,8 @@ export async function incrementDownloadCount(slug: string) {
       return { success: false, error: "잘못된 페이지 식별자입니다." };
     }
     const newCount = await incrementPostDownloadCount(slug);
-    revalidatePath(`/ko/blog/${slug}`); // 해당 경로의 캐시를 무효화
+    // revalidatePath 제거 - 낙관적 업데이트로 전환
+    //    → 클라이언트에서 즉시 UI 업데이트, 서버는 데이터만 처리
     return { success: true, downloadCount: newCount };
   } catch (error) {
     console.error("Error in incrementDownloadCount action:", error);

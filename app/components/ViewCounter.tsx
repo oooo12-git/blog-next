@@ -25,12 +25,23 @@ export default function ViewCounter({
 
     const incrementCount = async () => {
       try {
+        // 1. 낙관적 업데이트: 즉시 조회수 증가
+        setViewCount((prev) => prev + 1);
+        setHasIncremented(true);
+
+        // 2. 서버 업데이트
         const result = await incrementViewCount(slug, locale);
         if (result.success && result.viewCount) {
+          // 3. 성공 시 서버 결과로 동기화
           setViewCount(result.viewCount);
+        } else {
+          // 4. 실패 시 롤백
+          setViewCount((prev) => Math.max(0, prev - 1));
+          console.error("Failed to increment view count:", result.error);
         }
-        setHasIncremented(true);
       } catch (error) {
+        // 5. 에러 시 롤백
+        setViewCount((prev) => Math.max(0, prev - 1));
         console.error("Failed to increment view count:", error);
         setHasIncremented(true);
       }

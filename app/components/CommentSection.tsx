@@ -52,77 +52,193 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
     }
   };
 
-  // 새 댓글 추가 함수
+  // 새 댓글 추가 함수 (낙관적 업데이트)
   const handleAddComment = async (data: CommentFormData) => {
+    // 1. 임시 댓글 생성
+    const tempId = `temp_${Date.now()}`;
+    const tempComment: Comment = {
+      id: tempId,
+      content: data.content,
+      author: data.author,
+      email: data.email,
+      createdAt: new Date().toISOString(),
+      parentId: undefined,
+      replies: [],
+    };
+
+    // 2. 낙관적 업데이트: 즉시 UI에 반영
+    setComments((prev) => [...prev, tempComment]);
+
     try {
       const result = await createComment(slug, locale, data);
 
-      if (result.success) {
-        // 댓글 목록 새로고침
-        await loadComments();
+      if (result.success && result.comment) {
+        // 3. 성공 시 임시 댓글을 실제 댓글로 교체
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === tempId
+              ? { ...result.comment!, replies: [] }
+              : comment
+          )
+        );
         alert("댓글이 등록되었습니다.");
       } else {
+        // 4. 실패 시 임시 댓글 제거
+        setComments((prev) => prev.filter((comment) => comment.id !== tempId));
         alert(result.error || "댓글 등록에 실패했습니다.");
       }
     } catch (error) {
+      // 5. 에러 시 임시 댓글 제거
+      setComments((prev) => prev.filter((comment) => comment.id !== tempId));
       console.error("댓글 추가 실패:", error);
       alert("댓글 등록에 실패했습니다.");
     }
   };
 
-  // 답글 추가 함수
+  // 답글 추가 함수 (낙관적 업데이트)
   const handleAddReply = async (parentId: string, data: CommentFormData) => {
+    // 1. 임시 답글 생성
+    const tempId = `temp_${Date.now()}`;
+    const tempReply: Comment = {
+      id: tempId,
+      content: data.content,
+      author: data.author,
+      email: data.email,
+      createdAt: new Date().toISOString(),
+      parentId: parentId,
+      replies: [],
+    };
+
+    // 2. 낙관적 업데이트: 부모 댓글의 replies에 즉시 추가
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === parentId
+          ? { ...comment, replies: [...(comment.replies || []), tempReply] }
+          : comment
+      )
+    );
+
     try {
       const result = await createComment(slug, locale, data, parentId);
 
-      if (result.success) {
-        // 댓글 목록 새로고침
-        await loadComments();
+      if (result.success && result.comment) {
+        // 3. 성공 시 임시 답글을 실제 답글로 교체
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === parentId
+              ? {
+                  ...comment,
+                  replies:
+                    comment.replies?.map((reply) =>
+                      reply.id === tempId
+                        ? { ...result.comment!, replies: [] }
+                        : reply
+                    ) || [],
+                }
+              : comment
+          )
+        );
         alert("답글이 등록되었습니다.");
       } else {
+        // 4. 실패 시 임시 답글 제거
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === parentId
+              ? {
+                  ...comment,
+                  replies:
+                    comment.replies?.filter((reply) => reply.id !== tempId) ||
+                    [],
+                }
+              : comment
+          )
+        );
         alert(result.error || "답글 등록에 실패했습니다.");
       }
     } catch (error) {
+      // 5. 에러 시 임시 답글 제거
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === parentId
+            ? {
+                ...comment,
+                replies:
+                  comment.replies?.filter((reply) => reply.id !== tempId) || [],
+              }
+            : comment
+        )
+      );
       console.error("답글 추가 실패:", error);
       alert("답글 등록에 실패했습니다.");
     }
   };
 
-  // 댓글 수정 함수
+  // 댓글 수정 함수 (낙관적 업데이트)
   const handleEditComment = async (
     commentId: string,
     email: string,
     data: CommentFormData
   ) => {
+    // 1. 낙관적 업데이트: 즉시 UI에 반영
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId
+          ? { ...comment, content: data.content, author: data.author }
+          : comment
+      )
+    );
+
     try {
       const result = await editComment(commentId, email, data, slug, locale);
 
-      if (result.success) {
-        // 댓글 목록 새로고침
-        await loadComments();
+      if (result.success && result.comment) {
+        // 2. 성공 시 서버 결과로 동기화
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === commentId
+              ? { ...result.comment!, replies: comment.replies || [] }
+              : comment
+          )
+        );
         alert("댓글이 수정되었습니다.");
       } else {
+        // 3. 실패 시 원래 상태로 롤백
+        await loadComments();
         alert(result.error || "댓글 수정에 실패했습니다.");
       }
     } catch (error) {
+      // 4. 에러 시 원래 상태로 롤백
+      await loadComments();
       console.error("댓글 수정 실패:", error);
       alert("댓글 수정에 실패했습니다.");
     }
   };
 
-  // 댓글 삭제 함수
+  // 댓글 삭제 함수 (낙관적 소프트 삭제)
   const handleDeleteComment = async (commentId: string, email: string) => {
+    // 1. 낙관적 소프트 삭제: 즉시 UI에 반영
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId
+          ? { ...comment, author: null, content: null, isDeleted: true }
+          : comment
+      )
+    );
+
     try {
       const result = await removeComment(commentId, email, slug, locale);
 
       if (result.success) {
-        // 댓글 목록 새로고침
-        await loadComments();
+        // 2. 성공 시 서버 결과로 동기화 (이미 소프트 삭제됨)
         alert("댓글이 삭제되었습니다.");
       } else {
+        // 3. 실패 시 원래 상태로 롤백
+        await loadComments();
         alert(result.error || "댓글 삭제에 실패했습니다.");
       }
     } catch (error) {
+      // 4. 에러 시 원래 상태로 롤백
+      await loadComments();
       console.error("댓글 삭제 실패:", error);
       alert("댓글 삭제에 실패했습니다.");
     }

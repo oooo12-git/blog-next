@@ -29,17 +29,27 @@ export default function DownloadButton({
 
   const handleDownload = () => {
     startTransition(async () => {
+      // 1. 낙관적 업데이트: 즉시 다운로드 수 증가
+      const currentCount = downloadCount ?? 0;
+      setDownloadCount(currentCount + 1);
+
+      // 2. 다운로드 실행
+      const link = document.createElement("a");
+      link.href = pdfUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // 3. 서버 업데이트
       const result = await incrementDownloadCount(slug);
       if (result.success) {
+        // 4. 성공 시 서버 결과로 동기화
         setDownloadCount(result.downloadCount ?? 0);
-
-        // Create a temporary link to trigger the download
-        const link = document.createElement("a");
-        link.href = pdfUrl;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      } else {
+        // 5. 실패 시 롤백
+        setDownloadCount(currentCount);
+        console.error("Failed to increment download count:", result.error);
       }
     });
   };
