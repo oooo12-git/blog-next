@@ -37,36 +37,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // 리다이렉트하는 slug들을 제외
+  const redirectedSlugs = [
+    'gof-design-pattern-cheat-sheet',
+    'page-replacement-for-exam',
+    'subnet-mask-for-exam',
+    'uml-diagram-4-1-view',
+    'routing-protocol',
+    'test-coverage-for-exam',
+    'sql-for-exam',
+    'database-file-structure',
+    'relational-data-model-elements'
+  ];
+
   // 블로그 포스트들을 가져와서 sitemap에 추가
   const koPostsData = await getPosts("ko");
   const enPostsData = await getPosts("en");
 
   const blogPosts: MetadataRoute.Sitemap = [];
 
-  // 한국어 포스트들 처리
+  // 한국어 포스트들 처리 (리다이렉트하는 slug 제외)
   for (const post of koPostsData.posts) {
-    blogPosts.push({
-      url: `https://www.kimjaahyun.com/ko/blog/${post.slug}`,
-      lastModified: new Date(post.metadata.lastModifiedAt),
-      alternates: {
-        languages: {
-          en: `https://www.kimjaahyun.com/en/blog/${post.slug}`,
+    if (!redirectedSlugs.includes(post.slug)) {
+      blogPosts.push({
+        url: `https://www.kimjaahyun.com/ko/blog/${post.slug}`,
+        lastModified: new Date(post.metadata.lastModifiedAt),
+        alternates: {
+          languages: {
+            en: `https://www.kimjaahyun.com/en/blog/${post.slug}`,
+          },
         },
-      },
-    });
+      });
+    }
   }
 
-  // 영어 포스트들 처리
+  // 영어 포스트들 처리 (리다이렉트하는 slug 제외)
   for (const post of enPostsData.posts) {
-    blogPosts.push({
-      url: `https://www.kimjaahyun.com/en/blog/${post.slug}`,
-      lastModified: new Date(post.metadata.lastModifiedAt),
-      alternates: {
-        languages: {
-          ko: `https://www.kimjaahyun.com/ko/blog/${post.slug}`,
+    if (!redirectedSlugs.includes(post.slug)) {
+      blogPosts.push({
+        url: `https://www.kimjaahyun.com/en/blog/${post.slug}`,
+        lastModified: new Date(post.metadata.lastModifiedAt),
+        alternates: {
+          languages: {
+            ko: `https://www.kimjaahyun.com/ko/blog/${post.slug}`,
+          },
         },
-      },
-    });
+      });
+    }
   }
 
   return [...staticPages, ...blogPosts];

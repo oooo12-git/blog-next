@@ -8,6 +8,56 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ["md", "mdx", "ts", "tsx"],
+  // Redirects 설정 추가
+  async redirects() {
+    return [
+      {
+        source: '/ko/blog/gof-design-pattern-cheat-sheet',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-cheatsheet',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/page-replacement-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/memory-page-replacement',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/subnet-mask-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/subnet-mask',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/uml-diagram-4-1-view',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/uml-diagram',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/routing-protocol',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/routing-protocol',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/test-coverage-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/test-coverage',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/sql-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/sql-problems',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/database-file-structure',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/database-file-structure',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/relational-data-model-elements',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/relational-data-model-elements',
+        permanent: true,
+      },
+    ];
+  },
   // Optionally, add any other Next.js config below
 };
 
