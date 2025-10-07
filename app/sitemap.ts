@@ -47,7 +47,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'test-coverage-for-exam',
     'sql-for-exam',
     'database-file-structure',
-    'relational-data-model-elements'
+    'relational-data-model-elements',
+    'web-service-interface',
+    'interface-data-formats',
+    'ipsec',
+    'interface-communication-technologies',
+    'test-auto-tool-for-exam',
+    'blackbox-test-for-exam',
+    'network-protocol-for-exam',
+    'data-link-protocol-for-exam',
+    'network-tranmission-method'
   ];
 
   // 블로그 포스트들을 가져와서 sitemap에 추가

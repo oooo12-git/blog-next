@@ -56,6 +56,51 @@ const nextConfig: NextConfig = {
         destination: 'https://jeongcheogi.edugamja.com/theory/db/relational-data-model-elements',
         permanent: true,
       },
+      {
+        source: '/ko/blog/web-service-interface',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/web-service-interface',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/interface-data-formats',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/interface-data-formats',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/ipsec',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/ipsec',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/interface-communication-technologies',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/interface-communication-tech',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/test-auto-tool-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/test-auto-tool',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/blackbox-test-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/blackbox-test',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/network-protocol-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/network-protocol',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/data-link-protocol-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/data-link-protocol',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/network-tranmission-method',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/network-transmission-method',
+        permanent: true,
+      },
     ];
   },
   // Optionally, add any other Next.js config below
