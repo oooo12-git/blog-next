@@ -2,6 +2,7 @@ import ImageWithCaption from "@/app/components/ImageWithCaption";
 import InteractiveChart from "@/app/components/InteractiveChart";
 import TooltipLink from "@/app/components/TooltipLink";
 import RedAlert from "@/app/components/RedAlert";
+import HorizonBanner from "@/app/components/HorizonBanner";
 
 export const metadata = {
   // title은 공백포함 20자(38바이트)일때 모바일에서 1줄로 깔끔하게 보임. 2줄로 간다면 40자내로 가는걸 권장
@@ -136,6 +137,23 @@ For문은 내부 코드를 반복해서 돌릴 수 있도록 하는 문법이다
 
 <RedAlert title="이대로면 실기 합격은 불가능했다." />
 
+<HorizonBanner
+  href="https://jeongcheogi.edugamja.com/summary-pdf/25-3-compressed"
+  text={<span className="text-2xl md:text-xl font-medium">2025년 3회 정처기 실기 이론 요약 PDF <span className="text-red-500 font-bold">보러가기</span></span>}
+  leftImage={{
+    src: "/horizonBanner/3d_compress_gamja.webp",
+    alt: "2025년 3회 정처기 실기 이론 요약 PDF",
+    width: 50,
+    height: 50,
+  }}
+  rightImage={{
+    src: "/horizonBanner/3d_compress_gamja.webp",
+    alt: "2025년 3회 정처기 실기 이론 요약 PDF",
+    width: 50,
+    height: 50,
+  }}
+/>
+
 ---
 
 ## 분개(憤怒)
@@ -242,4 +260,21 @@ AI덕에 공부를 재밌게 할 수 있었지만, 여전히 이론 공부양이
 <TooltipLink
   href="https://www.youtube.com/@%EC%A0%95%EC%B2%98%EA%B8%B0%EA%B0%90%EC%9E%90"
   text="정처기 감자 유튜브 채널로 이동"
+/>
+
+<HorizonBanner
+  href="https://jeongcheogi.edugamja.com/summary-pdf/25-3-compressed"
+  text={<span className="text-2xl md:text-xl font-medium">2025년 3회 정처기 실기 이론 요약 PDF <span className="text-red-500 font-bold">보러가기</span></span>}
+  leftImage={{
+    src: "/horizonBanner/3d_compress_gamja.webp",
+    alt: "2025년 3회 정처기 실기 이론 요약 PDF",
+    width: 50,
+    height: 50,
+  }}
+  rightImage={{
+    src: "/horizonBanner/3d_compress_gamja.webp",
+    alt: "2025년 3회 정처기 실기 이론 요약 PDF",
+    width: 50,
+    height: 50,
+  }}
 />
