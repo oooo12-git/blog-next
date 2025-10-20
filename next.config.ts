@@ -101,6 +101,136 @@ const nextConfig: NextConfig = {
         destination: 'https://jeongcheogi.edugamja.com/theory/network-os/network-transmission-method',
         permanent: true,
       },
+      {
+        source: '/ko/blog/data-integrity-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/data-integrity',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/db-key-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/db-key',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/db-normalization-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/db-normalization',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/relational-algebra-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/relational-algebra',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/transaction-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/db/transaction',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/process-scheduling-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/process-scheduling-algrithm',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/aaa-authentication-authorization-accounting',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/authen-author-account',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/authentication-technologies',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/authentication-tech',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/cloud-new-tech-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/cloud-new-tech',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/cryptography-algorithms-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/cryptography-algorithms',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/db-new-tech-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/db-new-tech',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/dos-attack',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/dos-attack-types',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/network-attack',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/network-attack',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/network-new-tech-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/network-new-tech',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/server-access-control',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/server-access-control',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/sw-new-tech-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/security-newtech/sw-new-tech',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-behavioral-pattern-3',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-behavior-chain_of_responsibility',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-behavioral-pattern-2',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-behavior-command',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-behavioral-pattern-5',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-behavior-interpreter',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-behavioral-pattern-4',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-behavior-iterator',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-behavioral-pattern-1',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-behavior-observer',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-creational-pattern-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-creation-singleton',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-structural-pattern-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-structure-adapter',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/gof-design-structural-pattern-2',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/design-pattern-structure-bridge',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/module-cohesion-coupling',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/module-cohesion-coupling',
+        permanent: true,
+      },
+      {
+        source: '/ko/blog/interface-security-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/interface-security',
+        permanent: true,
+      },
     ];
   },
   // Optionally, add any other Next.js config below
