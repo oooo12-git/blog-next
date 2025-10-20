@@ -9,16 +9,25 @@ interface HorizonBannerProps {
     alt: string;
     width?: number;
     height?: number;
+    mobileWidth?: number;
+    mobileHeight?: number;
+    mdWidth?: number;
+    mdHeight?: number;
   };
   rightImage?: {
     src: string;
     alt: string;
     width?: number;
     height?: number;
+    mobileWidth?: number;
+    mobileHeight?: number;
+    mdWidth?: number;
+    mdHeight?: number;
   };
   text: React.ReactNode;
   className?: string;
   cardClassName?: string;
+  openInNewTab?: boolean;
 }
 
 export default function HorizonBanner({
@@ -28,29 +37,38 @@ export default function HorizonBanner({
   text,
   className = "",
   cardClassName = "",
+  openInNewTab = false,
 }: HorizonBannerProps) {
   return (
     <div className={`flex justify-center my-2 ${className}`}>
-      <Link href={href} passHref className="w-auto">
+      <Link 
+        href={href} 
+        passHref 
+        className="w-auto"
+        target={openInNewTab ? "_blank" : undefined}
+        rel={openInNewTab ? "noopener noreferrer" : undefined}
+      >
         <Card className={`!py-1 bg-amber-50 dark:bg-amber-900 !w-auto ${cardClassName}`}>
           <div className="flex justify-center items-center gap-2 mx-5">
             {leftImage && (
               <Image
                 src={leftImage.src}
                 alt={leftImage.alt}
-                width={leftImage.width || 50}
-                height={leftImage.height || 50}
+                width={leftImage.mobileWidth || leftImage.width || 50}
+                height={leftImage.mobileHeight || leftImage.height || 50}
+                className={`md:w-[${leftImage.mdWidth || leftImage.width || 50}px] md:h-[${leftImage.mdHeight || leftImage.height || 50}px]`}
               />
             )}
-            <div className="text-2xl md:text-xl font-medium">
+            <div className="!text-base md:text-xl font-medium">
               {text}
             </div>
             {rightImage && (
               <Image
                 src={rightImage.src}
                 alt={rightImage.alt}
-                width={rightImage.width || 50}
-                height={rightImage.height || 50}
+                width={rightImage.mobileWidth || rightImage.width || 50}
+                height={rightImage.mobileHeight || rightImage.height || 50}
+                className={`md:w-[${rightImage.mdWidth || rightImage.width || 50}px] md:h-[${rightImage.mdHeight || rightImage.height || 50}px]`}
               />
             )}
           </div>
