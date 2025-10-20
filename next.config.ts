@@ -231,6 +231,11 @@ const nextConfig: NextConfig = {
         destination: 'https://jeongcheogi.edugamja.com/theory/sw-dev/interface-security',
         permanent: true,
       },
+      {
+        source: '/ko/blog/chmod-for-exam',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/chmod',
+        permanent: true,
+      },
     ];
   },
   // Optionally, add any other Next.js config below
