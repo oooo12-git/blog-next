@@ -128,7 +128,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/ko/blog/process-scheduling-for-exam',
-        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/process-scheduling-algrithm',
+        destination: 'https://jeongcheogi.edugamja.com/theory/network-os/process-scheduling-algorithm',
         permanent: true,
       },
       {
