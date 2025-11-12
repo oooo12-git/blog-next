@@ -236,6 +236,11 @@ const nextConfig: NextConfig = {
         destination: 'https://jeongcheogi.edugamja.com/theory/network-os/chmod',
         permanent: true,
       },
+      {
+        source: '/ko/blog/jeongcheogi-pass-rate',
+        destination: 'https://jeongcheogi.edugamja.com/exam-registration/jeongcheogi-pass-rate',
+        permanent: true,
+      },      
     ];
   },
   // Optionally, add any other Next.js config below
