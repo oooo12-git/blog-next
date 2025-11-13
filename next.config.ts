@@ -241,6 +241,11 @@ const nextConfig: NextConfig = {
         destination: 'https://jeongcheogi.edugamja.com/exam-registration/jeongcheogi-pass-rate',
         permanent: true,
       },      
+      {
+        source: '/ko/blog/uml-class-diagram-relationships',
+        destination: 'https://jeongcheogi.edugamja.com/theory/sw-design/uml-class-diagram-relationships',
+        permanent: true,
+      },      
     ];
   },
   // Optionally, add any other Next.js config below

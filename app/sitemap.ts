@@ -84,6 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'module-cohesion-coupling',
     'interface-security-for-exam',
     'jeongcheogi-pass-rate',
+    'uml-class-diagram-relationships',
   ];
 
   // 블로그 포스트들을 가져와서 sitemap에 추가
