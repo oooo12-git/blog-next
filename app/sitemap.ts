@@ -83,6 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'gof-design-structural-pattern-2',
     'module-cohesion-coupling',
     'interface-security-for-exam',
+    'jeongcheogi-pass-rate',
   ];
 
   // 블로그 포스트들을 가져와서 sitemap에 추가
