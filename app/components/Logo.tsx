@@ -1,11 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-type LogoProps = {
-  interClass: string;
-};
-
-export default function Logo({ interClass }: LogoProps) {
+export default function Logo() {
   return (
     <div className="flex items-center">
       <Link

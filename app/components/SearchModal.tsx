@@ -57,6 +57,7 @@ export default function SearchModal({
     }, 300); // 300ms 지연
 
     return () => clearTimeout(debounceTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale]);
 
   // 모달이 열릴 때 포커스

@@ -32,6 +32,7 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
   // 컴포넌트 마운트 시 댓글 로드
   useEffect(() => {
     loadComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   // 댓글 로드 함수 (Supabase에서 실제 데이터 로드)
@@ -189,7 +190,7 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
     );
 
     try {
-      const result = await editComment(commentId, email, data, slug, locale);
+      const result = await editComment(commentId, email, data, slug);
 
       if (result.success && result.comment) {
         // 2. 성공 시 서버 결과로 동기화
@@ -226,7 +227,7 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
     );
 
     try {
-      const result = await removeComment(commentId, email, slug, locale);
+      const result = await removeComment(commentId, email, slug);
 
       if (result.success) {
         // 2. 성공 시 서버 결과로 동기화 (이미 소프트 삭제됨)

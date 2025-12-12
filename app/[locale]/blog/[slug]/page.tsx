@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-// import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 // import Image from "next/image";
 import { Inter } from "next/font/google";
 import { LikeButtonSupabase } from "@/app/components/LikeButtonSupabase";
@@ -83,12 +83,23 @@ const generateJsonLd = (post: Post, locale: string, slug: string) => {
 export default async function Page({ params }: PageProps) {
   const { locale, slug } = await params;
 
-  const { metadata } = await getPost(slug, locale);
+  const postData = await getPost(slug, locale);
+  
+  if (!postData) {
+    notFound();
+  }
+
+  const { metadata } = postData;
   const currentViewCount = await getPostViewCount(slug);
 
-  const { default: Post } = await import(`@/contents/${slug}/${locale}.mdx`); // default: Post는 객체 구조 분해 할당(destructuring assignment) 문법. 아래 두 코드를 한 줄로 축약한 것.
-  // // const mod = await import(`@/contents/${slug}.mdx`)
-  // // const Post = mod.default
+  let Post;
+  try {
+    const postModule = await import(`@/contents/${slug}/${locale}.mdx`);
+    Post = postModule.default;
+  } catch {
+    notFound();
+  }
+
   const t = await getTranslations("content");
 
   // 모든 글을 가져와서 동일한 태그를 가진 글들을 필터링
@@ -156,7 +167,7 @@ export default async function Page({ params }: PageProps) {
           <Post />
         </div>
       </article>
-      <LikeButtonSupabase slug={slug} locale={locale} size="lg" />
+      <LikeButtonSupabase slug={slug} size="lg" />
 
       {/* 정처기 관련 프로모션 배너 */}
       {hasJeongcheogiTag && <JeongcheogiPromoBanner />}
@@ -175,7 +186,13 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const { metadata } = await getPost(slug, locale);
+  const postData = await getPost(slug, locale);
+  
+  if (!postData) {
+    notFound();
+  }
+
+  const { metadata } = postData;
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
 

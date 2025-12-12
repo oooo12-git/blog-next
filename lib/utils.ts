@@ -144,46 +144,51 @@ function extractSearchableContent(mdxContent: string): string {
   return plainText;
 }
 
-export async function getPost(slug: string, locale: string): Promise<Post> {
-  const file = await import(`../contents/${slug}/${locale}.mdx`);
+export async function getPost(slug: string, locale: string): Promise<Post | null> {
+  try {
+    const file = await import(`../contents/${slug}/${locale}.mdx`);
 
-  if (file?.metadata) {
-    // 옵셔널 체이닝 연산자 (?.)
-    // file?.metadata는 file이 존재하고 null이나 undefined가 아닐 때만 metadata 속성에 접근합니다
-    // 만약 file이 null이나 undefined라면, 에러를 발생시키지 않고 undefined를 반환
-    if (
-      !file.metadata.title ||
-      !file.metadata.description ||
-      !file.metadata.publishedAt
-    ) {
-      throw new Error(`Missing some required metadata fields in: ${slug}`);
+    if (file?.metadata) {
+      // 옵셔널 체이닝 연산자 (?.)
+      // file?.metadata는 file이 존재하고 null이나 undefined가 아닐 때만 metadata 속성에 접근합니다
+      // 만약 file이 null이나 undefined라면, 에러를 발생시키지 않고 undefined를 반환
+      if (
+        !file.metadata.title ||
+        !file.metadata.description ||
+        !file.metadata.publishedAt
+      ) {
+        throw new Error(`Missing some required metadata fields in: ${slug}`);
+      }
+
+      if (!Array.isArray(file.metadata.tags)) {
+        throw new Error(
+          `Post tags must be defined as an array even if they are empty, in: ${slug}`
+        );
+      }
+
+      // 자동으로 읽기 시간 계산
+      let calculatedTimeToRead = file.metadata.timeToRead;
+
+      // timeToRead가 없거나 0인 경우 자동 계산
+      if (!file.metadata.timeToRead || file.metadata.timeToRead === 0) {
+        const mdxContent = await readMdxContent(slug, locale);
+        calculatedTimeToRead = calculateReadingTime(mdxContent);
+      }
+
+      return {
+        slug,
+        metadata: {
+          ...file.metadata,
+          timeToRead: calculatedTimeToRead,
+        },
+      };
     }
 
-    if (!Array.isArray(file.metadata.tags)) {
-      throw new Error(
-        `Post tags must be defined as an array even if they are empty, in: ${slug}`
-      );
-    }
-
-    // 자동으로 읽기 시간 계산
-    let calculatedTimeToRead = file.metadata.timeToRead;
-
-    // timeToRead가 없거나 0인 경우 자동 계산
-    if (!file.metadata.timeToRead || file.metadata.timeToRead === 0) {
-      const mdxContent = await readMdxContent(slug, locale);
-      calculatedTimeToRead = calculateReadingTime(mdxContent);
-    }
-
-    return {
-      slug,
-      metadata: {
-        ...file.metadata,
-        timeToRead: calculatedTimeToRead,
-      },
-    };
+    return null;
+  } catch {
+    // 파일이 없거나 import 실패 시 null 반환
+    return null;
   }
-
-  throw new Error(`Unable to find metadata for ${slug}.mdx`);
 }
 
 export function getPostSlugs(): string[] {
@@ -201,20 +206,21 @@ export async function getPosts(
   const posts = await Promise.all(
     postSlugs.map(async (slug) => {
       const postData = await getPost(slug, locale);
-
-      return { ...postData, slug };
+      return postData ? { ...postData, slug } : null;
     })
   );
 
+  const validPosts = posts.filter((post): post is Post => post !== null);
+
   return {
-    posts: posts
+    posts: validPosts
       .sort((a, b) =>
         new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
           ? -1
           : 1
       )
-      .slice(offset, limit === -1 ? posts.length : offset + limit),
-    totalPages: Math.ceil(posts.length / (limit === -1 ? 1 : limit)),
+      .slice(offset, limit === -1 ? validPosts.length : offset + limit),
+    totalPages: Math.ceil(validPosts.length / (limit === -1 ? 1 : limit)),
   };
 }
 
@@ -622,6 +628,10 @@ export async function searchPosts(
     postSlugs.map(async (slug) => {
       try {
         const postData = await getPost(slug, locale);
+
+        if (!postData) {
+          return null;
+        }
 
         // 본문 내용도 검색하기 위해 MDX 파일 읽기
         const mdxContent = await readMdxContent(slug, locale);

@@ -30,7 +30,7 @@ export default function ViewCounter({
         setHasIncremented(true);
 
         // 2. 서버 업데이트
-        const result = await incrementViewCount(slug, locale);
+        const result = await incrementViewCount(slug);
         if (result.success && result.viewCount) {
           // 3. 성공 시 서버 결과로 동기화
           setViewCount(result.viewCount);

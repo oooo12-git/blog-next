@@ -95,7 +95,7 @@ function validateSlug(slug: string): boolean {
   return slugRegex.test(slug) && slug.length <= 100;
 }
 
-export async function incrementViewCount(slug: string, locale: string) {
+export async function incrementViewCount(slug: string) {
   try {
     // 1. 데이터베이스에서 조회수 증가
     const newCount = await incrementPostViewCount(slug);
@@ -135,7 +135,7 @@ async function generateUserSession(): Promise<string> {
 }
 
 // 좋아요 토글 Server Action
-export async function toggleLike(slug: string, locale: string) {
+export async function toggleLike(slug: string) {
   try {
     // 사용자 세션 ID 생성
     const userSession = await generateUserSession();
@@ -328,8 +328,7 @@ export async function editComment(
   commentId: string,
   email: string,
   data: CommentFormData,
-  slug: string,
-  locale: string
+  slug: string
 ) {
   try {
     // 입력값 검증
@@ -376,8 +375,7 @@ export async function editComment(
 export async function removeComment(
   commentId: string,
   email: string,
-  slug: string,
-  locale: string
+  slug: string
 ) {
   try {
     // 입력값 검증

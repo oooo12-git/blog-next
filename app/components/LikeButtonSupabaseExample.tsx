@@ -5,7 +5,6 @@ import { LikeButtonSupabase } from "./LikeButtonSupabase";
 // Supabase 연동 좋아요 버튼 예시 컴포넌트
 export function PostWithSupabaseLikes({
   slug = "example-post-supabase",
-  locale = "ko",
 }) {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
@@ -39,7 +38,6 @@ export function PostWithSupabaseLikes({
             </p>
             <LikeButtonSupabase
               slug={slug}
-              locale={locale}
               size="md"
               showCount={true}
             />
@@ -69,7 +67,6 @@ export function PostWithSupabaseLikes({
           </p>
           <LikeButtonSupabase
             slug={slug}
-            locale={locale}
             size="lg"
             showCount={true}
           />
@@ -93,7 +90,6 @@ export function PostWithSupabaseLikes({
             </h3>
             <LikeButtonSupabase
               slug="example-small-supabase"
-              locale={locale}
               size="sm"
               showCount={true}
             />
@@ -106,7 +102,6 @@ export function PostWithSupabaseLikes({
             </h3>
             <LikeButtonSupabase
               slug="example-medium-supabase"
-              locale={locale}
               size="md"
               showCount={true}
             />
@@ -119,7 +114,6 @@ export function PostWithSupabaseLikes({
             </h3>
             <LikeButtonSupabase
               slug="example-large-supabase"
-              locale={locale}
               size="lg"
               showCount={true}
             />
@@ -134,7 +128,6 @@ export function PostWithSupabaseLikes({
         </h2>
         <LikeButtonSupabase
           slug="example-no-count-supabase"
-          locale={locale}
           size="md"
           showCount={false}
         />

@@ -15,6 +15,10 @@ export async function FeaturedPost({
   );
   const t = await getTranslations("home");
 
+  if (!featuredMetadata) {
+    return null;
+  }
+
   return (
     <Link href={`/blog/${featuredMetadata.slug}`}>
       <div className="flex flex-col sm:flex-row sm:justify-between py-4 sm:py-7 space-y-4 sm:space-y-0 p-3 sm:p-0 rounded-lg transition-colors">

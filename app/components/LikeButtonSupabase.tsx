@@ -7,7 +7,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 interface LikeButtonSupabaseProps {
   slug: string;
-  locale: string;
   size?: "sm" | "md" | "lg";
   showCount?: boolean;
   initialCount?: number;
@@ -16,7 +15,6 @@ interface LikeButtonSupabaseProps {
 
 export function LikeButtonSupabase({
   slug,
-  locale,
   size = "md",
   showCount = true,
   initialCount = 0,
@@ -76,7 +74,7 @@ export function LikeButtonSupabase({
       setTimeout(() => setIsAnimating(false), 400);
 
       // 서버 업데이트
-      const result = await toggleLike(slug, locale);
+      const result = await toggleLike(slug);
 
       if (result.success) {
         // 서버 결과로 상태 동기화
