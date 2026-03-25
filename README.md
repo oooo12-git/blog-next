@@ -99,9 +99,9 @@ yarn install
 `.env.local` 파일을 생성하고 다음 변수들을 설정하세요:
 
 ```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Supabase (서버 전용 - NEXT_PUBLIC_ 접두사 사용하지 않음)
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
 
 # Email notifications (선택사항)
 EMAIL_API_KEY=your_email_api_key
