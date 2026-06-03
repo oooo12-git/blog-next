@@ -29,38 +29,15 @@ export default async function TagPage({ params }: PageProps) {
     decodedTag
   );
 
-  // 렌더 에러는 try/catch로 잡히지 않으므로(JSX는 즉시 렌더되지 않음),
-  // try/catch는 데이터 페칭에만 적용하고 성공 JSX는 블록 밖에서 반환한다.
-  let posts: Awaited<ReturnType<typeof getPostsByTag>>["posts"];
-  let tagCount: number;
-  try {
-    // 해당 태그의 포스트들과 태그 개수 정보 가져오기
-    const [{ posts: fetchedPosts }, tagCounts] = await Promise.all([
-      getPostsByTag(locale, decodedTag),
-      getTagCounts(locale),
-    ]);
+  // 데이터 페칭/렌더 에러는 모두 app/[locale]/blog/error.tsx 에러 바운더리에 위임한다.
+  const [{ posts }, tagCounts] = await Promise.all([
+    getPostsByTag(locale, decodedTag),
+    getTagCounts(locale),
+  ]);
 
-    posts = fetchedPosts;
-    tagCount = tagCounts[decodedTag] || 0;
+  const tagCount = tagCounts[decodedTag] || 0;
 
-    console.log("TagPage - posts found:", posts.length, "tagCount:", tagCount);
-  } catch (error) {
-    console.error("Error in TagPage:", error);
-    return (
-      <div className="text-center py-12">
-        <p className="text-[#706E6E] text-lg mb-4">
-          &lsquo;{decodedTag}&rsquo; 태그를 가진 포스트를 로드하는 중 오류가
-          발생했습니다.
-        </p>
-        <Link
-          href={`/${locale}/blog`}
-          className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition-colors"
-        >
-          모든 포스트 보기
-        </Link>
-      </div>
-    );
-  }
+  console.log("TagPage - posts found:", posts.length, "tagCount:", tagCount);
 
   return (
     <div className={`${inter.className} container mx-auto px-4 py-8`}>
