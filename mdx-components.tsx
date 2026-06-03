@@ -111,7 +111,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     td: (props) => <TableCell {...props} />,
     pre: ({ children, ...props }) => {
       // mermaid 코드 블록 감지
-      const child = children as any;
+      const child = children as { props?: { className?: string; children?: import('react').ReactNode } };
       if (child?.props?.className?.includes("language-mermaid")) {
         // React 요소에서 텍스트 추출
         const code = extractText(child.props.children);

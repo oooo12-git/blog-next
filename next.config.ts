@@ -17,17 +17,13 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
     remarkPlugins: [
-      // @ts-expect-error
       ["remark-math", { strict: true, throwOnError: true }],
-      // @ts-expect-error
       ["remark-gfm", { strict: true, throwOnError: true }],
     ],
 
     rehypePlugins: [
-      // @ts-expect-error - 플러그인 타입 오류 무시
       ["rehype-katex", { strict: true, throwOnError: true }],
       [
-        // @ts-expect-error - Shiki 플러그인 타입 오류 무시
         "@shikijs/rehype",
         {
           themes: {
