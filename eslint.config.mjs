@@ -17,14 +17,6 @@ const eslintConfig = [
   },
   ...coreWebVitals,
   ...typescript,
-  {
-    // Next 16 업그레이드로 새로 활성화된 react-hooks 규칙
-    // 기존 코드 대응 전까지 warn으로 운영, 점진적 수정 예정
-    rules: {
-      "react-hooks/error-boundaries": "warn",
-      "react-hooks/set-state-in-effect": "warn",
-    },
-  },
 ];
 
 export default eslintConfig;

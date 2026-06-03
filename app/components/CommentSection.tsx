@@ -47,8 +47,9 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
     }
   }, [slug]);
 
-  // 컴포넌트 마운트 시 댓글 로드
+  // 컴포넌트 마운트 시 댓글 로드 (클라이언트 측 Supabase 비동기 페칭)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadComments();
   }, [slug, loadComments]);
 
