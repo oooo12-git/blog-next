@@ -40,6 +40,8 @@ export default function ChecklistTable({
       try {
         const parsedState = JSON.parse(savedState);
         if (typeof parsedState === "object" && parsedState !== null) {
+          // 클라이언트 전용 쿠키 값은 하이드레이션 이후 마운트 시점에만 동기화 가능
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setCheckedState(parsedState);
         }
       } catch (error) {

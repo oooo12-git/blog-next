@@ -62,3 +62,6 @@ CLAUDE.md
 contents_template/
 
 *Zone.Identifier
+
+#firebase
+firebase-debug.log

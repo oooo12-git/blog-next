@@ -23,6 +23,8 @@ export default function Menu({ interClass }: { interClass: string }) {
     if (prefersDark) {
       // 시스템이 다크 모드를 선호하는 경우
       document.documentElement.classList.add("dark"); // HTML 루트 요소에 'dark' 클래스 추가
+      // 시스템 선호 색상(matchMedia)은 클라이언트 마운트 후에만 읽을 수 있음
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDarkMode(true);
     } else {
       // 라이트 모드 적용 조건

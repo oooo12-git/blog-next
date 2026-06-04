@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Inter } from "next/font/google";
 import { Comment, CommentFormData } from "@/lib/types";
 import CommentForm from "./CommentForm";
@@ -29,14 +29,8 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 컴포넌트 마운트 시 댓글 로드
-  useEffect(() => {
-    loadComments();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
-
   // 댓글 로드 함수 (Supabase에서 실제 데이터 로드)
-  const loadComments = async () => {
+  const loadComments = useCallback(async () => {
     try {
       const result = await getComments(slug);
       if (result.success) {
@@ -51,7 +45,13 @@ export default function CommentSection({ slug, locale }: CommentSectionProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug]);
+
+  // 컴포넌트 마운트 시 댓글 로드 (클라이언트 측 Supabase 비동기 페칭)
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadComments();
+  }, [slug, loadComments]);
 
   // 새 댓글 추가 함수 (낙관적 업데이트)
   const handleAddComment = async (data: CommentFormData) => {

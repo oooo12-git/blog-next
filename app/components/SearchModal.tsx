@@ -70,6 +70,8 @@ export default function SearchModal({
   // 모달이 닫힐 때 상태 초기화
   useEffect(() => {
     if (!isOpen) {
+      // 모달이 닫힐 때 입력/결과 상태를 초기화 (prop 변화에 따른 리셋)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery("");
       setResults([]);
       setSelectedIndex(-1);

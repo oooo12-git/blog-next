@@ -29,19 +29,18 @@ export default async function TagPage({ params }: PageProps) {
     decodedTag
   );
 
-  try {
-    // 해당 태그의 포스트들과 태그 개수 정보 가져오기
-    const [{ posts }, tagCounts] = await Promise.all([
-      getPostsByTag(locale, decodedTag),
-      getTagCounts(locale),
-    ]);
+  // 데이터 페칭/렌더 에러는 모두 app/[locale]/blog/error.tsx 에러 바운더리에 위임한다.
+  const [{ posts }, tagCounts] = await Promise.all([
+    getPostsByTag(locale, decodedTag),
+    getTagCounts(locale),
+  ]);
 
-    const tagCount = tagCounts[decodedTag] || 0;
+  const tagCount = tagCounts[decodedTag] || 0;
 
-    console.log("TagPage - posts found:", posts.length, "tagCount:", tagCount);
+  console.log("TagPage - posts found:", posts.length, "tagCount:", tagCount);
 
-    return (
-      <div className={`${inter.className} container mx-auto px-4 py-8`}>
+  return (
+    <div className={`${inter.className} container mx-auto px-4 py-8`}>
         {/* 헤더 섹션 */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
@@ -133,24 +132,7 @@ export default async function TagPage({ params }: PageProps) {
           </p>
         </div>
       </div>
-    );
-  } catch (error) {
-    console.error("Error in TagPage:", error);
-    return (
-      <div className="text-center py-12">
-        <p className="text-[#706E6E] text-lg mb-4">
-          &lsquo;{decodedTag}&rsquo; 태그를 가진 포스트를 로드하는 중 오류가
-          발생했습니다.
-        </p>
-        <Link
-          href={`/${locale}/blog`}
-          className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition-colors"
-        >
-          모든 포스트 보기
-        </Link>
-      </div>
-    );
-  }
+  );
 }
 
 export async function generateMetadata({
