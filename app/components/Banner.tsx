@@ -60,7 +60,7 @@ export default function Banner() {
           </CarouselItem>
           {/* <CarouselItem className="basis-1/2">
             <Link
-              href="https://www.kimjaahyun.com/ko/blog/jeongcheogi-practical-exam-review-2025-2"
+              href="https://jeongcheogi.edugamja.com/past-exam/2025/2025-2-review"
               target="_blank"
             >
               <div className="p-1">
