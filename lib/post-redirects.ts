@@ -3,6 +3,8 @@ export const redirectedPostTargets = {
     "https://jeongcheogi.edugamja.com/theory/theory-expected-questions",
   "jeongcheogi-practical-exam-review-2025-2":
     "https://jeongcheogi.edugamja.com/past-exam/2025/2025-2-review",
+  "jeongcheogi-difficulty-theory":
+    "https://jeongcheogi.edugamja.com/theory/jeongcheogi-difficulty-theory",
 } as const;
 
 export const redirectedPostSlugs = Object.keys(redirectedPostTargets);
