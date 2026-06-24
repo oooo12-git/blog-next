@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { supabase } from "./supabase";
 import { Comment, CommentFormData } from "./types";
+import { isRedirectedPostSlug } from "./post-redirects";
 
 interface ReviewRating {
   "@type": "Rating";
@@ -193,7 +194,10 @@ export async function getPost(slug: string, locale: string): Promise<Post | null
 
 export function getPostSlugs(): string[] {
   const postsDirectory = path.resolve(process.cwd(), "contents");
-  return fs.readdirSync(postsDirectory).filter((file) => file !== ".DS_Store");
+  return fs
+    .readdirSync(postsDirectory)
+    .filter((file) => file !== ".DS_Store")
+    .filter((slug) => !isRedirectedPostSlug(slug));
 }
 
 export async function getPosts(
