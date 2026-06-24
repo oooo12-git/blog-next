@@ -10,7 +10,7 @@ export async function FeaturedPost({
 }) {
   const { locale } = await params;
   const featuredMetadata = await getPost(
-    "korean-information-processing-engineer-practical-exam-strategy",
+    "jeongcheogi-practical-theory-summary-pdf",
     locale
   );
   const t = await getTranslations("home");

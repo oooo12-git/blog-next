@@ -3,12 +3,20 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 // 중괄호가 없으면: "이 모듈의 기본(default) export를 가져와줘"
 import createNextIntlPlugin from "next-intl/plugin";
+import { postRedirects } from "./lib/post-redirects";
 
 const nextConfig: NextConfig = {
   /* config options here */
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ["md", "mdx", "ts", "tsx"],
   // Optionally, add any other Next.js config below
+  async redirects() {
+    return postRedirects.map(({ source, destination }) => ({
+      source,
+      destination,
+      statusCode: 301,
+    }));
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
