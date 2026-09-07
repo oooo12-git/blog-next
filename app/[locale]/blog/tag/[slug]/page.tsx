@@ -145,12 +145,19 @@ export async function generateMetadata({
   const postCount = posts.length;
 
   const pathname = getPathname({ locale, href: `/blog/tag/${tagSlug}` });
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.kimjaahyun.com";
+  const canonicalUrl = new URL(pathname, baseUrl).toString();
 
   return {
     title: `${decodedTag} 태그 Tag - 재현기획개발 JaeHyun Dev & Plan`,
     description: `${decodedTag} 태그가 포함된 ${postCount}개의 포스트를 확인해보세요.`,
+    robots: {
+      index: false,
+      follow: true,
+    },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       type: "website",
@@ -158,7 +165,7 @@ export async function generateMetadata({
       description: `${decodedTag} 태그가 포함된 ${postCount}개의 포스트를 확인해보세요.`,
       siteName: "재현기획개발 JaeHyun Dev & Plan",
       locale,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/blog/tag/${tagSlug}`,
+      url: canonicalUrl,
     },
     twitter: {
       card: "summary_large_image",
