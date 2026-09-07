@@ -15,6 +15,10 @@ export const postRedirects = redirectedPostSlugs.flatMap((slug) => {
 
   return [
     {
+      source: `/blog/${slug}`,
+      destination,
+    },
+    {
       source: `/ko/blog/${slug}`,
       destination,
     },

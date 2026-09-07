@@ -28,7 +28,7 @@
 ### 🔍 SEO 최적화
 
 - **검색 엔진 등록**: Google, Bing, Yandex, Naver 등록
-- **Google Indexing API**: 자동 인덱싱 요청
+- **Google Search Console**: 사이트맵 제출 및 URL 색인 상태 확인
 - **IndexNow API**: Bing, Yandex, Naver 실시간 색인 업데이트
 - **Sitemap**: 자동 생성 및 최적화
 - **Meta Tags**: 최적화된 메타 설명 (25-160자)
@@ -74,7 +74,7 @@
 
 ### SEO & 성능
 
-- **Google Indexing API** - 자동 색인 요청
+- **Google Search Console** - 사이트맵 제출 및 색인 상태 확인
 - **IndexNow API** - 실시간 검색엔진 업데이트
 - **Vercel Speed Insights** - 성능 모니터링
 - **Schema.org JSON-LD** - 조건부 구조화된 데이터 (Review/BlogPosting)
@@ -139,7 +139,6 @@ yarn dev
 ├── messages/             # 다국어 메시지
 ├── public/               # 정적 파일
 ├── scripts/              # 유틸리티 스크립트
-│   ├── google-indexing-api.js  # Google 색인 API
 │   └── indexnow.js            # IndexNow API
 ├── sql/                  # 데이터베이스 스키마
 └── theme/                # 테마 설정
@@ -253,10 +252,12 @@ yarn lint     # ESLint 검사
 
 ## 🔍 SEO 설정
 
-### 자동 색인 등록
+### 검색 엔진 수집 안내
 
-- **Google**: Indexing API를 통한 자동 등록
-- **Bing/Yandex/Naver**: IndexNow API를 통한 실시간 업데이트
+- **Google**: Search Console에 `/sitemap.xml`을 제출하고 URL 검사에서 필요한 페이지의 색인 생성을 요청합니다. 제출이나 요청이 색인 생성을 보장하지는 않습니다.
+- **Bing/Yandex/Naver**: IndexNow API로 URL 변경을 알립니다. 수동 실행 명령은 `yarn indexnow`이며 프로덕션 환경에서만 전송합니다.
+
+일반 블로그 글은 [Google Indexing API 지원 대상](https://developers.google.com/search/apis/indexing-api/v3/using-api)이 아니므로 해당 API를 사용하지 않습니다.
 
 ### 구조화된 데이터
 
